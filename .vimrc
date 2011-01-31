@@ -1,17 +1,65 @@
+"---------------------------------------------------------------------------
+" deris0126's .vimrc
+"---------------------------------------------------------------------------
+
+"---------------------------------------------------------------------------
+" メモ {{{
 ":help option-list
 ":help :map-commands
 ":help autocommands-events
 ":help feature-list
+"}}}
 
+"---------------------------------------------------------------------------
+" 使っているプラグイン {{{
+" Align/
+" CRefVim/
+" FuzzyFinder/
+" QuickBuf/
+" The-NERD-Commenter/
+" The-NERD-tree/
+" YankRing.vim/
+" a.vim/
+" cocoa.vim/
+" grep.vim/
+" matchit.zip/
+" mru.vim/
+" neocomplcache/
+" operator-camelize.vim/
+" perl-support.vim/
+" project.tar.gz/
+" quickrun/
+" renamer.vim/
+" smartchr/
+" snipmate.vim/
+" taglist.vim/
+" textobj-function/
+" textobj-parameter/
+" textobj-user/
+" vim-operator-replace/
+" vim-operator-user/
+" vim-rails/
+" vim-ref/
+" vim-smartword/
+" vim-surround/
+" vim-textobj-indent/
+" vim-textobj-lastpat/
+" vim-textobj-syntax/
+" }}}
+
+"---------------------------------------------------------------------------
 " basic settings {{{1
 
+"---------------------------------------------------------------------------
 "pathogen.vim {{{2
 
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 set helpfile=$VIMRUNTIME/doc/help.txt
+" }}}
 
+"---------------------------------------------------------------------------
 " オプションの設定:{{{2
 
 " 文法の色付け
@@ -94,7 +142,7 @@ set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
 " バックアップファイルを作成しない (次行の先頭の " を削除すれば有効になる)
 set nobackup
 " タグファイルの設定
-set tags=../tags,../../tags, ../../../tags,../../../../tags,../../../../../tags,../../../../../../tags ../../../../../../../tags,../../../../../../../../tags
+set tags=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags,../../../../../../../../tags
 " autochdir
 set autochdir
 " grep ack
@@ -107,7 +155,9 @@ if has('mac')
   set fileencoding=utf-8
   set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 endif
+" }}}
 
+"---------------------------------------------------------------------------
 " key map:{{{2
 
 " leaderを変更
@@ -269,7 +319,9 @@ cno $d e ~/Desktop/
 cno $j e ./
 cno $v e ~/.vim
 cno $p e ~/Documents/perl/
+" }}}
 
+"---------------------------------------------------------------------------
 " filetype {{{2
 
 filetype plugin indent on
@@ -284,10 +336,215 @@ let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
 
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
+" }}}
 
+" }}}
 
+"---------------------------------------------------------------------------
+" plugins {{{1
+
+"---------------------------------------------------------------------------
+" for perl-support.vim {{{2
+"let g:Perl_GlobalTemplateFile = root_dir.'perl-support/templates/Templates'
+"let g:Perl_LocalTemplateFile = $HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
+"let g:Perl_CodeSnippets = root_dir.'perl-support/codesnippets/'
+"let g:Perl_PerlModuleList = root_dir.'perl-support/modules/perl-modules.list'
+"let g:Perl_PerlModuleListGenerator = root_dir.'perl-support/scripts/pmdesc3.pl'
+" }}}
+
+"---------------------------------------------------------------------------
+" for neocomplcache {{{2
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"setlocal completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+" }}}
+
+"---------------------------------------------------------------------------
+" for regreplop.vim {{{2
+"nmap <C-S>      <Plug>ReplaceMotion
+"nmap <C-S><C-S> <Plug>ReplaceLine
+"vmap <C-S>      <Plug>ReplaceVisual
+" }}}
+
+"---------------------------------------------------------------------------
+" for operator-replace {{{2
+map <C-S> <Plug>(operator-replace)
+" }}}
+
+"---------------------------------------------------------------------------
+" for smartword {{{2
+map w  <Plug>(smartword-w)
+map b  <Plug>(smartword-b)
+map e  <Plug>(smartword-e)
+map ge  <Plug>(smartword-ge)
+" }}}
+
+"---------------------------------------------------------------------------
+" for yankring {{{2
+"let g:yankring_replace_n_pkey = '<C-k>'
+"let g:yankring_replace_n_nkey = '<C-j>'
+" }}}
+
+"---------------------------------------------------------------------------
+" for fuzzyfinder {{{2
+let g:fuf_modesDisable = []
+let g:fuf_mrufile_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
+let g:fuf_mrufile_maxItem = 500
+let g:fuf_mrucmd_maxItem = 500
+let g:fuf_enumeratingLimit = 20
+let g:fuf_file_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
+
+nnoremap gb :<C-u>FufBuffer<CR>
+nnoremap [General]fb  :<C-u>FufBuffer<CR>
+nnoremap [General]ff  :<C-u>FufFile<CR>
+nnoremap [General]fd  :<C-u>FufDir<CR>
+nnoremap [General]ft  :<C-u>FufTag<CR>
+nnoremap [General]fm  :<C-u>FufMruFile<CR>
+nnoremap [General]fc  :<C-u>FufMruCmd<CR>
+" }}}
+
+"---------------------------------------------------------------------------
+" for Objective-C {{{2
+if has('mac')
+  " for tablist.vim Objective-C
+  let tlist_objc_settings='objc;P:protocols;i:interfaces;I:implementations;M:instance methods;C:implementation methods;Z:protocol methods'
+  " for a.vim Objective-C
+  let g:alternateExtensions_h = "m,mm,c,cpp"
+  let g:alternateExtensions_m = "h"
+  let g:alternateExtensions_mm = "h,hpp"
+  " for Objective-C gfでジャンプできるように
+  autocmd FileType objc setlocal path=.;,/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks,/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks,,
+  autocmd FileType objc setlocal include=^\s*#\s*import
+  autocmd FileType objc setlocal includeexpr=substitute(v:fname,'\/','\.framework/Headers/','g')
+  autocmd FileType objc setlocal makeprg=xcodebuild\ -activetarget\ -activeconfiguration
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for QuickBuf.vim {{{2
+let g:qb_hotkey="<C-l>"
+" }}}
+
+"---------------------------------------------------------------------------
+" for mru.vim {{{2
+nnoremap <silent> [General]r :<C-u>MRU<cr>
+" }}}
+
+"---------------------------------------------------------------------------
+" for taglist.vim {{{2
+let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス 
+let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
+let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
+"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
+nnoremap <silent> [General]l :<C-u>TlistToggle<cr>
+" }}}
+
+"---------------------------------------------------------------------------
+" for smartchr.vim {{{2
+"inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
+"inoremap <expr> + smartchr#loop('+', ' + ', ' += ')
+"inoremap <expr> - smartchr#loop('-', ' - ', ' -= ')
+"inoremap <expr> ! smartchr#loop('!', ' != ')
+" }}}
+
+"---------------------------------------------------------------------------
+" for vim-textobj-function {{{2
+"noremap iF <Plug>(textobj-function-i)
+"noremap aF <Plug>(textobj-function-a)
+
+"nnoremap <sid>(command-line-enter) q:
+"xnoremap <sid>(command-line-enter) q:
+"nnoremap <sid>(command-line-norange) q:<C-u>
+"
+"nnoremap ;  <sid>(command-line-enter)
+"xnoremap ;  <sid>(command-line-enter)
+"
+"autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
+"function! s:init_cmdwin()
+"  nnoremap <buffer> q :<C-u>quit<CR>
+"  nnoremap <buffer> <TAB> :<C-u>quit<CR>
+"  inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+"  inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+"  inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+"
+"  " Completion.
+"  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"
+"  startinsert!
+"endfunction
+" }}}
+
+"---------------------------------------------------------------------------
 " other settings {{{1
 
+"---------------------------------------------------------------------------
 " 新型戦闘力計測器 {{{2
 " http://d.hatena.ne.jp/thinca/20091031/1257001194
 function! Scouter(file, ...)
@@ -300,8 +557,12 @@ function! Scouter(file, ...)
 endfunction
 command! -bar -bang -nargs=? -complete=file Scouter
 \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+" }}}
+" }}}
 
+"---------------------------------------------------------------------------
 " __END__  "{{{1
 " vim: expandtab softtabstop=2 shiftwidth=2
 " vim: foldmethod=marker
+" }}}
 
