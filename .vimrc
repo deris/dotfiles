@@ -12,39 +12,44 @@
 
 "---------------------------------------------------------------------------
 " 使っているプラグイン {{{
-" Align/
-" CRefVim/
-" FuzzyFinder/
-" QuickBuf/
-" The-NERD-Commenter/
-" The-NERD-tree/
-" YankRing.vim/
-" a.vim/
-" cocoa.vim/
-" grep.vim/
-" matchit.zip/
-" mru.vim/
-" neocomplcache/
-" operator-camelize.vim/
-" perl-support.vim/
-" project.tar.gz/
-" quickrun/
-" renamer.vim/
-" smartchr/
-" snipmate.vim/
-" taglist.vim/
-" textobj-function/
-" textobj-parameter/
-" textobj-user/
-" vim-operator-replace/
-" vim-operator-user/
-" vim-rails/
-" vim-ref/
-" vim-smartword/
-" vim-surround/
-" vim-textobj-indent/
-" vim-textobj-lastpat/
-" vim-textobj-syntax/
+" Align
+" CRefVim
+" FuzzyFinder
+" L9
+" QuickBuf
+" The-NERD-Commenter
+" The-NERD-tree
+" YankRing.vim
+" a.vim
+" cocoa.vim
+" git-vim
+" grep.vim
+" matchit.zip
+" mru.vim
+" neocomplcache
+" operator-camelize.vim
+" perl-support.vim
+" project.tar.gz
+" quickrun
+" renamer.vim
+" smartchr
+" snipmate.vim
+" taglist.vim
+" textobj-function
+" textobj-parameter
+" textobj-user
+" vim-operator-replace
+" vim-operator-user
+" vim-rails
+" vim-ref
+" vim-smartword
+" vim-surround
+" vim-textobj-indent
+" vim-textobj-lastpat
+" vim-textobj-syntax
+" vimproc
+" vimshell
+" zencoding-vim
 " }}}
 
 "---------------------------------------------------------------------------
@@ -141,10 +146,11 @@ set showtabline=2
 set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
 " バックアップファイルを作成しない (次行の先頭の " を削除すれば有効になる)
 set nobackup
-" タグファイルの設定
-set tags=../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags,../../../../../../../../tags
-" autochdir
+
+" set tags
 set autochdir
+set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+
 " grep ack
 set grepprg=ack\ -a
 " macの場合の設定
@@ -240,14 +246,11 @@ vnoremap aq  a'
 onoremap iq  i'
 vnoremap iq  i'
 
-onoremap w  iw
-onoremap W  iW
-
 " exコマンド
 nnoremap [General]w :<C-u>w<cr>
 nnoremap [General]q :<C-u>q<cr>
-nnoremap [General]m :<C-u>marks<cr>
-nnoremap [General]g :<C-u>registers<cr>
+"nnoremap [General]m :<C-u>marks<cr>
+"nnoremap [General]g :<C-u>registers<cr>
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
@@ -261,6 +264,7 @@ cnoremap <C-H> <BS>
 " カーソル位置にかかわらず全部消す
 cnoremap <C-u> <C-e><C-u>
 
+" insert mode
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
 inoremap <C-A> <C-o>^
@@ -280,16 +284,6 @@ nmap [General]vv  :<C-u>setlocal virtualedit=block<cr>
 
 " ベリーマッチ（正規表現をエスケープしなくてよくなる）
 nnoremap /   /\v
-
-" tab
-"nnoremap te :<C-u>tabedit<cr>
-"nnoremap tc :<C-u>tabclose<cr>
-"
-"nnoremap <leader>tn :<C-u>tabnew<cr>
-"nnoremap <leader>tc :<C-u>tabclose<cr>
-"nnoremap <leader>tm :<C-u>tabmove<cr>
-"nnoremap <leader>tl :<C-u>tabnext<cr>
-"nnoremap <leader>th :<C-u>tabprevious<cr>
 
 " tab page
 nnoremap [Tab]   <Nop>
@@ -314,11 +308,14 @@ nnoremap [Tag]l   :<C-u>tags<CR> " 履歴一覧
 "noremap <leader>sp :<C-u>vsplit <cr>
 "
 " Smart mappings on the command line
-cno $h e ~/
-cno $d e ~/Desktop/
-cno $j e ./
-cno $v e ~/.vim
-cno $p e ~/Documents/perl/
+"cno $h tabe ~/
+"cno $j tabe ./
+"cno $v tabe ~/.vim
+"if has('mac')
+"  cno $d tabe ~/Desktop/
+"  cno $p tabe ~/Documents/perl/
+"endif
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -428,6 +425,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for regreplop.vim {{{2
+"operator-userに統一する(operator-replaceを使用する)
 "nmap <C-S>      <Plug>ReplaceMotion
 "nmap <C-S><C-S> <Plug>ReplaceLine
 "vmap <C-S>      <Plug>ReplaceVisual
@@ -489,12 +487,14 @@ endif
 
 "---------------------------------------------------------------------------
 " for QuickBuf.vim {{{2
-let g:qb_hotkey="<C-l>"
+"fuzzyfinderに統一する
+"let g:qb_hotkey="<C-l>"
 " }}}
 
 "---------------------------------------------------------------------------
 " for mru.vim {{{2
-nnoremap <silent> [General]r :<C-u>MRU<cr>
+"fuzzyfinderに統一する
+"nnoremap <silent> [General]r :<C-u>MRU<cr>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -539,6 +539,29 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<cr>
 "
 "  startinsert!
 "endfunction
+" }}}
+
+"---------------------------------------------------------------------------
+" for git-vim.vim {{{2
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap <Space>gd :<C-u>GitDiff --cached<Enter>
+nnoremap <Space>gD :<C-u>GitDiff<Enter>
+nnoremap <Space>gs :<C-u>GitStatus<Enter>
+nnoremap <Space>gl :<C-u>GitLog<Enter>
+nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap <Space>ga :<C-u>GitAdd<Enter>
+nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
+nnoremap <Space>gc :<C-u>GitCommit<Enter>
+nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+nnoremap <Space>gp :<C-u>Git push
+" }}}
+
+"---------------------------------------------------------------------------
+" for zencoding.vim {{{2
+let g:user_zen_expandabbr_key = '<c-y>'
+" }}}
+
 " }}}
 
 "---------------------------------------------------------------------------
