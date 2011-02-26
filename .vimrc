@@ -8,48 +8,60 @@
 ":help :map-commands
 ":help autocommands-events
 ":help feature-list
+"
+" 日本語vimdoc
+" wget http://www.kaoriya.net/vimdoc_j/vimdoc_ja-snapshot.tar.bz2
+"
+" 使用前提
+" ・.vim or vimfile 直下にswapディレクトリを作成しておく
+" ・colorscheme のmolokai,wombatを入れておく
+"
 "}}}
 
 "---------------------------------------------------------------------------
 " 使っているプラグイン {{{
-" Align
-" CRefVim
-" FuzzyFinder
-" L9
-" QuickBuf
-" The-NERD-Commenter
-" The-NERD-tree
-" YankRing.vim
-" a.vim
-" cocoa.vim
-" git-vim
-" grep.vim
-" matchit.zip
-" mru.vim
-" neocomplcache
-" operator-camelize.vim
-" perl-support.vim
-" project.tar.gz
-" quickrun
-" renamer.vim
-" smartchr
-" snipmate.vim
-" taglist.vim
-" textobj-function
-" textobj-parameter
-" textobj-user
-" vim-operator-replace
-" vim-operator-user
-" vim-rails
-" vim-ref
-" vim-smartword
-" vim-surround
-" vim-textobj-indent
-" vim-textobj-lastpat
-" vim-textobj-syntax
-" vimproc
-" vimshell
-" zencoding-vim
+"
+" pathogen.vim
+"
+" 以下を.vim/bundle配下で実行
+" git clone https://github.com/vim-scripts/Align.git
+" git clone https://github.com/vim-scripts/CRefVim.git
+" git clone https://github.com/vim-scripts/FuzzyFinder.git
+" git clone https://github.com/vim-scripts/L9.git
+" git clone https://github.com/vim-scripts/QuickBuf.git
+" git clone https://github.com/vim-scripts/The-NERD-Commenter.git
+" git clone https://github.com/vim-scripts/The-NERD-tree.git
+" git clone https://github.com/vim-scripts/YankRing.vim.git
+" git clone https://github.com/vim-scripts/a.vim.git
+" git clone https://github.com/msanders/cocoa.vim.git
+" git clone https://github.com/motemen/git-vim.git
+" git clone https://github.com/vim-scripts/grep.vim.git
+" git clone https://github.com/vim-scripts/matchit.zip.git
+" git clone https://github.com/Shougo/neocomplcache.git
+" git clone https://github.com/tyru/operator-camelize.vim.git
+" git clone https://github.com/vim-scripts/project.tar.gz.git
+" git clone https://github.com/ujihisa/quickrun.git
+" git clone https://github.com/vim-scripts/renamer.vim.git
+" git clone https://github.com/vim-scripts/smartchr.git
+" git clone https://github.com/msanders/snipmate.vim.git
+" git clone https://github.com/vim-scripts/taglist.vim.git
+" git clone https://github.com/vim-scripts/textobj-function.git
+" git clone https://github.com/vim-scripts/textobj-user.git
+" git clone https://github.com/vim-scripts/vcscommand.vim.git
+" git clone https://github.com/kana/vim-operator-replace.git
+" git clone https://github.com/kana/vim-operator-user.git
+" git clone https://github.com/tpope/vim-pathogen.git
+" git clone https://github.com/tpope/vim-rails.git
+" git clone https://github.com/thinca/vim-ref.git
+" git clone https://github.com/kana/vim-smartword.git
+" git clone https://github.com/tpope/vim-surround.git
+" git clone https://github.com/kana/vim-textobj-indent.git
+" git clone https://github.com/kana/vim-textobj-lastpat.git
+" git clone https://github.com/kana/vim-textobj-syntax.git
+" git clone https://github.com/rphillips/vim-zoomwin.git
+" git clone https://github.com/Shougo/vimproc.git
+" git clone https://github.com/Shougo/vimshell.git
+" git clone https://github.com/mattn/zencoding-vim.git
 " }}}
 
 "---------------------------------------------------------------------------
@@ -144,22 +156,36 @@ set lines=50
 set showtabline=2
 " statusline
 set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
-" バックアップファイルを作成しない (次行の先頭の " を削除すれば有効になる)
+" virtualedit
+set virtualedit=block
+" バックアップを無効
 set nobackup
+" バックアップファイルの生成ディレクトリ
+"set backupdir=~/.vim/backup
+" スワップを有効
+set swapfile
+" スワップファイルの生成ディレクトリ
+if has('unix')
+  set directory=$HOME/.vim/swap
+elseif has('win32')
+  set directory=$HOME/vimfiles/swap
+endif
 
 " set tags
 set autochdir
-set tags=./tags,./../tags,./*/tags,./../../tags,./../../../tags,./../../../../tags,./../../../../../tags
+set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
 
-" grep ack
-set grepprg=ack\ -a
+" 文字コードの自動判定
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+
 " macの場合の設定
 if has('mac')
   noremap ¥ \
   noremap \ ¥
-  set encoding=utf-8
-  set fileencoding=utf-8
-  set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+  " grep ack
+  set grepprg=ack\ -a
 endif
 " }}}
 
@@ -215,11 +241,20 @@ nnoremap [General]y "yy
 " 名前付きレジスタにヤンクして削除
 nnoremap [General]d "yd
 
+"クリップボードを使ったコピペ
+"vnoremap <M-c> "+y
+"inoremap <M-v> <C-r>+
+"nnoremap <M-v> "+p
+
 ";と:を入れ替え
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+" モーション時にwをiwとする（よく使うので）
+onoremap <buffer> w iw
+onoremap <buffer> W iW
 
 " 英語配列だと使いやすいらしい
 "noremap '  `
@@ -246,11 +281,17 @@ vnoremap aq  a'
 onoremap iq  i'
 vnoremap iq  i'
 
+" モーション時にqで記号まで飛ぶ
+"onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
+
 " exコマンド
 nnoremap [General]w :<C-u>w<cr>
 nnoremap [General]q :<C-u>q<cr>
 "nnoremap [General]m :<C-u>marks<cr>
 "nnoremap [General]g :<C-u>registers<cr>
+
+" 仮想置換モード
+nnoremap R gR
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
@@ -259,6 +300,7 @@ nnoremap Y y$
 cnoremap <C-B> <Left>
 cnoremap <C-F> <Right>
 cnoremap <C-A> <Home>
+cnoremap <expr> <C-D> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-d>" : "\<Del>")
 cnoremap <C-E> <END>
 cnoremap <C-H> <BS>
 " カーソル位置にかかわらず全部消す
@@ -269,53 +311,137 @@ inoremap <C-B> <Left>
 inoremap <C-F> <Right>
 inoremap <C-A> <C-o>^
 inoremap <C-E> <C-o>$
-"inoremap <C-H> <BS>
-"inoremap <C-K> <C-o>C
+inoremap <C-H> <BS>
+inoremap <C-D> <Del>
+inoremap <C-K> <C-o>C
 " undoできるc-w,c-u
 inoremap <C-W> <C-g>u<C-w>
 inoremap <C-U> <C-g>u<C-u>
+inoremap <C-K> <C-o>D<Esc>
+
+" 括弧など自動で閉じる
+inoremap {  {}<Left>
+inoremap [  []<Left>
+inoremap (  ()<Left>
+inoremap "  ""<Left>
+inoremap '  ''<Left>
+""inoremap <  <><Left>
 
 " ハイライトを消す
-nmap <silent> gh  :<C-u>nohlsearch<cr>
+nnoremap <silent> [General]h  :<C-u>nohlsearch<cr>
 
-" ブロックモード
-nmap [General]va  :<C-u>setlocal virtualedit=all<cr>
-nmap [General]vv  :<C-u>setlocal virtualedit=block<cr>
+" 仮想編集の変更
+nnoremap [General]va  :<C-u>setlocal virtualedit=all<cr>
+nnoremap [General]vb  :<C-u>setlocal virtualedit=block<cr>
+nnoremap [General]vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
 
 " ベリーマッチ（正規表現をエスケープしなくてよくなる）
 nnoremap /   /\v
 
+" Tabでウィンドウ移動
+nnoremap <silent> <Tab> <C-w>w
+nnoremap <silent> [General]<Tab> <C-w>W
+
+" カーソル下のウィンドウを編集（数字が付いていればその行へ）
+noremap gf gF
+
 " tab page
-nnoremap [Tab]   <Nop>
-nmap     <C-t>   [Tab]
-nnoremap <silent> [Tab]n  :<C-u>tabnew<cr>
-nnoremap <silent> [Tab]c  :<C-u>tabclose<cr>
-nnoremap <silent> [Tab]o  :<C-u>tabonly<cr>
-nnoremap <silent> [Tab]m  :<C-u>tabmove<cr>
-nnoremap <silent> [Tab]l  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap <silent> [Tab]h  gT
+nnoremap [TabPage]   <Nop>
+nmap     <C-t>    [TabPage]
+nnoremap <silent> [TabPage]n  :<C-u>tabnew<cr>
+nnoremap <silent> [TabPage]c  :<C-u>tabclose<cr>
+nnoremap <silent> [TabPage]o  :<C-u>tabonly<cr>
+nnoremap <silent> [TabPage]m  :<C-u>tabmove<cr>
+nnoremap <silent> [TabPage]l  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
+nnoremap <silent> [TabPage]h  gT
 
 nnoremap <silent> gr :<C-u>tabprevious<cr>
 
 " tag jump
-nnoremap [Tag]    <Nop>
-nmap     t        [Tag]
-nnoremap [Tag]t   <C-]>          " 「飛ぶ」
-nnoremap [Tag]j   :<C-u>tag<CR>  " 「進む」
-nnoremap [Tag]k   :<C-u>pop<CR>  " 「戻る」
-nnoremap [Tag]l   :<C-u>tags<CR> " 履歴一覧
+nnoremap [TagJump]    <Nop>
+nmap     t            [TagJump]
+nnoremap [TagJump]t   <C-]>          " 「飛ぶ」
+nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
+nnoremap [TagJump]k   :<C-u>pop<CR>  " 「戻る」
+nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 
 "noremap <leader>sp :<C-u>vsplit <cr>
-"
-" Smart mappings on the command line
-"cno $h tabe ~/
-"cno $j tabe ./
-"cno $v tabe ~/.vim
-"if has('mac')
-"  cno $d tabe ~/Desktop/
-"  cno $p tabe ~/Documents/perl/
-"endif
 
+"nnoremap <sid>(command-line-enter) q:
+"xnoremap <sid>(command-line-enter) q:
+"nnoremap <sid>(command-line-norange) q:<C-u>
+
+if has('win32')
+  " Save the current buffer and execute the Tortoise SVN interface's diff program
+  map <silent> <leader>td :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend"<CR>
+  " Save the current buffer and execute the Tortoise SVN interface's log
+  map <silent> <leader>tl :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend"<CR>
+  " Save the current buffer and execute the Tortoise SVN interface's revision graph
+  map <silent> <leader>tr :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend"<CR>
+  " Save the current buffer and execute the Tortoise SVN interface's blame program
+  map <silent> <leader>tb :call TortoiseBlame()<CR>
+  function! TortoiseBlame()
+    " Save the buffer
+    silent execute(':w')
+    " Now run Tortoise to get the blame dialog to display
+    let filename = expand("%")
+    let linenum = line(".")
+    silent execute('!C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:blame /path:"' . filename . '" /line:' . linenum . ' /notempfile /closeonend')
+  endfunction
+endif
+
+" kana's useful tab function {{{
+function! s:move_window_into_tab_page(target_tabpagenr)
+  " Move the current window into a:target_tabpagenr.
+  " If a:target_tabpagenr is 0, move into new tab page.
+  if a:target_tabpagenr < 0  " ignore invalid number.
+    return
+  endif
+  let original_tabnr = tabpagenr()
+  let target_bufnr = bufnr('')
+  let window_view = winsaveview()
+
+  if a:target_tabpagenr == 0
+    tabnew
+    tabmove  " Move new tabpage at the last.
+    execute target_bufnr 'buffer'
+    let target_tabpagenr = tabpagenr()
+  else
+    execute a:target_tabpagenr 'tabnext'
+    let target_tabpagenr = a:target_tabpagenr
+    topleft new  " FIXME: be customizable?
+    execute target_bufnr 'buffer'
+  endif
+  call winrestview(window_view)
+
+  execute original_tabnr 'tabnext'
+  if 1 < winnr('$')
+    close
+  else
+    enew
+  endif
+
+  execute target_tabpagenr 'tabnext'
+endfunction " }}}
+
+" <space>ao move current buffer into a new tab.
+nnoremap <silent> [General]ao :<C-u>call <SID>move_window_into_tab_page(0)<Cr>
+
+nnoremap [General]cm :colorscheme molokai<cr>
+nnoremap [General]cw :colorscheme wombat<cr>
+
+" }}}
+
+"---------------------------------------------------------------------------
+" Command {{{2
+"command! Utf8 e ++enc=utf-8
+"command! Euc e ++enc=euc-jp
+"command! Sjis e ++enc=cp932
+"command! Jis e ++enc=iso-2022-jp
+"command! WUtf8 w ++enc=utf-8 | e
+"command! WEuc w ++enc=euc-jp | e
+"command! WSjis w ++enc=cp932 | e
+"command! WJis w ++enc=iso-2022-jp | e
 " }}}
 
 "---------------------------------------------------------------------------
@@ -328,11 +454,15 @@ autocmd FileType ruby set tabstop=2 shiftwidth=2
 au BufEnter  *.rb let g:rails_level = 4
 let g:rails_default_database = 'mysql'
 
-let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
-let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
+if has('mac')
+  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
+  let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
+endif
 
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
+autocmd BufWinEnter,WinEnter * setlocal cursorline
+autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
+autocmd BufWinLeave,WinLeave * setlocal nocursorline
+autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
 " }}}
 
 " }}}
@@ -424,14 +554,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for regreplop.vim {{{2
-"operator-userに統一する(operator-replaceを使用する)
-"nmap <C-S>      <Plug>ReplaceMotion
-"nmap <C-S><C-S> <Plug>ReplaceLine
-"vmap <C-S>      <Plug>ReplaceVisual
-" }}}
-
-"---------------------------------------------------------------------------
 " for operator-replace {{{2
 map <C-S> <Plug>(operator-replace)
 " }}}
@@ -486,20 +608,10 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for QuickBuf.vim {{{2
-"fuzzyfinderに統一する
-"let g:qb_hotkey="<C-l>"
-" }}}
-
-"---------------------------------------------------------------------------
-" for mru.vim {{{2
-"fuzzyfinderに統一する
-"nnoremap <silent> [General]r :<C-u>MRU<cr>
-" }}}
-
-"---------------------------------------------------------------------------
 " for taglist.vim {{{2
-let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス 
+if has('mac')
+  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス 
+endif
 let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
 let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
 "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
@@ -518,48 +630,57 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<cr>
 " for vim-textobj-function {{{2
 "noremap iF <Plug>(textobj-function-i)
 "noremap aF <Plug>(textobj-function-a)
+" }}}
 
-"nnoremap <sid>(command-line-enter) q:
-"xnoremap <sid>(command-line-enter) q:
-"nnoremap <sid>(command-line-norange) q:<C-u>
-"
-"nnoremap ;  <sid>(command-line-enter)
-"xnoremap ;  <sid>(command-line-enter)
-"
-"autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
-"function! s:init_cmdwin()
-"  nnoremap <buffer> q :<C-u>quit<CR>
-"  nnoremap <buffer> <TAB> :<C-u>quit<CR>
-"  inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-"  inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-"  inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-"
-"  " Completion.
-"  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"
-"  startinsert!
-"endfunction
+"---------------------------------------------------------------------------
+" for vcscommand.vim {{{2
+let VCSCommandMapPrefix = '[General]s'
 " }}}
 
 "---------------------------------------------------------------------------
 " for git-vim.vim {{{2
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Space>gd :<C-u>GitDiff --cached<Enter>
-nnoremap <Space>gD :<C-u>GitDiff<Enter>
-nnoremap <Space>gs :<C-u>GitStatus<Enter>
-nnoremap <Space>gl :<C-u>GitLog<Enter>
-nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap <Space>ga :<C-u>GitAdd<Enter>
-nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
-nnoremap <Space>gc :<C-u>GitCommit<Enter>
-nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
-nnoremap <Space>gp :<C-u>Git push
+nnoremap [General]gd :<C-u>GitDiff --cached<Enter>
+nnoremap [General]gD :<C-u>GitDiff<Enter>
+nnoremap [General]gs :<C-u>GitStatus<Enter>
+nnoremap [General]gl :<C-u>GitLog<Enter>
+nnoremap [General]gL :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap [General]ga :<C-u>GitAdd<Enter>
+nnoremap [General]gA :<C-u>GitAdd <cfile><Enter>
+nnoremap [General]gc :<C-u>GitCommit<Enter>
+nnoremap [General]gC :<C-u>GitCommit --amend<Enter>
+nnoremap [General]gp :<C-u>Git push
 " }}}
 
 "---------------------------------------------------------------------------
 " for zencoding.vim {{{2
 let g:user_zen_expandabbr_key = '<c-y>'
+" }}}
+
+"---------------------------------------------------------------------------
+" for surround.vim {{{2
+" 'a'を>として扱う
+"let g:surround_97  = "<\r>"
+let g:surround_{char2nr("a")}  = "<\r>"
+" 'r'を]として扱う
+"let g:surround_114 = "[\r]"
+let g:surround_{char2nr("r")}  = "[\r]"
+" 'd'を"として扱う
+"let g:surround_100 = '"\r"'
+let g:surround_{char2nr("d")}  = '"\r"'
+" 'q'を'として扱う
+"let g:surround_113 = "'\r'"
+let g:surround_{char2nr("q")}  = "'\r'"
+
+" perl の演算子囲み
+" 'Q'を囲みとして扱う
+"autocmd FileType perl let g:surround_81 = "q(\r)"
+autocmd FileType perl let g:surround_{char2nr("Q")} = "q(\r)"
+" 'D'を囲みとして扱う
+"autocmd FileType perl let g:surround_68 = "qq(\r)"
+autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
+
 " }}}
 
 " }}}
