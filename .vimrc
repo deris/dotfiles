@@ -8,6 +8,7 @@
 ":help :map-commands
 ":help autocommands-events
 ":help feature-list
+":help usr_41
 "
 " 日本語vimdoc
 " wget http://www.kaoriya.net/vimdoc_j/vimdoc_ja-snapshot.tar.bz2
@@ -28,7 +29,6 @@
 " git clone https://github.com/vim-scripts/CRefVim.git
 " git clone https://github.com/vim-scripts/FuzzyFinder.git
 " git clone https://github.com/vim-scripts/L9.git
-" git clone https://github.com/vim-scripts/QuickBuf.git
 " git clone https://github.com/vim-scripts/The-NERD-Commenter.git
 " git clone https://github.com/vim-scripts/The-NERD-tree.git
 " git clone https://github.com/vim-scripts/YankRing.vim.git
@@ -62,6 +62,10 @@
 " git clone https://github.com/Shougo/vimproc.git
 " git clone https://github.com/Shougo/vimshell.git
 " git clone https://github.com/mattn/zencoding-vim.git
+"
+" git-hubに上がってないプラグイン
+" vim-operator-parameter
+" http://d.hatena.ne.jp/ampmmn/20100224/1267020691
 " }}}
 
 "---------------------------------------------------------------------------
@@ -212,14 +216,22 @@ nmap <Space> [General]
 " jump
 nnoremap [General]j <C-f>
 nnoremap [General]k <C-b>
-nnoremap <C-j> 5j
-nnoremap <C-k> 5k
-vnoremap <C-j> 5j
-vnoremap <C-k> 5k
+"nnoremap <C-j> 5j
+"nnoremap <C-k> 5k
+"vnoremap <C-j> 5j
+"vnoremap <C-k> 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+
+" ウィンドウ内移動
+"nnoremap [General]ma   H5j
+"nnoremap [General]ms   H15j
+"nnoremap [General]md   L15k
+"nnoremap [General]mf   L5k
+"nnoremap [General]<space>  $
+
 
 " vimrc編集
 nnoremap [General].   :<C-u>edit $MYVIMRC<cr>
@@ -231,15 +243,17 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><cr>
 nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<cr>
 onoremap gc         :<C-u>normal gc<cr>
-" クリップボードの内容を名前付きレジスタに逃がす
-nnoremap [General]" :<C-u>let @y=@*<CR>
-" 名前付きレジスタからペースト
-nnoremap [General]p "yp
-nnoremap [General]P "yP
-" 名前付きレジスタにヤンク
-nnoremap [General]y "yy
-" 名前付きレジスタにヤンクして削除
-nnoremap [General]d "yd
+" クリップボードからペースト
+nnoremap [General]p "*p
+vnoremap [General]p "*p
+nnoremap [General]P "*P
+vnoremap [General]P "*P
+" クリップボードにヤンク
+nnoremap [General]y "*y
+vnoremap [General]y "*y
+" クリップボードにヤンクして削除
+nnoremap [General]d "*d
+vnoremap [General]d "*d
 
 "クリップボードを使ったコピペ
 "vnoremap <M-c> "+y
@@ -253,8 +267,16 @@ vnoremap ; :
 vnoremap : ;
 
 " モーション時にwをiwとする（よく使うので）
-onoremap <buffer> w iw
-onoremap <buffer> W iW
+onoremap w iw
+onoremap W iW
+
+onoremap ) t)
+onoremap ( t(
+vnoremap ) t)
+vnoremap ( t(
+
+onoremap ; t;
+vnoremap ; t;
 
 " 英語配列だと使いやすいらしい
 "noremap '  `
@@ -282,7 +304,7 @@ onoremap iq  i'
 vnoremap iq  i'
 
 " モーション時にqで記号まで飛ぶ
-"onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
+onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
 
 " exコマンド
 nnoremap [General]w :<C-u>w<cr>
@@ -314,18 +336,19 @@ inoremap <C-E> <C-o>$
 inoremap <C-H> <BS>
 inoremap <C-D> <Del>
 inoremap <C-K> <C-o>C
+inoremap <C-Y> <C-o>p
 " undoできるc-w,c-u
 inoremap <C-W> <C-g>u<C-w>
 inoremap <C-U> <C-g>u<C-u>
 inoremap <C-K> <C-o>D<Esc>
 
 " 括弧など自動で閉じる
-inoremap {  {}<Left>
-inoremap [  []<Left>
-inoremap (  ()<Left>
-inoremap "  ""<Left>
-inoremap '  ''<Left>
-""inoremap <  <><Left>
+"inoremap {  {}<Left>
+"inoremap [  []<Left>
+"inoremap (  ()<Left>
+"inoremap "  ""<Left>
+"inoremap '  ''<Left>
+"inoremap <  <><Left>
 
 " ハイライトを消す
 nnoremap <silent> [General]h  :<C-u>nohlsearch<cr>
@@ -373,13 +396,13 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
-  map <silent> <leader>td :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend"<CR>
+  map <silent> <leader>td :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend"<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
-  map <silent> <leader>tl :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend"<CR>
+  map <silent> <leader>tl :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend"<CR>
   " Save the current buffer and execute the Tortoise SVN interface's revision graph
-  map <silent> <leader>tr :w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend"<CR>
+  map <silent> <leader>tr :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend"<CR>
   " Save the current buffer and execute the Tortoise SVN interface's blame program
-  map <silent> <leader>tb :call TortoiseBlame()<CR>
+  map <silent> <leader>tb :<c-u>call TortoiseBlame()<CR>
   function! TortoiseBlame()
     " Save the buffer
     silent execute(':w')
@@ -427,8 +450,22 @@ endfunction " }}}
 " <space>ao move current buffer into a new tab.
 nnoremap <silent> [General]ao :<C-u>call <SID>move_window_into_tab_page(0)<Cr>
 
-nnoremap [General]cm :colorscheme molokai<cr>
-nnoremap [General]cw :colorscheme wombat<cr>
+nnoremap [General]cm :<c-u>colorscheme molokai<cr>
+nnoremap [General]cw :<c-u>colorscheme wombat<cr>
+
+nnoremap t2 :<C-U>setlocal expandtab<CR>:setlocal shiftwidth=2<CR>tabstop=2<CR>
+nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR>
+
+
+  function! HidemaruGrep()
+    " current word
+    "let l:word = expand("<cword>")
+    " current directory
+    "let l:cwd  = getcwd()
+    " grep hidemaru
+    "silent execute('!C:\Progra~1\Hidemaru\hidemaru.exe /gcwrUo,"' . filename . '\\*" /line:' . linenum . ' /notempfile /closeonend')
+  endfunction
+
 
 " }}}
 
@@ -449,10 +486,9 @@ nnoremap [General]cw :colorscheme wombat<cr>
 
 filetype plugin indent on
 autocmd FileType make setlocal noexpandtab
-autocmd FileType ruby set tabstop=2 shiftwidth=2
-
-au BufEnter  *.rb let g:rails_level = 4
-let g:rails_default_database = 'mysql'
+autocmd FileType ruby set expandtab tabstop=2 shiftwidth=2
+autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
+autocmd FileType c    set expandtab tabstop=2 shiftwidth=2
 
 if has('mac')
   let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
@@ -463,6 +499,10 @@ autocmd BufWinEnter,WinEnter * setlocal cursorline
 autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
 autocmd BufWinLeave,WinLeave * setlocal nocursorline
 autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
+
+" perlの関数に飛ぶ
+autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<cr>
+autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<cr>
 " }}}
 
 " }}}
@@ -610,7 +650,9 @@ endif
 "---------------------------------------------------------------------------
 " for taglist.vim {{{2
 if has('mac')
-  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス 
+  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス
+else
+  let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
 endif
 let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
 let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
@@ -620,10 +662,21 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<cr>
 
 "---------------------------------------------------------------------------
 " for smartchr.vim {{{2
-"inoremap <expr> = smartchr#loop('=', ' = ', ' == ', ' === ')
-"inoremap <expr> + smartchr#loop('+', ' + ', ' += ')
-"inoremap <expr> - smartchr#loop('-', ' - ', ' -= ')
-"inoremap <expr> ! smartchr#loop('!', ' != ')
+inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
+inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
+inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
+inoremap <expr> !  smartchr#loop('!', ' != ')
+inoremap <expr> .  smartchr#loop('.', ' . ')
+"inoremap <expr> {  smartchr#loop('{}', '{')
+"inoremap <expr> [  smartchr#loop('[]', '[')
+"inoremap <expr> (  smartchr#loop('()', '(')
+"inoremap <expr> "  smartchr#loop('""', '"')
+"inoremap <expr> '  smartchr#loop("''", "'")
+"inoremap <expr> `  smartchr#loop('``', '`')
+
+" This is enabled while user inputs Ex commands, not search
+" patterns, etc.
+"cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
 " }}}
 
 "---------------------------------------------------------------------------
@@ -675,12 +728,35 @@ let g:surround_{char2nr("q")}  = "'\r'"
 
 " perl の演算子囲み
 " 'Q'を囲みとして扱う
-"autocmd FileType perl let g:surround_81 = "q(\r)"
 autocmd FileType perl let g:surround_{char2nr("Q")} = "q(\r)"
 " 'D'を囲みとして扱う
-"autocmd FileType perl let g:surround_68 = "qq(\r)"
 autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
 
+" }}}
+
+
+"---------------------------------------------------------------------------
+" for grep.vim {{{2
+if has('win32')
+  let Grep_Path             = 'C:\usr\local\bin\grep.exe'
+  let Fgrep_Path            = 'C:\usr\local\bin\grep.exe -F'
+  let Egrep_Path            = 'C:\usr\local\bin\grep.exe -E'
+  let Grep_Find_Path        = 'C:\usr\local\bin\find.exe'
+  let Grep_Xargs_Path       = 'C:\usr\local\bin\xargs.exe'
+  let Grep_Shell_Quote_Char = '"'
+endif
+let Grep_Skip_Dirs = '.svn .git'
+let Grep_Skip_Files = '*.bak *~'
+
+nnoremap [General]eg :<c-u>Egrep<cr>
+nnoremap [General]eb :<c-u>Bgrep<cr>
+
+autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
+
+"---------------------------------------------------------------------------
+" for columnjump.vim {{{2
+map <c-k> <Plug>(columnjump-backward)
+map <c-j> <Plug>(columnjump-forward)
 " }}}
 
 " }}}
