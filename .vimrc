@@ -25,43 +25,51 @@
 " pathogen.vim
 "
 " 以下を.vim/bundle配下で実行
-" git clone https://github.com/vim-scripts/Align.git
-" git clone https://github.com/vim-scripts/CRefVim.git
+"
+" 常時使う
 " git clone https://github.com/vim-scripts/FuzzyFinder.git
 " git clone https://github.com/vim-scripts/L9.git
 " git clone https://github.com/vim-scripts/The-NERD-Commenter.git
-" git clone https://github.com/vim-scripts/The-NERD-tree.git
-" git clone https://github.com/vim-scripts/YankRing.vim.git
+" git clone https://github.com/vim-scripts/grep.vim.git
+" git clone https://github.com/vim-scripts/project.tar.gz.git
+" git clone https://github.com/vim-scripts/taglist.vim.git
+" git clone https://github.com/vim-scripts/textobj-user.git
+" git clone https://github.com/kana/vim-operator-replace.git
+" git clone https://github.com/kana/vim-operator-user.git
+" git clone https://github.com/kana/vim-smartword.git
+" git clone https://github.com/kana/vim-textobj-indent.git
+" git clone https://github.com/msanders/snipmate.vim.git
+" git clone https://github.com/tpope/vim-pathogen.git
+" git clone https://github.com/tpope/vim-surround.git
+" git clone https://github.com/tpope/vim-repeat.git
+" git clone https://github.com/Shougo/neocomplcache.git
+" git clone https://github.com/Shougo/unite.vim.git
+"
+" 使用状況が限られる
 " git clone https://github.com/vim-scripts/a.vim.git
 " git clone https://github.com/msanders/cocoa.vim.git
 " git clone https://github.com/motemen/git-vim.git
-" git clone https://github.com/vim-scripts/grep.vim.git
-" git clone https://github.com/vim-scripts/matchit.zip.git
-" git clone https://github.com/Shougo/neocomplcache.git
-" git clone https://github.com/tyru/operator-camelize.vim.git
-" git clone https://github.com/vim-scripts/project.tar.gz.git
 " git clone https://github.com/ujihisa/quickrun.git
-" git clone https://github.com/vim-scripts/renamer.vim.git
-" git clone https://github.com/vim-scripts/smartchr.git
-" git clone https://github.com/msanders/snipmate.vim.git
-" git clone https://github.com/vim-scripts/taglist.vim.git
-" git clone https://github.com/vim-scripts/textobj-function.git
-" git clone https://github.com/vim-scripts/textobj-user.git
+" git clone https://github.com/tyru/operator-camelize.vim.git
 " git clone https://github.com/vim-scripts/vcscommand.vim.git
-" git clone https://github.com/kana/vim-operator-replace.git
-" git clone https://github.com/kana/vim-operator-user.git
-" git clone https://github.com/tpope/vim-pathogen.git
 " git clone https://github.com/tpope/vim-rails.git
 " git clone https://github.com/thinca/vim-ref.git
-" git clone https://github.com/kana/vim-smartword.git
-" git clone https://github.com/tpope/vim-surround.git
-" git clone https://github.com/kana/vim-textobj-indent.git
+" git clone https://github.com/mattn/zencoding-vim.git
+"
+" 便利だけどあまり使わない
+" git clone https://github.com/vim-scripts/Align.git
+" git clone https://github.com/vim-scripts/YankRing.vim.git
+" git clone https://github.com/vim-scripts/The-NERD-tree.git
+" git clone https://github.com/vim-scripts/matchit.zip.git
+" git clone https://github.com/vim-scripts/renamer.vim.git
+" git clone https://github.com/vim-scripts/smartchr.git
+" git clone https://github.com/vim-scripts/textobj-function.git
 " git clone https://github.com/kana/vim-textobj-lastpat.git
 " git clone https://github.com/kana/vim-textobj-syntax.git
+" git clone https://github.com/kana/vim-grex.git
 " git clone https://github.com/rphillips/vim-zoomwin.git
 " git clone https://github.com/Shougo/vimproc.git
 " git clone https://github.com/Shougo/vimshell.git
-" git clone https://github.com/mattn/zencoding-vim.git
 "
 " git-hubに上がってないプラグイン
 " vim-operator-parameter
@@ -267,8 +275,8 @@ vnoremap ; :
 vnoremap : ;
 
 " モーション時にwをiwとする（よく使うので）
-onoremap w iw
-onoremap W iW
+omap w iw
+omap W iW
 
 onoremap ) t)
 onoremap ( t(
@@ -367,6 +375,9 @@ nnoremap <silent> [General]<Tab> <C-w>W
 
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
+
+nnoremap <C-s>  s
+nnoremap s      <C-s>
 
 " tab page
 nnoremap [TabPage]   <Nop>
@@ -594,13 +605,48 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for unite {{{2
+nnoremap [unite]   <Nop>
+nmap     <Space>u  [unite]
+
+nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+nnoremap  [unite]f  :<C-u>Unite source<CR>
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
+
+  nmap <buffer> <ESC>      <Plug>(unite_exit)
+  imap <buffer> jj      <Plug>(unite_insert_leave)
+  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+
+  " <C-l>: manual neocomplcache completion.
+  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+
+  " Start insert.
+  "let g:unite_enable_start_insert = 1
+endfunction"}}}
+
+let g:unite_source_file_mru_limit = 200
+let g:unite_cursor_line_highlight = 'TabLineSel'
+let g:unite_abbr_highlight = 'TabLine'
+
+" For optimize.
+let g:unite_source_file_mru_filename_format = ''
+" }}}
+
+"---------------------------------------------------------------------------
 " for operator-replace {{{2
-map <C-S> <Plug>(operator-replace)
+map s <Plug>(operator-replace)
 " }}}
 
 "---------------------------------------------------------------------------
 " for smartword {{{2
-map w  <Plug>(smartword-w)
+nmap w  <Plug>(smartword-w)
+vmap w  <Plug>(smartword-w)
 map b  <Plug>(smartword-b)
 map e  <Plug>(smartword-e)
 map ge  <Plug>(smartword-ge)
@@ -621,13 +667,15 @@ let g:fuf_mrucmd_maxItem = 500
 let g:fuf_enumeratingLimit = 20
 let g:fuf_file_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
 
-nnoremap gb :<C-u>FufBuffer<CR>
-nnoremap [General]fb  :<C-u>FufBuffer<CR>
-nnoremap [General]ff  :<C-u>FufFile<CR>
-nnoremap [General]fd  :<C-u>FufDir<CR>
-nnoremap [General]ft  :<C-u>FufTag<CR>
-nnoremap [General]fm  :<C-u>FufMruFile<CR>
-nnoremap [General]fc  :<C-u>FufMruCmd<CR>
+nnoremap [fuf]       <Nop>
+nmap     [General]f  [fuf]
+
+nnoremap [fuf]b  :<C-u>FufBuffer<CR>
+nnoremap [fuf]f  :<C-u>FufFile<CR>
+nnoremap [fuf]d  :<C-u>FufDir<CR>
+nnoremap [fuf]t  :<C-u>FufTag<CR>
+nnoremap [fuf]m  :<C-u>FufMruFile<CR>
+nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
 " }}}
 
 "---------------------------------------------------------------------------
