@@ -20,72 +20,71 @@
 "}}}
 
 "---------------------------------------------------------------------------
-" 使っているプラグイン {{{
-"
-" pathogen.vim
-"
-" 以下を.vim/bundle配下で実行
-"
-" 常時使う
-" git clone https://github.com/vim-scripts/FuzzyFinder.git
-" git clone https://github.com/vim-scripts/L9.git
-" git clone https://github.com/vim-scripts/The-NERD-Commenter.git
-" git clone https://github.com/vim-scripts/grep.vim.git
-" git clone https://github.com/vim-scripts/project.tar.gz.git
-" git clone https://github.com/vim-scripts/taglist.vim.git
-" git clone https://github.com/vim-scripts/textobj-user.git
-" git clone https://github.com/kana/vim-operator-replace.git
-" git clone https://github.com/kana/vim-operator-user.git
-" git clone https://github.com/kana/vim-smartword.git
-" git clone https://github.com/kana/vim-textobj-indent.git
-" git clone https://github.com/msanders/snipmate.vim.git
-" git clone https://github.com/tpope/vim-pathogen.git
-" git clone https://github.com/tpope/vim-surround.git
-" git clone https://github.com/tpope/vim-repeat.git
-" git clone https://github.com/Shougo/neocomplcache.git
-" git clone https://github.com/Shougo/unite.vim.git
-"
-" 使用状況が限られる
-" git clone https://github.com/vim-scripts/a.vim.git
-" git clone https://github.com/msanders/cocoa.vim.git
-" git clone https://github.com/motemen/git-vim.git
-" git clone https://github.com/ujihisa/quickrun.git
-" git clone https://github.com/tyru/operator-camelize.vim.git
-" git clone https://github.com/vim-scripts/vcscommand.vim.git
-" git clone https://github.com/tpope/vim-rails.git
-" git clone https://github.com/thinca/vim-ref.git
-" git clone https://github.com/mattn/zencoding-vim.git
-"
-" 便利だけどあまり使わない
-" git clone https://github.com/vim-scripts/Align.git
-" git clone https://github.com/vim-scripts/YankRing.vim.git
-" git clone https://github.com/vim-scripts/The-NERD-tree.git
-" git clone https://github.com/vim-scripts/matchit.zip.git
-" git clone https://github.com/vim-scripts/renamer.vim.git
-" git clone https://github.com/vim-scripts/smartchr.git
-" git clone https://github.com/vim-scripts/textobj-function.git
-" git clone https://github.com/kana/vim-textobj-lastpat.git
-" git clone https://github.com/kana/vim-textobj-syntax.git
-" git clone https://github.com/kana/vim-grex.git
-" git clone https://github.com/rphillips/vim-zoomwin.git
-" git clone https://github.com/Shougo/vimproc.git
-" git clone https://github.com/Shougo/vimshell.git
-"
-" git-hubに上がってないプラグイン
-" vim-operator-parameter
-" http://d.hatena.ne.jp/ampmmn/20100224/1267020691
-" }}}
-
-"---------------------------------------------------------------------------
 " basic settings {{{1
 
 "---------------------------------------------------------------------------
-"pathogen.vim {{{2
-
+" Vundle {{{2
+set nocompatible
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-set helpfile=$VIMRUNTIME/doc/help.txt
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+
+" original repos on github
+Bundle 'Shougo/neocomplcache'
+"Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc'
+"Bundle 'Shougo/vimshell'
+Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'kana/vim-grex'
+Bundle 'kana/vim-operator-user'
+Bundle 'kana/vim-operator-replace'
+Bundle 'kana/vim-smartword'
+Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-indent'
+"Bundle 'kana/vim-textobj-lastpat'
+"Bundle 'kana/vim-textobj-syntax'
+"Bundle 'mattn/zencoding-vim'
+"Bundle 'motemen/git-vim'
+"Bundle 'msanders/cocoa.vim'
+Bundle 'msanders/snipmate.vim'
+"Bundle 'rphillips/vim-zoomwin'
+Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-visualstar'
+"Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+"Bundle 'tyru/operator-camelize.vim'
+Bundle 'ujihisa/quickrun'
+Bundle 'deris/columnjump'
+
+" vim-scripts repos
+Bundle 'Align'
+"Bundle 'CD.vim'
+Bundle 'FuzzyFinder'
+Bundle 'L9'
+Bundle 'The-NERD-Commenter'
+"Bundle 'The-NERD-tree'
+Bundle 'YankRing.vim'
+"Bundle 'a.vim'
+Bundle 'current-func-info.vim'
+Bundle 'grep.vim'
+Bundle 'matchit.zip'
+Bundle 'project.tar.gz'
+"Bundle 'renamer.vim'
+Bundle 'smartchr'
+Bundle 'taglist.vim'
+Bundle 'textobj-function'
+"Bundle 'vcscommand.vim'
+"Bundle 'vimwiki'
+
+" non github repos
+
+" git-hubに上がってないプラグイン
+" vim-operator-parameter
+" http://d.hatena.ne.jp/ampmmn/20100224/1267020691
+
+filetype plugin indent on
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -148,8 +147,14 @@ set list
 " どの文字でタブや改行を表示するかを設定
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
 " 全角スペースを表示
-highlight ZenkakuSpace guibg=white
-match ZenkakuSpace /　/
+scriptencoding utf-8
+
+augroup hilightIdegraphicSpace
+  autocmd!
+  autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+
 " 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
 " 常にステータス行を表示 (詳細は:he laststatus)
@@ -174,8 +179,12 @@ set virtualedit=block
 set nobackup
 " バックアップファイルの生成ディレクトリ
 "set backupdir=~/.vim/backup
+" バックアップのスキップ
+set backupskip=/tmp/*,/private/tmp/*
 " スワップを有効
 set swapfile
+" クリップボードにもコピー
+set clipboard+=unnamed
 " スワップファイルの生成ディレクトリ
 if has('unix')
   set directory=$HOME/.vim/swap
@@ -184,7 +193,7 @@ elseif has('win32')
 endif
 
 " set tags
-set autochdir
+"set autochdir
 set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
 
 " 文字コードの自動判定
@@ -198,7 +207,13 @@ if has('mac')
   noremap \ ¥
   " grep ack
   set grepprg=ack\ -a
+
+  let $PATH="/Users/kmura/perl5/perlbrew/bin:/Users/kmura/perl5/perlbrew/perls/perl-5.10.1/bin:".$PATH
 endif
+
+
+let plugin_cmdex_disable = 1
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -208,6 +223,10 @@ endif
 let mapleader = ","
 let maplocalleader = ","
 
+" 汎用プレフィックス
+noremap [General] <Nop>
+nmap <Space> [General]
+
 " Escのショートカット
 map  <Esc> <Nop>
 map! <Esc> <Nop>
@@ -216,10 +235,6 @@ noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
 noremap! <C-c> <C-[>
-
-" 汎用プレフィックス
-noremap [General] <Nop>
-nmap <Space> [General]
 
 " jump
 nnoremap [General]j <C-f>
@@ -233,13 +248,8 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" ウィンドウ内移動
-"nnoremap [General]ma   H5j
-"nnoremap [General]ms   H15j
-"nnoremap [General]md   L15k
-"nnoremap [General]mf   L5k
-"nnoremap [General]<space>  $
-
+nnoremap * *N
+nnoremap # #N
 
 " vimrc編集
 nnoremap [General].   :<C-u>edit $MYVIMRC<cr>
@@ -258,15 +268,12 @@ nnoremap [General]P "*P
 vnoremap [General]P "*P
 " クリップボードにヤンク
 nnoremap [General]y "*y
+nnoremap [General]Y "*y$
 vnoremap [General]y "*y
 " クリップボードにヤンクして削除
 nnoremap [General]d "*d
+nnoremap [General]D "*d$
 vnoremap [General]d "*d
-
-"クリップボードを使ったコピペ
-"vnoremap <M-c> "+y
-"inoremap <M-v> <C-r>+
-"nnoremap <M-v> "+p
 
 ";と:を入れ替え
 nnoremap ; :
@@ -284,7 +291,6 @@ vnoremap ) t)
 vnoremap ( t(
 
 onoremap ; t;
-vnoremap ; t;
 
 " 英語配列だと使いやすいらしい
 "noremap '  `
@@ -359,7 +365,7 @@ inoremap <C-K> <C-o>D<Esc>
 "inoremap <  <><Left>
 
 " ハイライトを消す
-nnoremap <silent> [General]h  :<C-u>nohlsearch<cr>
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<cr>
 
 " 仮想編集の変更
 nnoremap [General]va  :<C-u>setlocal virtualedit=all<cr>
@@ -407,13 +413,13 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
-  map <silent> <leader>td :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend"<CR>
+  nnoremap <silent> <leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
-  map <silent> <leader>tl :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend"<CR>
+  nnoremap <silent> <leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's revision graph
-  map <silent> <leader>tr :<c-u>w<CR>:silent !"C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend"<CR>
+  nnoremap <silent> <leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's blame program
-  map <silent> <leader>tb :<c-u>call TortoiseBlame()<CR>
+  nnoremap <silent> <leader>sb :<c-u>call TortoiseBlame()<CR>
   function! TortoiseBlame()
     " Save the buffer
     silent execute(':w')
@@ -500,26 +506,42 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType ruby set expandtab tabstop=2 shiftwidth=2
 autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
 autocmd FileType c    set expandtab tabstop=2 shiftwidth=2
+autocmd FileType html set expandtab tabstop=2 shiftwidth=2
+autocmd FileType xml  set expandtab tabstop=2 shiftwidth=2
+autocmd FileType javascript set expandtab tabstop=2 shiftwidth=2
 
-if has('mac')
-  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
-  let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
-endif
+autocmd BufRead,BufNewFile *.io setfiletype io
+autocmd FileType io set expandtab tabstop=2 shiftwidth=2
 
+"if has('mac')
+"  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
+"  let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
+"endif
+
+" カーソルラインと行ラインを表示
 autocmd BufWinEnter,WinEnter * setlocal cursorline
 autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
 autocmd BufWinLeave,WinLeave * setlocal nocursorline
 autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
 
+" 自動的に現在編集中のファイルのカレントディレクトリに移動
+augroup grlcd
+    autocmd!
+    autocmd BufEnter * lcd %:p:h
+augroup END
+
 " perlの関数に飛ぶ
 autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<cr>
 autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<cr>
+
 " }}}
 
 " }}}
 
 "---------------------------------------------------------------------------
 " plugins {{{1
+
+runtime macros/editesisting.vim
 
 "---------------------------------------------------------------------------
 " for perl-support.vim {{{2
@@ -714,7 +736,7 @@ inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
 inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
 inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
 inoremap <expr> !  smartchr#loop('!', ' != ')
-inoremap <expr> .  smartchr#loop('.', ' . ')
+"inoremap <expr> .  smartchr#loop('.', ' . ')
 "inoremap <expr> {  smartchr#loop('{}', '{')
 "inoremap <expr> [  smartchr#loop('[]', '[')
 "inoremap <expr> (  smartchr#loop('()', '(')
@@ -782,7 +804,6 @@ autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
 
 " }}}
 
-
 "---------------------------------------------------------------------------
 " for grep.vim {{{2
 if has('win32')
@@ -800,11 +821,39 @@ nnoremap [General]eg :<c-u>Egrep<cr>
 nnoremap [General]eb :<c-u>Bgrep<cr>
 
 autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
+" }}}
+
+"---------------------------------------------------------------------------
+" for easymotion.vim {{{2
+"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+"let g:EasyMotion_do_shade = 1
+"hi EasyMotionTarget ctermbg=none ctermfg=green
+"hi EasyMotionShade  ctermbg=none ctermfg=blue
+" }}}
+
+"---------------------------------------------------------------------------
+" for visualstar.vim {{{2
+map * <Plug>(visualstar-*)N
+map # <Plug>(visualstar-#)N
+" }}}
 
 "---------------------------------------------------------------------------
 " for columnjump.vim {{{2
 map <c-k> <Plug>(columnjump-backward)
 map <c-j> <Plug>(columnjump-forward)
+" }}}
+
+"---------------------------------------------------------------------------
+" for quickrun.vim {{{2
+let g:quickrun_config = {}
+let g:quickrun_config = { '*' : {'shebang' : '0' }}
+let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
+let g:quickrun_config._.runmode = 'async:vimproc'
+
+let g:quickrun_config.io = {
+\   'command': 'io',
+\ }
+
 " }}}
 
 " }}}
