@@ -22,17 +22,24 @@
 "---------------------------------------------------------------------------
 " basic settings {{{1
 
+if has('unix')
+  let $DOTVIM=expand('~/.vim')
+else
+  let $DOTVIM=expand('~/vimfiles')
+endif
+
 "---------------------------------------------------------------------------
 " Vundle {{{2
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+set rtp+=$DOTVIM/vundle.git/
+call vundle#rc('$DOTVIM/bundle')
 
 " original repos on github
 Bundle 'Shougo/neocomplcache'
 "Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc'
+"Bundle 'Shougo/vimfiler'
+"Bundle 'Shougo/vimproc'
 "Bundle 'Shougo/vimshell'
 Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'kana/vim-grex'
@@ -41,7 +48,7 @@ Bundle 'kana/vim-operator-replace'
 Bundle 'kana/vim-smartword'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-indent'
-"Bundle 'kana/vim-textobj-lastpat'
+Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
 "Bundle 'mattn/zencoding-vim'
 "Bundle 'motemen/git-vim'
@@ -54,6 +61,7 @@ Bundle 'thinca/vim-visualstar'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 "Bundle 'tyru/operator-camelize.vim'
+Bundle 'tyru/operator-star.vim'
 Bundle 'ujihisa/quickrun'
 Bundle 'deris/columnjump'
 
@@ -67,6 +75,7 @@ Bundle 'The-NERD-Commenter'
 Bundle 'YankRing.vim'
 "Bundle 'a.vim'
 Bundle 'current-func-info.vim'
+Bundle 'errormarker.vim'
 Bundle 'grep.vim'
 Bundle 'matchit.zip'
 Bundle 'project.tar.gz'
@@ -178,19 +187,17 @@ set virtualedit=block
 " バックアップを無効
 set nobackup
 " バックアップファイルの生成ディレクトリ
-"set backupdir=~/.vim/backup
+set backupdir=$DOTVIM/backup
 " バックアップのスキップ
-set backupskip=/tmp/*,/private/tmp/*
+if has('unix')
+  set backupskip=/tmp/*,/private/tmp/*
+endif
 " スワップを有効
 set swapfile
 " クリップボードにもコピー
 set clipboard+=unnamed
 " スワップファイルの生成ディレクトリ
-if has('unix')
-  set directory=$HOME/.vim/swap
-elseif has('win32')
-  set directory=$HOME/vimfiles/swap
-endif
+set directory=$DOTVIM/swap
 
 " set tags
 "set autochdir
@@ -211,6 +218,20 @@ if has('mac')
   let $PATH="/Users/kmura/perl5/perlbrew/bin:/Users/kmura/perl5/perlbrew/perls/perl-5.10.1/bin:".$PATH
 endif
 
+" カーソルラインと行ラインを表示
+augroup cursorsetting
+  autocmd!
+  autocmd BufWinEnter,WinEnter * setlocal cursorline
+  autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
+  autocmd BufWinLeave,WinLeave * setlocal nocursorline
+  autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
+augroup END
+
+" 自動的に現在編集中のファイルのカレントディレクトリに移動
+augroup grlcd
+  autocmd!
+  autocmd BufEnter * lcd %:p:h
+augroup END
 
 let plugin_cmdex_disable = 1
 
@@ -248,8 +269,8 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-nnoremap * *N
-nnoremap # #N
+"nnoremap * *N
+"nnoremap # #N
 
 " vimrc編集
 nnoremap [General].   :<C-u>edit $MYVIMRC<cr>
@@ -365,7 +386,7 @@ inoremap <C-K> <C-o>D<Esc>
 "inoremap <  <><Left>
 
 " ハイライトを消す
-nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<cr>
+noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<cr>
 
 " 仮想編集の変更
 nnoremap [General]va  :<C-u>setlocal virtualedit=all<cr>
@@ -413,13 +434,24 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
-  nnoremap <silent> <leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
+  "nnoremap <silent> <leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
+  nnoremap <silent> <leader>sd :<c-u>call TortoiseDiff()<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
   nnoremap <silent> <leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's revision graph
-  nnoremap <silent> <leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph epath:"%" /notempfile /closeonend<CR>
+  nnoremap <silent> <leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's blame program
   nnoremap <silent> <leader>sb :<c-u>call TortoiseBlame()<CR>
+
+  function! TortoiseDiff()
+    " Save the buffer
+    silent execute(':w')
+    " Now run Tortoise to get the blame dialog to display
+    let filename = expand("%")
+    let cmdline = escape('C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe', ' \') . ' /command:diff /path:"' . filename . ' /notempfile /closeonend'
+    call vimproc#system_gui(cmdline)
+  endfunction
+
   function! TortoiseBlame()
     " Save the buffer
     silent execute(':w')
@@ -502,37 +534,73 @@ nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR
 " filetype {{{2
 
 filetype plugin indent on
-autocmd FileType make setlocal noexpandtab
-autocmd FileType ruby set expandtab tabstop=2 shiftwidth=2
-autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
-autocmd FileType c    set expandtab tabstop=2 shiftwidth=2
-autocmd FileType html set expandtab tabstop=2 shiftwidth=2
-autocmd FileType xml  set expandtab tabstop=2 shiftwidth=2
-autocmd FileType javascript set expandtab tabstop=2 shiftwidth=2
 
-autocmd BufRead,BufNewFile *.io setfiletype io
-autocmd FileType io set expandtab tabstop=2 shiftwidth=2
+augroup vslang
+  autocmd!
+  autocmd FileType vim set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup makefile
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+augroup END
+augroup clang
+  autocmd!
+  autocmd FileType c set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup rubylang
+  autocmd!
+  autocmd FileType ruby set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup perllang
+  autocmd!
+  autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
+  " perlの関数に飛ぶ
+  autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<cr>
+  autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<cr>
+  autocmd FileType perl compiler perl
+  autocmd BufWritePost *.pl,*.pm silent make
+augroup END
+augroup htmlfile
+  autocmd!
+  autocmd FileType html set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup xmlfile
+  autocmd!
+  autocmd FileType xml  set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup jslang
+  autocmd!
+  autocmd FileType javascript set expandtab tabstop=2 shiftwidth=2
+augroup END
+augroup iolang
+  autocmd!
+  autocmd BufRead,BufNewFile *.io setfiletype io
+  autocmd FileType io set expandtab tabstop=2 shiftwidth=2
+augroup END
 
 "if has('mac')
 "  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
 "  let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
 "endif
 
-" カーソルラインと行ラインを表示
-autocmd BufWinEnter,WinEnter * setlocal cursorline
-autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
-autocmd BufWinLeave,WinLeave * setlocal nocursorline
-autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
 
-" 自動的に現在編集中のファイルのカレントディレクトリに移動
-augroup grlcd
+" Objective-C
+if has('mac')
+  " for tablist.vim Objective-C
+  let tlist_objc_settings='objc;P:protocols;i:interfaces;I:implementations;M:instance methods;C:implementation methods;Z:protocol methods'
+  " for a.vim Objective-C
+  let g:alternateExtensions_h = "m,mm,c,cpp"
+  let g:alternateExtensions_m = "h"
+  let g:alternateExtensions_mm = "h,hpp"
+  " for Objective-C gfでジャンプできるように
+  augroup objclang
     autocmd!
-    autocmd BufEnter * lcd %:p:h
-augroup END
-
-" perlの関数に飛ぶ
-autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<cr>
-autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<cr>
+    autocmd FileType objc setlocal path=.;,/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks,/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks,,
+    autocmd FileType objc setlocal include=^\s*#\s*import
+    autocmd FileType objc setlocal includeexpr=substitute(v:fname,'\/','\.framework/Headers/','g')
+    autocmd FileType objc setlocal makeprg=xcodebuild\ -activetarget\ -activeconfiguration
+  augroup END
+endif
 
 " }}}
 
@@ -612,11 +680,15 @@ let g:neocomplcache_enable_auto_select = 1
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup complsetting
+  autocmd!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
+
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -701,27 +773,10 @@ nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
 " }}}
 
 "---------------------------------------------------------------------------
-" for Objective-C {{{2
-if has('mac')
-  " for tablist.vim Objective-C
-  let tlist_objc_settings='objc;P:protocols;i:interfaces;I:implementations;M:instance methods;C:implementation methods;Z:protocol methods'
-  " for a.vim Objective-C
-  let g:alternateExtensions_h = "m,mm,c,cpp"
-  let g:alternateExtensions_m = "h"
-  let g:alternateExtensions_mm = "h,hpp"
-  " for Objective-C gfでジャンプできるように
-  autocmd FileType objc setlocal path=.;,/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks,/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks,,
-  autocmd FileType objc setlocal include=^\s*#\s*import
-  autocmd FileType objc setlocal includeexpr=substitute(v:fname,'\/','\.framework/Headers/','g')
-  autocmd FileType objc setlocal makeprg=xcodebuild\ -activetarget\ -activeconfiguration
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for taglist.vim {{{2
 if has('mac')
   let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス
-else
+elseif has('win32')
   let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
 endif
 let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
@@ -797,10 +852,12 @@ let g:surround_{char2nr("d")}  = '"\r"'
 let g:surround_{char2nr("q")}  = "'\r'"
 
 " perl の演算子囲み
-" 'Q'を囲みとして扱う
-autocmd FileType perl let g:surround_{char2nr("Q")} = "q(\r)"
-" 'D'を囲みとして扱う
-autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
+augroup perllang
+    " 'Q'を囲みとして扱う
+    autocmd FileType perl let g:surround_{char2nr("Q")} = "q(\r)"
+    " 'D'を囲みとして扱う
+    autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
+augroup END
 
 " }}}
 
@@ -820,7 +877,9 @@ let Grep_Skip_Files = '*.bak *~'
 nnoremap [General]eg :<c-u>Egrep<cr>
 nnoremap [General]eb :<c-u>Bgrep<cr>
 
-autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
+augroup perllang
+  autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
+augroup END
 " }}}
 
 "---------------------------------------------------------------------------
@@ -835,6 +894,14 @@ autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
 " for visualstar.vim {{{2
 map * <Plug>(visualstar-*)N
 map # <Plug>(visualstar-#)N
+" }}}
+
+"---------------------------------------------------------------------------
+" operator-star {{{2
+nmap <leader>*  <Plug>(operator-*) 
+nmap <leader>g* <Plug>(operator-g*) 
+nmap <leader>#  <Plug>(operator-#) 
+nmap <leader>g# <Plug>(operator-g#) 
 " }}}
 
 "---------------------------------------------------------------------------
@@ -853,8 +920,8 @@ let g:quickrun_config._.runmode = 'async:vimproc'
 let g:quickrun_config.io = {
 \   'command': 'io',
 \ }
-
 " }}}
+
 
 " }}}
 
