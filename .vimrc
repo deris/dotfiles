@@ -39,7 +39,7 @@ call vundle#rc('$DOTVIM/bundle')
 Bundle 'Shougo/neocomplcache'
 "Bundle 'Shougo/unite.vim'
 "Bundle 'Shougo/vimfiler'
-"Bundle 'Shougo/vimproc'
+Bundle 'Shougo/vimproc'
 "Bundle 'Shougo/vimshell'
 Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'kana/vim-grex'
@@ -51,10 +51,11 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
 "Bundle 'mattn/zencoding-vim'
-"Bundle 'motemen/git-vim'
+Bundle 'motemen/git-vim'
 "Bundle 'msanders/cocoa.vim'
 Bundle 'msanders/snipmate.vim'
 "Bundle 'rphillips/vim-zoomwin'
+Bundle 'taku-o/vim-toggle'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-visualstar'
 "Bundle 'tpope/vim-rails'
@@ -195,7 +196,7 @@ endif
 " スワップを有効
 set swapfile
 " クリップボードにもコピー
-set clipboard+=unnamed
+"set clipboard+=unnamed
 " スワップファイルの生成ディレクトリ
 set directory=$DOTVIM/swap
 
@@ -249,39 +250,46 @@ noremap [General] <Nop>
 nmap <Space> [General]
 
 " Escのショートカット
-map  <Esc> <Nop>
-map! <Esc> <Nop>
-"noremap  <C-M> <CR>
 noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
 noremap! <C-c> <C-[>
 
+noremap  <C-j> <Esc>
+noremap! <C-j> <Esc>
+"noremap  [General]j <Esc>
+"noremap! [General]j <Esc>
+
+inoremap jj <Esc>
+inoremap jk <Esc>
+
 " jump
 nnoremap [General]j <C-f>
 nnoremap [General]k <C-b>
-"nnoremap <C-j> 5j
-"nnoremap <C-k> 5k
-"vnoremap <C-j> 5j
-"vnoremap <C-k> 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-"nnoremap * *N
-"nnoremap # #N
+nnoremap * *N
+nnoremap # #N
+
+" Jump to matching pairs easily, with Tab
+noremap <Tab> %
 
 " vimrc編集
-nnoremap [General].   :<C-u>edit $MYVIMRC<cr>
-nnoremap [General]s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<cr>
+nnoremap [General].   :<C-u>edit $MYVIMRC<CR>
+nnoremap [General]s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
 " helpショートカット
 nnoremap <C-h>      :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><cr>
+nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 " 最後に変更されたテキストを選択する
 nnoremap gc         `[v`]
-vnoremap gc         :<C-u>normal gc<cr>
-onoremap gc         :<C-u>normal gc<cr>
+vnoremap gc         :<C-u>normal gc<CR>
+onoremap gc         :<C-u>normal gc<CR>
+
+" Use more logical mapping (see :h Y)
+nnoremap Y y$
 " クリップボードからペースト
 nnoremap [General]p "*p
 vnoremap [General]p "*p
@@ -296,6 +304,11 @@ nnoremap [General]d "*d
 nnoremap [General]D "*d$
 vnoremap [General]d "*d
 
+" registerを汚さずに削除
+nnoremap <Leader>d "_d
+nnoremap <Leader>D "_d$
+vnoremap <Leader>d "_d
+
 ";と:を入れ替え
 nnoremap ; :
 nnoremap : ;
@@ -303,8 +316,8 @@ vnoremap ; :
 vnoremap : ;
 
 " モーション時にwをiwとする（よく使うので）
-omap w iw
-omap W iW
+onoremap w iw
+onoremap W iW
 
 onoremap ) t)
 onoremap ( t(
@@ -342,16 +355,13 @@ vnoremap iq  i'
 onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
 
 " exコマンド
-nnoremap [General]w :<C-u>w<cr>
-nnoremap [General]q :<C-u>q<cr>
-"nnoremap [General]m :<C-u>marks<cr>
-"nnoremap [General]g :<C-u>registers<cr>
+nnoremap [General]w :<C-u>w<CR>
+nnoremap [General]q :<C-u>q<CR>
+"nnoremap [General]m :<C-u>marks<CR>
+"nnoremap [General]g :<C-u>registers<CR>
 
 " 仮想置換モード
 nnoremap R gR
-
-" Use more logical mapping (see :h Y)
-nnoremap Y y$
 
 " command mode
 cnoremap <C-B> <Left>
@@ -362,6 +372,10 @@ cnoremap <C-E> <END>
 cnoremap <C-H> <BS>
 " カーソル位置にかかわらず全部消す
 cnoremap <C-u> <C-e><C-u>
+
+" 置換の自動入力
+cnoremap ss s///g<Left><Left><Left>
+cnoremap %s %s///g<Left><Left><Left>
 
 " insert mode
 inoremap <C-B> <Left>
@@ -386,37 +400,50 @@ inoremap <C-K> <C-o>D<Esc>
 "inoremap <  <><Left>
 
 " ハイライトを消す
-noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<cr>
+noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
 
 " 仮想編集の変更
-nnoremap [General]va  :<C-u>setlocal virtualedit=all<cr>
-nnoremap [General]vb  :<C-u>setlocal virtualedit=block<cr>
+nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
+nnoremap [General]vb  :<C-u>setlocal virtualedit=block<CR>
 nnoremap [General]vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
 
 " ベリーマッチ（正規表現をエスケープしなくてよくなる）
 nnoremap /   /\v
 
 " Tabでウィンドウ移動
-nnoremap <silent> <Tab> <C-w>w
-nnoremap <silent> [General]<Tab> <C-w>W
+"nnoremap <silent> <Tab>   <C-w>w
+"nnoremap <silent> <S-Tab> <C-w>W
 
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
 
+" sはoperator-replaceに割り当てる
 nnoremap <C-s>  s
-nnoremap s      <C-s>
+"nnoremap s      <C-s>
 
 " tab page
 nnoremap [TabPage]   <Nop>
 nmap     <C-t>    [TabPage]
-nnoremap <silent> [TabPage]n  :<C-u>tabnew<cr>
-nnoremap <silent> [TabPage]c  :<C-u>tabclose<cr>
-nnoremap <silent> [TabPage]o  :<C-u>tabonly<cr>
-nnoremap <silent> [TabPage]m  :<C-u>tabmove<cr>
-nnoremap <silent> [TabPage]l  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap <silent> [TabPage]h  gT
+nnoremap <silent> [TabPage]<C-t> :<C-u>tabnew<CR>
+nnoremap <silent> [TabPage]n     :<C-u>tabnew<CR>
+nnoremap <silent> [TabPage]<C-n> :<C-u>tabnew<CR>
+nnoremap <silent> [TabPage]c     :<C-u>tabclose<CR>
+nnoremap <silent> [TabPage]<C-c> :<C-u>tabclose<CR>
+nnoremap <silent> [TabPage]w     :<C-u>tabclose<CR>
+nnoremap <silent> [TabPage]<C-w> :<C-u>tabclose<CR>
+nnoremap <silent> [TabPage]o     :<C-u>tabonly<CR>
+nnoremap <silent> [TabPage]<C-o> :<C-u>tabonly<CR>
+nnoremap <silent> [TabPage]m     :<C-u>tabmove<CR>
+nnoremap <silent> [TabPage]<C-m> :<C-u>tabmove<CR>
+nnoremap <silent> [TabPage]l     gt
+nnoremap <silent> [TabPage]<C-l> gt
+nnoremap <silent> [TabPage]h     gT
+nnoremap <silent> [TabPage]<C-h> gT
 
-nnoremap <silent> gr :<C-u>tabprevious<cr>
+nnoremap <silent> <S-H> gT
+nnoremap <silent> <S-L> gt
+
+nnoremap <silent> gr :<C-u>tabprevious<CR>
 
 " tag jump
 nnoremap [TagJump]    <Nop>
@@ -426,11 +453,26 @@ nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
 nnoremap [TagJump]k   :<C-u>pop<CR>  " 「戻る」
 nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 
-"noremap <leader>sp :<C-u>vsplit <cr>
+"noremap <leader>sp :<C-u>vsplit <CR>
 
 "nnoremap <sid>(command-line-enter) q:
 "xnoremap <sid>(command-line-enter) q:
 "nnoremap <sid>(command-line-norange) q:<C-u>
+
+" Creating underline/overline headings for markup languages
+" Inspired by http://sphinx.pocoo.org/rest.html#sections
+nnoremap <leader>1 yyPVr=jyypVr=
+nnoremap <leader>2 yyPVr*jyypVr*
+nnoremap <leader>3 yypVr=
+nnoremap <leader>4 yypVr-
+nnoremap <leader>5 yypVr^
+nnoremap <leader>6 yypVr"
+
+" コメント入力
+" TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
+" TODO:現在ラインと同じ文字数ではなく特定の文字数(80文字とか)のコメントを入力
+nnoremap [General]* yyPVr*^r/$r/jyypVr*^r/$r/
+nnoremap [General]# yyPVr#jyypVr#
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
@@ -444,21 +486,20 @@ if has('win32')
   nnoremap <silent> <leader>sb :<c-u>call TortoiseBlame()<CR>
 
   function! TortoiseDiff()
-    " Save the buffer
     silent execute(':w')
-    " Now run Tortoise to get the blame dialog to display
-    let filename = expand("%")
-    let cmdline = escape('C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe', ' \') . ' /command:diff /path:"' . filename . ' /notempfile /closeonend'
-    call vimproc#system_gui(cmdline)
+    let filename = shellescape(expand("%:p"))
+    let cmdname = escape(shellescape('D:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe'), ' \')
+    let cmdline = '! start "" ' . cmdname . ' /command:diff /path:' . filename . ' /notempfile /closeonend'
+    silent execute(cmdline)
   endfunction
 
   function! TortoiseBlame()
-    " Save the buffer
     silent execute(':w')
-    " Now run Tortoise to get the blame dialog to display
-    let filename = expand("%")
+    let filename = shellescape(expand("%:p"))
     let linenum = line(".")
-    silent execute('!C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:blame /path:"' . filename . '" /line:' . linenum . ' /notempfile /closeonend')
+    let cmdname = escape(shellescape('D:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe'), ' \')
+    let cmdline = '! start "" ' . cmdname . ' /command:blame /path:' . filename . ' /line:' . linenum . '/notempfile /closeonend'
+    silent execute(cmdline)
   endfunction
 endif
 
@@ -497,15 +538,16 @@ function! s:move_window_into_tab_page(target_tabpagenr)
 endfunction " }}}
 
 " <space>ao move current buffer into a new tab.
-nnoremap <silent> [General]ao :<C-u>call <SID>move_window_into_tab_page(0)<Cr>
+nnoremap <silent> [General]ao :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
-nnoremap [General]cm :<c-u>colorscheme molokai<cr>
-nnoremap [General]cw :<c-u>colorscheme wombat<cr>
+nnoremap [General]cm :<c-u>colorscheme molokai<CR>
+nnoremap [General]cw :<c-u>colorscheme wombat<CR>
 
 nnoremap t2 :<C-U>setlocal expandtab<CR>:setlocal shiftwidth=2<CR>tabstop=2<CR>
 nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR>
 
 
+if has('win32')
   function! HidemaruGrep()
     " current word
     "let l:word = expand("<cword>")
@@ -514,20 +556,21 @@ nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR
     " grep hidemaru
     "silent execute('!C:\Progra~1\Hidemaru\hidemaru.exe /gcwrUo,"' . filename . '\\*" /line:' . linenum . ' /notempfile /closeonend')
   endfunction
+endif
 
 
 " }}}
 
 "---------------------------------------------------------------------------
 " Command {{{2
-"command! Utf8 e ++enc=utf-8
-"command! Euc e ++enc=euc-jp
-"command! Sjis e ++enc=cp932
-"command! Jis e ++enc=iso-2022-jp
-"command! WUtf8 w ++enc=utf-8 | e
-"command! WEuc w ++enc=euc-jp | e
-"command! WSjis w ++enc=cp932 | e
-"command! WJis w ++enc=iso-2022-jp | e
+command! Utf8 e ++enc=utf-8
+command! Euc e ++enc=euc-jp
+command! Sjis e ++enc=cp932
+command! Jis e ++enc=iso-2022-jp
+command! WUtf8 w ++enc=utf-8 | e
+command! WEuc w ++enc=euc-jp | e
+command! WSjis w ++enc=cp932 | e
+command! WJis w ++enc=iso-2022-jp | e
 " }}}
 
 "---------------------------------------------------------------------------
@@ -535,7 +578,7 @@ nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR
 
 filetype plugin indent on
 
-augroup vslang
+augroup vimlang
   autocmd!
   autocmd FileType vim set expandtab tabstop=2 shiftwidth=2
 augroup END
@@ -555,8 +598,8 @@ augroup perllang
   autocmd!
   autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
   " perlの関数に飛ぶ
-  autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<cr>
-  autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<cr>
+  autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
+  autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
   autocmd FileType perl compiler perl
   autocmd BufWritePost *.pl,*.pm silent make
 augroup END
@@ -700,36 +743,36 @@ endif
 
 "---------------------------------------------------------------------------
 " for unite {{{2
-nnoremap [unite]   <Nop>
-nmap     <Space>u  [unite]
-
-nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
-  imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
-  " <C-l>: manual neocomplcache completion.
-  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
-
-  " Start insert.
-  "let g:unite_enable_start_insert = 1
-endfunction"}}}
-
-let g:unite_source_file_mru_limit = 200
-let g:unite_cursor_line_highlight = 'TabLineSel'
-let g:unite_abbr_highlight = 'TabLine'
-
-" For optimize.
-let g:unite_source_file_mru_filename_format = ''
+"nnoremap [unite]   <Nop>
+"nmap     <Space>u  [unite]
+"
+"nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+"nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+"nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+"nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+"nnoremap  [unite]f  :<C-u>Unite source<CR>
+"
+"autocmd FileType unite call s:unite_my_settings()
+"function! s:unite_my_settings()"{{{
+"  " Overwrite settings.
+"
+"  nmap <buffer> <ESC>      <Plug>(unite_exit)
+"  imap <buffer> jj      <Plug>(unite_insert_leave)
+"  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+"
+"  " <C-l>: manual neocomplcache completion.
+"  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+"
+"  " Start insert.
+"  "let g:unite_enable_start_insert = 1
+"endfunction"}}}
+"
+"let g:unite_source_file_mru_limit = 200
+"let g:unite_cursor_line_highlight = 'TabLineSel'
+"let g:unite_abbr_highlight = 'TabLine'
+"
+"" For optimize.
+"let g:unite_source_file_mru_filename_format = ''
 " }}}
 
 "---------------------------------------------------------------------------
@@ -762,7 +805,7 @@ let g:fuf_enumeratingLimit = 20
 let g:fuf_file_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
 
 nnoremap [fuf]       <Nop>
-nmap     [General]f  [fuf]
+nmap     <Space>f  [fuf]
 
 nnoremap [fuf]b  :<C-u>FufBuffer<CR>
 nnoremap [fuf]f  :<C-u>FufFile<CR>
@@ -775,22 +818,22 @@ nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
 "---------------------------------------------------------------------------
 " for taglist.vim {{{2
 if has('mac')
-  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"    "ctagsのパス
+  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
 elseif has('win32')
   let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
 endif
-let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
+"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
 let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
 "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
-nnoremap <silent> [General]l :<C-u>TlistToggle<cr>
+nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
 " for smartchr.vim {{{2
-inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
-inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
-inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
-inoremap <expr> !  smartchr#loop('!', ' != ')
+"inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
+"inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
+"inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
+"inoremap <expr> !  smartchr#loop('!', ' != ')
 "inoremap <expr> .  smartchr#loop('.', ' . ')
 "inoremap <expr> {  smartchr#loop('{}', '{')
 "inoremap <expr> [  smartchr#loop('[]', '[')
@@ -819,16 +862,20 @@ let VCSCommandMapPrefix = '[General]s'
 " for git-vim.vim {{{2
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
-nnoremap [General]gd :<C-u>GitDiff --cached<Enter>
-nnoremap [General]gD :<C-u>GitDiff<Enter>
-nnoremap [General]gs :<C-u>GitStatus<Enter>
-nnoremap [General]gl :<C-u>GitLog<Enter>
-nnoremap [General]gL :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap [General]ga :<C-u>GitAdd<Enter>
-nnoremap [General]gA :<C-u>GitAdd <cfile><Enter>
-nnoremap [General]gc :<C-u>GitCommit<Enter>
-nnoremap [General]gC :<C-u>GitCommit --amend<Enter>
-nnoremap [General]gp :<C-u>Git push
+
+nnoremap [Git]       <Nop>
+nmap     <Space>g  [Git]
+
+nnoremap [Git]d :<C-u>GitDiff --cached<Enter>
+nnoremap [Git]D :<C-u>GitDiff<Enter>
+nnoremap [Git]s :<C-u>GitStatus<Enter>
+nnoremap [Git]l :<C-u>GitLog<Enter>
+nnoremap [Git]L :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap [Git]a :<C-u>GitAdd<Enter>
+nnoremap [Git]A :<C-u>GitAdd <cfile><Enter>
+nnoremap [Git]c :<C-u>GitCommit<Enter>
+nnoremap [Git]C :<C-u>GitCommit --amend<Enter>
+nnoremap [Git]p :<C-u>Git push
 " }}}
 
 "---------------------------------------------------------------------------
@@ -874,11 +921,11 @@ endif
 let Grep_Skip_Dirs = '.svn .git'
 let Grep_Skip_Files = '*.bak *~'
 
-nnoremap [General]eg :<c-u>Egrep<cr>
-nnoremap [General]eb :<c-u>Bgrep<cr>
+nnoremap [General]eg :<c-u>Egrep<CR>
+nnoremap [General]eb :<c-u>Bgrep<CR>
 
 augroup perllang
-  autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<cr>gv:Align =><cr>
+  autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<CR>gv:Align =><CR>
 augroup END
 " }}}
 
@@ -898,10 +945,10 @@ map # <Plug>(visualstar-#)N
 
 "---------------------------------------------------------------------------
 " operator-star {{{2
-nmap <leader>*  <Plug>(operator-*) 
-nmap <leader>g* <Plug>(operator-g*) 
-nmap <leader>#  <Plug>(operator-#) 
-nmap <leader>g# <Plug>(operator-g#) 
+nmap <leader>*  <Plug>(operator-*)
+nmap <leader>g* <Plug>(operator-g*)
+nmap <leader>#  <Plug>(operator-#)
+nmap <leader>g# <Plug>(operator-g#)
 " }}}
 
 "---------------------------------------------------------------------------
