@@ -32,16 +32,22 @@ endif
 " Vundle {{{2
 set nocompatible
 filetype off
-set rtp+=$DOTVIM/vundle.git/
+set rtp+=$DOTVIM/bundle/vundle/
 call vundle#rc('$DOTVIM/bundle')
+Bundle 'qmarik/vundle'
+
 
 " original repos on github
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Shougo/neocomplcache'
 "Bundle 'Shougo/unite.vim'
 "Bundle 'Shougo/vimfiler'
 Bundle 'Shougo/vimproc'
 "Bundle 'Shougo/vimshell'
-Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'Townk/vim-autoclose'
+"Bundle 'h1mesuke/vim-alignta'
+"Bundle 'fholgado/minibufexpl.vim'
+"Bundle 'kana/arpeggio'
 "Bundle 'kana/vim-grex'
 Bundle 'kana/vim-operator-user'
 Bundle 'kana/vim-operator-replace'
@@ -50,11 +56,16 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
+"Bundle 'kien/ctrlp.vim'
 "Bundle 'mattn/zencoding-vim'
 Bundle 'motemen/git-vim'
 "Bundle 'msanders/cocoa.vim'
 Bundle 'msanders/snipmate.vim'
-"Bundle 'rphillips/vim-zoomwin'
+Bundle 'rphillips/vim-zoomwin'
+Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 't9md/vim-quickhl'
 Bundle 'taku-o/vim-toggle'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-visualstar'
@@ -64,25 +75,30 @@ Bundle 'tpope/vim-surround'
 "Bundle 'tyru/operator-camelize.vim'
 Bundle 'tyru/operator-star.vim'
 Bundle 'ujihisa/quickrun'
+Bundle 'xolox/vim-easytags'
 Bundle 'deris/columnjump'
 
 " vim-scripts repos
 Bundle 'Align'
 "Bundle 'CD.vim'
+"Bundle 'Conque-Shell'
 Bundle 'FuzzyFinder'
 Bundle 'L9'
-Bundle 'The-NERD-Commenter'
-"Bundle 'The-NERD-tree'
+"Bundle 'Mark'
+"Bundle 'QuickBuf'
 Bundle 'YankRing.vim'
 "Bundle 'a.vim'
+"Bundle 'bufexplorer.zip'
 Bundle 'current-func-info.vim'
 Bundle 'errormarker.vim'
 Bundle 'grep.vim'
 Bundle 'matchit.zip'
 Bundle 'project.tar.gz'
+"Bundle 'rails.vim'
 "Bundle 'renamer.vim'
 Bundle 'smartchr'
 Bundle 'taglist.vim'
+"Bundle 'textmanip.vim'
 Bundle 'textobj-function'
 "Bundle 'vcscommand.vim'
 "Bundle 'vimwiki'
@@ -255,17 +271,15 @@ noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
 noremap! <C-c> <C-[>
 
-noremap  <C-j> <Esc>
-noremap! <C-j> <Esc>
-"noremap  [General]j <Esc>
-"noremap! [General]j <Esc>
+"noremap  <C-j> <Esc>
+"noremap! <C-j> <Esc>
 
 inoremap jj <Esc>
 inoremap jk <Esc>
 
 " jump
-nnoremap [General]j <C-f>
-nnoremap [General]k <C-b>
+nnoremap [General]j 5j
+nnoremap [General]k 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -287,6 +301,10 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<CR>
 onoremap gc         :<C-u>normal gc<CR>
+
+" Delete the content of the current line (not the line itself).
+nnoremap dl ^d$
+nnoremap cl ^c$
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
@@ -326,9 +344,9 @@ vnoremap ( t(
 
 onoremap ; t;
 
-" 英語配列だと使いやすいらしい
-"noremap '  `
-"noremap `  '
+" ' と `を入れ替え
+nnoremap '  `
+nnoremap `  '
 
 " text-objectを割り当て
 onoremap aa  a>
@@ -401,6 +419,7 @@ inoremap <C-K> <C-o>D<Esc>
 
 " ハイライトを消す
 noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
+nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
 
 " 仮想編集の変更
 nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
@@ -435,10 +454,10 @@ nnoremap <silent> [TabPage]o     :<C-u>tabonly<CR>
 nnoremap <silent> [TabPage]<C-o> :<C-u>tabonly<CR>
 nnoremap <silent> [TabPage]m     :<C-u>tabmove<CR>
 nnoremap <silent> [TabPage]<C-m> :<C-u>tabmove<CR>
-nnoremap <silent> [TabPage]l     gt
-nnoremap <silent> [TabPage]<C-l> gt
-nnoremap <silent> [TabPage]h     gT
-nnoremap <silent> [TabPage]<C-h> gT
+nnoremap <silent> [TabPage]l     :<C-u>tablast<CR>
+nnoremap <silent> [TabPage]<C-l> :<C-u>tablast<CR>
+nnoremap <silent> [TabPage]h     :<C-u>tabfirst<CR>
+nnoremap <silent> [TabPage]<C-h> :<C-u>tabfirst<CR>
 
 nnoremap <silent> <S-H> gT
 nnoremap <silent> <S-L> gt
@@ -452,6 +471,11 @@ nnoremap [TagJump]t   <C-]>          " 「飛ぶ」
 nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
 nnoremap [TagJump]k   :<C-u>pop<CR>  " 「戻る」
 nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
+"--------------------
+" Function: Open tag under cursor in new tab
+" Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
+"--------------------
+nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "noremap <leader>sp :<C-u>vsplit <CR>
 
@@ -477,15 +501,15 @@ nnoremap [General]# yyPVr#jyypVr#
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
   "nnoremap <silent> <leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
-  nnoremap <silent> <leader>sd :<c-u>call TortoiseDiff()<CR>
+  nnoremap <silent> <leader>sd :<c-u>call <SID>TortoiseDiff()<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
   nnoremap <silent> <leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's revision graph
   nnoremap <silent> <leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's blame program
-  nnoremap <silent> <leader>sb :<c-u>call TortoiseBlame()<CR>
+  nnoremap <silent> <leader>sb :<c-u>call <SID>TortoiseBlame()<CR>
 
-  function! TortoiseDiff()
+  function! s:TortoiseDiff()
     silent execute(':w')
     let filename = shellescape(expand("%:p"))
     let cmdname = escape(shellescape('D:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe'), ' \')
@@ -493,7 +517,7 @@ if has('win32')
     silent execute(cmdline)
   endfunction
 
-  function! TortoiseBlame()
+  function! s:TortoiseBlame()
     silent execute(':w')
     let filename = shellescape(expand("%:p"))
     let linenum = line(".")
@@ -538,7 +562,8 @@ function! s:move_window_into_tab_page(target_tabpagenr)
 endfunction " }}}
 
 " <space>ao move current buffer into a new tab.
-nnoremap <silent> [General]ao :<C-u>call <SID>move_window_into_tab_page(0)<CR>
+nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
+nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
 nnoremap [General]cm :<c-u>colorscheme molokai<CR>
 nnoremap [General]cw :<c-u>colorscheme wombat<CR>
@@ -548,7 +573,7 @@ nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR
 
 
 if has('win32')
-  function! HidemaruGrep()
+  function! s:HidemaruGrep()
     " current word
     "let l:word = expand("<cword>")
     " current directory
@@ -655,16 +680,15 @@ endif
 runtime macros/editesisting.vim
 
 "---------------------------------------------------------------------------
-" for perl-support.vim {{{2
-"let g:Perl_GlobalTemplateFile = root_dir.'perl-support/templates/Templates'
-"let g:Perl_LocalTemplateFile = $HOME.'/.vim/bundle/perl-support.vim/perl-support/templates/Templates'
-"let g:Perl_CodeSnippets = root_dir.'perl-support/codesnippets/'
-"let g:Perl_PerlModuleList = root_dir.'perl-support/modules/perl-modules.list'
-"let g:Perl_PerlModuleListGenerator = root_dir.'perl-support/scripts/pmdesc3.pl'
+" for Lokaltog/vim-easymotion {{{2
+"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+"let g:EasyMotion_do_shade = 1
+"hi EasyMotionTarget ctermbg=none ctermfg=green
+"hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
 "---------------------------------------------------------------------------
-" for neocomplcache {{{2
+" for Shougo/neocomplcache {{{2
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
@@ -742,7 +766,7 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for unite {{{2
+" for Shougo/unite.vim {{{2
 "nnoremap [unite]   <Nop>
 "nmap     <Space>u  [unite]
 "
@@ -776,90 +800,26 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for operator-replace {{{2
+" for kana/vim-operator-replace {{{2
 map s <Plug>(operator-replace)
 " }}}
 
 "---------------------------------------------------------------------------
-" for smartword {{{2
+" for kana/vim-smartword {{{2
 nmap w  <Plug>(smartword-w)
 vmap w  <Plug>(smartword-w)
-map b  <Plug>(smartword-b)
-map e  <Plug>(smartword-e)
-map ge  <Plug>(smartword-ge)
+map  b  <Plug>(smartword-b)
+map  e  <Plug>(smartword-e)
+map  ge <Plug>(smartword-ge)
 " }}}
 
 "---------------------------------------------------------------------------
-" for yankring {{{2
-"let g:yankring_replace_n_pkey = '<C-k>'
-"let g:yankring_replace_n_nkey = '<C-j>'
+" for mattn/zencoding-vim {{{2
+let g:user_zen_expandabbr_key = '<c-y>'
 " }}}
 
 "---------------------------------------------------------------------------
-" for fuzzyfinder {{{2
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
-let g:fuf_mrufile_maxItem = 500
-let g:fuf_mrucmd_maxItem = 500
-let g:fuf_enumeratingLimit = 20
-let g:fuf_file_exclude = '\v\.DS_Store|\.git|\.swp|\.svn'
-
-nnoremap [fuf]       <Nop>
-nmap     <Space>f  [fuf]
-
-nnoremap [fuf]b  :<C-u>FufBuffer<CR>
-nnoremap [fuf]f  :<C-u>FufFile<CR>
-nnoremap [fuf]d  :<C-u>FufDir<CR>
-nnoremap [fuf]t  :<C-u>FufTag<CR>
-nnoremap [fuf]m  :<C-u>FufMruFile<CR>
-nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
-" }}}
-
-"---------------------------------------------------------------------------
-" for taglist.vim {{{2
-if has('mac')
-  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
-elseif has('win32')
-  let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
-endif
-"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
-let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
-"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
-nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
-" }}}
-
-"---------------------------------------------------------------------------
-" for smartchr.vim {{{2
-"inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
-"inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
-"inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
-"inoremap <expr> !  smartchr#loop('!', ' != ')
-"inoremap <expr> .  smartchr#loop('.', ' . ')
-"inoremap <expr> {  smartchr#loop('{}', '{')
-"inoremap <expr> [  smartchr#loop('[]', '[')
-"inoremap <expr> (  smartchr#loop('()', '(')
-"inoremap <expr> "  smartchr#loop('""', '"')
-"inoremap <expr> '  smartchr#loop("''", "'")
-"inoremap <expr> `  smartchr#loop('``', '`')
-
-" This is enabled while user inputs Ex commands, not search
-" patterns, etc.
-"cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
-" }}}
-
-"---------------------------------------------------------------------------
-" for vim-textobj-function {{{2
-"noremap iF <Plug>(textobj-function-i)
-"noremap aF <Plug>(textobj-function-a)
-" }}}
-
-"---------------------------------------------------------------------------
-" for vcscommand.vim {{{2
-let VCSCommandMapPrefix = '[General]s'
-" }}}
-
-"---------------------------------------------------------------------------
-" for git-vim.vim {{{2
+" for motemen/git-vim {{{2
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
 
@@ -879,12 +839,31 @@ nnoremap [Git]p :<C-u>Git push
 " }}}
 
 "---------------------------------------------------------------------------
-" for zencoding.vim {{{2
-let g:user_zen_expandabbr_key = '<c-y>'
+" for t9md/vim-quickhl {{{2
+nmap <Space>m <Plug>(quickhl-toggle)
+xmap <Space>m <Plug>(quickhl-toggle)
+nmap <Space>M <Plug>(quickhl-reset)
+xmap <Space>M <Plug>(quickhl-reset)
+nmap <Space>h <Plug>(quickhl-match)
+"let g:quickhl_keywords = [
+"    \ "keyword",
+"    \ ]
 " }}}
 
 "---------------------------------------------------------------------------
-" for surround.vim {{{2
+" for thinca/vim-ref {{{2
+nnoremap <silent> [General]a :<C-u>call ref#jump('normal', 'alc')<CR>
+vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
+" }}}
+
+"---------------------------------------------------------------------------
+" for thinca/vim-visualstar {{{2
+map * <Plug>(visualstar-*)N
+map # <Plug>(visualstar-#)N
+" }}}
+
+"---------------------------------------------------------------------------
+" for tpope/vim-surround {{{2
 " 'a'を>として扱う
 "let g:surround_97  = "<\r>"
 let g:surround_{char2nr("a")}  = "<\r>"
@@ -909,6 +888,63 @@ augroup END
 " }}}
 
 "---------------------------------------------------------------------------
+" for tyru/operator-star.vim {{{2
+nmap <leader>*  <Plug>(operator-*)
+nmap <leader>g* <Plug>(operator-g*)
+nmap <leader>#  <Plug>(operator-#)
+nmap <leader>g# <Plug>(operator-g#)
+" }}}
+
+"---------------------------------------------------------------------------
+" for ujihisa/quickrun {{{2
+let g:quickrun_config = {}
+let g:quickrun_config = { '*' : {'shebang' : '0' }}
+let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
+let g:quickrun_config._.runmode = 'async:vimproc'
+
+let g:quickrun_config.io = {
+\   'command': 'io',
+\ }
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/columnjump {{{2
+map <c-k> <Plug>(columnjump-backward)
+map <c-j> <Plug>(columnjump-forward)
+" }}}
+
+"---------------------------------------------------------------------------
+" for FuzzyFinder {{{2
+let g:fuf_modesDisable     = []
+let g:fuf_mrufile_exclude  = '\v\.DS_Store|\.git|\.swp|\.svn'
+let g:fuf_mrufile_maxItem  = 500
+let g:fuf_mrucmd_maxItem   = 500
+let g:fuf_enumeratingLimit = 20
+let g:fuf_file_exclude     = '\v\.DS_Store|\.git|\.swp|\.svn'
+
+nnoremap [fuf]    <Nop>
+nmap     <Space>f [fuf]
+
+nnoremap [fuf]b  :<C-u>FufBuffer<CR>
+nnoremap [fuf]f  :<C-u>FufFile<CR>
+nnoremap [fuf]d  :<C-u>FufDir<CR>
+nnoremap [fuf]t  :<C-u>FufTag<CR>
+nnoremap [fuf]m  :<C-u>FufMruFile<CR>
+nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
+" }}}
+
+"---------------------------------------------------------------------------
+" for YankRing.vim {{{2
+"let g:yankring_replace_n_pkey = '<C-k>'
+"let g:yankring_replace_n_nkey = '<C-j>'
+" }}}
+
+"---------------------------------------------------------------------------
+" for errormarker.vim {{{2
+let errormarker_disablemappings = 1
+" }}}
+
+"---------------------------------------------------------------------------
 " for grep.vim {{{2
 if has('win32')
   let Grep_Path             = 'C:\usr\local\bin\grep.exe'
@@ -930,43 +966,46 @@ augroup END
 " }}}
 
 "---------------------------------------------------------------------------
-" for easymotion.vim {{{2
-"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-"let g:EasyMotion_do_shade = 1
-"hi EasyMotionTarget ctermbg=none ctermfg=green
-"hi EasyMotionShade  ctermbg=none ctermfg=blue
+" for smartchr {{{2
+"inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
+"inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
+"inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
+"inoremap <expr> !  smartchr#loop('!', ' != ')
+"inoremap <expr> .  smartchr#loop('.', ' . ')
+"inoremap <expr> {  smartchr#loop('{}', '{')
+"inoremap <expr> [  smartchr#loop('[]', '[')
+"inoremap <expr> (  smartchr#loop('()', '(')
+"inoremap <expr> "  smartchr#loop('""', '"')
+"inoremap <expr> '  smartchr#loop("''", "'")
+"inoremap <expr> `  smartchr#loop('``', '`')
+
+" This is enabled while user inputs Ex commands, not search
+" patterns, etc.
+"cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
 " }}}
 
 "---------------------------------------------------------------------------
-" for visualstar.vim {{{2
-map * <Plug>(visualstar-*)N
-map # <Plug>(visualstar-#)N
+" for taglist.vim {{{2
+if has('mac')
+  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
+elseif has('win32')
+  let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
+endif
+"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
+let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
+"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
+nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
-" operator-star {{{2
-nmap <leader>*  <Plug>(operator-*)
-nmap <leader>g* <Plug>(operator-g*)
-nmap <leader>#  <Plug>(operator-#)
-nmap <leader>g# <Plug>(operator-g#)
+" for vim-textobj-function {{{2
+"noremap iF <Plug>(textobj-function-i)
+"noremap aF <Plug>(textobj-function-a)
 " }}}
 
 "---------------------------------------------------------------------------
-" for columnjump.vim {{{2
-map <c-k> <Plug>(columnjump-backward)
-map <c-j> <Plug>(columnjump-forward)
-" }}}
-
-"---------------------------------------------------------------------------
-" for quickrun.vim {{{2
-let g:quickrun_config = {}
-let g:quickrun_config = { '*' : {'shebang' : '0' }}
-let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
-let g:quickrun_config._.runmode = 'async:vimproc'
-
-let g:quickrun_config.io = {
-\   'command': 'io',
-\ }
+" for vcscommand.vim {{{2
+let VCSCommandMapPrefix = '[General]s'
 " }}}
 
 
