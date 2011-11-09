@@ -34,8 +34,7 @@ set nocompatible
 filetype off
 set rtp+=$DOTVIM/bundle/vundle/
 call vundle#rc('$DOTVIM/bundle')
-Bundle 'qmarik/vundle'
-
+Bundle 'gmarik/vundle'
 
 " original repos on github
 Bundle 'Lokaltog/vim-easymotion'
@@ -56,17 +55,19 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
-"Bundle 'kien/ctrlp.vim'
-"Bundle 'mattn/zencoding-vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vexxor/kwbd.vim'
+Bundle 'mattn/zencoding-vim'
 Bundle 'motemen/git-vim'
 "Bundle 'msanders/cocoa.vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'rphillips/vim-zoomwin'
 Bundle 'scrooloose/nerdcommenter'
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 't9md/vim-quickhl'
 Bundle 'taku-o/vim-toggle'
+Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-visualstar'
 "Bundle 'tpope/vim-rails'
@@ -74,7 +75,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 "Bundle 'tyru/operator-camelize.vim'
 Bundle 'tyru/operator-star.vim'
-Bundle 'ujihisa/quickrun'
 Bundle 'xolox/vim-easytags'
 Bundle 'deris/columnjump'
 
@@ -101,7 +101,7 @@ Bundle 'taglist.vim'
 "Bundle 'textmanip.vim'
 Bundle 'textobj-function'
 "Bundle 'vcscommand.vim'
-"Bundle 'vimwiki'
+Bundle 'vimwiki'
 
 " non github repos
 
@@ -149,7 +149,7 @@ set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 "set formatoptions+=mM
 " 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
-let format_allow_over_tw = 1	" ぶら下り可能幅
+let format_allow_over_tw = 1 " ぶら下り可能幅
 "シフト移動幅
 set shiftwidth=4
 "新しい行を作ったときに高度な自動インデントを行う
@@ -289,7 +289,7 @@ nnoremap * *N
 nnoremap # #N
 
 " Jump to matching pairs easily, with Tab
-noremap <Tab> %
+"noremap <Tab> %
 
 " vimrc編集
 nnoremap [General].   :<C-u>edit $MYVIMRC<CR>
@@ -392,8 +392,8 @@ cnoremap <C-H> <BS>
 cnoremap <C-u> <C-e><C-u>
 
 " 置換の自動入力
-cnoremap ss s///g<Left><Left><Left>
-cnoremap %s %s///g<Left><Left><Left>
+cnoremap <expr> ss (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "ss")
+cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 
 " insert mode
 inoremap <C-B> <Left>
@@ -430,8 +430,8 @@ nnoremap [General]vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:set
 nnoremap /   /\v
 
 " Tabでウィンドウ移動
-"nnoremap <silent> <Tab>   <C-w>w
-"nnoremap <silent> <S-Tab> <C-w>W
+nnoremap <silent> <Tab>   <C-w>w
+nnoremap <silent> <S-Tab> <C-w>W
 
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
@@ -573,13 +573,17 @@ nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR
 
 
 if has('win32')
+  nnoremap <silent> <leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
+
   function! s:HidemaruGrep()
     " current word
-    "let l:word = expand("<cword>")
-    " current directory
-    "let l:cwd  = getcwd()
+    let l:word = expand("<cword>")
+    " target file
+    let l:targetfile  = getcwd() . '\*'
+    " command line
+    let l:cmd = 'C:\Progra~1\Hidemaru\Hidemaru.exe /gu,"' . l:targetfile . '",' . l:word
     " grep hidemaru
-    "silent execute('!C:\Progra~1\Hidemaru\hidemaru.exe /gcwrUo,"' . filename . '\\*" /line:' . linenum . ' /notempfile /closeonend')
+    silent execute('! start "" ' . l:cmd)
   endfunction
 endif
 
@@ -621,12 +625,13 @@ augroup rubylang
 augroup END
 augroup perllang
   autocmd!
+  autocmd BufRead,BufNewFile *.psgi setfiletype perl
   autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
   " perlの関数に飛ぶ
   autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
   autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
   autocmd FileType perl compiler perl
-  autocmd BufWritePost *.pl,*.pm silent make
+  "autocmd BufWritePost *.pl,*.pm silent make
 augroup END
 augroup htmlfile
   autocmd!
@@ -814,6 +819,29 @@ map  ge <Plug>(smartword-ge)
 " }}}
 
 "---------------------------------------------------------------------------
+" for kien/ctrlp.vim {{{2
+let g:ctrlp_map = '<c-e>'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtBS()':              ['<c-h>', '<bs>'],
+    \ 'PrtDelete()':          ['<del>'],
+    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+    \ 'PrtHistory(-1)':       ['<c-j>'],
+    \ 'PrtHistory(1)':        ['<c-k>'],
+    \ 'PrtCurLeft()':         ['<left>'],
+    \ 'PrtCurRight()':        ['<right>'],
+    \ }
+
+nnoremap [ctrlp]  <Nop>
+nmap     <Space>c [ctrlp]
+
+nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
+nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
+
+" }}}
+
+"---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
 let g:user_zen_expandabbr_key = '<c-y>'
 " }}}
@@ -905,6 +933,13 @@ let g:quickrun_config._.runmode = 'async:vimproc'
 let g:quickrun_config.io = {
 \   'command': 'io',
 \ }
+" }}}
+
+"---------------------------------------------------------------------------
+" for xolox/vim-easytags {{{2
+if has('win32')
+  let g:easytags_cmd = ''
+endif
 " }}}
 
 "---------------------------------------------------------------------------
