@@ -57,6 +57,7 @@ Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vexxor/kwbd.vim'
+Bundle 'mattn/learn-vimscript'
 Bundle 'mattn/zencoding-vim'
 Bundle 'motemen/git-vim'
 "Bundle 'msanders/cocoa.vim'
@@ -66,7 +67,8 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 't9md/vim-quickhl'
-Bundle 'taku-o/vim-toggle'
+"Bundle 'taku-o/vim-toggle'
+Bundle 'thinca/vim-fontzoom'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-visualstar'
@@ -102,6 +104,7 @@ Bundle 'taglist.vim'
 Bundle 'textobj-function'
 "Bundle 'vcscommand.vim'
 Bundle 'vimwiki'
+"Bundle 'ZoomWin'
 
 " non github repos
 
@@ -164,8 +167,10 @@ set hidden
 set textwidth=0
 "自動整形の実行方法を決めるフラグ(tcは自動折り返し）
 set formatoptions-=tc
-" 行番号を非表示 (number:表示)
-set number
+" 行番号を表示
+"set number
+" 相対行番号を表示
+set relativenumber
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
@@ -329,8 +334,10 @@ vnoremap <Leader>d "_d
 
 ";と:を入れ替え
 nnoremap ; :
+nnoremap q; q:a
 nnoremap : ;
 vnoremap ; :
+vnoremap q; q:a
 vnoremap : ;
 
 " モーション時にwをiwとする（よく使うので）
@@ -381,6 +388,10 @@ nnoremap [General]q :<C-u>q<CR>
 " 仮想置換モード
 nnoremap R gR
 
+" 危険なので無効化
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+
 " command mode
 cnoremap <C-B> <Left>
 cnoremap <C-F> <Right>
@@ -392,7 +403,7 @@ cnoremap <C-H> <BS>
 cnoremap <C-u> <C-e><C-u>
 
 " 置換の自動入力
-cnoremap <expr> ss (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "ss")
+cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
 cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 
 " insert mode
@@ -419,6 +430,7 @@ inoremap <C-K> <C-o>D<Esc>
 
 " ハイライトを消す
 noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
+noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
 nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
 
 " 仮想編集の変更
@@ -492,7 +504,7 @@ nnoremap <leader>4 yypVr-
 nnoremap <leader>5 yypVr^
 nnoremap <leader>6 yypVr"
 
-" コメント入力
+" カーソル行前後にコメント入力
 " TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
 " TODO:現在ラインと同じ文字数ではなく特定の文字数(80文字とか)のコメントを入力
 nnoremap [General]* yyPVr*^r/$r/jyypVr*^r/$r/
@@ -565,12 +577,14 @@ endfunction " }}}
 nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
-nnoremap [General]cm :<c-u>colorscheme molokai<CR>
-nnoremap [General]cw :<c-u>colorscheme wombat<CR>
+" キーがバッティング
+"nnoremap [General]cm :<c-u>colorscheme molokai<CR>
+"nnoremap [General]cw :<c-u>colorscheme wombat<CR>
 
-nnoremap t2 :<C-U>setlocal expandtab<CR>:setlocal shiftwidth=2<CR>tabstop=2<CR>
-nnoremap t4 :<C-U>setlocal noexpandtab<CR>:setlocal shiftwidth=4<CR>tabstop=4<CR>
-
+nnoremap t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2<CR>
+nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
+nnoremap [General]t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
+nnoremap [General]t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
 
 if has('win32')
   nnoremap <silent> <leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
@@ -609,24 +623,24 @@ filetype plugin indent on
 
 augroup vimlang
   autocmd!
-  autocmd FileType vim set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup makefile
   autocmd!
-  autocmd FileType make setlocal noexpandtab
+  autocmd FileType make setlocal noexpandtab list
 augroup END
 augroup clang
   autocmd!
-  autocmd FileType c set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup rubylang
   autocmd!
-  autocmd FileType ruby set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup perllang
   autocmd!
   autocmd BufRead,BufNewFile *.psgi setfiletype perl
-  autocmd FileType perl set expandtab tabstop=4 shiftwidth=4
+  autocmd FileType perl setlocal expandtab tabstop=4 shiftwidth=4 list
   " perlの関数に飛ぶ
   autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
   autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
@@ -635,20 +649,20 @@ augroup perllang
 augroup END
 augroup htmlfile
   autocmd!
-  autocmd FileType html set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType html setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup xmlfile
   autocmd!
-  autocmd FileType xml  set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType xml  setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup jslang
   autocmd!
-  autocmd FileType javascript set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType javascript setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup iolang
   autocmd!
   autocmd BufRead,BufNewFile *.io setfiletype io
-  autocmd FileType io set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType io setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 
 "if has('mac')
@@ -682,7 +696,7 @@ endif
 "---------------------------------------------------------------------------
 " plugins {{{1
 
-runtime macros/editesisting.vim
+runtime macros/editexisting.vim
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
@@ -1040,7 +1054,7 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
 
 "---------------------------------------------------------------------------
 " for vcscommand.vim {{{2
-let VCSCommandMapPrefix = '[General]s'
+"let VCSCommandMapPrefix = '[General]s'
 " }}}
 
 
