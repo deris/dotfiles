@@ -48,6 +48,7 @@ Bundle 'Shougo/vimproc'
 "Bundle 'fholgado/minibufexpl.vim'
 "Bundle 'kana/arpeggio'
 "Bundle 'kana/vim-grex'
+"Bundle 'kana/vim-metarw'
 Bundle 'kana/vim-operator-user'
 Bundle 'kana/vim-operator-replace'
 Bundle 'kana/vim-smartword'
@@ -56,7 +57,7 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-lastpat'
 "Bundle 'kana/vim-textobj-syntax'
 Bundle 'kien/ctrlp.vim'
-Bundle 'vexxor/kwbd.vim'
+"Bundle 'vexxor/kwbd.vim'
 Bundle 'mattn/learn-vimscript'
 Bundle 'mattn/zencoding-vim'
 Bundle 'motemen/git-vim'
@@ -68,9 +69,14 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 't9md/vim-quickhl'
 "Bundle 'taku-o/vim-toggle'
+"Bundle 'thinca/vim-ambicmd'
 Bundle 'thinca/vim-fontzoom'
+Bundle 'thinca/vim-poslist'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-scouter'
+Bundle 'thinca/vim-textobj-comment'
+Bundle 'thinca/vim-textobj-between'
 Bundle 'thinca/vim-visualstar'
 "Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
@@ -280,7 +286,7 @@ noremap! <C-c> <C-[>
 "noremap! <C-j> <Esc>
 
 inoremap jj <Esc>
-inoremap jk <Esc>
+"inoremap jk <Esc>
 
 " jump
 nnoremap [General]j 5j
@@ -393,32 +399,40 @@ nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 
 " command mode
-cnoremap <C-B> <Left>
-cnoremap <C-F> <Right>
-cnoremap <C-A> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
 cnoremap <expr> <C-D> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-d>" : "\<Del>")
-cnoremap <C-E> <END>
-cnoremap <C-H> <BS>
+cnoremap <C-e> <END>
+cnoremap <C-h> <BS>
 " カーソル位置にかかわらず全部消す
 cnoremap <C-u> <C-e><C-u>
+
+" コマンドラインモードでコマンドラインウィンドウを開く
+cnoremap <C-q> <C-f>a
 
 " 置換の自動入力
 cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
 cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
+cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 
 " insert mode
-inoremap <C-B> <Left>
-inoremap <C-F> <Right>
-inoremap <C-A> <C-o>^
-inoremap <C-E> <C-o>$
-inoremap <C-H> <BS>
-inoremap <C-D> <Del>
-inoremap <C-K> <C-o>C
-inoremap <C-Y> <C-o>p
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
+inoremap <C-h> <BS>
+inoremap <C-d> <Del>
+inoremap <C-k> <C-o>C
+inoremap <C-y> <C-o>p
 " undoできるc-w,c-u
-inoremap <C-W> <C-g>u<C-w>
-inoremap <C-U> <C-g>u<C-u>
-inoremap <C-K> <C-o>D<Esc>
+inoremap <C-w> <C-g>u<C-w>
+inoremap <C-u> <C-g>u<C-u>
+inoremap <C-k> <C-o>D<Esc>
+
+inoremap <S-Enter> <C-o>O
+"inoremap ;        <Enter>
+"inoremap <Enter>  ;
 
 " 括弧など自動で閉じる
 "inoremap {  {}<Left>
@@ -432,6 +446,9 @@ inoremap <C-K> <C-o>D<Esc>
 noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
 noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
 nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
+
+nnoremap <silent> [General]na :<C-u>set number<CR>
+nnoremap <silent> [General]nr :<C-u>set relativenumber<CR>
 
 " 仮想編集の変更
 nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
@@ -449,7 +466,7 @@ nnoremap <silent> <S-Tab> <C-w>W
 noremap gf gF
 
 " sはoperator-replaceに割り当てる
-nnoremap <C-s>  s
+"nnoremap <C-s>  s
 "nnoremap s      <C-s>
 
 " tab page
@@ -696,7 +713,7 @@ endif
 "---------------------------------------------------------------------------
 " plugins {{{1
 
-runtime macros/editexisting.vim
+"runtime macros/editexisting.vim
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
@@ -868,15 +885,15 @@ let g:git_command_edit = 'rightbelow vnew'
 nnoremap [Git]       <Nop>
 nmap     <Space>g  [Git]
 
-nnoremap [Git]d :<C-u>GitDiff --cached<Enter>
-nnoremap [Git]D :<C-u>GitDiff<Enter>
-nnoremap [Git]s :<C-u>GitStatus<Enter>
-nnoremap [Git]l :<C-u>GitLog<Enter>
-nnoremap [Git]L :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap [Git]a :<C-u>GitAdd<Enter>
-nnoremap [Git]A :<C-u>GitAdd <cfile><Enter>
-nnoremap [Git]c :<C-u>GitCommit<Enter>
-nnoremap [Git]C :<C-u>GitCommit --amend<Enter>
+nnoremap [Git]d :<C-u>GitDiff --cached<CR>
+nnoremap [Git]D :<C-u>GitDiff<CR>
+nnoremap [Git]s :<C-u>GitStatus<CR>
+nnoremap [Git]l :<C-u>GitLog<CR>
+nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
+nnoremap [Git]a :<C-u>GitAdd<CR>
+nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
+nnoremap [Git]c :<C-u>GitCommit<CR>
+nnoremap [Git]C :<C-u>GitCommit --amend<CR>
 nnoremap [Git]p :<C-u>Git push
 " }}}
 
@@ -1048,8 +1065,10 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
 
 "---------------------------------------------------------------------------
 " for vim-textobj-function {{{2
-"noremap iF <Plug>(textobj-function-i)
-"noremap aF <Plug>(textobj-function-a)
+omap iF <Plug>(textobj-function-i)
+omap aF <Plug>(textobj-function-a)
+vmap iF <Plug>(textobj-function-i)
+vmap aF <Plug>(textobj-function-a)
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1058,25 +1077,6 @@ nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
 " }}}
 
 
-" }}}
-
-"---------------------------------------------------------------------------
-" other settings {{{1
-
-"---------------------------------------------------------------------------
-" 新型戦闘力計測器 {{{2
-" http://d.hatena.ne.jp/thinca/20091031/1257001194
-function! Scouter(file, ...)
-  let pat = '^\s*$\|^\s*"'
-  let lines = readfile(a:file)
-  if !a:0 || !a:1
-    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
-  endif
-  return len(filter(lines,'v:val !~ pat'))
-endfunction
-command! -bar -bang -nargs=? -complete=file Scouter
-\        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
-" }}}
 " }}}
 
 "---------------------------------------------------------------------------
