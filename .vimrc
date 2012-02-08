@@ -65,7 +65,7 @@ Bundle 'motemen/git-vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'rphillips/vim-zoomwin'
 Bundle 'scrooloose/nerdcommenter'
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 't9md/vim-quickhl'
 "Bundle 'taku-o/vim-toggle'
@@ -78,11 +78,13 @@ Bundle 'thinca/vim-scouter'
 Bundle 'thinca/vim-textobj-comment'
 Bundle 'thinca/vim-textobj-between'
 Bundle 'thinca/vim-visualstar'
-"Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 "Bundle 'tyru/caw.vim'
 "Bundle 'tyru/operator-camelize.vim'
+Bundle 'tyru/open-browser.vim'
 Bundle 'tyru/operator-star.vim'
 Bundle 'xolox/vim-easytags'
 Bundle 'deris/columnjump'
@@ -176,9 +178,9 @@ set textwidth=0
 "自動整形の実行方法を決めるフラグ(tcは自動折り返し）
 set formatoptions-=tc
 " 行番号を表示
-"set number
+set number
 " 相対行番号を表示
-set relativenumber
+"set relativenumber
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
@@ -966,6 +968,12 @@ let g:quickrun_config = { '*' : {'shebang' : '0' }}
 let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
 let g:quickrun_config._.runmode = 'async:vimproc'
 
+let g:quickrun_config['markdown'] = {
+\ 'type': 'markdown/pandoc',
+\ 'outputter': 'browser',
+\ 'cmdopt': '-s'
+\ }
+
 let g:quickrun_config.io = {
 \   'command': 'io',
 \ }
@@ -982,6 +990,12 @@ endif
 " for deris/columnjump {{{2
 map <c-k> <Plug>(columnjump-backward)
 map <c-j> <Plug>(columnjump-forward)
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/parajump {{{2
+map { <Plug>(parajump-backward)
+map } <Plug>(parajump-forward)
 " }}}
 
 "---------------------------------------------------------------------------
