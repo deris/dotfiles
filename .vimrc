@@ -367,6 +367,10 @@ nnoremap <Leader>d "_d
 nnoremap <Leader>D "_d$
 vnoremap <Leader>d "_d
 
+" 行挿入後インサートモードに入らない
+nnoremap [General]o o<Esc>
+nnoremap [General]O O<Esc>
+
 ";と:を入れ替え
 nnoremap ; :
 nnoremap q; q:a
