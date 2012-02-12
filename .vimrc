@@ -477,12 +477,12 @@ inoremap <S-Enter> <C-o>O
 "inoremap <  <><Left>
 
 " ハイライトを消す
-noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
-noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
+"noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
+"noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
 nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
 
-nnoremap <silent> [General]na :<C-u>set number<CR>
-nnoremap <silent> [General]nr :<C-u>set relativenumber<CR>
+"nnoremap <silent> [General]na :<C-u>set number<CR>
+"nnoremap <silent> [General]nr :<C-u>set relativenumber<CR>
 
 " 仮想編集の変更
 nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
@@ -944,6 +944,11 @@ nmap <Space>h <Plug>(quickhl-match)
 "let g:quickhl_keywords = [
 "    \ "keyword",
 "    \ ]
+" }}}
+
+"---------------------------------------------------------------------------
+" for scrooloose/nerdtree {{{2
+nnoremap [General]n :<C-u>NERDTreeToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
