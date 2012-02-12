@@ -383,12 +383,13 @@ vnoremap : ;
 onoremap w iw
 onoremap W iW
 
-onoremap ) t)
-onoremap ( t(
-vnoremap ) t)
-vnoremap ( t(
+onoremap ) ])
+onoremap ( [(
+vnoremap ) ])
+vnoremap ( [(
 
 onoremap ; t;
+onoremap <Space> t<Space>
 
 " ' と `を入れ替え
 nnoremap '  `
