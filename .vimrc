@@ -935,8 +935,9 @@ map  ge <Plug>(smartword-ge)
 
 "---------------------------------------------------------------------------
 " for kien/ctrlp.vim {{{2
-let g:ctrlp_map = '<c-e>'
 let g:ctrlp_by_filename = 1
+let g:ctrlp_mruf_max = 250
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 let g:ctrlp_prompt_mappings = {
     \ 'PrtBS()':              ['<c-h>', '<bs>'],
     \ 'PrtDelete()':          ['<del>'],
@@ -953,6 +954,7 @@ nmap     <Space>c [ctrlp]
 
 nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
 nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
+nnoremap [ctrlp]f  :<C-u>CtrlPCurFile<CR>
 
 " }}}
 
