@@ -212,6 +212,9 @@ set ruler
 set list
 " どの文字でタブや改行を表示するかを設定
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
+" * での検索や text-object 等での選択時に - で切らない
+"setlocal iskeyword& iskeyword+=-
+
 " 全角スペースを表示
 scriptencoding utf-8
 
@@ -318,8 +321,8 @@ inoremap jj <Esc>
 "inoremap jk <Esc>
 
 " jump
-nnoremap [General]j 5j
-nnoremap [General]k 5k
+"nnoremap [General]j 5j
+"nnoremap [General]k 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -338,9 +341,9 @@ nnoremap [General]s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 " 最後に変更されたテキストを選択する
-nnoremap gc         `[v`]
-vnoremap gc         :<C-u>normal gc<CR>
-onoremap gc         :<C-u>normal gc<CR>
+"nnoremap gc         `[v`]
+"vnoremap gc         :<C-u>normal gc<CR>
+"onoremap gc         :<C-u>normal gc<CR>
 
 " Delete the content of the current line (not the line itself).
 nnoremap dl ^d$
@@ -550,18 +553,18 @@ nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Creating underline/overline headings for markup languages
 " Inspired by http://sphinx.pocoo.org/rest.html#sections
-nnoremap <leader>1 yyPVr=jyypVr=
-nnoremap <leader>2 yyPVr*jyypVr*
-nnoremap <leader>3 yypVr=
-nnoremap <leader>4 yypVr-
-nnoremap <leader>5 yypVr^
-nnoremap <leader>6 yypVr"
+"nnoremap <leader>1 yyPVr=jyypVr=
+"nnoremap <leader>2 yyPVr*jyypVr*
+"nnoremap <leader>3 yypVr=
+"nnoremap <leader>4 yypVr-
+"nnoremap <leader>5 yypVr^
+"nnoremap <leader>6 yypVr"
 
 " カーソル行前後にコメント入力
 " TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
 " TODO:現在ラインと同じ文字数ではなく特定の文字数(80文字とか)のコメントを入力
-nnoremap [General]* yyPVr*^r/$r/jyypVr*^r/$r/
-nnoremap [General]# yyPVr#jyypVr#
+"nnoremap [General]* yyPVr*^r/$r/jyypVr*^r/$r/
+"nnoremap [General]# yyPVr#jyypVr#
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
@@ -626,7 +629,7 @@ function! s:move_window_into_tab_page(target_tabpagenr)
   execute target_tabpagenr 'tabnext'
 endfunction " }}}
 
-" <space>ao move current buffer into a new tab.
+" move current buffer into a new tab.
 nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
@@ -753,10 +756,11 @@ endif
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
-"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-"let g:EasyMotion_do_shade = 1
-"hi EasyMotionTarget ctermbg=none ctermfg=green
-"hi EasyMotionShade  ctermbg=none ctermfg=blue
+let g:EasyMotion_leader_key = ','
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let g:EasyMotion_do_shade = 1
+hi EasyMotionTarget ctermbg=none ctermfg=green
+hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1046,7 +1050,7 @@ nmap <leader>g# <Plug>(operator-g#)
 " }}}
 
 "---------------------------------------------------------------------------
-" for ujihisa/quickrun {{{2
+" for thinca/vim-quickrun {{{2
 let g:quickrun_config = {}
 let g:quickrun_config = { '*' : {'shebang' : '0' }}
 let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
@@ -1084,22 +1088,22 @@ map } <Plug>(parajump-forward)
 
 "---------------------------------------------------------------------------
 " for FuzzyFinder {{{2
-let g:fuf_modesDisable     = []
-let g:fuf_mrufile_exclude  = '\v\.DS_Store|\.git|\.swp|\.svn'
-let g:fuf_mrufile_maxItem  = 500
-let g:fuf_mrucmd_maxItem   = 500
-let g:fuf_enumeratingLimit = 20
-let g:fuf_file_exclude     = '\v\.DS_Store|\.git|\.swp|\.svn'
+"let g:fuf_modesDisable     = []
+"let g:fuf_mrufile_exclude  = '\v\.DS_Store|\.git|\.swp|\.svn'
+"let g:fuf_mrufile_maxItem  = 500
+"let g:fuf_mrucmd_maxItem   = 500
+"let g:fuf_enumeratingLimit = 20
+"let g:fuf_file_exclude     = '\v\.DS_Store|\.git|\.swp|\.svn'
 
-nnoremap [fuf]    <Nop>
-nmap     <Space>f [fuf]
+"nnoremap [fuf]    <Nop>
+"nmap     <Space>f [fuf]
 
-nnoremap [fuf]b  :<C-u>FufBuffer<CR>
-nnoremap [fuf]f  :<C-u>FufFile<CR>
-nnoremap [fuf]d  :<C-u>FufDir<CR>
-nnoremap [fuf]t  :<C-u>FufTag<CR>
-nnoremap [fuf]m  :<C-u>FufMruFile<CR>
-nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
+"nnoremap [fuf]b  :<C-u>FufBuffer<CR>
+"nnoremap [fuf]f  :<C-u>FufFile<CR>
+"nnoremap [fuf]d  :<C-u>FufDir<CR>
+"nnoremap [fuf]t  :<C-u>FufTag<CR>
+"nnoremap [fuf]m  :<C-u>FufMruFile<CR>
+"nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
 " }}}
 
 "---------------------------------------------------------------------------
