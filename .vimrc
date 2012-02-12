@@ -522,8 +522,10 @@ nnoremap <silent> [TabPage]<C-l> :<C-u>tablast<CR>
 nnoremap <silent> [TabPage]h     :<C-u>tabfirst<CR>
 nnoremap <silent> [TabPage]<C-h> :<C-u>tabfirst<CR>
 
-nnoremap <silent> <S-H> gT
-nnoremap <silent> <S-L> gt
+"nnoremap <silent> <S-H> gT
+"nnoremap <silent> <S-L> gt
+nnoremap <silent> <C-p> gT
+nnoremap <silent> <C-n> gt
 
 nnoremap <silent> gr :<C-u>tabprevious<CR>
 
