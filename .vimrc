@@ -842,36 +842,81 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 "---------------------------------------------------------------------------
 " for Shougo/unite.vim {{{2
-"nnoremap [unite]   <Nop>
-"nmap     <Space>u  [unite]
-"
-"nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-"nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-"nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-"nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-"nnoremap  [unite]f  :<C-u>Unite source<CR>
-"
-"autocmd FileType unite call s:unite_my_settings()
-"function! s:unite_my_settings()"{{{
-"  " Overwrite settings.
-"
-"  nmap <buffer> <ESC>      <Plug>(unite_exit)
-"  imap <buffer> jj      <Plug>(unite_insert_leave)
-"  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-"
-"  " <C-l>: manual neocomplcache completion.
-"  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
-"
-"  " Start insert.
-"  "let g:unite_enable_start_insert = 1
-"endfunction"}}}
-"
-"let g:unite_source_file_mru_limit = 200
-"let g:unite_cursor_line_highlight = 'TabLineSel'
-"let g:unite_abbr_highlight = 'TabLine'
-"
-"" For optimize.
-"let g:unite_source_file_mru_filename_format = ''
+" The prefix key.
+nnoremap [unite]    <Nop>
+nmap     [General]u [unite]
+
+nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>Unite buffer
+nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+nnoremap <silent> [unite]m  :<C-u>Unite file_mru<CR>
+nnoremap [unite]f  :<C-u>Unite source<CR>
+
+" Start insert.
+"let g:unite_enable_start_insert = 1
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+  " Overwrite settings.
+
+  nmap <buffer> <ESC>  <Plug>(unite_exit)
+  nmap <buffer> <C-c>  <Plug>(unite_exit)
+  imap <buffer> jj     <Plug>(unite_insert_leave)
+  "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
+
+  " <C-l>: manual neocomplcache completion.
+  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+endfunction"}}}
+
+let g:unite_source_file_mru_limit = 200
+let g:unite_cursor_line_highlight = 'TabLineSel'
+let g:unite_abbr_highlight = 'TabLine'
+
+" For optimize.
+let g:unite_source_file_mru_filename_format = ''
+
+" For unite-session.
+" Save session automatically.
+"let g:unite_source_session_enable_auto_save = 1
+" Load session automatically.
+"autocmd VimEnter * UniteSessionLoad
+
+" For ack.
+if executable('ack')
+  let g:unite_source_grep_command = 'ack'
+  let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+" }}}
+
+"---------------------------------------------------------------------------
+" for Shougo/vimfiler {{{2
+" File explorer like behavior.
+nnoremap [vimfiler]  <Nop>
+nmap     [General]f  [vimfiler]
+
+nnoremap [vimfiler]f  :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
+
+let g:vimfiler_as_default_explorer = 1
+
+" Enable file operation commands.
+"let g:vimfiler_safe_mode_by_default = 0
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+" Use trashbox.
+" Windows only and require latest vimproc.
+"let g:unite_kind_file_use_trashbox = 1
+
+let g:unite_kind_openable_lcd_command = 1
+
 " }}}
 
 "---------------------------------------------------------------------------
