@@ -365,6 +365,9 @@ vnoremap [General]y "*y
 nnoremap [General]d "*d
 nnoremap [General]D "*d$
 vnoremap [General]d "*d
+" クリップボードからソース貼り付け
+nnoremap [General]sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
+nnoremap [General]sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
 " registerを汚さずに削除
 nnoremap <Leader>d "_d
