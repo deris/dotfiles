@@ -151,6 +151,9 @@ Bundle 'tomasr/molokai'
 Bundle 'jnurmine/Zenburn'
 Bundle 'newspaper.vim'
 
+" 日本語help
+Bundle 'vim-jp/vimdoc-ja'
+
 " non github repos
 
 " git-hubに上がってないプラグイン
