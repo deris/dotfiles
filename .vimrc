@@ -79,7 +79,7 @@ Bundle 'rphillips/vim-zoomwin'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 "Bundle 'scrooloose/syntastic'
-"Bundle 'sgur/textobj-parameter'
+Bundle 'sgur/textobj-parameter'
 "Bundle 'sgur/unite-everything'
 Bundle 't9md/vim-quickhl'
 "Bundle 't9md/vim-textmanip'
@@ -154,11 +154,6 @@ Bundle 'newspaper.vim'
 " 日本語help
 Bundle 'vim-jp/vimdoc-ja'
 
-" non github repos
-
-" git-hubに上がってないプラグイン
-" vim-operator-parameter
-" http://d.hatena.ne.jp/ampmmn/20100224/1267020691
 
 filetype plugin indent on
 
