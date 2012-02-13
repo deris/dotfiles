@@ -74,6 +74,7 @@ Bundle 'mattn/zencoding-vim'
 "Bundle 'motemen/hatena-vim'
 "Bundle 'msanders/cocoa.vim'
 "Bundle 'msanders/snipmate.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'rphillips/vim-zoomwin'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
@@ -1003,6 +1004,12 @@ nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
 nnoremap [Git]c :<C-u>GitCommit<CR>
 nnoremap [Git]C :<C-u>GitCommit --amend<CR>
 nnoremap [Git]p :<C-u>Git push
+" }}}
+
+"---------------------------------------------------------------------------
+" for nathanaelkane/vim-indent-guides {{{2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
 " }}}
 
 "---------------------------------------------------------------------------
