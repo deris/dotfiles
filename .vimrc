@@ -404,6 +404,10 @@ vnoremap ( [(
 onoremap ; t;
 onoremap <Space> t<Space>
 
+" ^,$を入力しやすくするkeymap
+noremap 7 ^
+noremap 9 $
+
 " ' と `を入れ替え
 nnoremap '  `
 nnoremap `  '
