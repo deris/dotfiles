@@ -124,6 +124,7 @@ Bundle 'DrawIt'
 Bundle 'L9'
 "Bundle 'Mark'
 "Bundle 'QuickBuf'
+Bundle 'Source-Explorer-srcexpl.vim'
 "Bundle 'YankRing.vim' "あまり使わないのとkeymap設定で悪さをするので削除
 "Bundle 'a.vim'
 "Bundle 'bufexplorer.zip'
@@ -137,6 +138,7 @@ Bundle 'project.tar.gz'
 "Bundle 'statusline.vim'
 Bundle 'taglist.vim'
 Bundle 'textobj-function'
+Bundle 'trinity.vim'
 "Bundle 'vcscommand.vim'
 Bundle 'vimwiki'
 "Bundle 'ZoomWin'
@@ -1016,7 +1018,7 @@ nmap <Space>h <Plug>(quickhl-match)
 
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
-nnoremap [General]n :<C-u>NERDTreeToggle<CR>
+"nnoremap [General]n :<C-u>NERDTreeToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1182,7 +1184,15 @@ endif
 "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
 let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
 "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
-nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
+"nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
+" }}}
+
+"---------------------------------------------------------------------------
+" for trinity.vim {{{2
+nnoremap <silent> [General]n :<C-u>TrinityToggleNERDTree<CR>
+nnoremap <silent> [General]l :<C-u>TrinityToggleTagList<CR>
+" keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
+
 " }}}
 
 "---------------------------------------------------------------------------
