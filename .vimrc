@@ -10,12 +10,8 @@
 ":help feature-list
 ":help usr_41
 "
-" 日本語vimdoc
-" wget http://www.kaoriya.net/vimdoc_j/vimdoc_ja-snapshot.tar.bz2
-"
 " 使用前提
-" ・.vim or vimfile 直下にswapディレクトリを作成しておく
-" ・colorscheme のmolokai,wombatを入れておく
+" ・.vim or vimfile 直下にswap,backupディレクトリを作成しておく
 "
 "}}}
 
