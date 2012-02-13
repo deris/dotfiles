@@ -141,6 +141,12 @@ Bundle 'textobj-function'
 Bundle 'vimwiki'
 "Bundle 'ZoomWin'
 
+" color scheme
+Bundle 'cschlueter/vim-wombat'
+Bundle 'tomasr/molokai'
+Bundle 'jnurmine/Zenburn'
+Bundle 'newspaper.vim'
+
 " non github repos
 
 " git-hubに上がってないプラグイン
