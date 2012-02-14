@@ -949,6 +949,8 @@ let g:unite_kind_openable_lcd_command = 1
 "---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
 map s <Plug>(operator-replace)
+" clipboardからoperator-replace
+map [General]s "*<Plug>(operator-replace)
 " }}}
 
 "---------------------------------------------------------------------------
