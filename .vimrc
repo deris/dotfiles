@@ -340,7 +340,7 @@ nnoremap * *N
 nnoremap # #N
 
 " Jump to matching pairs easily, with Tab
-"noremap <Tab> %
+noremap <Tab> %
 
 " vimrc編集
 nnoremap [General].   :<C-u>edit $MYVIMRC<CR>
@@ -518,8 +518,8 @@ noremap /   /\v
 noremap ?   ?\v
 
 " Tabでウィンドウ移動
-nnoremap <silent> <Tab>   <C-w>w
-nnoremap <silent> <S-Tab> <C-w>W
+"nnoremap <silent> <Tab>   <C-w>w
+"nnoremap <silent> <S-Tab> <C-w>W
 
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
