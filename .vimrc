@@ -513,8 +513,9 @@ nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
 nnoremap [General]vb  :<C-u>setlocal virtualedit=block<CR>
 nnoremap [General]vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
 
-" ベリーマッチ（正規表現をエスケープしなくてよくなる）
-nnoremap /   /\v
+" very magic（正規表現をエスケープしなくてよくなる）
+noremap /   /\v
+noremap ?   ?\v
 
 " Tabでウィンドウ移動
 nnoremap <silent> <Tab>   <C-w>w
