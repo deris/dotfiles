@@ -66,7 +66,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'mattn/learn-vimscript'
 "Bundle 'mattn/webapi-vim'
 Bundle 'mattn/zencoding-vim'
-"Bundle 'motemen/git-vim'
+Bundle 'motemen/git-vim'
 "Bundle 'motemen/hatena-vim'
 "Bundle 'msanders/cocoa.vim'
 "Bundle 'msanders/snipmate.vim'
@@ -92,6 +92,7 @@ Bundle 'thinca/vim-textobj-comment'
 Bundle 'thinca/vim-textobj-between'
 Bundle 'thinca/vim-visualstar'
 "Bundle 'tpope/vim-eunuch'
+"Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 "Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
@@ -1048,6 +1049,23 @@ vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
 " for thinca/vim-visualstar {{{2
 map * <Plug>(visualstar-*)N
 map # <Plug>(visualstar-#)N
+" }}}
+
+"---------------------------------------------------------------------------
+" for tpope/vim-fugitive {{{2
+"nnoremap [Git]     <Nop>
+"nmap     <Space>g  [Git]
+
+"nnoremap [Git]d :<C-u>Gdiff --cached<CR>
+"nnoremap [Git]D :<C-u>Gdiff<CR>
+"nnoremap [Git]s :<C-u>Gstatus<CR>
+"nnoremap [Git]l :<C-u>Glog<CR>
+"nnoremap [Git]a :<C-u>Gwrite<CR>
+"nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
+"nnoremap [Git]c :<C-u>Gcommit<CR>
+"nnoremap [Git]C :<C-u>Git commit --amend<CR>
+"nnoremap [Git]b :<C-u>Gblame<CR>
+"nnoremap [Git]p :<C-u>Git push 
 " }}}
 
 "---------------------------------------------------------------------------
