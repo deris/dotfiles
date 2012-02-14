@@ -11,7 +11,7 @@
 ":help usr_41
 "
 " 使用前提
-" ・.vim or vimfile 直下にswap,backupディレクトリを作成しておく
+" ・.vim or vimfile 直下にswap,backup,snippetsディレクトリを作成しておく
 "
 "}}}
 
@@ -313,7 +313,7 @@ let maplocalleader = ","
 noremap [General] <Nop>
 nmap <Space> [General]
 
-" Escのショートカット
+" Escのkeymap
 noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
@@ -333,6 +333,7 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" *,#での単語検索時、次に単語に移動しない
 nnoremap * *N
 nnoremap # #N
 
@@ -394,11 +395,13 @@ vnoremap : ;
 onoremap w iw
 onoremap W iW
 
+" マッチするものがないパーレンまで移動
 onoremap ) ])
 onoremap ( [(
 vnoremap ) ])
 vnoremap ( [(
 
+" よく使うものはtを省略できるようkeymap
 onoremap ; t;
 onoremap <Space> t<Space>
 
