@@ -245,7 +245,8 @@ set lines=50
 " タブを常に表示する
 set showtabline=2
 " statusline
-set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
+" vim-powerlineを使用するためコメントアウト
+"set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
 " virtualedit
 set virtualedit=block
 " バックアップを無効
