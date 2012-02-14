@@ -218,6 +218,8 @@ set list
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
 " * での検索や text-object 等での選択時に - で切らない
 "setlocal iskeyword& iskeyword+=-
+" Explicitly tell vim that the terminal supports 256 colors
+set t_Co=256
 
 " 全角スペースを表示
 scriptencoding utf-8
