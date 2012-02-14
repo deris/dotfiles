@@ -497,9 +497,13 @@ inoremap <S-Enter> <C-o>O
 "inoremap <  <><Left>
 
 " ハイライトを消す
-"noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
-"noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
-nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
+noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
+noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
+"nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
+
+" * はASCIIとJISでキー位置が異なるので共通で使えるkeymapを設定
+nnoremap <silent> [General]/  *N
+nnoremap <silent> [General]?  #N
 
 "nnoremap <silent> [General]na :<C-u>set number<CR>
 "nnoremap <silent> [General]nr :<C-u>set relativenumber<CR>
