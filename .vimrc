@@ -280,7 +280,9 @@ if has('mac')
   " grep ack
   set grepprg=ack\ -a
 
-  let $PATH="/Users/kmura/perl5/perlbrew/bin:/Users/kmura/perl5/perlbrew/perls/perl-5.10.1/bin:".$PATH
+  if has('vim_starting')
+    let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$PATH
+  end
 endif
 
 " カーソルラインと行ラインを表示
