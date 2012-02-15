@@ -1042,6 +1042,24 @@ nmap <Space>h <Plug>(quickhl-match)
 " }}}
 
 "---------------------------------------------------------------------------
+" for thinca/vim-ambicmd {{{2
+cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+
+function! g:ambicmd_my_custom_rule(cmd)
+  return [
+  \   '\c^' . a:cmd . '$',
+  \   '\c^' . a:cmd,
+  \   '\C^' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g') . '$',
+  \   '\C' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g'),
+  \   '\c' . a:cmd,
+  \   '.*' . substitute(a:cmd, '.', '\0.*', 'g')
+  \ ]
+endfunction
+let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
+" }}}
+
+"---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
 nnoremap <silent> [General]a :<C-u>call ref#jump('normal', 'alc')<CR>
 vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
