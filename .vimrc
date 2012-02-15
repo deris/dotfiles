@@ -474,6 +474,8 @@ cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
 cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 
+nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+
 " insert mode
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
