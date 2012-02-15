@@ -143,8 +143,8 @@ Bundle 'vimwiki'
 "Bundle 'ZoomWin'
 
 " color scheme
-Bundle 'cschlueter/vim-wombat'
-Bundle 'tomasr/molokai'
+Bundle 'deris/molokai'
+Bundle 'deris/vim-wombat'
 Bundle 'jnurmine/Zenburn'
 Bundle 'newspaper.vim'
 
