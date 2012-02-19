@@ -473,12 +473,14 @@ cnoremap <C-h> <BS>
 cnoremap <C-u> <C-e><C-u>
 
 " コマンドラインモードでコマンドラインウィンドウを開く
-cnoremap <C-q> <C-f>a
+" <C-q>はUNIXのTerminalでバッティングするのでコメントアウト
+"cnoremap <C-q> <C-f>a
 
 " 置換の自動入力
 cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
 cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
-cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
+" <C-s>はUNIXのTerminalでバッティングするのでコメントアウト
+"cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
 
