@@ -149,6 +149,7 @@ Bundle 'vimwiki'
 "Bundle 'ZoomWin'
 
 " color scheme
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'deris/molokai'
 Bundle 'deris/vim-wombat'
 Bundle 'jnurmine/Zenburn'
