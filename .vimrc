@@ -337,7 +337,7 @@ noremap! <C-c> <C-[>
 "noremap! <C-j> <Esc>
 
 inoremap jj <Esc>
-"inoremap jk <Esc>
+inoremap jk <Esc>
 
 " jump
 "nnoremap [General]j 5j
@@ -901,6 +901,7 @@ function! s:unite_my_settings()"{{{
   nmap <buffer> <ESC>  <Plug>(unite_exit)
   nmap <buffer> <C-c>  <Plug>(unite_exit)
   imap <buffer> jj     <Plug>(unite_insert_leave)
+  imap <buffer> jk     <Plug>(unite_insert_leave)
   "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
 
   " <C-l>: manual neocomplcache completion.
