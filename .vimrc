@@ -44,7 +44,7 @@ Bundle 'Shougo/vimproc'
 "Bundle 'Shougo/vimshell'
 "Bundle 'Townk/vim-autoclose'
 "Bundle 'chrisbra/SudoEdit.vim'
-"Bundle 'h1mesuke/vim-alignta'
+Bundle 'h1mesuke/vim-alignta'
 "Bundle 'h1mesuke/vim-benchmark'
 "Bundle 'h1mesuke/textobj-wiw'
 Bundle 'h1mesuke/unite-outline'
@@ -967,6 +967,18 @@ let g:unite_kind_openable_lcd_command = 1
 " }}}
 
 "---------------------------------------------------------------------------
+" for h1mesuke/vim-alignta {{{2
+nnoremap <Space>as :<C-u>Alignta =<CR>
+vnoremap <Space>as :Alignta =<CR>
+nnoremap <Space>ah :<C-u>Alignta =><CR>
+vnoremap <Space>ah :Alignta =><CR>
+
+"augroup perllang
+  "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
+"augroup end
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
 map s <Plug>(operator-replace)
 " clipboardからoperator-replace
@@ -1076,8 +1088,8 @@ let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
-nnoremap <silent> [General]a :<C-u>call ref#jump('normal', 'alc')<CR>
-vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
+"nnoremap <silent> [General]a :<C-u>call ref#jump('normal', 'alc')<CR>
+"vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1219,10 +1231,6 @@ let Grep_Skip_Files = '*.bak *~'
 
 nnoremap [General]eg :<c-u>Egrep<CR>
 nnoremap [General]eb :<c-u>Bgrep<CR>
-
-augroup perllang
-  autocmd FileType perl vnoremap <Space>ah  :<c-u>AlignCtrl l-l<CR>gv:Align =><CR>
-augroup END
 " }}}
 
 "---------------------------------------------------------------------------
