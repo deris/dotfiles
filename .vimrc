@@ -460,6 +460,18 @@ nnoremap R gR
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 
+" <Space>数字で記号入力
+noremap <Space>1 !
+noremap <Space>2 @
+noremap <Space>3 #
+noremap <Space>4 $
+noremap <Space>5 %
+noremap <Space>6 ^
+noremap <Space>7 &
+noremap <Space>8 *
+noremap <Space>9 (
+noremap <Space>0 )
+
 " command mode
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
