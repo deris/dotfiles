@@ -1161,13 +1161,13 @@ nmap <leader>g# <Plug>(operator-g#)
 " for thinca/vim-quickrun {{{2
 let g:quickrun_config = {}
 let g:quickrun_config = { '*' : {'shebang' : '0' }}
-let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below'}
+let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
 let g:quickrun_config._.runmode = 'async:vimproc'
 
 let g:quickrun_config['markdown'] = {
-\ 'type': 'markdown/pandoc',
-\ 'outputter': 'browser',
-\ 'cmdopt': '-s'
+\ 'type'      : 'markdown/pandoc',
+\ 'outputter' : 'browser',
+\ 'cmdopt'    : '-s'
 \ }
 
 let g:quickrun_config.io = {
@@ -1176,6 +1176,9 @@ let g:quickrun_config.io = {
 let g:quickrun_config.scala = {
 \   'command': 'scala',
 \ }
+
+nnoremap <Leader>R :<C-u>QuickRun -args ""<Left>
+
 " }}}
 
 "---------------------------------------------------------------------------
