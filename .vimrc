@@ -365,10 +365,6 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 "vnoremap gc         :<C-u>normal gc<CR>
 "onoremap gc         :<C-u>normal gc<CR>
 
-" Delete the content of the current line (not the line itself).
-nnoremap dl ^d$
-nnoremap cl ^c$
-
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
 " クリップボードからペースト
