@@ -44,6 +44,7 @@ Bundle 'Shougo/vimproc'
 "Bundle 'Shougo/vimshell'
 "Bundle 'Townk/vim-autoclose'
 "Bundle 'chrisbra/SudoEdit.vim'
+Bundle 'derekwyatt/vim-scala'
 Bundle 'h1mesuke/vim-alignta'
 "Bundle 'h1mesuke/vim-benchmark'
 "Bundle 'h1mesuke/textobj-wiw'
@@ -762,6 +763,11 @@ augroup iolang
   autocmd BufRead,BufNewFile *.io setfiletype io
   autocmd FileType io setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
+augroup scalalang
+  autocmd!
+  autocmd BufRead,BufNewFile *.scala setfiletype scala
+  autocmd FileType scala setlocal expandtab tabstop=4 shiftwidth=4 list
+augroup END
 
 "if has('mac')
 "  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
@@ -1163,6 +1169,9 @@ let g:quickrun_config['markdown'] = {
 
 let g:quickrun_config.io = {
 \   'command': 'io',
+\ }
+let g:quickrun_config.scala = {
+\   'command': 'scala',
 \ }
 " }}}
 
