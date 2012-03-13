@@ -1079,8 +1079,9 @@ nmap <Space>h <Plug>(quickhl-match)
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ambicmd {{{2
-cnoremap <expr> <Space> ambicmd#expand("\<Space>")
-cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
+cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
+cnoremap <expr> <CR>      ambicmd#expand("\<CR>")
 
 function! g:ambicmd_my_custom_rule(cmd)
   return [
