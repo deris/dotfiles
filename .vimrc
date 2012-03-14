@@ -1174,7 +1174,9 @@ let g:quickrun_config.scala = {
 \   'command': 'scala',
 \ }
 
-nnoremap <Leader>R :<C-u>QuickRun -args ""<Left>
+nnoremap <silent> <Space>r :QuickRun -mode n<CR>
+vnoremap <silent> <Space>r :QuickRun -mode v<CR>
+nnoremap <Space>R :QuickRun -args ""<Left>
 
 " }}}
 
