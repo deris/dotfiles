@@ -327,10 +327,6 @@ let plugin_cmdex_disable = 1
 let mapleader = ","
 let maplocalleader = ","
 
-" 汎用プレフィックス
-noremap [General] <Nop>
-nmap <Space> [General]
-
 " Escのkeymap
 noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
@@ -344,8 +340,8 @@ inoremap jj <Esc>
 inoremap jk <Esc>
 
 " jump
-"nnoremap [General]j 5j
-"nnoremap [General]k 5k
+"nnoremap <Space>j 5j
+"nnoremap <Space>k 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -359,8 +355,8 @@ nnoremap # #N
 noremap <Tab> %
 
 " vimrc編集
-nnoremap [General].   :<C-u>edit $MYVIMRC<CR>
-nnoremap [General]s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <Space>.   :<C-u>edit $MYVIMRC<CR>
+nnoremap <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
 " helpショートカット
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
@@ -372,21 +368,21 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
 " クリップボードからペースト
-nnoremap [General]p "*p
-vnoremap [General]p "*p
-nnoremap [General]P "*P
-vnoremap [General]P "*P
+nnoremap <Space>p "*p
+vnoremap <Space>p "*p
+nnoremap <Space>P "*P
+vnoremap <Space>P "*P
 " クリップボードにヤンク
-nnoremap [General]y "*y
-nnoremap [General]Y "*y$
-vnoremap [General]y "*y
+nnoremap <Space>y "*y
+nnoremap <Space>Y "*y$
+vnoremap <Space>y "*y
 " クリップボードにヤンクして削除
-nnoremap [General]d "*d
-nnoremap [General]D "*d$
-vnoremap [General]d "*d
+nnoremap <Space>d "*d
+nnoremap <Space>D "*d$
+vnoremap <Space>d "*d
 " クリップボードからソース貼り付け
-nnoremap [General]sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
-nnoremap [General]sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
+nnoremap <Space>sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
+nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
 " registerを汚さずに削除
 nnoremap <Leader>d "_d
@@ -394,8 +390,8 @@ nnoremap <Leader>D "_d$
 vnoremap <Leader>d "_d
 
 " 行挿入後インサートモードに入らない
-nnoremap [General]o o<Esc>
-nnoremap [General]O O<Esc>
+nnoremap <Space>o o<Esc>
+nnoremap <Space>O O<Esc>
 
 ";と:を入れ替え
 nnoremap ; :
@@ -448,10 +444,10 @@ vnoremap iq  i'
 onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
 
 " exコマンド
-nnoremap [General]w :<C-u>w<CR>
-nnoremap [General]q :<C-u>q<CR>
-"nnoremap [General]m :<C-u>marks<CR>
-"nnoremap [General]g :<C-u>registers<CR>
+nnoremap <Space>w :<C-u>w<CR>
+nnoremap <Space>q :<C-u>q<CR>
+"nnoremap <Space>m :<C-u>marks<CR>
+"nnoremap <Space>g :<C-u>registers<CR>
 
 " 仮想置換モード
 nnoremap R gR
@@ -523,19 +519,19 @@ inoremap <S-Enter> <C-o>O
 " ハイライトを消す
 noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
 noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
-"nnoremap <silent> [General]/ :<C-u>nohlsearch<CR>
+"nnoremap <silent> <Space>/ :<C-u>nohlsearch<CR>
 
 " * はASCIIとJISでキー位置が異なるので共通で使えるkeymapを設定
-nnoremap <silent> [General]/  *N
-nnoremap <silent> [General]?  #N
+nnoremap <silent> <Space>/  *N
+nnoremap <silent> <Space>?  #N
 
-"nnoremap <silent> [General]na :<C-u>set number<CR>
-"nnoremap <silent> [General]nr :<C-u>set relativenumber<CR>
+"nnoremap <silent> <Space>na :<C-u>set number<CR>
+"nnoremap <silent> <Space>nr :<C-u>set relativenumber<CR>
 
 " 仮想編集の変更
-nnoremap [General]va  :<C-u>setlocal virtualedit=all<CR>
-nnoremap [General]vb  :<C-u>setlocal virtualedit=block<CR>
-nnoremap [General]vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
+nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>
+nnoremap <Space>vb  :<C-u>setlocal virtualedit=block<CR>
+nnoremap <Space>vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
 
 " very magic（正規表現をエスケープしなくてよくなる）
 noremap /   /\v
@@ -609,8 +605,8 @@ nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " カーソル行前後にコメント入力
 " TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
 " TODO:現在ラインと同じ文字数ではなく特定の文字数(80文字とか)のコメントを入力
-"nnoremap [General]* yyPVr*^r/$r/jyypVr*^r/$r/
-"nnoremap [General]# yyPVr#jyypVr#
+"nnoremap <Space>* yyPVr*^r/$r/jyypVr*^r/$r/
+"nnoremap <Space># yyPVr#jyypVr#
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
@@ -680,13 +676,13 @@ nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
 " キーがバッティング
-"nnoremap [General]cm :<c-u>colorscheme molokai<CR>
-"nnoremap [General]cw :<c-u>colorscheme wombat<CR>
+"nnoremap <Space>cm :<c-u>colorscheme molokai<CR>
+"nnoremap <Space>cw :<c-u>colorscheme wombat<CR>
 
 nnoremap t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2<CR>
 nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
-nnoremap [General]t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
-nnoremap [General]t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
+nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
+nnoremap <Space>t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
 
 if has('win32')
   nnoremap <silent> <leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
@@ -899,7 +895,7 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " for Shougo/unite.vim {{{2
 " The prefix key.
 nnoremap [unite]    <Nop>
-nmap     [General]u [unite]
+nmap     <Space>u [unite]
 
 nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
@@ -951,7 +947,7 @@ endif
 " for Shougo/vimfiler {{{2
 " File explorer like behavior.
 nnoremap [vimfiler]  <Nop>
-nmap     [General]f  [vimfiler]
+nmap     <Space>f  [vimfiler]
 
 nnoremap [vimfiler]  :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
 
@@ -991,7 +987,7 @@ vnoremap <Space>ah :Alignta =><CR>
 " for kana/vim-operator-replace {{{2
 map s <Plug>(operator-replace)
 " clipboardからoperator-replace
-map [General]s "*<Plug>(operator-replace)
+map <Space>s "*<Plug>(operator-replace)
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1074,7 +1070,7 @@ nmap <Space>h <Plug>(quickhl-match)
 
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
-"nnoremap [General]n :<C-u>NERDTreeToggle<CR>
+"nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1098,8 +1094,8 @@ let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
-"nnoremap <silent> [General]a :<C-u>call ref#jump('normal', 'alc')<CR>
-"vnoremap <silent> [General]a :<C-u>call ref#jump('visual', 'alc')<CR>
+"nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
+"vnoremap <silent> <Space>a :<C-u>call ref#jump('visual', 'alc')<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1245,8 +1241,8 @@ endif
 let Grep_Skip_Dirs = '.svn .git'
 let Grep_Skip_Files = '*.bak *~'
 
-nnoremap [General]eg :<c-u>Egrep<CR>
-nnoremap [General]eb :<c-u>Bgrep<CR>
+nnoremap <Space>eg :<c-u>Egrep<CR>
+nnoremap <Space>eb :<c-u>Bgrep<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1278,13 +1274,13 @@ endif
 "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
 let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
 "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
-"nnoremap <silent> [General]l :<C-u>TlistToggle<CR>
+"nnoremap <silent> <Space>l :<C-u>TlistToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
 " for trinity.vim {{{2
-nnoremap <silent> [General]n :<C-u>TrinityToggleNERDTree<CR>
-nnoremap <silent> [General]l :<C-u>TrinityToggleTagList<CR>
+nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
+nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
 " keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
 
 " }}}
@@ -1299,7 +1295,7 @@ vmap aF <Plug>(textobj-function-a)
 
 "---------------------------------------------------------------------------
 " for vcscommand.vim {{{2
-"let VCSCommandMapPrefix = '[General]s'
+"let VCSCommandMapPrefix = '<Space>s'
 " }}}
 
 
