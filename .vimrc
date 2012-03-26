@@ -405,9 +405,13 @@ nnoremap <Space>O O<Esc>
 nnoremap ; :
 nnoremap q; q:a
 nnoremap : ;
+nnoremap @; @:
+nnoremap @: @;
 vnoremap ; :
 vnoremap q; q:a
 vnoremap : ;
+vnoremap @; @:
+vnoremap @: @;
 
 " モーション時にwをiwとする（よく使うので）
 onoremap w iw
