@@ -453,7 +453,11 @@ onoremap iq  i'
 vnoremap iq  i'
 
 " モーション時にqで記号まで飛ぶ
-onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
+"onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
+onoremap <silent> q
+\      :for i in range(v:count1)
+\ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
+\ <Bar> endfor<CR>
 
 " exコマンド
 nnoremap <Space>w :<C-u>w<CR>
