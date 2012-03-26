@@ -9,6 +9,9 @@
 ":help autocommands-events
 ":help feature-list
 ":help usr_41
+":help index
+":help motion
+":help visual
 "
 " 使用前提
 " ・.vim or vimfile 直下にswap,backup,snippetsディレクトリを作成しておく
@@ -206,8 +209,6 @@ set nowrapscan
 set showmatch
 " コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
 set wildmenu
-" テキスト挿入中の自動折り返しを日本語に対応させる
-"set formatoptions+=mM
 " コマンドライン補完の動作を指定
 set wildmode=list:full
 " 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
@@ -368,9 +369,9 @@ nnoremap <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MY
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 " 最後に変更されたテキストを選択する
-"nnoremap gc         `[v`]
-"vnoremap gc         :<C-u>normal gc<CR>
-"onoremap gc         :<C-u>normal gc<CR>
+nnoremap gc         `[v`]
+vnoremap gc         :<C-u>normal gc<CR>
+onoremap gc         :<C-u>normal gc<CR>
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
