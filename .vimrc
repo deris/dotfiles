@@ -224,8 +224,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 " 入力されているテキストの最大幅。（0は無効）
 set textwidth=0
-"自動整形の実行方法を決めるフラグ(tcは自動折り返し）
-set formatoptions-=tc
+"自動整形の実行方法を決めるフラグ(tcは自動折り返し。oはコメント文字自動挿入)
+set formatoptions-=tco
 " 行番号を表示
 set number
 " 相対行番号を表示
