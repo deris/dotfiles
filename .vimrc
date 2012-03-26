@@ -208,6 +208,8 @@ set showmatch
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 "set formatoptions+=mM
+" コマンドライン補完の動作を指定
+set wildmode=list:full
 " 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
 let format_allow_over_tw = 1 " ぶら下り可能幅
 "シフト移動幅
