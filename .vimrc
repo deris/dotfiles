@@ -486,9 +486,11 @@ noremap <Space>0 )
 
 " command mode
 cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
+cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
 cnoremap <C-a> <Home>
-cnoremap <expr> <C-D> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-d>" : "\<Del>")
+cnoremap <expr> <C-d> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-d>" : "\<Del>")
 cnoremap <C-e> <END>
 cnoremap <C-h> <BS>
 " カーソル位置にかかわらず全部消す
