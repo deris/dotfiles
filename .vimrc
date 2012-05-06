@@ -450,6 +450,8 @@ nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<CR>
 onoremap gc         :<C-u>normal gc<CR>
+" 最後に変更されたテキストに移動する
+nnoremap gI `.
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
