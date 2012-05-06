@@ -387,6 +387,21 @@ augroup grlcd
   autocmd BufEnter * lcd %:p:h
 augroup END
 
+" 親ディレクトリが存在していなければ作成するかどうか確認
+augroup AutoMkdir
+  autocmd!
+  autocmd BufNewFile * call PromptAndMakeDirectory()
+augroup END
+
+function! PromptAndMakeDirectory()
+  let dir = expand("<afile>:p:h")
+  if !isdirectory(dir) && confirm("Create a new directory [".dir."]?", "&Yes\n&No") == 1
+    call mkdir(dir, "p")
+    " Reset fullpath of the buffer in order to avoid problems when using autochdir.
+    file %
+  endif
+endfunction
+
 let plugin_cmdex_disable = 1
 
 " }}}
