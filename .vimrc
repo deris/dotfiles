@@ -434,8 +434,8 @@ vnoremap j gj
 vnoremap k gk
 
 " *,#での単語検索時、次に単語に移動しない
-nnoremap * *N
-nnoremap # #N
+nnoremap * *<C-o>
+nnoremap # #<C-o>
 
 " Jump to matching pairs easily, with Tab
 noremap <Tab> %
