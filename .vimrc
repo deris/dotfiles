@@ -476,10 +476,12 @@ nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste
 nnoremap <Leader>d "_d
 nnoremap <Leader>D "_d$
 vnoremap <Leader>d "_d
+nnoremap <Leader>x "_x
 
 " 行挿入後インサートモードに入らない
-nnoremap <Space>o o<Esc>
+nnoremap <Space>o o<Esc>k
 nnoremap <Space>O O<Esc>
+nnoremap <S-Space>O O<Esc>
 
 ";と:を入れ替え
 nnoremap ; :
