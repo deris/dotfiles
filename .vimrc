@@ -294,6 +294,8 @@ augroup hilightIdegraphicSpace
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
+colorscheme wombat
+
 " 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
 " 常にステータス行を表示 (詳細は:he laststatus)
@@ -304,8 +306,6 @@ set cmdheight=2
 set showcmd
 " タイトルを表示
 set title
-" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
-colorscheme desert " (Windows用gvim使用時はgvimrcを編集すること)
 " 画面上の行数
 set lines=50
 " タブを常に表示する
