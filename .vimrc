@@ -247,7 +247,13 @@ set showmatch
 " コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
 set wildmenu
 " コマンドライン補完の動作を指定
-set wildmode=list:full
+set wildmode=longest,full
+" コマンドライン補完時に無視
+set wildignore=.git,.hg,.svn
+set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.so,*.out,*.class
+set wildignore+=*.swp,*.swo,*.swn
+set wildignore+=*.DS_Store
 " 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
 let format_allow_over_tw = 1 " ぶら下り可能幅
 "シフト移動幅
