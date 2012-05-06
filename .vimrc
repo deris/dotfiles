@@ -315,8 +315,8 @@ set showtabline=2
 "set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
 " virtualedit
 set virtualedit=block
-" バックアップを無効
-set nobackup
+" バックアップを作る
+set backup
 " バックアップファイルの生成ディレクトリ
 set backupdir=$DOTVIM/backup
 " バックアップのスキップ
