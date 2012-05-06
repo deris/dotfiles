@@ -544,8 +544,11 @@ onoremap <silent> q
 " exコマンド
 nnoremap <Space>w :<C-u>w<CR>
 nnoremap <Space>q :<C-u>q<CR>
+nnoremap <Space>Q :<C-u>q!<CR>
+nnoremap <S-Space>Q :<C-u>q!<CR>
 "nnoremap <Space>m :<C-u>marks<CR>
 "nnoremap <Space>g :<C-u>registers<CR>
+"nnoremap <Space>b :<C-u>ls<CR>
 
 " 仮想置換モード
 nnoremap R gR
