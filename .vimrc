@@ -329,6 +329,14 @@ set swapfile
 "set clipboard+=unnamed
 " スワップファイルの生成ディレクトリ
 set directory=$DOTVIM/swap
+" Command Lineの履歴数
+set history=1000
+" 検索時、カーソルの上または下は最低でも以下指定の行が表示される
+"set scrolloff=5
+" 折り返された行の先頭に表示する文字列
+let &showbreak = '+++ '
+" 高速ターミナル接続を行う
+set ttyfast
 
 " set tags
 "set autochdir
@@ -339,6 +347,12 @@ let &termencoding = &encoding
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
+set fileformats=unix,dos,mac
+
+" UTF-8の文字幅
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
 
 " macの場合の設定
 if has('mac')
