@@ -1334,8 +1334,8 @@ let g:user_zen_settings = {
 
 "---------------------------------------------------------------------------
 " for motemen/git-vim {{{2
-let g:git_no_map_default = 1
-let g:git_command_edit = 'rightbelow vnew'
+"let g:git_no_map_default = 1
+"let g:git_command_edit = 'rightbelow vnew'
 
 "nnoremap [Git]       <Nop>
 "nmap     <Space>g  [Git]
