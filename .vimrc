@@ -889,6 +889,21 @@ endfunction
 
 command! DiffOff call s:DiffOff()
 
+function! s:GoogleChrome(...)
+  if has('mac')
+    let l:cmd = "silent !open -a Google\\ Chrome "
+  elseif has('win32')
+    let l:cmd = "silent !start google\\ chrome "
+  endif
+  if a:0 == 0
+    execute l:cmd . "%"
+  else
+    execute l:cmd . a:1
+  endif
+endfunction
+
+command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
+
 " }}}
 
 "---------------------------------------------------------------------------
