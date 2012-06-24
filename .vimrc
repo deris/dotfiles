@@ -1270,7 +1270,7 @@ map  ge <Plug>(smartword-ge)
 " for kien/ctrlp.vim {{{2
 let g:ctrlp_map = ''
 let g:ctrlp_by_filename = 1
-let g:ctrlp_mruf_max = 250
+let g:ctrlp_mruf_max = 500
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 let g:ctrlp_prompt_mappings = {
     \ 'PrtBS()':              ['<c-h>', '<bs>'],
@@ -1282,6 +1282,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'PrtCurLeft()':         ['<left>'],
     \ 'PrtCurRight()':        ['<right>'],
     \ }
+let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|NERD_tree_2\|__Tag_List__\|*Scratch*'
 
 nnoremap [ctrlp]  <Nop>
 nmap     <Space>c [ctrlp]
