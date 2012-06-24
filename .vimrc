@@ -906,6 +906,15 @@ command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 
 command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
+" 検索文字列をレジスタでグローバル置換
+function! s:ReplaceGlobalSearchToRegister()
+  let l:reg = getreg(v:register)
+  let l:cmd = '%substitute//'
+  let l:opt = '/g'
+  execute l:cmd . l:reg . l:opt
+endfunction
+
+nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 " }}}
 
 "---------------------------------------------------------------------------
