@@ -881,6 +881,13 @@ if has('win32')
   endfunction
 endif
 
+" 差分モードを終了する
+function! s:DiffOff()
+  diffoff!
+  set nowrap
+endfunction
+
+command! DiffOff call s:DiffOff()
 
 " }}}
 
