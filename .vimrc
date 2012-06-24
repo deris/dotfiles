@@ -904,6 +904,8 @@ endfunction
 
 command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 
+command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
+
 " }}}
 
 "---------------------------------------------------------------------------
