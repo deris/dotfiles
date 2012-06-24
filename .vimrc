@@ -1607,9 +1607,9 @@ if has('mac')
 elseif has('win32')
   let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
 endif
-"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
-let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
-"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
+"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
+let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
+"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
 "nnoremap <silent> <Space>l :<C-u>TlistToggle<CR>
 " }}}
 
