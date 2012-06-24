@@ -1326,11 +1326,11 @@ let g:indent_guides_guide_size = 1
 
 "---------------------------------------------------------------------------
 " for t9md/vim-quickhl {{{2
-nmap <Space>m <Plug>(quickhl-toggle)
-xmap <Space>m <Plug>(quickhl-toggle)
-nmap <Space>M <Plug>(quickhl-reset)
-xmap <Space>M <Plug>(quickhl-reset)
-nmap <Space>h <Plug>(quickhl-match)
+nmap <Leader>hm <Plug>(quickhl-toggle)
+xmap <Leader>hm <Plug>(quickhl-toggle)
+nmap <Leader>hM <Plug>(quickhl-reset)
+xmap <Leader>hM <Plug>(quickhl-reset)
+nmap <Leader>hh <Plug>(quickhl-match)
 "let g:quickhl_keywords = [
 "    \ "keyword",
 "    \ ]
