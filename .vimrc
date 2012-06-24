@@ -490,12 +490,14 @@ nnoremap <S-Space>O O<Esc>
 
 ";と:を入れ替え
 nnoremap ; :
-nnoremap q; q:a
+nnoremap q; q:
 nnoremap : ;
 nnoremap @; @:
 nnoremap @: @;
+nnoremap ,; @:
+nnoremap ,. @:
 vnoremap ; :
-vnoremap q; q:a
+vnoremap q; q:
 vnoremap : ;
 vnoremap @; @:
 vnoremap @: @;
@@ -505,10 +507,10 @@ onoremap w iw
 onoremap W iW
 
 " マッチするものがないパーレンまで移動
-onoremap ) ])
-onoremap ( [(
-vnoremap ) ])
-vnoremap ( [(
+onoremap ) i)
+onoremap ( a(
+vnoremap ) i)
+vnoremap ( a(
 
 " よく使うものはtを省略できるようkeymap
 onoremap ; t;
@@ -534,10 +536,10 @@ vnoremap ad  a"
 onoremap id  i"
 vnoremap id  i"
 
-onoremap aq  a'
-vnoremap aq  a'
-onoremap iq  i'
-vnoremap iq  i'
+"onoremap aq  a'
+"vnoremap aq  a'
+"onoremap iq  i'
+"vnoremap iq  i'
 
 " モーション時にqで記号まで飛ぶ
 "onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
@@ -576,7 +578,8 @@ noremap <Space>0 )
 
 " command mode
 cnoremap <C-b> <Left>
-cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
+"cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
+cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 cnoremap <C-a> <Home>
@@ -589,30 +592,47 @@ cnoremap <C-u> <C-e><C-u>
 " コマンドラインモードでコマンドラインウィンドウを開く
 " <C-q>はUNIXのTerminalでバッティングするのでコメントアウト
 "cnoremap <C-q> <C-f>a
+cnoremap <C-v> <C-f>a
+
+" カーソル下のlineを挿入
+cnoremap <expr> <C-r><C-l>   getline(".")
+
+" command modeでの自動エスケープ
+cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
+cnoremap <C-/>  /
+cnoremap <C-?>  ?
 
 " 置換の自動入力
 "cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
 "cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 " <C-s>はUNIXのTerminalでバッティングするのでコメントアウト
 "cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
-nnoremap S :<C-u>%s///g<Left><Left><Left>
-vnoremap S :s///g<Left><Left><Left>
+nnoremap <Space>S   :<C-u>%s///g<Left><Left><Left>
+nnoremap <S-Space>S :<C-u>%s///g<Left><Left><Left>
+vnoremap <Space>S   :s///g<Left><Left><Left>
+vnoremap <S-Space>S :s///g<Left><Left><Left>
 
 "nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+
+"nnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
+"vnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
+"nnoremap <Leader>dS :%s/ *$//<CR>setlocal nohlsearch<CR>
 
 " insert mode
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
+inoremap <M-b> <S-Left>
+inoremap <M-f> <S-Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 inoremap <C-h> <BS>
 inoremap <C-d> <Del>
-inoremap <C-k> <C-o>C
-inoremap <C-y> <C-o>p
+"inoremap <C-k> <C-o>C
+"inoremap <C-y> <C-o>p
 " undoできるc-w,c-u
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
-inoremap <C-k> <C-o>D<Esc>
 
 inoremap <S-Enter> <C-o>O
 "inoremap ;        <Enter>
@@ -647,6 +667,10 @@ nnoremap <Space>vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlo
 noremap /   /\v
 noremap ?   ?\v
 
+" buffer
+"nnoremap <C-p> :<C-u>bprevious<CR>
+"nnoremap <C-n> :<C-u>bnext<CR>
+
 " Tabでウィンドウ移動
 "nnoremap <silent> <Tab>   <C-w>w
 "nnoremap <silent> <S-Tab> <C-w>W
@@ -676,13 +700,11 @@ nnoremap <silent> [TabPage]l     :<C-u>tablast<CR>
 nnoremap <silent> [TabPage]<C-l> :<C-u>tablast<CR>
 nnoremap <silent> [TabPage]h     :<C-u>tabfirst<CR>
 nnoremap <silent> [TabPage]<C-h> :<C-u>tabfirst<CR>
+nnoremap <silent> [TabPage]L     :<C-u>execute 'tabmove' tabpagenr() - 2<CR>
+nnoremap <silent> [TabPage]H     :<C-u>execute 'tabmove' tabpagenr()<CR>
 
-"nnoremap <silent> <S-H> gT
-"nnoremap <silent> <S-L> gt
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
-"nnoremap <silent> <Tab> gt
-"nnoremap <silent> <S-Tab> gT
 
 nnoremap <silent> gr :<C-u>tabprevious<CR>
 
@@ -698,6 +720,21 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 " Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
 "--------------------
 nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+" filetype
+"nnoremap [FileType]   <Nop>
+"nmap     <Space>t     [FileType]
+nnoremap <Space>tp  :<C-u>set filetype=perl<CR>
+nnoremap <Space>tv  :<C-u>set filetype=vim<CR>
+nnoremap <Space>tc  :<C-u>set filetype=c<CR>
+nnoremap <Space>to  :<C-u>set filetype=objc<CR>
+nnoremap <Space>tj  :<C-u>set filetype=java<CR>
+nnoremap <Space>ts  :<C-u>set filetype=shell<CR>
+nnoremap <Space>tr  :<C-u>set filetype=ruby<CR>
+nnoremap <Space>ta  :<C-u>set filetype=javascript<CR>
+nnoremap <Space>th  :<C-u>set filetype=html<CR>
+nnoremap <Space>tx  :<C-u>set filetype=xml<CR>
+nnoremap <Space>td  :<C-u>set filetype=diff<CR>
 
 " cscope
 "if has("cscope")
@@ -732,7 +769,7 @@ nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "endif
 
 
-"noremap <leader>sp :<C-u>vsplit <CR>
+"noremap <Leader>sp :<C-u>vsplit <CR>
 
 "nnoremap <sid>(command-line-enter) q:
 "xnoremap <sid>(command-line-enter) q:
@@ -740,12 +777,12 @@ nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Creating underline/overline headings for markup languages
 " Inspired by http://sphinx.pocoo.org/rest.html#sections
-"nnoremap <leader>1 yyPVr=jyypVr=
-"nnoremap <leader>2 yyPVr*jyypVr*
-"nnoremap <leader>3 yypVr=
-"nnoremap <leader>4 yypVr-
-"nnoremap <leader>5 yypVr^
-"nnoremap <leader>6 yypVr"
+"nnoremap <Leader>1 yyPVr=jyypVr=
+"nnoremap <Leader>2 yyPVr*jyypVr*
+"nnoremap <Leader>3 yypVr=
+"nnoremap <Leader>4 yypVr-
+"nnoremap <Leader>5 yypVr^
+"nnoremap <Leader>6 yypVr"
 
 " カーソル行前後にコメント入力
 " TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
@@ -755,14 +792,14 @@ nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
-  "nnoremap <silent> <leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
-  nnoremap <silent> <leader>sd :<c-u>call <SID>TortoiseDiff()<CR>
+  "nnoremap <silent> <Leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
+  nnoremap <silent> <Leader>sd :<c-u>call <SID>TortoiseDiff()<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
-  nnoremap <silent> <leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
+  nnoremap <silent> <Leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's revision graph
-  nnoremap <silent> <leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph /path:"%" /notempfile /closeonend<CR>
+  nnoremap <silent> <Leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph /path:"%" /notempfile /closeonend<CR>
   " Save the current buffer and execute the Tortoise SVN interface's blame program
-  nnoremap <silent> <leader>sb :<c-u>call <SID>TortoiseBlame()<CR>
+  nnoremap <silent> <Leader>sb :<c-u>call <SID>TortoiseBlame()<CR>
 
   function! s:TortoiseDiff()
     silent execute(':w')
@@ -830,7 +867,7 @@ nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
 nnoremap <Space>t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
 
 if has('win32')
-  nnoremap <silent> <leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
+  nnoremap <silent> <Leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
 
   function! s:HidemaruGrep()
     " current word
@@ -1044,10 +1081,12 @@ nmap     <Space>u [unite]
 
 nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]r  :<C-u>Unite register<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]m  :<C-u>Unite file_mru<CR>
-nnoremap [unite]f  :<C-u>Unite source<CR>
+nnoremap <silent> [unite]u  :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]d  :<C-u>Unite directory_mru<CR>
+nnoremap <silent> [unite]f  :<C-u>Unite source<CR>
 
 " Start insert.
 "let g:unite_enable_start_insert = 1
@@ -1131,6 +1170,7 @@ vnoremap <Space>ah :Alignta =><CR>
 "---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
 map s <Plug>(operator-replace)
+map S <Plug>(operator-replace)$
 " clipboardからoperator-replace
 map <Space>s "*<Plug>(operator-replace)
 " }}}
@@ -1166,6 +1206,7 @@ nmap     <Space>c [ctrlp]
 
 nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
 nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
+nnoremap [ctrlp]u  :<C-u>CtrlPMRUFiles<CR>
 nnoremap [ctrlp]f  :<C-u>CtrlPCurFile<CR>
 
 " }}}
@@ -1180,19 +1221,19 @@ let g:user_zen_expandabbr_key = '<c-y>'
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
 
-nnoremap [Git]       <Nop>
-nmap     <Space>g  [Git]
+"nnoremap [Git]       <Nop>
+"nmap     <Space>g  [Git]
 
-nnoremap [Git]d :<C-u>GitDiff --cached<CR>
-nnoremap [Git]D :<C-u>GitDiff<CR>
-nnoremap [Git]s :<C-u>GitStatus<CR>
-nnoremap [Git]l :<C-u>GitLog<CR>
-nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
-nnoremap [Git]a :<C-u>GitAdd<CR>
-nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
-nnoremap [Git]c :<C-u>GitCommit<CR>
-nnoremap [Git]C :<C-u>GitCommit --amend<CR>
-nnoremap [Git]p :<C-u>Git push
+"nnoremap [Git]d :<C-u>GitDiff --cached<CR>
+"nnoremap [Git]D :<C-u>GitDiff<CR>
+"nnoremap [Git]s :<C-u>GitStatus<CR>
+"nnoremap [Git]l :<C-u>GitLog<CR>
+"nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
+"nnoremap [Git]a :<C-u>GitAdd<CR>
+"nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
+"nnoremap [Git]c :<C-u>GitCommit<CR>
+"nnoremap [Git]C :<C-u>GitCommit --amend<CR>
+"nnoremap [Git]p :<C-u>Git push
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1251,19 +1292,19 @@ map # <Plug>(visualstar-#)N
 
 "---------------------------------------------------------------------------
 " for tpope/vim-fugitive {{{2
-"nnoremap [Git]     <Nop>
-"nmap     <Space>g  [Git]
+nnoremap [Git]     <Nop>
+nmap     <Space>g  [Git]
 
-"nnoremap [Git]d :<C-u>Gdiff --cached<CR>
-"nnoremap [Git]D :<C-u>Gdiff<CR>
-"nnoremap [Git]s :<C-u>Gstatus<CR>
-"nnoremap [Git]l :<C-u>Glog<CR>
-"nnoremap [Git]a :<C-u>Gwrite<CR>
-"nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
-"nnoremap [Git]c :<C-u>Gcommit<CR>
-"nnoremap [Git]C :<C-u>Git commit --amend<CR>
-"nnoremap [Git]b :<C-u>Gblame<CR>
-"nnoremap [Git]p :<C-u>Git push 
+nnoremap [Git]d :<C-u>Gdiff --cached<CR>
+nnoremap [Git]D :<C-u>Gdiff<CR>
+nnoremap [Git]s :<C-u>Gstatus<CR>
+nnoremap [Git]l :<C-u>Glog<CR>
+nnoremap [Git]a :<C-u>Gwrite<CR>
+nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
+nnoremap [Git]c :<C-u>Gcommit<CR>
+nnoremap [Git]C :<C-u>Git commit --amend<CR>
+nnoremap [Git]b :<C-u>Gblame<CR>
+nnoremap [Git]p :<C-u>Git push 
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1293,10 +1334,10 @@ augroup END
 
 "---------------------------------------------------------------------------
 " for tyru/operator-star.vim {{{2
-nmap <leader>*  <Plug>(operator-*)
-nmap <leader>g* <Plug>(operator-g*)
-nmap <leader>#  <Plug>(operator-#)
-nmap <leader>g# <Plug>(operator-g#)
+nmap <Leader>*  <Plug>(operator-*)
+nmap <Leader>g* <Plug>(operator-g*)
+nmap <Leader>#  <Plug>(operator-#)
+nmap <Leader>g# <Plug>(operator-g#)
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1322,6 +1363,7 @@ let g:quickrun_config.scala = {
 nnoremap <silent> <Space>r :QuickRun -mode n<CR>
 vnoremap <silent> <Space>r :QuickRun -mode v<CR>
 nnoremap <Space>R :QuickRun -args ""<Left>
+nnoremap <S-Space>R :QuickRun -args ""<Left>
 
 " }}}
 
