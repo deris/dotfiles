@@ -1425,7 +1425,9 @@ function! g:ambicmd_my_custom_rule(cmd)
   \   '\C^' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g') . '$',
   \   '\C' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g'),
   \   '\c' . a:cmd,
-  \   '.*' . substitute(a:cmd, '.', '\0.*', 'g')
+  \   '.*' . substitute(a:cmd, '.', '\0.*', 'g'),
+  \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g') . '$',
+  \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g'),
   \ ]
 endfunction
 let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
