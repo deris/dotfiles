@@ -1239,6 +1239,25 @@ map <Space>s "*<Plug>(operator-replace)
 " }}}
 
 "---------------------------------------------------------------------------
+" for kana/vim-scratch {{{2
+function! ScratchToggle()
+  if exists("t:is_scratch_window")
+    unlet t:is_scratch_window
+    ScratchClose
+    echo 'close'
+  else
+    let t:is_scratch_window = 1
+    ScratchOpen
+    echo 'open'
+  endif
+endfunction
+
+command! -nargs=0 ScratchToggle call ScratchToggle()
+nnoremap <silent> <Leader><Tab> :<C-u>ScratchToggle<CR>
+
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-smartword {{{2
 nmap w  <Plug>(smartword-w)
 vmap w  <Plug>(smartword-w)
