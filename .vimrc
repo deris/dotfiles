@@ -1437,6 +1437,15 @@ let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
 " for thinca/vim-ref {{{2
 "nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
 "vnoremap <silent> <Space>a :<C-u>call ref#jump('visual', 'alc')<CR>
+
+let g:ref_source_webdict_sites = {
+\   'goo': {
+\     'url': 'http://dictionary.goo.ne.jp/srch/all/%s/m0u/',
+\     'keyword_encoding': 'utf-8',
+\     'cache': 1,
+\   }
+\ }
+let g:ref_source_webdict_sites.default = 'goo'
 " }}}
 
 "---------------------------------------------------------------------------
