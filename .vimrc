@@ -373,7 +373,7 @@ if has('mac')
   set grepprg=ack\ -a
 
   if has('vim_starting')
-    let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$PATH
+    let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$HOME."/.cabal/bin:".$PATH
   end
 endif
 
