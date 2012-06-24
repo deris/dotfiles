@@ -1478,6 +1478,10 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
+"---------------------------------------------------------------------------
+" for tyru/operator-html-escape.vim {{{2
+nmap <Leader>h  <Plug>(operator-html-escape)
+nmap <Leader>u  <Plug>(operator-html-unescape)
 " }}}
 
 "---------------------------------------------------------------------------
