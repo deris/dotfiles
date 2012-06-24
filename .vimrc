@@ -1370,6 +1370,44 @@ nmap <Leader>hh <Plug>(quickhl-match)
 " }}}
 
 "---------------------------------------------------------------------------
+" for t9md/vim-surround_custom_mapping {{{2
+let g:surround_custom_mapping = {}
+let g:surround_custom_mapping.perl = {
+    \ 'Q': "q(\r)",
+    \ 'D': "qq(\r)",
+    \ 'o': "qw(\r)",
+    \ }
+let g:surround_custom_mapping.ruby = {
+    \ '-':  "<% \r %>",
+    \ '=':  "<%= \r %>",
+    \ '9':  "(\r)",
+    \ '5':  "%(\r)",
+    \ '%':  "%(\r)",
+    \ 'w':  "%w(\r)",
+    \ '#':  "#{\r}",
+    \ '3':  "#{\r}",
+    \ 'e':  "begin \r end",
+    \ 'E':  "<<EOS \r EOS",
+    \ 'i':  "if \1if\1 \r end",
+    \ 'u':  "unless \1unless\1 \r end",
+    \ 'c':  "class \1class\1 \r end",
+    \ 'm':  "module \1module\1 \r end",
+    \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
+    \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
+    \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
+    \ }
+let g:surround_custom_mapping.javascript = {
+    \ 'f':  "function(){ \r }"
+    \ }
+let g:surround_custom_mapping.vim= {
+    \'f':  "function! \r endfunction"
+    \ }
+let g:surround_custom_mapping.snippet= {
+    \'p':  "${\1num\1:\r}"
+    \ }
+" }}}
+
+"---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
 "nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
 " }}}
@@ -1423,27 +1461,7 @@ nnoremap [Git]p :<C-u>Git push
 " }}}
 
 "---------------------------------------------------------------------------
-" for tpope/vim-surround {{{2
-" 'a'を>として扱う
-"let g:surround_97  = "<\r>"
-let g:surround_{char2nr("a")}  = "<\r>"
-" 'r'を]として扱う
-"let g:surround_114 = "[\r]"
-let g:surround_{char2nr("r")}  = "[\r]"
-" 'd'を"として扱う
-"let g:surround_100 = '"\r"'
-let g:surround_{char2nr("d")}  = '"\r"'
-" 'q'を'として扱う
-"let g:surround_113 = "'\r'"
-let g:surround_{char2nr("q")}  = "'\r'"
-
-" perl の演算子囲み
-augroup perllang
-    " 'Q'を囲みとして扱う
-    autocmd FileType perl let g:surround_{char2nr("Q")} = "q(\r)"
-    " 'D'を囲みとして扱う
-    autocmd FileType perl let g:surround_{char2nr("D")} = "qq(\r)"
-augroup END
+" }}}
 
 " }}}
 
