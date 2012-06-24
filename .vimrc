@@ -938,6 +938,10 @@ augroup vimlang
   autocmd!
   autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
+augroup snippetlang
+  autocmd!
+  autocmd FileType snippet setlocal noexpandtab tabstop=4 shiftwidth=4 list
+augroup END
 augroup makefile
   autocmd!
   autocmd FileType make setlocal noexpandtab list
@@ -953,6 +957,7 @@ augroup END
 augroup perllang
   autocmd!
   autocmd BufRead,BufNewFile *.psgi setfiletype perl
+  autocmd BufRead,BufNewFile *.t    setfiletype perl
   autocmd FileType perl setlocal expandtab tabstop=4 shiftwidth=4 list
   " perlの関数に飛ぶ
   autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
@@ -966,7 +971,7 @@ augroup htmlfile
 augroup END
 augroup xmlfile
   autocmd!
-  autocmd FileType xml  setlocal expandtab tabstop=2 shiftwidth=2 list
+  autocmd FileType xml setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup jslang
   autocmd!
@@ -981,6 +986,10 @@ augroup scalalang
   autocmd!
   autocmd BufRead,BufNewFile *.scala setfiletype scala
   autocmd FileType scala setlocal expandtab tabstop=4 shiftwidth=4 list
+augroup END
+augroup zshlang
+  autocmd!
+  autocmd FileType zsh setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 
 "if has('mac')
