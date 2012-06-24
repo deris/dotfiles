@@ -1560,12 +1560,6 @@ map } <Plug>(parajump-forward)
 " }}}
 
 "---------------------------------------------------------------------------
-" for YankRing.vim {{{2
-"let g:yankring_replace_n_pkey = '<C-k>'
-"let g:yankring_replace_n_nkey = '<C-j>'
-" }}}
-
-"---------------------------------------------------------------------------
 " for errormarker.vim {{{2
 let errormarker_disablemappings = 1
 " }}}
