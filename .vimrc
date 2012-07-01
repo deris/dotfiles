@@ -932,8 +932,6 @@ command! WJis w ++enc=iso-2022-jp | e
 "---------------------------------------------------------------------------
 " filetype {{{2
 
-filetype plugin indent on
-
 augroup vimlang
   autocmd!
   autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
