@@ -132,6 +132,7 @@ Bundle 'thinca/vim-poslist'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-scouter'
+Bundle 'thinca/vim-singleton'
 Bundle 'thinca/vim-template'
 Bundle 'thinca/vim-textobj-comment'
 Bundle 'thinca/vim-textobj-between'
@@ -216,6 +217,7 @@ Bundle 'vim-jp/vimdoc-ja'
 
 filetype plugin indent on
 
+call singleton#enable()
 " }}}
 
 "---------------------------------------------------------------------------
