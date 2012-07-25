@@ -291,6 +291,8 @@ set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
 "setlocal iskeyword& iskeyword+=-
 " Explicitly tell vim that the terminal supports 256 colors
 set t_Co=256
+" C-a,C-xで8進数を増減しないようhexだけ設定する
+set nrformats=hex
 
 " 全角スペースを表示
 scriptencoding utf-8
