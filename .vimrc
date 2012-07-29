@@ -217,7 +217,9 @@ Bundle 'vim-jp/vimdoc-ja'
 
 filetype plugin indent on
 
-call singleton#enable()
+if has('clientserver')
+  call singleton#enable()
+endif
 " }}}
 
 "---------------------------------------------------------------------------
