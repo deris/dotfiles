@@ -980,6 +980,7 @@ command! WJis w ++enc=iso-2022-jp | e
 augroup vimlang
   autocmd!
   autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
+  autocmd FileType vim let g:vim_indent_cont = 2
 augroup END
 augroup snippetlang
   autocmd!
