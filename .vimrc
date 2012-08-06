@@ -527,6 +527,12 @@ nnoremap <Space>o o<Esc>k
 nnoremap <Space>O O<Esc>
 nnoremap <S-Space>O O<Esc>
 
+" 連結時に空白を挿入したくないのでJとgJを入れ替え
+nnoremap J  gJ
+nnoremap gJ J
+vnoremap J  gJ
+vnoremap gJ J
+
 ";と:を入れ替え
 nnoremap ; :
 nnoremap q; q:
