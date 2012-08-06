@@ -27,198 +27,218 @@ else
   let $DOTVIM=expand('~/vimfiles')
 endif
 
+let $VIMBUNDLE=$DOTVIM.'/bundle'
+
+" bundle/ 以下に配置されているか
+function! s:bundled(bundle)
+  if !isdirectory($VIMBUNDLE)
+    return 0
+  endif
+
+  return stridx(&runtimepath, a:bundle) > -1
+    \ && !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
+endfunction
+
 "---------------------------------------------------------------------------
 " Vundle {{{2
 set nocompatible
 filetype off
-set rtp+=$DOTVIM/bundle/vundle/
-call vundle#rc('$DOTVIM/bundle')
-Bundle 'gmarik/vundle'
 
-" original repos on github
-"Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
-"Bundle 'Shougo/neobundle.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler'
-Bundle 'Shougo/vimproc'
-"Bundle 'Shougo/vimshell'
-"Bundle 'Townk/vim-autoclose'
-"Bundle 'benmills/vimux'
-Bundle 'bitc/vim-bad-whitespace'
-"Bundle 'chrisbra/SudoEdit.vim'
-"Bundle 'c9s/perlomni.vim'
-"Bundle 'derekwyatt/vim-scala'
-Bundle 'emonkak/vim-operator-comment'
-Bundle 'emonkak/vim-operator-sort'
-"Bundle 'godlygeek/tabular'
-Bundle 'h1mesuke/vim-alignta'
-"Bundle 'h1mesuke/vim-benchmark'
-"Bundle 'h1mesuke/textobj-wiw'
-Bundle 'h1mesuke/unite-outline'
-"Bundle 'hekyou/vim-rectinsert'
-"Bundle 'fholgado/minibufexpl.vim'
-"Bundle 'fuenor/vim-statusline' "手動で配置の必要あり
-"Bundle 'fuenor/qfixhowm'
-"Bundle 'jceb/vim-orgmode'
-"Bundle 'kana/vim-advice'
-"Bundle 'kana/vim-altr'
-"Bundle 'kana/vim-arpeggio'
-Bundle 'kana/vim-fakeclip'
-"Bundle 'kana/vim-gf-user'
-"Bundle 'kana/vim-grex'
-"Bundle 'kana/vim-metarw'
-Bundle 'kana/vim-operator-user'
-Bundle 'kana/vim-operator-replace'
-Bundle 'kana/vim-scratch'
-"Bundle 'kana/vim-smartinput'
-Bundle 'kana/vim-smartword'
-"Bundle 'kana/vim-submode'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-entire'
-Bundle 'kana/vim-textobj-function'
-Bundle 'kana/vim-textobj-indent'
-Bundle 'kana/vim-textobj-jabraces'
-Bundle 'kana/vim-textobj-lastpat'
-Bundle 'kana/vim-textobj-line'
-Bundle 'kana/vim-textobj-syntax'
-Bundle 'kana/vim-vspec'
-Bundle 'kien/ctrlp.vim'
-"Bundle 'vexxor/kwbd.vim'
-"Bundle 'majutsushi/tagbar'
-"Bundle 'mattn/asyncgrep-vim'
-"Bundle 'mattn/benchvimrc-vim'
-"Bundle 'mattn/gist-vim'
-Bundle 'mattn/learn-vimscript'
-"Bundle 'mattn/sonictemplate-vim'
-"Bundle 'mattn/vdbi-vim'
-Bundle 'mattn/vim-textobj-url'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/zencoding-vim'
-"Bundle 'mileszs/ack.vim'
-"Bundle 'motemen/git-vim'
-"Bundle 'motemen/hatena-vim'
-"Bundle 'msanders/cocoa.vim'
-"Bundle 'msanders/snipmate.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-"Bundle 'othree/eregex.vim'
-"Bundle 'plasticboy/vim-markdown'
-"Bundle 'reinh/vim-makegreen'
-Bundle 'rphillips/vim-zoomwin'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-"Bundle 'scrooloose/syntastic'
-Bundle 'sgur/vim-textobj-parameter'
-"Bundle 'sgur/unite-everything'
-"Bundle 'sjl/clam.vim'
-Bundle 'sjl/gundo.vim'
-"Bundle 'sjl/splice.vim'
-"Bundle 'sjl/vitality.vim'
-Bundle 'skammer/vim-css-color'
-"Bundle 't9md/vim-quickhl'
-Bundle 't9md/vim-surround_custom_mapping'
-"Bundle 't9md/vim-textmanip'
-"Bundle 't9md/vim-underlinetag'
-"Bundle 't9md/vim-unite-ack'
-"Bundle 'taku-o/vim-toggle'
-"Bundle 'tejr/nextag'
-Bundle 'thinca/vim-ambicmd'
-Bundle 'thinca/vim-fontzoom'
-Bundle 'thinca/vim-openbuf'
-Bundle 'thinca/vim-poslist'
-"Bundle 'thinca/vim-qfreplace'
-Bundle 'thinca/vim-quickrun'
-Bundle 'thinca/vim-ref'
-Bundle 'thinca/vim-scouter'
-Bundle 'thinca/vim-singleton'
-Bundle 'thinca/vim-template'
-Bundle 'thinca/vim-textobj-comment'
-Bundle 'thinca/vim-textobj-between'
-Bundle 'thinca/vim-visualstar'
-"Bundle 'tpope/vim-eunuch'
-Bundle 'tpope/vim-fugitive'
-"Bundle 'tpope/vim-markdown'
-"Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-"Bundle 'tpope/vim-unimpaired'
-"Bundle 'tsukkee/unite-help'
-Bundle 'tsukkee/unite-tag'
-"Bundle 'tyru/caw.vim'
-"Bundle 'tyru/current-func-info.vim'
-"Bundle 'tyru/operator-camelize.vim'
-Bundle 'tyru/open-browser.vim'
-Bundle 'tyru/operator-html-escape.vim'
-Bundle 'tyru/operator-reverse.vim'
-Bundle 'tyru/operator-star.vim'
-Bundle 'tyru/restart.vim'
-"Bundle 'tyru/vim-altercmd'
-"Bundle 'ujihisa/shadow.vim'
-"Bundle 'ujihisa/unite-colorscheme'
-"Bundle 'ujihisa/unite-locate'
-Bundle 'vim-jp/vital.vim'
-Bundle 'vimtaku/vim-textobj-sigil'
-"Bundle 'vimtaku/vim-textobj-keyvalue'
-"Bundle 'xolox/vim-easytags'
-"Bundle 'xolox/vim-notes'
-Bundle 'xolox/vim-session'
-"Bundle 'ynkdir/vim-remote'
-"Bundle 'yuratomo/w3m.vim'
-Bundle 'deris/columnjump'
-Bundle 'deris/parajump'
-Bundle 'deris/vim-textobj-enclosedsyntax'
+if has('vim_starting')
+  set rtp+=$VIMBUNDLE/vundle/
+endif
 
-" vim-scripts repos
-"Bundle 'Align'
-"Bundle 'CD.vim'
-"Bundle 'Conque-Shell'
-Bundle 'DirDiff.vim'
-Bundle 'DrawIt'
-"Bundle 'FuzzyFinder'
-"Bundle 'JSON.vim'
-Bundle 'L9'
-"Bundle 'Mark'
-"Bundle 'QuickBuf'
-"Bundle 'QFixHowm'
-Bundle 'Source-Explorer-srcexpl.vim'
-Bundle 'UnconditionalPaste'
-"Bundle 'YankRing.vim' "あまり使わないのとkeymap設定で悪さをするので削除
-"Bundle 'a.vim'
-"Bundle 'bufexplorer.zip'
-"Bundle 'closetag.vim'
-Bundle 'errormarker.vim'
-Bundle 'grep.vim'
-Bundle 'matchit.zip'
-Bundle 'perl-support.vim'
-Bundle 'project.tar.gz'
-"Bundle 'qtmplsel.vim'
-"Bundle 'rails.vim'
-Bundle 'renamer.vim'
-"Bundle 'smartchr'
-"Bundle 'statusline.vim'
-Bundle 'taglist.vim'
-"Bundle 'textobj-function'
-Bundle 'trinity.vim'
-"Bundle 'vcscommand.vim'
-Bundle 'vimwiki'
+if s:bundled('vundle')
+  call vundle#rc($VIMBUNDLE)
 
-" color scheme
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'deris/molokai'
-Bundle 'deris/vim-wombat'
-Bundle 'jnurmine/Zenburn'
-Bundle 'newspaper.vim'
+  " original repos on github
+  Bundle 'gmarik/vundle'
+  "Bundle 'Lokaltog/vim-easymotion'
+  Bundle 'Lokaltog/vim-powerline'
+  "Bundle 'Shougo/neobundle.vim'
+  Bundle 'Shougo/neocomplcache'
+  Bundle 'Shougo/neocomplcache-snippets-complete'
+  Bundle 'Shougo/unite.vim'
+  Bundle 'Shougo/vimfiler'
+  Bundle 'Shougo/vimproc'
+  "Bundle 'Shougo/vimshell'
+  "Bundle 'Townk/vim-autoclose'
+  "Bundle 'benmills/vimux'
+  Bundle 'bitc/vim-bad-whitespace'
+  "Bundle 'chrisbra/SudoEdit.vim'
+  "Bundle 'c9s/perlomni.vim'
+  "Bundle 'derekwyatt/vim-scala'
+  Bundle 'emonkak/vim-operator-comment'
+  Bundle 'emonkak/vim-operator-sort'
+  "Bundle 'godlygeek/tabular'
+  Bundle 'h1mesuke/vim-alignta'
+  "Bundle 'h1mesuke/vim-benchmark'
+  "Bundle 'h1mesuke/textobj-wiw'
+  Bundle 'h1mesuke/unite-outline'
+  "Bundle 'hekyou/vim-rectinsert'
+  "Bundle 'fholgado/minibufexpl.vim'
+  "Bundle 'fuenor/vim-statusline' "手動で配置の必要あり
+  "Bundle 'fuenor/qfixhowm'
+  "Bundle 'jceb/vim-orgmode'
+  "Bundle 'kana/vim-advice'
+  "Bundle 'kana/vim-altr'
+  "Bundle 'kana/vim-arpeggio'
+  Bundle 'kana/vim-fakeclip'
+  "Bundle 'kana/vim-gf-user'
+  "Bundle 'kana/vim-grex'
+  "Bundle 'kana/vim-metarw'
+  Bundle 'kana/vim-narrow'
+  Bundle 'kana/vim-operator-user'
+  Bundle 'kana/vim-operator-replace'
+  Bundle 'kana/vim-scratch'
+  "Bundle 'kana/vim-smartinput'
+  Bundle 'kana/vim-smartword'
+  "Bundle 'kana/vim-submode'
+  Bundle 'kana/vim-textobj-user'
+  Bundle 'kana/vim-textobj-entire'
+  Bundle 'kana/vim-textobj-function'
+  Bundle 'kana/vim-textobj-indent'
+  Bundle 'kana/vim-textobj-jabraces'
+  Bundle 'kana/vim-textobj-lastpat'
+  Bundle 'kana/vim-textobj-line'
+  Bundle 'kana/vim-textobj-syntax'
+  Bundle 'kana/vim-vspec'
+  Bundle 'kien/ctrlp.vim'
+  "Bundle 'vexxor/kwbd.vim'
+  "Bundle 'majutsushi/tagbar'
+  "Bundle 'mattn/asyncgrep-vim'
+  "Bundle 'mattn/benchvimrc-vim'
+  "Bundle 'mattn/gist-vim'
+  Bundle 'mattn/learn-vimscript'
+  "Bundle 'mattn/sonictemplate-vim'
+  "Bundle 'mattn/vdbi-vim'
+  Bundle 'mattn/vim-textobj-url'
+  Bundle 'mattn/webapi-vim'
+  Bundle 'mattn/zencoding-vim'
+  "Bundle 'mileszs/ack.vim'
+  "Bundle 'motemen/git-vim'
+  "Bundle 'motemen/hatena-vim'
+  "Bundle 'msanders/cocoa.vim'
+  "Bundle 'msanders/snipmate.vim'
+  Bundle 'nathanaelkane/vim-indent-guides'
+  "Bundle 'othree/eregex.vim'
+  "Bundle 'plasticboy/vim-markdown'
+  "Bundle 'reinh/vim-makegreen'
+  Bundle 'rphillips/vim-zoomwin'
+  Bundle 'scrooloose/nerdcommenter'
+  Bundle 'scrooloose/nerdtree'
+  "Bundle 'scrooloose/syntastic'
+  Bundle 'sgur/vim-textobj-parameter'
+  "Bundle 'sgur/unite-everything'
+  "Bundle 'sjl/clam.vim'
+  Bundle 'sjl/gundo.vim'
+  "Bundle 'sjl/splice.vim'
+  "Bundle 'sjl/vitality.vim'
+  Bundle 'skammer/vim-css-color'
+  "Bundle 't9md/vim-quickhl'
+  Bundle 't9md/vim-surround_custom_mapping'
+  "Bundle 't9md/vim-textmanip'
+  "Bundle 't9md/vim-underlinetag'
+  "Bundle 't9md/vim-unite-ack'
+  "Bundle 'taku-o/vim-toggle'
+  "Bundle 'tejr/nextag'
+  Bundle 'thinca/vim-ambicmd'
+  Bundle 'thinca/vim-fontzoom'
+  Bundle 'thinca/vim-openbuf'
+  Bundle 'thinca/vim-poslist'
+  "Bundle 'thinca/vim-qfreplace'
+  Bundle 'thinca/vim-quickrun'
+  Bundle 'thinca/vim-ref'
+  Bundle 'thinca/vim-scouter'
+  Bundle 'thinca/vim-singleton'
+  Bundle 'thinca/vim-template'
+  Bundle 'thinca/vim-textobj-comment'
+  Bundle 'thinca/vim-textobj-between'
+  Bundle 'thinca/vim-visualstar'
+  "Bundle 'tpope/vim-eunuch'
+  Bundle 'tpope/vim-fugitive'
+  "Bundle 'tpope/vim-markdown'
+  "Bundle 'tpope/vim-rails'
+  Bundle 'tpope/vim-repeat'
+  Bundle 'tpope/vim-surround'
+  "Bundle 'tpope/vim-unimpaired'
+  "Bundle 'tsukkee/unite-help'
+  Bundle 'tsukkee/unite-tag'
+  "Bundle 'tyru/caw.vim'
+  "Bundle 'tyru/current-func-info.vim'
+  "Bundle 'tyru/operator-camelize.vim'
+  Bundle 'tyru/open-browser.vim'
+  Bundle 'tyru/operator-html-escape.vim'
+  Bundle 'tyru/operator-reverse.vim'
+  Bundle 'tyru/operator-star.vim'
+  Bundle 'tyru/restart.vim'
+  "Bundle 'tyru/vim-altercmd'
+  "Bundle 'ujihisa/shadow.vim'
+  "Bundle 'ujihisa/unite-colorscheme'
+  "Bundle 'ujihisa/unite-locate'
+  Bundle 'vim-jp/vital.vim'
+  Bundle 'vimtaku/vim-textobj-sigil'
+  "Bundle 'vimtaku/vim-textobj-keyvalue'
+  "Bundle 'xolox/vim-easytags'
+  "Bundle 'xolox/vim-notes'
+  Bundle 'xolox/vim-session'
+  "Bundle 'ynkdir/vim-remote'
+  "Bundle 'yuratomo/w3m.vim'
+  Bundle 'deris/columnjump'
+  Bundle 'deris/parajump'
+  Bundle 'deris/vim-textobj-enclosedsyntax'
 
-" 日本語help
-Bundle 'vim-jp/vimdoc-ja'
+  " vim-scripts repos
+  "Bundle 'Align'
+  "Bundle 'CD.vim'
+  "Bundle 'Conque-Shell'
+  Bundle 'DirDiff.vim'
+  Bundle 'DrawIt'
+  "Bundle 'FuzzyFinder'
+  "Bundle 'JSON.vim'
+  Bundle 'L9'
+  "Bundle 'Mark'
+  "Bundle 'QuickBuf'
+  "Bundle 'QFixHowm'
+  Bundle 'Source-Explorer-srcexpl.vim'
+  Bundle 'UnconditionalPaste'
+  "Bundle 'YankRing.vim' "あまり使わないのとkeymap設定で悪さをするので削除
+  "Bundle 'a.vim'
+  "Bundle 'bufexplorer.zip'
+  "Bundle 'closetag.vim'
+  Bundle 'errormarker.vim'
+  Bundle 'grep.vim'
+  Bundle 'matchit.zip'
+  Bundle 'perl-support.vim'
+  Bundle 'project.tar.gz'
+  "Bundle 'qtmplsel.vim'
+  "Bundle 'rails.vim'
+  Bundle 'renamer.vim'
+  "Bundle 'smartchr'
+  "Bundle 'statusline.vim'
+  Bundle 'taglist.vim'
+  Bundle 'trinity.vim'
+  "Bundle 'vcscommand.vim'
+  Bundle 'vimwiki'
 
+  " color scheme
+  Bundle 'altercation/vim-colors-solarized'
+  Bundle 'deris/molokai'
+  Bundle 'deris/vim-wombat'
+  Bundle 'jnurmine/Zenburn'
+  Bundle 'newspaper.vim'
+
+  " 日本語help
+  Bundle 'vim-jp/vimdoc-ja'
+
+endif
 
 filetype plugin indent on
 
-if has('clientserver')
-  call singleton#enable()
+if s:bundled('vim-singleton')
+  if has('clientserver')
+    call singleton#enable()
+  endif
 endif
 " }}}
 
@@ -305,7 +325,11 @@ augroup hilightIdegraphicSpace
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
-colorscheme wombat
+if s:bundled('vim-wombat')
+  colorscheme wombat
+else
+  colorscheme desert
+endif
 
 " 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
@@ -1032,252 +1056,271 @@ endif
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
-let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-let g:EasyMotion_do_shade = 1
-hi EasyMotionTarget ctermbg=none ctermfg=green
-hi EasyMotionShade  ctermbg=none ctermfg=blue
+if s:bundled('vim-easymotion')
+  let g:EasyMotion_leader_key = ','
+  let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  let g:EasyMotion_do_shade = 1
+  hi EasyMotionTarget ctermbg=none ctermfg=green
+  hi EasyMotionShade  ctermbg=none ctermfg=blue
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/neocomplcache {{{2
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-"" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-"" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-"" Set minimum syntax keyword length.
-"let g:neocomplcache_min_syntax_length = 3
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+if s:bundled('neocomplcache')
+  " Disable AutoComplPop.
+  let g:acp_enableAtStartup = 0
+  " Use neocomplcache.
+  let g:neocomplcache_enable_at_startup = 1
+  " Use smartcase.
+  let g:neocomplcache_enable_smart_case = 1
+  "" Use camel case completion.
+  "let g:neocomplcache_enable_camel_case_completion = 1
+  "" Use underbar completion.
+  "let g:neocomplcache_enable_underbar_completion = 1
+  "" Set minimum syntax keyword length.
+  "let g:neocomplcache_min_syntax_length = 3
+  "let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-let g:neocomplcache_auto_completion_start_length = 3
-let g:neocomplcache_manual_completion_start_length = 3
+  let g:neocomplcache_auto_completion_start_length = 3
+  let g:neocomplcache_manual_completion_start_length = 3
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+  " Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
+  " Define keyword.
+  if !exists('g:neocomplcache_keyword_patterns')
+      let g:neocomplcache_keyword_patterns = {}
+  endif
+  let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+
+  " Plugin key-mappings.
+  inoremap <expr><C-g>     neocomplcache#undo_completion()
+  inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+  " Recommended key-mappings.
+  " <CR>: close popup and save indent.
+  inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplcache#close_popup()
+  "inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+  "imap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
+  "smap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
+
+  " AutoComplPop like behavior.
+  "let g:neocomplcache_enable_auto_select = 1
+
+  " Shell like behavior(not recommended).
+  "set completeopt+=longest
+  "let g:neocomplcache_enable_auto_select = 1
+  "let g:neocomplcache_disable_auto_complete = 1
+  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+  "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+  " Enable omni completion.
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+  " Enable heavy omni completion.
+  if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+  endif
+  let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+  "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+  let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+  " For perlomni.vim setting.
+  " https://github.com/c9s/perlomni.vim
+  "let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-"inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-"imap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
-"smap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-"let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/neocomplcache-snippets-complete {{{2
-let g:neocomplcache_snippets_dir = $DOTVIM.'/snippets'
+if s:bundled('neocomplcache-snippets-complete')
+  let g:neocomplcache_snippets_dir = $DOTVIM.'/snippets'
+  if !isdirectory(g:neocomplcache_snippets_dir)
+    call mkdir(g:neocomplcache_snippets_dir, "p")
+  endif
 
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+  " Plugin key-mappings.
+  imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+  smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
-nnoremap <silent> <Space>es :<C-u>NeoComplCacheEditSnippets 
+  nnoremap <silent> <Space>es :<C-u>NeoComplCacheEditSnippets 
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-\ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
+    \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
+  " For snippet_complete marker.
+  if has('conceal')
+    set conceallevel=2 concealcursor=i
+  endif
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/unite.vim {{{2
 " The prefix key.
-nnoremap [unite]    <Nop>
-nmap     <Space>u [unite]
+if s:bundled('unite.vim')
+  nnoremap [unite]    <Nop>
+  nmap     <Space>u [unite]
 
-nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite register<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]m  :<C-u>Unite file_mru<CR>
-nnoremap <silent> [unite]u  :<C-u>Unite file_mru<CR>
-nnoremap <silent> [unite]d  :<C-u>Unite directory_mru<CR>
-nnoremap <silent> [unite]f  :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
+  nnoremap <silent> [unite]r  :<C-u>Unite register<CR>
+  nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]m  :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]u  :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]d  :<C-u>Unite directory_mru<CR>
+  nnoremap <silent> [unite]f  :<C-u>Unite source<CR>
 
-" Start insert.
-"let g:unite_enable_start_insert = 1
+  " Start insert.
+  "let g:unite_enable_start_insert = 1
 
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-  " Overwrite settings.
+  autocmd FileType unite call s:unite_my_settings()
+  function! s:unite_my_settings()"{{{
+    " Overwrite settings.
 
-  nmap <buffer> <ESC>  <Plug>(unite_exit)
-  nmap <buffer> <C-c>  <Plug>(unite_exit)
-  imap <buffer> jj     <Plug>(unite_insert_leave)
-  imap <buffer> jk     <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
+    nmap <buffer> <ESC>  <Plug>(unite_exit)
+    nmap <buffer> <C-c>  <Plug>(unite_exit)
+    imap <buffer> jj     <Plug>(unite_insert_leave)
+    imap <buffer> jk     <Plug>(unite_insert_leave)
+    "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
 
-  " <C-l>: manual neocomplcache completion.
-  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
-endfunction"}}}
+    " <C-l>: manual neocomplcache completion.
+    inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+  endfunction"}}}
 
-let g:unite_source_file_mru_limit = 200
-let g:unite_cursor_line_highlight = 'TabLineSel'
-let g:unite_abbr_highlight = 'TabLine'
+  let g:unite_source_file_mru_limit = 200
+  let g:unite_cursor_line_highlight = 'TabLineSel'
+  let g:unite_abbr_highlight = 'TabLine'
 
-" For optimize.
-let g:unite_source_file_mru_filename_format = ''
+  " For optimize.
+  let g:unite_source_file_mru_filename_format = ''
 
-" For unite-session.
-" Save session automatically.
-"let g:unite_source_session_enable_auto_save = 1
-" Load session automatically.
-"autocmd VimEnter * UniteSessionLoad
+  " For unite-session.
+  " Save session automatically.
+  "let g:unite_source_session_enable_auto_save = 1
+  " Load session automatically.
+  "autocmd VimEnter * UniteSessionLoad
 
-" For ack.
-if executable('ack')
-  let g:unite_source_grep_command = 'ack'
-  let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-  let g:unite_source_grep_recursive_opt = ''
+  " For ack.
+  if executable('ack')
+    let g:unite_source_grep_command = 'ack'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    let g:unite_source_grep_recursive_opt = ''
+  endif
 endif
-
 " }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/vimfiler {{{2
 " File explorer like behavior.
-nnoremap [vimfiler]  <Nop>
-nmap     <Space>f  [vimfiler]
+if s:bundled('vimfiler')
+  nnoremap [vimfiler]  <Nop>
+  nmap     <Space>f  [vimfiler]
 
-nnoremap [vimfiler]  :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
+  nnoremap [vimfiler]  :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
 
-let g:vimfiler_as_default_explorer = 1
+  let g:vimfiler_as_default_explorer = 1
 
-" Enable file operation commands.
-"let g:vimfiler_safe_mode_by_default = 0
+  " Enable file operation commands.
+  "let g:vimfiler_safe_mode_by_default = 0
 
-" Like Textmate icons.
-"let g:vimfiler_tree_leaf_icon = ' '
-"let g:vimfiler_tree_opened_icon = '▾'
-"let g:vimfiler_tree_closed_icon = '▸'
-"let g:vimfiler_file_icon = '-'
-"let g:vimfiler_marked_file_icon = '*'
+  " Like Textmate icons.
+  "let g:vimfiler_tree_leaf_icon = ' '
+  "let g:vimfiler_tree_opened_icon = '▾'
+  "let g:vimfiler_tree_closed_icon = '▸'
+  "let g:vimfiler_file_icon = '-'
+  "let g:vimfiler_marked_file_icon = '*'
 
-" Use trashbox.
-" Windows only and require latest vimproc.
-"let g:unite_kind_file_use_trashbox = 1
+  " Use trashbox.
+  " Windows only and require latest vimproc.
+  "let g:unite_kind_file_use_trashbox = 1
 
-let g:unite_kind_openable_lcd_command = 1
-
+  let g:unite_kind_openable_lcd_command = 1
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for h1mesuke/vim-alignta {{{2
-nnoremap <Space>as :<C-u>Alignta =<CR>
-vnoremap <Space>as :Alignta =<CR>
-nnoremap <Space>ah :<C-u>Alignta =><CR>
-vnoremap <Space>ah :Alignta =><CR>
+if s:bundled('vim-alignta')
+  nnoremap <Space>as :<C-u>Alignta =<CR>
+  vnoremap <Space>as :Alignta =<CR>
+  nnoremap <Space>ah :<C-u>Alignta =><CR>
+  vnoremap <Space>ah :Alignta =><CR>
 
-"augroup perllang
-  "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
-"augroup end
+  "augroup perllang
+    "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
+  "augroup end
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
-map s <Plug>(operator-replace)
-map S <Plug>(operator-replace)$
-" clipboardからoperator-replace
-map <Space>s "*<Plug>(operator-replace)
+if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
+  map s <Plug>(operator-replace)
+  map S <Plug>(operator-replace)$
+  " clipboardからoperator-replace
+  map <Space>s "*<Plug>(operator-replace)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for kana/vim-scratch {{{2
-function! ScratchToggle()
-  if exists("t:is_scratch_window")
-    unlet t:is_scratch_window
-    ScratchClose
-    echo 'close'
-  else
-    let t:is_scratch_window = 1
-    ScratchOpen
-    echo 'open'
-  endif
-endfunction
+if s:bundled('vim-scratch')
+  function! ScratchToggle()
+    if exists("t:is_scratch_window")
+      unlet t:is_scratch_window
+      ScratchClose
+      echo 'close'
+    else
+      let t:is_scratch_window = 1
+      ScratchOpen
+      echo 'open'
+    endif
+  endfunction
 
-command! -nargs=0 ScratchToggle call ScratchToggle()
-nnoremap <silent> <Leader><Tab> :<C-u>ScratchToggle<CR>
-
+  command! -nargs=0 ScratchToggle call ScratchToggle()
+  nnoremap <silent> <Leader><Tab> :<C-u>ScratchToggle<CR>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for kana/vim-smartword {{{2
-nmap w  <Plug>(smartword-w)
-vmap w  <Plug>(smartword-w)
-map  b  <Plug>(smartword-b)
-map  e  <Plug>(smartword-e)
-map  ge <Plug>(smartword-ge)
+if s:bundled('vim-smartword')
+  nmap w  <Plug>(smartword-w)
+  vmap w  <Plug>(smartword-w)
+  map  b  <Plug>(smartword-b)
+  map  e  <Plug>(smartword-e)
+  map  ge <Plug>(smartword-ge)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for kien/ctrlp.vim {{{2
-let g:ctrlp_map = ''
-let g:ctrlp_by_filename = 1
-let g:ctrlp_mruf_max = 200
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-let g:ctrlp_prompt_mappings = {
+if s:bundled('ctrlp.vim')
+  let g:ctrlp_map = ''
+  let g:ctrlp_by_filename = 1
+  let g:ctrlp_mruf_max = 200
+  let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+  let g:ctrlp_prompt_mappings = {
     \ 'PrtBS()':              ['<c-h>', '<bs>'],
     \ 'PrtDelete()':          ['<del>'],
     \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
@@ -1287,54 +1330,55 @@ let g:ctrlp_prompt_mappings = {
     \ 'PrtCurLeft()':         ['<left>'],
     \ 'PrtCurRight()':        ['<right>'],
     \ }
-let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|NERD_tree_2\|__Tag_List__\|*Scratch*'
+  let g:ctrlp_reuse_window = 'netrw\|help\|quickfix\|NERD_tree_2\|__Tag_List__\|*Scratch*'
 
-nnoremap [ctrlp]  <Nop>
-nmap     <Space>c [ctrlp]
+  nnoremap [ctrlp]  <Nop>
+  nmap     <Space>c [ctrlp]
 
-nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
-nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
-nnoremap [ctrlp]u  :<C-u>CtrlPMRUFiles<CR>
-nnoremap [ctrlp]f  :<C-u>CtrlPCurFile<CR>
-
+  nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
+  nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]u  :<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]f  :<C-u>CtrlPCurFile<CR>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
-let g:user_zen_expandabbr_key = '<c-y>'
-let g:user_zen_settings = {
-\  'lang' : 'ja',
-\  'html' : {
-\    'filters' : 'html',
-\    'indentation' : '  '
-\  },
-\  'xhtml' : {
-\    'filters' : 'html',
-\    'indentation' : '  '
-\  },
-\  'perl' : {
-\    'indentation' : '    ',
-\    'aliases' : {
-\      'req' : "require '|'"
-\    },
-\    'snippets' : {
-\      'use' : "use strict\nuse warnings\n\n",
-\      'w' : "warn \"${cursor}\";",
-\    },
-\  },
-\  'css' : {
-\    'filters' : 'fc',
-\  },
-\  'javascript' : {
-\    'snippets' : {
-\      'jq' : "$(function() {\n\t${cursor}${child}\n});",
-\      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
-\      'fn' : "(function() {\n\t${cursor}\n})();",
-\      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
-\    },
-\  },
-\}
-
+if s:bundled('zencoding-vim')
+  let g:user_zen_expandabbr_key = '<c-y>'
+  let g:user_zen_settings = {
+    \  'lang' : 'ja',
+    \  'html' : {
+    \    'filters' : 'html',
+    \    'indentation' : '  '
+    \  },
+    \  'xhtml' : {
+    \    'filters' : 'html',
+    \    'indentation' : '  '
+    \  },
+    \  'perl' : {
+    \    'indentation' : '    ',
+    \    'aliases' : {
+    \      'req' : "require '|'"
+    \    },
+    \    'snippets' : {
+    \      'use' : "use strict\nuse warnings\n\n",
+    \      'w' : "warn \"${cursor}\";",
+    \    },
+    \  },
+    \  'css' : {
+    \    'filters' : 'fc',
+    \  },
+    \  'javascript' : {
+    \    'snippets' : {
+    \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+    \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+    \      'fn' : "(function() {\n\t${cursor}\n})();",
+    \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+    \    },
+    \  },
+    \}
+endif
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1359,31 +1403,36 @@ let g:user_zen_settings = {
 
 "---------------------------------------------------------------------------
 " for nathanaelkane/vim-indent-guides {{{2
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
+if s:bundled('vim-indent-guides')
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_guide_size = 1
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for t9md/vim-quickhl {{{2
-nmap <Leader>hm <Plug>(quickhl-toggle)
-xmap <Leader>hm <Plug>(quickhl-toggle)
-nmap <Leader>hM <Plug>(quickhl-reset)
-xmap <Leader>hM <Plug>(quickhl-reset)
-nmap <Leader>hh <Plug>(quickhl-match)
-"let g:quickhl_keywords = [
-"    \ "keyword",
-"    \ ]
+if s:bundled('vim-quickhl')
+  nmap <Leader>hm <Plug>(quickhl-toggle)
+  xmap <Leader>hm <Plug>(quickhl-toggle)
+  nmap <Leader>hM <Plug>(quickhl-reset)
+  xmap <Leader>hM <Plug>(quickhl-reset)
+  nmap <Leader>hh <Plug>(quickhl-match)
+  "let g:quickhl_keywords = [
+  "    \ "keyword",
+  "    \ ]
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for t9md/vim-surround_custom_mapping {{{2
-let g:surround_custom_mapping = {}
-let g:surround_custom_mapping.perl = {
+if s:bundled('vim-surround_custom_mapping')
+  let g:surround_custom_mapping = {}
+  let g:surround_custom_mapping.perl = {
     \ 'Q': "q(\r)",
     \ 'D': "qq(\r)",
     \ 'o': "qw(\r)",
     \ }
-let g:surround_custom_mapping.ruby = {
+  let g:surround_custom_mapping.ruby = {
     \ '-':  "<% \r %>",
     \ '=':  "<%= \r %>",
     \ '9':  "(\r)",
@@ -1402,146 +1451,170 @@ let g:surround_custom_mapping.ruby = {
     \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
     \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
     \ }
-let g:surround_custom_mapping.javascript = {
+  let g:surround_custom_mapping.javascript = {
     \ 'f':  "function(){ \r }"
     \ }
-let g:surround_custom_mapping.vim= {
+  let g:surround_custom_mapping.vim= {
     \'f':  "function! \r endfunction"
     \ }
-let g:surround_custom_mapping.snippet= {
+  let g:surround_custom_mapping.snippet= {
     \'p':  "${\1num\1:\r}"
     \ }
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
-"nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
+if s:bundled('nerdtree')
+  "nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ambicmd {{{2
-cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
-cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
-cnoremap <expr> <CR>      ambicmd#expand("\<CR>")
+if s:bundled('vim-ambicmd')
+  cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
+  cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
+  cnoremap <expr> <CR>      ambicmd#expand("\<CR>")
 
-function! g:ambicmd_my_custom_rule(cmd)
-  return [
-  \   '\c^' . a:cmd . '$',
-  \   '\c^' . a:cmd,
-  \   '\C^' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g') . '$',
-  \   '\C' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g'),
-  \   '\c' . a:cmd,
-  \   '.*' . substitute(a:cmd, '.', '\0.*', 'g'),
-  \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g') . '$',
-  \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g'),
-  \ ]
-endfunction
-let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
+  function! g:ambicmd_my_custom_rule(cmd)
+    return [
+    \   '\c^' . a:cmd . '$',
+    \   '\c^' . a:cmd,
+    \   '\C^' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g') . '$',
+    \   '\C' . substitute(toupper(a:cmd), '.', '\0\\l*', 'g'),
+    \   '\c' . a:cmd,
+    \   '.*' . substitute(a:cmd, '.', '\0.*', 'g'),
+    \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g') . '$',
+    \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g'),
+    \ ]
+  endfunction
+  let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
-"nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
-"vnoremap <silent> <Space>a :<C-u>call ref#jump('visual', 'alc')<CR>
+if s:bundled('vim-ref')
+  "nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
+  "vnoremap <silent> <Space>a :<C-u>call ref#jump('visual', 'alc')<CR>
 
-let g:ref_source_webdict_sites = {
-\   'goo': {
-\     'url': 'http://dictionary.goo.ne.jp/srch/all/%s/m0u/',
-\     'keyword_encoding': 'utf-8',
-\     'cache': 1,
-\   }
-\ }
-let g:ref_source_webdict_sites.default = 'goo'
+  let g:ref_source_webdict_sites = {
+    \   'goo': {
+    \     'url': 'http://dictionary.goo.ne.jp/srch/all/%s/m0u/',
+    \     'keyword_encoding': 'utf-8',
+    \     'cache': 1,
+    \   }
+    \ }
+  let g:ref_source_webdict_sites.default = 'goo'
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for thinca/vim-visualstar {{{2
-map * <Plug>(visualstar-*)N
-map # <Plug>(visualstar-#)N
+if s:bundled('vim-visualstar')
+  map * <Plug>(visualstar-*)N
+  map # <Plug>(visualstar-#)N
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for tpope/vim-fugitive {{{2
-nnoremap [Git]     <Nop>
-nmap     <Space>g  [Git]
+if s:bundled('vim-fugitive')
+  nnoremap [Git]     <Nop>
+  nmap     <Space>g  [Git]
 
-nnoremap [Git]d :<C-u>Gdiff --cached<CR>
-nnoremap [Git]D :<C-u>Gdiff<CR>
-nnoremap [Git]s :<C-u>Gstatus<CR>
-nnoremap [Git]l :<C-u>Glog<CR>
-nnoremap [Git]a :<C-u>Gwrite<CR>
-nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
-nnoremap [Git]c :<C-u>Gcommit<CR>
-nnoremap [Git]C :<C-u>Git commit --amend<CR>
-nnoremap [Git]b :<C-u>Gblame<CR>
-nnoremap [Git]p :<C-u>Git push 
+  nnoremap [Git]d :<C-u>Gdiff --cached<CR>
+  nnoremap [Git]D :<C-u>Gdiff<CR>
+  nnoremap [Git]s :<C-u>Gstatus<CR>
+  nnoremap [Git]l :<C-u>Glog<CR>
+  nnoremap [Git]a :<C-u>Gwrite<CR>
+  nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
+  nnoremap [Git]c :<C-u>Gcommit<CR>
+  nnoremap [Git]C :<C-u>Git commit --amend<CR>
+  nnoremap [Git]b :<C-u>Gblame<CR>
+  nnoremap [Git]p :<C-u>Git push<Space>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for tyru/open-browser.vim {{{2
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
+if s:bundled('open-browser.vim')
+  let g:netrw_nogx = 1 " disable netrw's gx mapping.
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for tyru/operator-html-escape.vim {{{2
-nmap <Leader>h  <Plug>(operator-html-escape)
-nmap <Leader>u  <Plug>(operator-html-unescape)
+if s:bundled('operator-user') && s:bundled('operator-html-escape.vim')
+  nmap <Leader>h  <Plug>(operator-html-escape)
+  nmap <Leader>u  <Plug>(operator-html-unescape)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for tyru/operator-star.vim {{{2
-nmap <Leader>*  <Plug>(operator-*)
-nmap <Leader>g* <Plug>(operator-g*)
-nmap <Leader>#  <Plug>(operator-#)
-nmap <Leader>g# <Plug>(operator-g#)
+if s:bundled('operator-user') && s:bundled('operator-star.vim')
+  nmap <Leader>*  <Plug>(operator-*)
+  nmap <Leader>g* <Plug>(operator-g*)
+  nmap <Leader>#  <Plug>(operator-#)
+  nmap <Leader>g# <Plug>(operator-g#)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for thinca/vim-quickrun {{{2
-let g:quickrun_config = {}
-let g:quickrun_config = { '*' : {'shebang' : '0' }}
-let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
-let g:quickrun_config._.runmode = 'async:vimproc'
+if s:bundled('vim-quickrun')
+  let g:quickrun_config = {}
+  let g:quickrun_config = { '*' : {'shebang' : '0' }}
+  let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
+  let g:quickrun_config._.runmode = 'async:vimproc'
 
-let g:quickrun_config['markdown'] = {
-\ 'type'      : 'markdown/pandoc',
-\ 'outputter' : 'browser',
-\ 'cmdopt'    : '-s'
-\ }
+  let g:quickrun_config['markdown'] = {
+    \ 'type'      : 'markdown/pandoc',
+    \ 'outputter' : 'browser',
+    \ 'cmdopt'    : '-s'
+    \ }
 
-let g:quickrun_config.io = {
-\   'command': 'io',
-\ }
-let g:quickrun_config.scala = {
-\   'command': 'scala',
-\ }
+  let g:quickrun_config.io = {
+    \   'command': 'io',
+    \ }
+  let g:quickrun_config.scala = {
+    \   'command': 'scala',
+    \ }
 
-nnoremap <silent> <Space>r :QuickRun -mode n<CR>
-vnoremap <silent> <Space>r :QuickRun -mode v<CR>
-nnoremap <Space>R :QuickRun -args ""<Left>
-nnoremap <S-Space>R :QuickRun -args ""<Left>
-
+  nnoremap <silent> <Space>r :QuickRun -mode n<CR>
+  vnoremap <silent> <Space>r :QuickRun -mode v<CR>
+  nnoremap <Space>R :QuickRun -args ""<Left>
+  nnoremap <S-Space>R :QuickRun -args ""<Left>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for xolox/vim-easytags {{{2
-if has('win32')
-  let g:easytags_cmd = ''
+if s:bundled('vim-easytags')
+  if has('win32')
+    let g:easytags_cmd = ''
+  endif
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for deris/columnjump {{{2
-map <c-k> <Plug>(columnjump-backward)
-map <c-j> <Plug>(columnjump-forward)
+if s:bundled('columnjump')
+  map <c-k> <Plug>(columnjump-backward)
+  map <c-j> <Plug>(columnjump-forward)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for deris/parajump {{{2
-map { <Plug>(parajump-backward)
-map } <Plug>(parajump-forward)
+if s:bundled('parajump')
+  map { <Plug>(parajump-backward)
+  map } <Plug>(parajump-forward)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1571,72 +1644,84 @@ let errormarker_disablemappings = 1
 
 "---------------------------------------------------------------------------
 " for grep.vim {{{2
-if has('win32')
-  let Grep_Path             = 'C:\usr\local\bin\grep.exe'
-  let Fgrep_Path            = 'C:\usr\local\bin\grep.exe -F'
-  let Egrep_Path            = 'C:\usr\local\bin\grep.exe -E'
-  let Grep_Find_Path        = 'C:\usr\local\bin\find.exe'
-  let Grep_Xargs_Path       = 'C:\usr\local\bin\xargs.exe'
-  let Grep_Shell_Quote_Char = '"'
-endif
-let Grep_Skip_Dirs = '.svn .git'
-let Grep_Skip_Files = '*.bak *~'
+if s:bundled('grep.vim')
+  if has('win32')
+    let Grep_Path             = 'C:\usr\local\bin\grep.exe'
+    let Fgrep_Path            = 'C:\usr\local\bin\grep.exe -F'
+    let Egrep_Path            = 'C:\usr\local\bin\grep.exe -E'
+    let Grep_Find_Path        = 'C:\usr\local\bin\find.exe'
+    let Grep_Xargs_Path       = 'C:\usr\local\bin\xargs.exe'
+    let Grep_Shell_Quote_Char = '"'
+  endif
+  let Grep_Skip_Dirs = '.svn .git'
+  let Grep_Skip_Files = '*.bak *~'
 
-nnoremap <Space>eg :<c-u>Egrep<CR>
-nnoremap <Space>eb :<c-u>Bgrep<CR>
+  nnoremap <Space>eg :<c-u>Egrep<CR>
+  nnoremap <Space>eb :<c-u>Bgrep<CR>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for smartchr {{{2
-"inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
-"inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
-"inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
-"inoremap <expr> !  smartchr#loop('!', ' != ')
-"inoremap <expr> .  smartchr#loop('.', ' . ')
-"inoremap <expr> {  smartchr#loop('{}', '{')
-"inoremap <expr> [  smartchr#loop('[]', '[')
-"inoremap <expr> (  smartchr#loop('()', '(')
-"inoremap <expr> "  smartchr#loop('""', '"')
-"inoremap <expr> '  smartchr#loop("''", "'")
-"inoremap <expr> `  smartchr#loop('``', '`')
+if s:bundled('smartchr')
+  inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
+  inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
+  inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
+  inoremap <expr> !  smartchr#loop('!', ' != ')
+  inoremap <expr> .  smartchr#loop('.', ' . ')
+  inoremap <expr> {  smartchr#loop('{}', '{')
+  inoremap <expr> [  smartchr#loop('[]', '[')
+  inoremap <expr> (  smartchr#loop('()', '(')
+  inoremap <expr> "  smartchr#loop('""', '"')
+  inoremap <expr> '  smartchr#loop("''", "'")
+  inoremap <expr> `  smartchr#loop('``', '`')
 
-" This is enabled while user inputs Ex commands, not search
-" patterns, etc.
-"cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
+  " This is enabled while user inputs Ex commands, not search
+  " patterns, etc.
+  cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for taglist.vim {{{2
-if has('mac')
-  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
-elseif has('win32')
-  let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
+if s:bundled('taglist.vim')
+  if has('mac')
+    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
+  elseif has('win32')
+    let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
+  endif
+  "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
+  let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
+  "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
+  "nnoremap <silent> <Space>l :<C-u>TlistToggle<CR>
 endif
-"let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
-let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
-"let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
-"nnoremap <silent> <Space>l :<C-u>TlistToggle<CR>
 " }}}
 
 "---------------------------------------------------------------------------
 " for trinity.vim {{{2
-nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
-nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
-" keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
+if s:bundled('trinity.vim')
+  nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
+  nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
+  " keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
 
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for vim-textobj-function {{{2
-omap iF <Plug>(textobj-function-i)
-omap aF <Plug>(textobj-function-a)
-vmap iF <Plug>(textobj-function-i)
-vmap aF <Plug>(textobj-function-a)
+if s:bundled('vim-textobj-user') && s:bundled('vim-textobj-function')
+  omap iF <Plug>(textobj-function-i)
+  omap aF <Plug>(textobj-function-a)
+  vmap iF <Plug>(textobj-function-i)
+  vmap aF <Plug>(textobj-function-a)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for vcscommand.vim {{{2
+if s:bundled('vcscommand.vim')
 "let VCSCommandMapPrefix = '<Space>s'
+endif
 " }}}
 
 
