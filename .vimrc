@@ -260,7 +260,7 @@ set hlsearch
 
 "
 " vi互換をOFFにする
-set nocompatible
+"set nocompatible
 " タブの画面上での幅
 set tabstop=4
 " タブをスペースに展開しない (expandtab:展開する)
@@ -410,7 +410,7 @@ if has('mac')
 
   if has('vim_starting')
     let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$HOME."/.cabal/bin:".$PATH
-  end
+  endif
 endif
 
 " カーソルラインと行ラインを表示
@@ -589,9 +589,9 @@ vnoremap id  i"
 " モーション時にqで記号まで飛ぶ
 "onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
 onoremap <silent> q
-\      :for i in range(v:count1)
-\ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
-\ <Bar> endfor<CR>
+  \      :<C-u>for i in range(v:count1)
+  \ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
+  \ <Bar> endfor<CR>
 
 " exコマンド
 nnoremap <Space>w :<C-u>w<CR>
@@ -696,7 +696,7 @@ noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
 noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
 "nnoremap <silent> <Space>/ :<C-u>nohlsearch<CR>
 
-" * はASCIIとJISでキー位置が異なるので共通で使えるkeymapを設定
+" * はASCIIとJISでキー配置が異なるので共通で使えるkeymapを設定
 nnoremap <silent> <Space>/  *N
 nnoremap <silent> <Space>?  #N
 
