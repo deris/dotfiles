@@ -459,6 +459,8 @@ noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
 noremap! <C-c> <C-[>
+noremap  <C-@> <ESC>
+noremap! <C-@> <ESC>
 
 "noremap  <C-j> <Esc>
 "noremap! <C-j> <Esc>
