@@ -354,6 +354,9 @@ set virtualedit=block
 set backup
 " バックアップファイルの生成ディレクトリ
 set backupdir=$DOTVIM/backup
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, "p")
+endif
 " バックアップのスキップ
 if has('unix')
   set backupskip=/tmp/*,/private/tmp/*
@@ -364,6 +367,9 @@ set swapfile
 "set clipboard+=unnamed
 " スワップファイルの生成ディレクトリ
 set directory=$DOTVIM/swap
+if !isdirectory(&directory)
+  call mkdir(&directory, "p")
+endif
 " Command Lineの履歴数
 set history=1000
 " 検索時、カーソルの上または下は最低でも以下指定の行が表示される
