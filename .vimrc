@@ -1523,6 +1523,34 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for thinca/vim-quickrun {{{2
+if s:bundled('vim-quickrun')
+  let g:quickrun_config = {}
+  let g:quickrun_config = { '*' : {'shebang' : '0' }}
+  let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
+  let g:quickrun_config._.runmode = 'async:vimproc'
+
+  let g:quickrun_config['markdown'] = {
+    \ 'type'      : 'markdown/pandoc',
+    \ 'outputter' : 'browser',
+    \ 'cmdopt'    : '-s'
+    \ }
+
+  let g:quickrun_config.io = {
+    \   'command': 'io',
+    \ }
+  let g:quickrun_config.scala = {
+    \   'command': 'scala',
+    \ }
+
+  nnoremap <silent> <Space>r :QuickRun -mode n<CR>
+  vnoremap <silent> <Space>r :QuickRun -mode v<CR>
+  nnoremap <Space>R :QuickRun -args ""<Left>
+  nnoremap <S-Space>R :QuickRun -args ""<Left>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
 if s:bundled('vim-ref')
   "nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
@@ -1590,34 +1618,6 @@ if s:bundled('operator-user') && s:bundled('operator-star.vim')
   nmap <Leader>g* <Plug>(operator-g*)
   nmap <Leader>#  <Plug>(operator-#)
   nmap <Leader>g# <Plug>(operator-g#)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for thinca/vim-quickrun {{{2
-if s:bundled('vim-quickrun')
-  let g:quickrun_config = {}
-  let g:quickrun_config = { '*' : {'shebang' : '0' }}
-  let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
-  let g:quickrun_config._.runmode = 'async:vimproc'
-
-  let g:quickrun_config['markdown'] = {
-    \ 'type'      : 'markdown/pandoc',
-    \ 'outputter' : 'browser',
-    \ 'cmdopt'    : '-s'
-    \ }
-
-  let g:quickrun_config.io = {
-    \   'command': 'io',
-    \ }
-  let g:quickrun_config.scala = {
-    \   'command': 'scala',
-    \ }
-
-  nnoremap <silent> <Space>r :QuickRun -mode n<CR>
-  vnoremap <silent> <Space>r :QuickRun -mode v<CR>
-  nnoremap <Space>R :QuickRun -args ""<Left>
-  nnoremap <S-Space>R :QuickRun -args ""<Left>
 endif
 " }}}
 
