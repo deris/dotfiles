@@ -378,6 +378,14 @@ set history=1000
 let &showbreak = '+++ '
 " 高速ターミナル接続を行う
 set ttyfast
+" Undo の永続化
+if has('persistent_undo')
+  set undodir=$DOTVIM/undo
+  set undofile
+  if !isdirectory(&undodir)
+    call mkdir(&undodir, "p")
+  endif
+endif
 
 " set tags
 "set autochdir
