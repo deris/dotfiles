@@ -473,7 +473,7 @@ noremap! <C-@> <ESC>
 "noremap  <C-j> <Esc>
 "noremap! <C-j> <Esc>
 
-inoremap jj <Esc>
+"inoremap jj <Esc>
 inoremap jk <Esc>
 
 " jump
@@ -1222,7 +1222,7 @@ if s:bundled('unite.vim')
 
     nmap <buffer> <ESC>  <Plug>(unite_exit)
     nmap <buffer> <C-c>  <Plug>(unite_exit)
-    imap <buffer> jj     <Plug>(unite_insert_leave)
+    "imap <buffer> jj     <Plug>(unite_insert_leave)
     imap <buffer> jk     <Plug>(unite_insert_leave)
     "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
 
