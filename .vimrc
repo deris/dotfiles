@@ -187,6 +187,7 @@ if s:bundled('vundle')
   Bundle 'deris/columnjump'
   Bundle 'deris/parajump'
   Bundle 'deris/vim-textobj-enclosedsyntax'
+  Bundle 'deris/vim-loadafterft'
 
   " vim-scripts repos
   "Bundle 'Align'
@@ -297,8 +298,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 " 入力されているテキストの最大幅。（0は無効）
 set textwidth=0
-"自動整形の実行方法を決めるフラグ(tcは自動折り返し。oはコメント文字自動挿入)
-set formatoptions-=tco
+"自動整形の実行方法を決めるフラグ(tcは自動折り返し。roはコメント文字自動挿入)
+set formatoptions=q
 " 行番号を表示
 set number
 " 相対行番号を表示
@@ -1643,6 +1644,22 @@ endif
 if s:bundled('parajump')
   map { <Plug>(parajump-backward)
   map } <Plug>(parajump-forward)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/vim-loadafterft {{{2
+if s:bundled('vim-loadafterft')
+  let g:execcmd_after_ftplugin = {
+    \    '_': [
+    \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+    \    ],
+    \}
+  let g:execcmd_after_indent = {
+    \    '_': [
+    \        'setlocal fo-=t fo-=c fo-=r fo-=o',
+    \    ],
+    \}
 endif
 " }}}
 
