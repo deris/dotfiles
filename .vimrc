@@ -705,8 +705,8 @@ inoremap <S-Enter> <C-o>O
 "inoremap <  <><Left>
 
 " ハイライトを消す
-noremap <silent> <Esc><Esc> <Esc>:<C-u>nohlsearch<CR>
-noremap <silent> <C-c><C-c> <Esc>:<C-u>nohlsearch<CR>
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 "nnoremap <silent> <Space>/ :<C-u>nohlsearch<CR>
 
 " * はASCIIとJISでキー配置が異なるので共通で使えるkeymapを設定
