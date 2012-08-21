@@ -1285,11 +1285,14 @@ if s:bundled('vimfiler')
   "let g:vimfiler_file_icon = '-'
   "let g:vimfiler_marked_file_icon = '*'
 
+  " Edit file by tabedit.
+  let g:vimfiler_edit_action = 'tabopen'
+
   " Use trashbox.
   " Windows only and require latest vimproc.
   "let g:unite_kind_file_use_trashbox = 1
 
-  let g:unite_kind_openable_lcd_command = 1
+  "let g:unite_kind_openable_lcd_command = 1
 endif
 " }}}
 
