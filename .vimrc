@@ -247,7 +247,6 @@ endif
 " オプションの設定:{{{2
 
 " 文法の色付け
-syntax on
 syntax enable
 
 " 検索時に大文字小文字を無視 (noignorecase:無視しない)
