@@ -1213,10 +1213,17 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
   nnoremap <silent> [unite]r  :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]m  :<C-u>Unite file_mru<CR>
   nnoremap <silent> [unite]u  :<C-u>Unite file_mru<CR>
   nnoremap <silent> [unite]d  :<C-u>Unite directory_mru<CR>
-  nnoremap <silent> [unite]f  :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]k  :<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]s  :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]g  :<C-u>Unite grep<CR>
+  nnoremap <silent> [unite]h  :<C-u>Unite help<CR>
+  nnoremap <silent> [unite];  :<C-u>Unite history/command<CR>
+  nnoremap <silent> [unite]/  :<C-u>Unite history/search<CR>
+  nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]a  :<C-u>UniteBookmarkAdd<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
