@@ -493,11 +493,11 @@ noremap <Tab> %
 
 " vimrc編集
 if has('gui_running')
-  nnoremap <Space>.   :<C-u>tab drop $MYVIMRC<CR>
-  nnoremap <Space>g.  :<C-u>tab drop $MYGVIMRC<Enter>
+  nnoremap <Space>.   :<C-u>execute 'tab drop' . resolve($MYVIMRC)<CR>
+  nnoremap <Space>g.  :<C-u>execute 'tab drop' . resolve($MYGVIMRC)<CR>
 else
-  nnoremap <Space>.   :<C-u>tabe $MYVIMRC<CR>
-  nnoremap <Space>g.  :<C-u>tabe $MYGVIMRC<Enter>
+  nnoremap <Space>.   :<C-u>execute 'tabe ' . resolve($MYVIMRC)<CR>
+  nnoremap <Space>g.  :<C-u>execute 'tabe ' . resolve($MYGVIMRC)<CR>
 endif
 nnoremap <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
 " helpショートカット
