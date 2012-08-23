@@ -1240,6 +1240,7 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]/  :<C-u>Unite history/search<CR>
   nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
   nnoremap <silent> [unite]a  :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]n  :<C-u>Unite neobundle/install:!<CR>
   nnoremap <silent> [unite]e  :<C-u>Unite snippet<CR>
 
   " Start insert.
@@ -1262,6 +1263,8 @@ if s:bundled('unite.vim')
   let g:unite_source_file_mru_limit = 200
   let g:unite_cursor_line_highlight = 'TabLineSel'
   let g:unite_abbr_highlight = 'TabLine'
+  let g:unite_winheight = 15
+  let g:unite_source_file_mru_time_format = "%m/%d %H:%M "
 
   " For optimize.
   let g:unite_source_file_mru_filename_format = ''
