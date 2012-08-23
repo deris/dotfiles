@@ -1205,7 +1205,7 @@ if s:bundled('neocomplcache-snippets-complete')
   imap <C-k>     <Plug>(neocomplcache_snippets_expand)
   smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
-  nnoremap <silent> <Space>es :<C-u>NeoComplCacheEditSnippets 
+  nnoremap <silent> <Space>es :<C-u>NeoComplCacheEditSnippets<Space>
 
   " SuperTab like snippets behavior.
   imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
@@ -1240,6 +1240,7 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]/  :<C-u>Unite history/search<CR>
   nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
   nnoremap <silent> [unite]a  :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]e  :<C-u>Unite snippet<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
