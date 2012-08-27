@@ -1289,6 +1289,11 @@ if s:bundled('unite.vim')
   " For optimize.
   let g:unite_source_file_mru_filename_format = ''
 
+  " For history/yank
+  let g:unite_source_history_yank_enable = 1
+  let g:unite_source_history_yank_limit = 100
+  let g:unite_source_history_yank_file = $DOTVIM.'/history_yank'
+
   " For unite-session.
   " Save session automatically.
   "let g:unite_source_session_enable_auto_save = 1
