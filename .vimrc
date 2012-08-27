@@ -197,7 +197,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-textobj-enclosedsyntax'
-  NeoBundle 'deris/vim-loadafterft'
+  "NeoBundle 'deris/vim-loadafterft'
 
   " vim-scripts repos
   "NeoBundle 'Align'
@@ -314,7 +314,7 @@ set hidden
 " 入力されているテキストの最大幅。（0は無効）
 set textwidth=0
 "自動整形の実行方法を決めるフラグ(tcは自動折り返し。roはコメント文字自動挿入)
-set formatoptions=q
+setlocal formatoptions=ql
 " 行番号を表示
 set number
 " 相対行番号を表示
@@ -486,15 +486,10 @@ noremap! <C-c> <C-[>
 noremap  <C-@> <ESC>
 noremap! <C-@> <ESC>
 
-"noremap  <C-j> <Esc>
-"noremap! <C-j> <Esc>
-
 "inoremap jj <Esc>
 inoremap jk <Esc>
 
 " jump
-"nnoremap <Space>j 5j
-"nnoremap <Space>k 5k
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -616,7 +611,6 @@ vnoremap id  i"
 "vnoremap iq  i'
 
 " モーション時にqで記号まで飛ぶ
-"onoremap q /["',.{}()[\]<>]<CR>:nohlsearch<CR>
 onoremap <silent> q
   \      :<C-u>for i in range(v:count1)
   \ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
@@ -678,8 +672,6 @@ cnoremap <C-/>  /
 cnoremap <C-?>  ?
 
 " 置換の自動入力
-"cnoremap <expr> s/ (getcmdtype()==':' ? "s///g<Left><Left><Left>" : "s/")
-"cnoremap <expr> %s (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 " <C-s>はUNIXのTerminalでバッティングするのでコメントアウト
 "cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
 nnoremap <Space>S   :<C-u>%s///g<Left><Left><Left>
@@ -709,8 +701,6 @@ inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 
 inoremap <S-Enter> <C-o>O
-"inoremap ;        <Enter>
-"inoremap <Enter>  ;
 
 " 括弧など自動で閉じる
 "inoremap {  {}<Left>
@@ -729,9 +719,6 @@ nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent> <Space>/  *N
 nnoremap <silent> <Space>?  #N
 
-"nnoremap <silent> <Space>na :<C-u>set number<CR>
-"nnoremap <silent> <Space>nr :<C-u>set relativenumber<CR>
-
 " 仮想編集の変更
 nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>
 nnoremap <Space>vb  :<C-u>setlocal virtualedit=block<CR>
@@ -745,16 +732,8 @@ noremap ?   ?\v
 "nnoremap <C-p> :<C-u>bprevious<CR>
 "nnoremap <C-n> :<C-u>bnext<CR>
 
-" Tabでウィンドウ移動
-"nnoremap <silent> <Tab>   <C-w>w
-"nnoremap <silent> <S-Tab> <C-w>W
-
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
-
-" sはoperator-replaceに割り当てる
-"nnoremap <C-s>  s
-"nnoremap s      <C-s>
 
 " tab page
 nnoremap [TabPage]   <Nop>
@@ -931,10 +910,6 @@ endfunction " }}}
 nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
-" キーがバッティング
-"nnoremap <Space>cm :<c-u>colorscheme molokai<CR>
-"nnoremap <Space>cw :<c-u>colorscheme wombat<CR>
-
 nnoremap t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2<CR>
 nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
 nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
@@ -1006,6 +981,12 @@ command! WJis w ++enc=iso-2022-jp | e
 "---------------------------------------------------------------------------
 " filetype {{{2
 
+augroup commonfiletype
+  autocmd!
+  autocmd FileType * setlocal fo-=t fo-=c fo-=r fo-=o
+  autocmd FileType * setlocal textwidth=0
+  autocmd SourceCmd .vimrc setlocal fo-=t fo-=c fo-=r fo-=o
+augroup END
 augroup vimlang
   autocmd!
   autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
@@ -1297,13 +1278,6 @@ if s:bundled('vimfiler')
 
   " Enable file operation commands.
   "let g:vimfiler_safe_mode_by_default = 0
-
-  " Like Textmate icons.
-  "let g:vimfiler_tree_leaf_icon = ' '
-  "let g:vimfiler_tree_opened_icon = '▾'
-  "let g:vimfiler_tree_closed_icon = '▸'
-  "let g:vimfiler_file_icon = '-'
-  "let g:vimfiler_marked_file_icon = '*'
 
   " Edit file by tabedit.
   let g:vimfiler_edit_action = 'tabopen'
