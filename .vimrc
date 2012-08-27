@@ -35,8 +35,9 @@ function! s:bundled(bundle)
     return 0
   endif
 
-  return stridx(&runtimepath, a:bundle) > -1
-    \ && !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
+  return !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
+  "return stridx(&runtimepath, a:bundle) > -1
+    "\ && !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
 endfunction
 
 "---------------------------------------------------------------------------
@@ -53,13 +54,13 @@ if s:bundled('neobundle.vim')
 
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
-  NeoBundle 'gmarik/vundle'
+  "NeoBundle 'gmarik/vundle'
   "NeoBundle 'Lokaltog/vim-easymotion'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'Shougo/neocomplcache-snippets-complete'
-  NeoBundle 'Shougo/unite.vim'
-  NeoBundle 'Shougo/vimfiler'
+  NeoBundleLazy 'Shougo/unite.vim'
+  NeoBundleLazy 'Shougo/vimfiler'
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'Shougo/vimshell'
   "NeoBundle 'Townk/vim-autoclose'
@@ -73,10 +74,10 @@ if s:bundled('neobundle.vim')
   NeoBundle 'emonkak/vim-operator-comment'
   NeoBundle 'emonkak/vim-operator-sort'
   "NeoBundle 'godlygeek/tabular'
-  NeoBundle 'h1mesuke/vim-alignta'
+  NeoBundleLazy 'h1mesuke/vim-alignta'
   "NeoBundle 'h1mesuke/vim-benchmark'
   "NeoBundle 'h1mesuke/textobj-wiw'
-  NeoBundle 'h1mesuke/unite-outline'
+  NeoBundleLazy 'h1mesuke/unite-outline'
   "NeoBundle 'hekyou/vim-rectinsert'
   "NeoBundle 'houtsnip/vim-emacscommandline'
   "NeoBundle 'fholgado/minibufexpl.vim'
@@ -95,7 +96,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'kana/vim-narrow'
   NeoBundle 'kana/vim-operator-user'
   NeoBundle 'kana/vim-operator-replace'
-  NeoBundle 'kana/vim-scratch'
+  NeoBundleLazy 'kana/vim-scratch'
   "NeoBundle 'kana/vim-smartinput'
   NeoBundle 'kana/vim-smartword'
   NeoBundle 'kana/vim-submode'
@@ -108,7 +109,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-textobj-line'
   NeoBundle 'kana/vim-textobj-syntax'
   NeoBundle 'kana/vim-vspec'
-  NeoBundle 'kien/ctrlp.vim'
+  NeoBundleLazy 'kien/ctrlp.vim'
   "NeoBundle 'vexxor/kwbd.vim'
   "NeoBundle 'majutsushi/tagbar'
   "NeoBundle 'mattn/asyncgrep-vim'
@@ -120,13 +121,14 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'mattn/vdbi-vim'
   NeoBundle 'mattn/vim-textobj-url'
   NeoBundle 'mattn/webapi-vim'
-  NeoBundle 'mattn/zencoding-vim'
+  NeoBundleLazy 'mattn/zencoding-vim'
   "NeoBundle 'mileszs/ack.vim'
   "NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
   "NeoBundle 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundleLazy 'osyo-manga/unite-quickfix'
   "NeoBundle 'othree/eregex.vim'
   "NeoBundle 'plasticboy/vim-markdown'
   "NeoBundle 'reinh/vim-makegreen'
@@ -141,11 +143,11 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'sjl/splice.vim'
   "NeoBundle 'sjl/vitality.vim'
   NeoBundle 'skammer/vim-css-color'
-  "NeoBundle 't9md/vim-quickhl'
+  NeoBundleLazy 't9md/vim-quickhl'
   NeoBundle 't9md/vim-surround_custom_mapping'
   "NeoBundle 't9md/vim-textmanip'
   "NeoBundle 't9md/vim-underlinetag'
-  NeoBundle 't9md/vim-unite-ack'
+  NeoBundleLazy 't9md/vim-unite-ack'
   "NeoBundle 'taku-o/vim-toggle'
   "NeoBundle 'taku-o/vis-vim'
   "NeoBundle 'tejr/nextag'
@@ -154,14 +156,14 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'thinca/vim-poslist'
   "NeoBundle 'thinca/vim-qfreplace'
-  NeoBundle 'thinca/vim-quickrun'
+  NeoBundleLazy 'thinca/vim-quickrun'
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'thinca/vim-scouter'
   NeoBundle 'thinca/vim-singleton'
   "NeoBundle 'thinca/vim-template'
   NeoBundle 'thinca/vim-textobj-comment'
   NeoBundle 'thinca/vim-textobj-between'
-  NeoBundle 'thinca/vim-unite-history'
+  NeoBundleLazy 'thinca/vim-unite-history'
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
@@ -172,22 +174,22 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tpope/vim-surround'
   "NeoBundle 'tpope/vim-speeddating'
   "NeoBundle 'tpope/vim-unimpaired'
-  NeoBundle 'tsukkee/unite-help'
-  NeoBundle 'tsukkee/unite-tag'
+  NeoBundleLazy 'tsukkee/unite-help'
+  NeoBundleLazy 'tsukkee/unite-tag'
   "NeoBundle 'tyru/caw.vim'
   "NeoBundle 'tyru/current-func-info.vim'
   "NeoBundle 'tyru/operator-camelize.vim'
-  NeoBundle 'tyru/open-browser.vim'
-  NeoBundle 'tyru/operator-html-escape.vim'
-  NeoBundle 'tyru/operator-reverse.vim'
-  NeoBundle 'tyru/operator-star.vim'
-  NeoBundle 'tyru/restart.vim'
+  NeoBundleLazy 'tyru/open-browser.vim'
+  NeoBundleLazy 'tyru/operator-html-escape.vim'
+  NeoBundleLazy 'tyru/operator-reverse.vim'
+  NeoBundleLazy 'tyru/operator-star.vim'
+  NeoBundleLazy 'tyru/restart.vim'
   "NeoBundle 'tyru/vim-altercmd'
   "NeoBundle 'ujihisa/shadow.vim'
   "NeoBundle 'ujihisa/unite-colorscheme'
   "NeoBundle 'ujihisa/unite-locate'
   NeoBundle 'vim-jp/vital.vim'
-  NeoBundle 'vimtaku/vim-textobj-sigil'
+  NeoBundleLazy 'vimtaku/vim-textobj-sigil'
   "NeoBundle 'vimtaku/vim-textobj-keyvalue'
   "NeoBundle 'xolox/vim-easytags'
   "NeoBundle 'xolox/vim-notes'
@@ -213,37 +215,37 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'QFixHowm'
   "NeoBundle 'Source-Explorer-srcexpl.vim'
   "NeoBundle 'Toggle'
-  NeoBundle 'UnconditionalPaste'
+  NeoBundleLazy 'UnconditionalPaste'
   "NeoBundle 'ViewOutput'
   "NeoBundle 'YankRing.vim' "あまり使わないのとkeymap設定で悪さをするので削除
   "NeoBundle 'a.vim'
   "NeoBundle 'bufexplorer.zip'
   "NeoBundle 'closetag.vim'
-  NeoBundle 'copypath.vim'
+  NeoBundleLazy 'copypath.vim'
   "NeoBundle 'dbext.vim'
   "NeoBundle 'errormarker.vim'
   "NeoBundle 'grep.vim'
   NeoBundle 'matchit.zip'
   "NeoBundle 'monday'
   "NeoBundle 'perl-support.vim'
-  NeoBundle 'project.tar.gz'
+  NeoBundleLazy 'project.tar.gz'
   "NeoBundle 'qtmplsel.vim'
   "NeoBundle 'rails.vim'
-  NeoBundle 'renamer.vim'
+  NeoBundleLazy 'renamer.vim'
   "NeoBundle 'smartchr'
   "NeoBundle 'statusline.vim'
   NeoBundle 'taglist.vim'
   "NeoBundle 'toggle_words.vim'
   "NeoBundle 'trinity.vim'
   "NeoBundle 'vcscommand.vim'
-  NeoBundle 'vimwiki'
+  NeoBundleLazy 'vimwiki'
 
   " color scheme
-  NeoBundle 'altercation/vim-colors-solarized'
-  NeoBundle 'deris/molokai'
+  NeoBundleLazy 'altercation/vim-colors-solarized'
+  NeoBundleLazy 'deris/molokai'
   NeoBundle 'deris/vim-wombat'
-  NeoBundle 'jnurmine/Zenburn'
-  NeoBundle 'newspaper.vim'
+  NeoBundleLazy 'jnurmine/Zenburn'
+  NeoBundleLazy 'newspaper.vim'
 
   " 日本語help
   NeoBundle 'vim-jp/vimdoc-ja'
@@ -1206,23 +1208,60 @@ if s:bundled('unite.vim')
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
-  nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-  nnoremap <silent> [unite]b  :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]r  :<C-u>Unite register<CR>
-  nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]u  :<C-u>Unite file_mru<CR>
-  nnoremap <silent> [unite]d  :<C-u>Unite directory_mru<CR>
-  nnoremap <silent> [unite]k  :<C-u>Unite bookmark<CR>
-  nnoremap <silent> [unite]s  :<C-u>Unite source<CR>
-  nnoremap <silent> [unite]f  :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]g  :<C-u>Unite grep<CR>
-  nnoremap <silent> [unite]h  :<C-u>Unite help<CR>
-  nnoremap <silent> [unite];  :<C-u>Unite history/command<CR>
-  nnoremap <silent> [unite]/  :<C-u>Unite history/search<CR>
-  nnoremap <silent> [unite]y  :<C-u>Unite history/yank<CR>
-  nnoremap <silent> [unite]a  :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]n  :<C-u>Unite neobundle/install:!<CR>
-  nnoremap <silent> [unite]e  :<C-u>Unite snippet<CR>
+  nnoremap <silent> [unite]c
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> [unite]b
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite buffer<CR>
+  nnoremap <silent> [unite]r
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite register<CR>
+  nnoremap <silent> [unite]o
+    \ :<C-u>silent! NeoBundleSource unite.vim unite-outline<CR>
+    \:<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]u
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]d
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite directory_mru<CR>
+  nnoremap <silent> [unite]k
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]s
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite source<CR>
+  nnoremap <silent> [unite]f
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]g
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite grep<CR>
+  nnoremap <silent> [unite]h
+    \ :<C-u>silent! NeoBundleSource unite.vim unite-help<CR>
+    \:<C-u>Unite help<CR>
+  nnoremap <silent> [unite];
+    \ :<C-u>silent! NeoBundleSource unite.vim vim-unite-history<CR>
+    \:<C-u>Unite history/command<CR>
+  nnoremap <silent> [unite]/
+    \ :<C-u>silent! NeoBundleSource unite.vim vim-unite-history<CR>
+    \:<C-u>Unite history/search<CR>
+  nnoremap <silent> [unite]y
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]a
+    \ :<C-u>NeoBundleSource unite.vim<CR>
+    \:<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]n
+    \ :<C-u>silent! NeoBundleSource unite.vim neobundle.vim<CR>
+    \:<C-u>Unite neobundle/install:!<CR>
+  nnoremap <silent> [unite]e
+    \ :<C-u>silent! NeoBundleSource unite.vim neocomplcache-snippets-complete<CR>
+    \:<C-u>Unite snippet<CR>
+  nnoremap <silent> [unite]q
+    \ :<C-u>silent! NeoBundleSource unite.vim unite-quickfix<CR>
+    \:<C-u>Unite quickfix<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
@@ -1272,7 +1311,9 @@ if s:bundled('vimfiler')
   nnoremap [vimfiler]  <Nop>
   nmap     <Space>f  [vimfiler]
 
-  nnoremap [vimfiler]  :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
+  nnoremap <silent> [vimfiler]f
+    \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
+    \:<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
 
   let g:vimfiler_as_default_explorer = 1
 
@@ -1293,10 +1334,20 @@ endif
 "---------------------------------------------------------------------------
 " for h1mesuke/vim-alignta {{{2
 if s:bundled('vim-alignta')
-  nnoremap <Space>as :<C-u>Alignta =<CR>
-  vnoremap <Space>as :Alignta =<CR>
-  nnoremap <Space>ah :<C-u>Alignta =><CR>
-  vnoremap <Space>ah :Alignta =><CR>
+  nnoremap <Space>as
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \:<C-u>Alignta =<CR>
+  vnoremap <Space>as
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \gv
+    \:Alignta =<CR>
+  nnoremap <Space>ah
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \:<C-u>Alignta =><CR>
+  vnoremap <Space>ah
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \gv
+    \:Alignta =><CR>
 
   "augroup perllang
     "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
@@ -1320,7 +1371,8 @@ endif
 "---------------------------------------------------------------------------
 " for kana/vim-scratch {{{2
 if s:bundled('vim-scratch')
-  function! ScratchToggle()
+  function! s:ScratchToggle()
+    silent! NeoBundleSource vim-scratch
     if exists("t:is_scratch_window")
       unlet t:is_scratch_window
       ScratchClose
@@ -1332,8 +1384,8 @@ if s:bundled('vim-scratch')
     endif
   endfunction
 
-  command! -nargs=0 ScratchToggle call ScratchToggle()
-  nnoremap <silent> <Leader><Tab> :<C-u>ScratchToggle<CR>
+  command! -nargs=0 ScratchToggle call s:ScratchToggle()
+  nnoremap <Leader><Leader> :<C-u>ScratchToggle<CR>
 endif
 " }}}
 
@@ -1549,10 +1601,19 @@ if s:bundled('vim-quickrun')
     \   'command': 'scala',
     \ }
 
-  nnoremap <silent> <Space>r :QuickRun -mode n<CR>
-  vnoremap <silent> <Space>r :QuickRun -mode v<CR>
-  nnoremap <Space>R :QuickRun -args ""<Left>
-  nnoremap <S-Space>R :QuickRun -args ""<Left>
+  nnoremap <silent> <Space>r
+    \ :<C-u>NeoBundleSource vim-quickrun<CR>
+    \:<C-u>QuickRun -mode n<CR>
+  vnoremap <silent> <Space>r
+    \ :<C-u>NeoBundleSource vim-quickrun<CR>
+    \gv
+    \:QuickRun -mode v<CR>
+  nnoremap <Space>R
+    \ :<C-u>NeoBundleSource vim-quickrun<CR>
+    \:<C-u>QuickRun -args ""<Left>
+  nnoremap <S-Space>R
+    \ :<C-u>NeoBundleSource vim-quickrun<CR>
+    \:<C-u>QuickRun -args ""<Left>
 endif
 " }}}
 
@@ -1604,7 +1665,9 @@ endif
 " for tyru/open-browser.vim {{{2
 if s:bundled('open-browser.vim')
   let g:netrw_nogx = 1 " disable netrw's gx mapping.
-  nmap gx <Plug>(openbrowser-smart-search)
+  nmap gx
+    \ :<C-u>NeoBundleSource open-browser.vim<CR>
+    \:<C-u>OpenBroserSmartSearch <C-r><C-w><CR>
   vmap gx <Plug>(openbrowser-smart-search)
 endif
 " }}}
