@@ -1309,9 +1309,11 @@ endif
 if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
   map s <Plug>(operator-replace)
   map S <Plug>(operator-replace)$
+  nmap ss V<Plug>(operator-replace)
   " clipboardからoperator-replace
   map <Space>s "*<Plug>(operator-replace)
   map <Space>S "*<Plug>(operator-replace)$
+  nmap <Space>ss V"*<Plug>(operator-replace)
 endif
 " }}}
 
