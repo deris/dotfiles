@@ -134,7 +134,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'reinh/vim-makegreen'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/nerdcommenter'
-  "NeoBundle 'scrooloose/nerdtree'
+  NeoBundleLazy 'scrooloose/nerdtree'
   "NeoBundle 'scrooloose/syntastic'
   NeoBundle 'sgur/vim-textobj-parameter'
   "NeoBundle 'sgur/unite-everything'
@@ -234,7 +234,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'renamer.vim'
   "NeoBundle 'smartchr'
   "NeoBundle 'statusline.vim'
-  NeoBundle 'taglist.vim'
+  NeoBundleLazy 'taglist.vim'
   "NeoBundle 'toggle_words.vim'
   "NeoBundle 'trinity.vim'
   "NeoBundle 'vcscommand.vim'
@@ -1517,48 +1517,55 @@ endif
 
 "---------------------------------------------------------------------------
 " for t9md/vim-surround_custom_mapping {{{2
-if s:bundled('vim-surround_custom_mapping')
-  let g:surround_custom_mapping = {}
-  let g:surround_custom_mapping.perl = {
-    \ 'Q': "q(\r)",
-    \ 'D': "qq(\r)",
-    \ 'o': "qw(\r)",
-    \ }
-  let g:surround_custom_mapping.ruby = {
-    \ '-':  "<% \r %>",
-    \ '=':  "<%= \r %>",
-    \ '9':  "(\r)",
-    \ '5':  "%(\r)",
-    \ '%':  "%(\r)",
-    \ 'w':  "%w(\r)",
-    \ '#':  "#{\r}",
-    \ '3':  "#{\r}",
-    \ 'e':  "begin \r end",
-    \ 'E':  "<<EOS \r EOS",
-    \ 'i':  "if \1if\1 \r end",
-    \ 'u':  "unless \1unless\1 \r end",
-    \ 'c':  "class \1class\1 \r end",
-    \ 'm':  "module \1module\1 \r end",
-    \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
-    \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
-    \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
-    \ }
-  let g:surround_custom_mapping.javascript = {
-    \ 'f':  "function(){ \r }"
-    \ }
-  let g:surround_custom_mapping.vim= {
-    \'f':  "function! \r endfunction"
-    \ }
-  let g:surround_custom_mapping.snippet= {
-    \'p':  "${\1num\1:\r}"
-    \ }
+let g:surround_custom_mapping = {}
+let g:surround_custom_mapping.perl = {
+  \ 'Q': "q(\r)",
+  \ 'D': "qq(\r)",
+  \ 'o': "qw(\r)",
+  \ }
+let g:surround_custom_mapping.ruby = {
+  \ '-':  "<% \r %>",
+  \ '=':  "<%= \r %>",
+  \ '9':  "(\r)",
+  \ '5':  "%(\r)",
+  \ '%':  "%(\r)",
+  \ 'w':  "%w(\r)",
+  \ '#':  "#{\r}",
+  \ '3':  "#{\r}",
+  \ 'e':  "begin \r end",
+  \ 'E':  "<<EOS \r EOS",
+  \ 'i':  "if \1if\1 \r end",
+  \ 'u':  "unless \1unless\1 \r end",
+  \ 'c':  "class \1class\1 \r end",
+  \ 'm':  "module \1module\1 \r end",
+  \ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
+  \ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
+  \ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
+  \ }
+let g:surround_custom_mapping.javascript = {
+  \ 'f':  "function(){ \r }"
+  \ }
+let g:surround_custom_mapping.vim= {
+  \'f':  "function! \r endfunction"
+  \ }
+let g:surround_custom_mapping.snippet= {
+  \'p':  "${\1num\1:\r}"
+  \ }
+" }}}
+
+"---------------------------------------------------------------------------
+" for t9md/vim-unite-ack {{{2
+if s:bundled('unite.vim') && s:bundled('vim-unite-ack')
+    let g:unite_source_ack_command = 'ack --no-heading --no-color -a'
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
 if s:bundled('nerdtree')
-  "nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
+  nnoremap <Space>n
+    \ :<C-u>NeoBundleSource nerdtree<CR>
+    \:<C-u>NERDTreeToggle<CR>
 endif
 " }}}
 
@@ -1811,19 +1818,21 @@ if s:bundled('taglist.vim')
   endif
   "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
   let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
-  "let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
-  "nnoremap <silent> <Space>l :<C-u>TlistToggle<CR>
+  let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
+  nnoremap <silent> <Space>l
+    \ :<C-u>NeoBundleSource taglist.vim<CR>
+    \:<C-u>TlistToggle<CR>
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for trinity.vim {{{2
-if s:bundled('trinity.vim')
-  nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
-  nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
+"if s:bundled('trinity.vim')
+  "nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
+  "nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
   " keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
 
-endif
+"endif
 " }}}
 
 "---------------------------------------------------------------------------
