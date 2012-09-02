@@ -491,18 +491,32 @@ noremap! <C-@> <ESC>
 "inoremap jj <Esc>
 inoremap jk <Esc>
 
-" jump
+" switch j,k and gj,gk
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+nnoremap gj j
+nnoremap gk k
+vnoremap gj j
+vnoremap gk k
+
+" easy scroll
+nnoremap <Space>j  <C-f>
+nnoremap <Space>k  <C-b>
 
 " *,#での単語検索時、次に単語に移動しない
-nnoremap * *<C-o>
-nnoremap # #<C-o>
+"nnoremap * *N
+"nnoremap # #N
 
 " Jump to matching pairs easily, with Tab
 noremap <Tab> %
+
+" key map ^,$ to <Space>h,l. Because ^ and $ is difficult to type and damage little finger!!!
+nnoremap <Space>h ^
+nnoremap <Space>l $
+vnoremap <Space>h ^
+vnoremap <Space>l $
 
 " vimrc編集
 if has('gui_running')
@@ -559,25 +573,33 @@ nnoremap gJ J
 vnoremap J  gJ
 vnoremap gJ J
 
+" from ujihisa's vimrc
+nnoremap <Space>I $i
+"nnoremap <Space>C $C
+nnoremap X ^x
+"nnoremap cp Pjdd
+
 ";と:を入れ替え
 nnoremap ; :
-nnoremap q; q:
-nnoremap : ;
-nnoremap @; @:
-nnoremap @: @;
-nnoremap ,; @:
-nnoremap ,. @:
 vnoremap ; :
+nnoremap q; q:
 vnoremap q; q:
+nnoremap : ;
 vnoremap : ;
+nnoremap @; @:
 vnoremap @; @:
-vnoremap @: @;
+nnoremap ,; @:
+vnoremap ,; @:
 
-" モーション時にwをiwとする（よく使うので）
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
 onoremap w iw
 onoremap W iW
 
 " マッチするものがないパーレンまで移動
+" tは癖で打ってしまうのでi,aに。。。
 onoremap ) i)
 onoremap ( a(
 vnoremap ) i)
@@ -587,11 +609,12 @@ vnoremap ( a(
 onoremap ; t;
 onoremap <Space> t<Space>
 
-" ' と `を入れ替え
-nnoremap '  `
-nnoremap `  '
-
 " text-objectを割り当て
+onoremap aa  a>
+vnoremap aa  a>
+onoremap ia  i>
+vnoremap ia  i>
+
 onoremap aa  a>
 vnoremap aa  a>
 onoremap ia  i>
@@ -612,6 +635,30 @@ vnoremap id  i"
 "onoremap iq  i'
 "vnoremap iq  i'
 
+" key mapping強制ギブス
+onoremap a>  <Esc>
+vnoremap a>  <Esc>
+onoremap i>  <Esc>
+vnoremap i>  <Esc>
+onoremap a<  <Esc>
+vnoremap a<  <Esc>
+onoremap i<  <Esc>
+vnoremap i<  <Esc>
+
+onoremap a]  <Esc>
+vnoremap a]  <Esc>
+onoremap i]  <Esc>
+vnoremap i]  <Esc>
+onoremap a[  <Esc>
+vnoremap a[  <Esc>
+onoremap i[  <Esc>
+vnoremap i[  <Esc>
+
+onoremap a"  <Esc>
+vnoremap a"  <Esc>
+onoremap i"  <Esc>
+vnoremap i"  <Esc>
+
 " モーション時にqで記号まで飛ぶ
 onoremap <silent> q
   \      :<C-u>for i in range(v:count1)
@@ -623,9 +670,6 @@ nnoremap <Space>w :<C-u>w<CR>
 nnoremap <Space>q :<C-u>q<CR>
 nnoremap <Space>Q :<C-u>q!<CR>
 nnoremap <S-Space>Q :<C-u>q!<CR>
-"nnoremap <Space>m :<C-u>marks<CR>
-"nnoremap <Space>g :<C-u>registers<CR>
-"nnoremap <Space>b :<C-u>ls<CR>
 
 " 仮想置換モード
 nnoremap R gR
@@ -633,18 +677,6 @@ nnoremap R gR
 " 危険なので無効化
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
-
-" <Space>数字で記号入力
-noremap <Space>1 !
-noremap <Space>2 @
-noremap <Space>3 #
-noremap <Space>4 $
-noremap <Space>5 %
-noremap <Space>6 ^
-noremap <Space>7 &
-noremap <Space>8 *
-noremap <Space>9 (
-noremap <Space>0 )
 
 " command mode
 cnoremap <C-b> <Left>
@@ -660,12 +692,10 @@ cnoremap <C-h> <BS>
 cnoremap <C-u> <C-e><C-u>
 
 " コマンドラインモードでコマンドラインウィンドウを開く
-" <C-q>はUNIXのTerminalでバッティングするのでコメントアウト
-"cnoremap <C-q> <C-f>a
 cnoremap <C-v> <C-f>a
 
 " カーソル下のlineを挿入
-cnoremap <expr> <C-r><C-l>   getline(".")
+cnoremap <expr> <C-r><C-l>   matchstr(getline("."), '[^ \t:][^\r\n]*')
 
 " command modeでの自動エスケープ
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
@@ -673,15 +703,11 @@ cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 cnoremap <C-/>  /
 cnoremap <C-?>  ?
 
-" 置換の自動入力
-" <C-s>はUNIXのTerminalでバッティングするのでコメントアウト
-"cnoremap <expr> <C-s> (getcmdtype()==':' ? "%s///g<Left><Left><Left>" : "%s")
-nnoremap <Space>S   :<C-u>%s///g<Left><Left><Left>
-nnoremap <S-Space>S :<C-u>%s///g<Left><Left><Left>
-vnoremap <Space>S   :s///g<Left><Left><Left>
-vnoremap <S-Space>S :s///g<Left><Left><Left>
+cnoremap <C-r>' <C-r>"
 
-"nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+" 置換の自動入力
+nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+vnoremap gs  :s///g<Left><Left><Left>
 
 "nnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
 "vnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
@@ -704,22 +730,22 @@ inoremap <C-u> <C-g>u<C-u>
 
 inoremap <S-Enter> <C-o>O
 
-" 括弧など自動で閉じる
-"inoremap {  {}<Left>
-"inoremap [  []<Left>
-"inoremap (  ()<Left>
-"inoremap "  ""<Left>
-"inoremap '  ''<Left>
-"inoremap <  <><Left>
-
 " ハイライトを消す
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
-"nnoremap <silent> <Space>/ :<C-u>nohlsearch<CR>
+nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
+nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
 " * はASCIIとJISでキー配置が異なるので共通で使えるkeymapを設定
-nnoremap <silent> <Space>/  *N
-nnoremap <silent> <Space>?  #N
+"nnoremap <silent> <Space>/  *N
+"nnoremap <silent> <Space>?  #N
+
+" 検索移動時に折畳を開く
+nnoremap n nzv
+nnoremap N Nzv
+
+nnoremap gg ggzv
+nnoremap G  Gzv
 
 " 仮想編集の変更
 nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>
@@ -731,8 +757,8 @@ noremap /   /\v
 noremap ?   ?\v
 
 " buffer
-"nnoremap <C-p> :<C-u>bprevious<CR>
-"nnoremap <C-n> :<C-u>bnext<CR>
+nnoremap gh  :<C-u>bprevious<CR>
+nnoremap gl  :<C-u>bnext<CR>
 
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
@@ -761,7 +787,7 @@ nnoremap <silent> [TabPage]H     :<C-u>execute 'tabmove' tabpagenr()<CR>
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
 
-nnoremap <silent> gr :<C-u>tabprevious<CR>
+nnoremap <silent> gr gT
 
 " tag jump
 nnoremap [TagJump]    <Nop>
@@ -966,6 +992,11 @@ function! s:ReplaceGlobalSearchToRegister()
 endfunction
 
 nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
+
+" from ujihisa's vimrc
+command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
+nnoremap <silent> gl :GoToTheLine<Cr>
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1188,7 +1219,9 @@ if s:bundled('neocomplcache-snippets-complete')
   imap <C-k>     <Plug>(neocomplcache_snippets_expand)
   smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
-  nnoremap <silent> <Space>es :<C-u>NeoComplCacheEditSnippets<Space>
+  smap <C-e>     <Plug>(neocomplcache_snippets_force_jump)
+
+  nnoremap <Space>es :<C-u>NeoComplCacheEditSnippets<Space>
 
   " SuperTab like snippets behavior.
   imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
@@ -1386,6 +1419,71 @@ if s:bundled('vim-alignta')
   "augroup perllang
     "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
   "augroup end
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for jpalardy/vim-slime {{{2
+let g:slime_target = 'tmux'
+let g:slime_paste_file = tempname()
+" }}}
+
+"---------------------------------------------------------------------------
+" for kana/vim-submode {{{2
+if s:bundled('vim-submode')
+  "let g:submode_keyseqs_to_leave = ['<Esc>']
+  "let g:submode_timeoutlen = 4000
+
+  "call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
+  "call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
+  "call submode#leave_with('undo/redo', 'n', '', '<Esc>')
+  "call submode#map('undo/redo', 'n', '', '-', 'g-')
+  "call submode#map('undo/redo', 'n', '', '+', 'g+')
+
+  "call submode#enter_with('window-mode', 'nv', '', '<C-w>')
+  "call submode#leave_with('window-mode', 'nv', '', '<Esc>')
+  "call submode#map('window-mode', 'nv', '', 'h', '<C-w>h')
+  "call submode#map('window-mode', 'nv', '', 'j', '<C-w>j')
+  "call submode#map('window-mode', 'nv', '', 'k', '<C-w>k')
+  "call submode#map('window-mode', 'nv', '', 'l', '<C-w>l')
+  "call submode#map('window-mode', 'nv', '', 'w', '<C-w>w')
+  "call submode#map('window-mode', 'nv', '', 'v', '<C-w>v')
+  "call submode#map('window-mode', 'nv', '', 's', '<C-w>s')
+  "call submode#map('window-mode', 'nv', '', 'n', '<C-w>n')
+  "call submode#map('window-mode', 'nv', '', 'q', '<C-w>q')
+  "call submode#map('window-mode', 'nv', '', '+', '<C-w>+')
+  "call submode#map('window-mode', 'nv', '', '-', '<C-w>-')
+  "call submode#map('window-mode', 'nv', '', '<', '<C-w><')
+  "call submode#map('window-mode', 'nv', '', '=', '<C-w>=')
+  "call submode#map('window-mode', 'nv', '', '>', '<C-w>>')
+  "call submode#map('window-mode', 'nv', '', 'H', '<C-w>H')
+  "call submode#map('window-mode', 'nv', '', 'J', '<C-w>J')
+  "call submode#map('window-mode', 'nv', '', 'K', '<C-w>K')
+  "call submode#map('window-mode', 'nv', '', 'L', '<C-w>L')
+  "call submode#map('window-mode', 'nv', '', 'P', '<C-w>P')
+  "call submode#map('window-mode', 'nv', '', 'R', '<C-w>R')
+  "call submode#map('window-mode', 'nv', '', 'S', '<C-w>S')
+  "call submode#map('window-mode', 'nv', '', 'T', '<C-w>T')
+  "call submode#map('window-mode', 'nv', '', 'W', '<C-w>W')
+
+  "call submode#enter_with('tab-mode', 'nv', '', 'gt', 'gt')
+  "call submode#enter_with('tab-mode', 'nv', '', 'gT', 'gT')
+  "call submode#enter_with('tab-mode', 'nv', '', 'gr', 'gT')
+  "call submode#leave_with('tab-mode', 'nv', '', '<Esc>')
+  "call submode#map('tab-mode', 'nv', '', 't', 'gt')
+  "call submode#map('tab-mode', 'nv', '', 'T', 'gT')
+  "call submode#map('tab-mode', 'nv', '', 'r', 'gT')
+
+  "call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<PageDown>')
+  "call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<PageUp>')
+  "call submode#leave_with('ex-move', 'nv', '', '<Esc>')
+  "call submode#map('ex-move', 'nv', '', 'j', '<PageDown>')
+  "call submode#map('ex-move', 'nv', '', 'k', '<PageUp>')
+  "call submode#map('ex-move', 'nv', '', 'u', '<C-u>')
+  "call submode#map('ex-move', 'nv', '', 'd', '<C-d>')
+  "call submode#map('ex-move', 'nv', '', 'g', 'gg')
+  "call submode#map('ex-move', 'nv', '', 'G', 'G')
+
 endif
 " }}}
 
@@ -1689,6 +1787,8 @@ endif
 if s:bundled('vim-visualstar')
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
+  map <Space>/ <Plug>(visualstar-*)N
+  map <Space>? <Plug>(visualstar-#)N
 endif
 " }}}
 
@@ -1819,9 +1919,6 @@ if s:bundled('grep.vim')
   endif
   let Grep_Skip_Dirs = '.svn .git'
   let Grep_Skip_Files = '*.bak *~'
-
-  nnoremap <Space>eg :<c-u>Egrep<CR>
-  nnoremap <Space>eb :<c-u>Bgrep<CR>
 endif
 " }}}
 
@@ -1857,20 +1954,10 @@ if s:bundled('taglist.vim')
   "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
   let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
   let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
-  nnoremap <silent> <Space>l
+  nnoremap <silent> <C-l>
     \ :<C-u>NeoBundleSource taglist.vim<CR>
     \:<C-u>TlistToggle<CR>
 endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for trinity.vim {{{2
-"if s:bundled('trinity.vim')
-  "nnoremap <silent> <Space>n :<C-u>TrinityToggleNERDTree<CR>
-  "nnoremap <silent> <Space>l :<C-u>TrinityToggleTagList<CR>
-  " keymapを奪われるので、Source-Explorer-srcexpl.vimは使わない。
-
-"endif
 " }}}
 
 "---------------------------------------------------------------------------
