@@ -1554,10 +1554,18 @@ if s:bundled('ctrlp.vim')
   nnoremap [ctrlp]  <Nop>
   nmap     <Space>c [ctrlp]
 
-  nnoremap [ctrlp]b  :<C-u>CtrlPBuffer<CR>
-  nnoremap [ctrlp]m  :<C-u>CtrlPMRUFiles<CR>
-  nnoremap [ctrlp]u  :<C-u>CtrlPMRUFiles<CR>
-  nnoremap [ctrlp]f  :<C-u>CtrlPCurFile<CR>
+  nnoremap [ctrlp]b
+    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
+    \:<C-u>CtrlPBuffer<CR>
+  nnoremap [ctrlp]m
+    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
+    \:<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]u
+    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
+    \:<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]f
+    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
+    \:<C-u>CtrlPCurFile<CR>
 endif
 " }}}
 
