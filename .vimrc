@@ -155,7 +155,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-fontzoom'
   "NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'thinca/vim-poslist'
-  "NeoBundle 'thinca/vim-qfreplace'
+  NeoBundle 'thinca/vim-qfreplace'
   NeoBundleLazy 'thinca/vim-quickrun'
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'thinca/vim-scouter'
@@ -1262,6 +1262,9 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]q
     \ :<C-u>silent! NeoBundleSource unite.vim unite-quickfix<CR>
     \:<C-u>Unite quickfix<CR>
+  nnoremap <silent> [unite]p
+    \ :<C-u>silent! NeoBundleSource unite.vim vim-quickrun<CR>
+    \:<C-u>Unite ref/perldoc<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
@@ -1278,6 +1281,10 @@ if s:bundled('unite.vim')
 
     " <C-l>: manual neocomplcache completion.
     inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+
+    " action key mapping
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+
   endfunction"}}}
 
   let g:unite_source_file_mru_limit = 200
@@ -1301,11 +1308,11 @@ if s:bundled('unite.vim')
   "autocmd VimEnter * UniteSessionLoad
 
   " For ack.
-  if executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    let g:unite_source_grep_recursive_opt = ''
-  endif
+  "if executable('ack')
+    "let g:unite_source_grep_command = 'ack'
+    "let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    "let g:unite_source_grep_recursive_opt = ''
+  "endif
 endif
 " }}}
 
@@ -1587,7 +1594,7 @@ let g:surround_custom_mapping.snippet= {
 "---------------------------------------------------------------------------
 " for t9md/vim-unite-ack {{{2
 if s:bundled('unite.vim') && s:bundled('vim-unite-ack')
-    let g:unite_source_ack_command = 'ack --no-heading --no-color -a'
+    "let g:unite_source_ack_command = 'ack --no-heading --no-color -a'
 endif
 " }}}
 
