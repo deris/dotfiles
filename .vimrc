@@ -1318,21 +1318,43 @@ if s:bundled('vimfiler')
 
   nnoremap <silent> [vimfiler]f
     \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
-    \:<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle<CR>
+    \:<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+  nnoremap <silent> [vimfiler]d
+    \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
+    \:<C-u>VimFilerTab -double<CR>
 
   let g:vimfiler_as_default_explorer = 1
 
-  " Enable file operation commands.
-  "let g:vimfiler_safe_mode_by_default = 0
-
-  " Edit file by tabedit.
-  let g:vimfiler_edit_action = 'tabopen'
-
   " Use trashbox.
   " Windows only and require latest vimproc.
-  "let g:unite_kind_file_use_trashbox = 1
+  if has('win32')
+    let g:unite_kind_file_use_trashbox = 1
+  endif
 
-  "let g:unite_kind_openable_lcd_command = 1
+  let g:vimfiler_data_directory = $DOTVIM . '/.vimfiler'
+  if !isdirectory(g:vimfiler_data_directory)
+    call mkdir(g:vimfiler_data_directory, "p")
+  endif
+
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '-'
+  let g:vimfiler_tree_closed_icon = '+'
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
+
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+  function! s:vimfiler_my_settings()"{{{
+    " Overwrite settings.
+    if has('gui_running')
+      nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabdrop')<Cr>
+    else
+      nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabopen')<Cr>
+    endif
+    nnoremap <buffer> s  :call vimfiler#mappings#do_action('left')<Cr>
+
+  endfunction"}}}
+
 endif
 " }}}
 
