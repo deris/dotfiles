@@ -123,7 +123,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mattn/webapi-vim'
   NeoBundleLazy 'mattn/zencoding-vim'
   "NeoBundle 'mileszs/ack.vim'
-  "NeoBundle 'motemen/git-vim'
+  NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
   "NeoBundle 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
@@ -167,7 +167,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
-  NeoBundle 'tpope/vim-fugitive'
+  "NeoBundle 'tpope/vim-fugitive'
   "NeoBundle 'tpope/vim-markdown'
   "NeoBundle 'tpope/vim-rails'
   NeoBundle 'tpope/vim-repeat'
@@ -1475,22 +1475,31 @@ endif
 
 "---------------------------------------------------------------------------
 " for motemen/git-vim {{{2
-"let g:git_no_map_default = 1
-"let g:git_command_edit = 'rightbelow vnew'
+if s:bundled('git-vim')
+  let g:git_no_map_default = 1
+  let g:git_command_edit = 'leftabove new'
+  let g:git_author_highlight = { 'deris0126': 'term=reverse cterm=bold ctermbg=12 gui=bold guibg=red' }
+  let g:git_highlight_blame = 1
+  let g:git_blame_width = 50
 
-"nnoremap [Git]       <Nop>
-"nmap     <Space>g  [Git]
+  nnoremap [Git]     <Nop>
+  nmap     <Space>g  [Git]
 
-"nnoremap [Git]d :<C-u>GitDiff --cached<CR>
-"nnoremap [Git]D :<C-u>GitDiff<CR>
-"nnoremap [Git]s :<C-u>GitStatus<CR>
-"nnoremap [Git]l :<C-u>GitLog<CR>
-"nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
-"nnoremap [Git]a :<C-u>GitAdd<CR>
-"nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
-"nnoremap [Git]c :<C-u>GitCommit<CR>
-"nnoremap [Git]C :<C-u>GitCommit --amend<CR>
-"nnoremap [Git]p :<C-u>Git push
+  nnoremap [Git]d :<C-u>GitDiff<CR>
+  nnoremap [Git]D :<C-u>GitDiff --cached<CR>
+  nnoremap [Git]s :<C-u>GitStatus<CR>
+  nnoremap [Git]l :<C-u>GitLog<CR>
+  nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
+  nnoremap [Git]a :<C-u>GitAdd<CR>
+  nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
+  nnoremap [Git]c :<C-u>GitCommit<CR>
+  nnoremap [Git]C :<C-u>GitCommit --amend<CR>
+  nnoremap [Git]p :<C-u>Git push
+  nnoremap [Git]r :<C-u>GitPullRebase<CR>
+  nnoremap [Git]f :<C-u>GitCatFile %<CR>
+  nnoremap [Git]v :<C-u>GitVimDiffMerge<CR>
+  nnoremap [Git]b zR:<C-u>GitBlame<CR>
+endif
 " }}}
 
 "---------------------------------------------------------------------------
