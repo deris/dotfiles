@@ -1334,6 +1334,12 @@ if s:bundled('unite.vim')
   let g:unite_source_history_yank_limit = 100
   let g:unite_source_history_yank_file = $DOTVIM.'/history_yank'
 
+  if has('win32')
+    let g:my_win32_grep_path = 'C:/MinGW/msys/1.0/bin/grep'
+    if executable(g:my_grep_path)
+      let g:unite_source_grep_command = g:my_grep_path
+    endif
+  endif
   " For unite-session.
   " Save session automatically.
   "let g:unite_source_session_enable_auto_save = 1
