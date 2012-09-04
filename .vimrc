@@ -421,6 +421,18 @@ if exists('&ambiwidth')
   set ambiwidth=double
 endif
 
+let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
+
+if has('win32')
+  if executable(g:my_win32_grep_path)
+    let &grepprg = g:my_win32_grep_path . ' -n8 --enc utf-8,cp932,euc-jp'
+  endif
+elseif has('mac')
+  if executable('ack')
+    set grepprg=ack\ -a\ $*\ /dev/null
+  endif
+endif
+
 " vimdiff時のハイライト
 hi DiffAdd    ctermfg=black ctermbg=2
 hi DiffChange ctermfg=black ctermbg=3
@@ -431,8 +443,6 @@ hi DiffText   ctermfg=black ctermbg=7
 if has('mac')
   noremap ¥ \
   noremap \ ¥
-  " grep ack
-  set grepprg=ack\ -a
 
   if has('vim_starting')
     let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$HOME."/.cabal/bin:".$PATH
@@ -997,6 +1007,15 @@ nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
 nnoremap <silent> gl :GoToTheLine<Cr>
 
+function! s:Grep(pattern, target)
+  silent NeoBundleSource unite.vim unite-quickfix
+
+  execute 'grep ' . a:pattern . ' ' . a:target
+  Unite -no-quit -direction=botright quickfix
+endfunction
+
+command! -nargs=+ Grep call s:Grep(<f-args>)
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1335,9 +1354,10 @@ if s:bundled('unite.vim')
   let g:unite_source_history_yank_file = $DOTVIM.'/history_yank'
 
   if has('win32')
-    let g:my_win32_grep_path = 'C:/MinGW/msys/1.0/bin/grep'
-    if executable(g:my_grep_path)
-      let g:unite_source_grep_command = g:my_grep_path
+    if executable(g:my_win32_grep_path)
+      let g:unite_source_grep_command = g:my_win32_grep_path
+      let g:unite_source_grep_recursive_opt = '-R'
+      let g:unite_source_grep_default_opts = '-n --enc utf-8,cp932,euc-jp'
     endif
   endif
   " For unite-session.
@@ -1346,12 +1366,6 @@ if s:bundled('unite.vim')
   " Load session automatically.
   "autocmd VimEnter * UniteSessionLoad
 
-  " For ack.
-  "if executable('ack')
-    "let g:unite_source_grep_command = 'ack'
-    "let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    "let g:unite_source_grep_recursive_opt = ''
-  "endif
 endif
 " }}}
 
@@ -1705,8 +1719,9 @@ let g:surround_custom_mapping.snippet= {
 
 "---------------------------------------------------------------------------
 " for t9md/vim-unite-ack {{{2
-if s:bundled('unite.vim') && s:bundled('vim-unite-ack')
-    "let g:unite_source_ack_command = 'ack --no-heading --no-color -a'
+if has('mac') && s:bundled('unite.vim') && s:bundled('vim-unite-ack')
+    let g:unite_source_ack_command = 'ack --no-heading --no-color -a'
+    let g:unite_source_ack_enable_highlight = 1
 endif
 " }}}
 
