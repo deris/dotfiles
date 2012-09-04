@@ -1446,6 +1446,13 @@ if s:bundled('vim-alignta')
     \ :<C-u>NeoBundleSource vim-alignta<CR>
     \gv
     \:Alignta =><CR>
+  nnoremap <Space>a,
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \:<C-u>Alignta ,<CR>
+  vnoremap <Space>a,
+    \ :<C-u>NeoBundleSource vim-alignta<CR>
+    \gv
+    \:Alignta ,<CR>
 
   "augroup perllang
     "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
