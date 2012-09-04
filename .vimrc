@@ -1383,9 +1383,10 @@ if s:bundled('vimfiler')
     \:<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
   nnoremap <silent> [vimfiler]d
     \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
-    \:<C-u>VimFilerTab -double<CR>
+    \:<C-u>VimFilerTab -double -no-quit<CR>
 
   let g:vimfiler_as_default_explorer = 1
+  let g:vimfiler_enable_auto_cd = 1
 
   " Use trashbox.
   " Windows only and require latest vimproc.
