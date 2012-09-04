@@ -1776,6 +1776,18 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for thinca/vim-poslist {{{2
+if s:bundled('vim-poslist')
+  let g:poslist_histsize = 500
+
+  map <C-o> <Plug>(poslist-prev-line)
+  map <C-i> <Plug>(poslist-next-line)
+  map <Leader><C-o> <Plug>(poslist-prev-buf)
+  map <Leader><C-i> <Plug>(poslist-next-buf)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for thinca/vim-quickrun {{{2
 if s:bundled('vim-quickrun')
   let g:quickrun_config = {}
