@@ -454,10 +454,8 @@ endif
 " カーソルラインと行ラインを表示
 augroup cursorsetting
   autocmd!
-  autocmd BufWinEnter,WinEnter * setlocal cursorline
-  autocmd BufWinEnter,WinEnter * setlocal cursorcolumn
-  autocmd BufWinLeave,WinLeave * setlocal nocursorline
-  autocmd BufWinLeave,WinLeave * setlocal nocursorcolumn
+  autocmd BufWinEnter,WinEnter * setlocal cursorline nocursorline
+  autocmd BufWinLeave,WinLeave * setlocal nocursorline nocursorcolumn
 augroup END
 
 " 自動的に現在編集中のファイルのカレントディレクトリに移動
@@ -532,13 +530,13 @@ vnoremap <Space>l $
 
 " vimrc編集
 if has('gui_running')
-  nnoremap <Space>.   :<C-u>execute 'tab drop ' . resolve($MYVIMRC)<CR>
-  nnoremap <Space>g.  :<C-u>execute 'tab drop ' . resolve($MYGVIMRC)<CR>
+  nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . resolve($MYVIMRC)<CR>
+  nnoremap <silent> <Space>g.  :<C-u>execute 'tab drop ' . resolve($MYGVIMRC)<CR>
 else
-  nnoremap <Space>.   :<C-u>execute 'tabe ' . resolve($MYVIMRC)<CR>
-  nnoremap <Space>g.  :<C-u>execute 'tabe ' . resolve($MYGVIMRC)<CR>
+  nnoremap <silent> <Space>.   :<C-u>execute 'tabe ' . resolve($MYVIMRC)<CR>
+  nnoremap <silent> <Space>g.  :<C-u>execute 'tabe ' . resolve($MYGVIMRC)<CR>
 endif
-nnoremap <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
+nnoremap <silent> <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
 " helpショートカット
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
@@ -1135,13 +1133,11 @@ endif
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
-if s:bundled('vim-easymotion')
-  let g:EasyMotion_leader_key = ','
-  let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let g:EasyMotion_do_shade = 1
-  hi EasyMotionTarget ctermbg=none ctermfg=green
-  hi EasyMotionShade  ctermbg=none ctermfg=blue
-endif
+let g:EasyMotion_leader_key = ','
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let g:EasyMotion_do_shade = 1
+hi EasyMotionTarget ctermbg=none ctermfg=green
+hi EasyMotionShade  ctermbg=none ctermfg=blue
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1609,41 +1605,39 @@ endif
 
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
-if s:bundled('zencoding-vim')
-  let g:user_zen_expandabbr_key = '<c-y>'
-  let g:user_zen_settings = {
-    \  'lang' : 'ja',
-    \  'html' : {
-    \    'filters' : 'html',
-    \    'indentation' : '  '
-    \  },
-    \  'xhtml' : {
-    \    'filters' : 'html',
-    \    'indentation' : '  '
-    \  },
-    \  'perl' : {
-    \    'indentation' : '    ',
-    \    'aliases' : {
-    \      'req' : "require '|'"
-    \    },
-    \    'snippets' : {
-    \      'use' : "use strict\nuse warnings\n\n",
-    \      'w' : "warn \"${cursor}\";",
-    \    },
-    \  },
-    \  'css' : {
-    \    'filters' : 'fc',
-    \  },
-    \  'javascript' : {
-    \    'snippets' : {
-    \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
-    \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
-    \      'fn' : "(function() {\n\t${cursor}\n})();",
-    \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
-    \    },
-    \  },
-    \}
-endif
+let g:user_zen_expandabbr_key = '<c-y>'
+let g:user_zen_settings = {
+  \  'lang' : 'ja',
+  \  'html' : {
+  \    'filters' : 'html',
+  \    'indentation' : '  '
+  \  },
+  \  'xhtml' : {
+  \    'filters' : 'html',
+  \    'indentation' : '  '
+  \  },
+  \  'perl' : {
+  \    'indentation' : '    ',
+  \    'aliases' : {
+  \      'req' : "require '|'"
+  \    },
+  \    'snippets' : {
+  \      'use' : "use strict\nuse warnings\n\n",
+  \      'w' : "warn \"${cursor}\";",
+  \    },
+  \  },
+  \  'css' : {
+  \    'filters' : 'fc',
+  \  },
+  \  'javascript' : {
+  \    'snippets' : {
+  \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+  \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+  \      'fn' : "(function() {\n\t${cursor}\n})();",
+  \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+  \    },
+  \  },
+  \}
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1677,10 +1671,8 @@ endif
 
 "---------------------------------------------------------------------------
 " for nathanaelkane/vim-indent-guides {{{2
-if s:bundled('vim-indent-guides')
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_guide_size = 1
-endif
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1901,10 +1893,8 @@ endif
 
 "---------------------------------------------------------------------------
 " for xolox/vim-easytags {{{2
-if s:bundled('vim-easytags')
-  if has('win32')
-    let g:easytags_cmd = ''
-  endif
+if has('win32')
+  let g:easytags_cmd = ''
 endif
 " }}}
 
@@ -1922,42 +1912,6 @@ if s:bundled('parajump')
   map { <Plug>(parajump-backward)
   map } <Plug>(parajump-forward)
 endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for deris/vim-loadafterft {{{2
-if s:bundled('vim-loadafterft')
-  let g:execcmd_after_ftplugin = {
-    \    '_': [
-    \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-    \    ],
-    \}
-  let g:execcmd_after_indent = {
-    \    '_': [
-    \        'setlocal fo-=t fo-=c fo-=r fo-=o',
-    \    ],
-    \}
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for FuzzyFinder {{{2
-"let g:fuf_modesDisable     = []
-"let g:fuf_mrufile_exclude  = '\v\.DS_Store|\.git|\.swp|\.svn'
-"let g:fuf_mrufile_maxItem  = 500
-"let g:fuf_mrucmd_maxItem   = 500
-"let g:fuf_enumeratingLimit = 20
-"let g:fuf_file_exclude     = '\v\.DS_Store|\.git|\.swp|\.svn'
-
-"nnoremap [fuf]    <Nop>
-"nmap     <Space>f [fuf]
-
-"nnoremap [fuf]b  :<C-u>FufBuffer<CR>
-"nnoremap [fuf]f  :<C-u>FufFile<CR>
-"nnoremap [fuf]d  :<C-u>FufDir<CR>
-"nnoremap [fuf]t  :<C-u>FufTag<CR>
-"nnoremap [fuf]m  :<C-u>FufMruFile<CR>
-"nnoremap [fuf]c  :<C-u>FufMruCmd<CR>
 " }}}
 
 "---------------------------------------------------------------------------
@@ -2028,14 +1982,6 @@ if s:bundled('vim-textobj-user') && s:bundled('vim-textobj-function')
   vmap aF <Plug>(textobj-function-a)
 endif
 " }}}
-
-"---------------------------------------------------------------------------
-" for vcscommand.vim {{{2
-if s:bundled('vcscommand.vim')
-"let VCSCommandMapPrefix = '<Space>s'
-endif
-" }}}
-
 
 " }}}
 
