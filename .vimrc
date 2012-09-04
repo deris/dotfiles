@@ -461,7 +461,7 @@ augroup END
 " 自動的に現在編集中のファイルのカレントディレクトリに移動
 augroup grlcd
   autocmd!
-  autocmd BufEnter * lcd %:p:h
+  autocmd BufRead,BufEnter * lcd %:p:h
 augroup END
 
 " 親ディレクトリが存在していなければ作成するかどうか確認
