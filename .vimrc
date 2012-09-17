@@ -180,6 +180,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'tsukkee/unite-tag'
   "NeoBundle 'tyru/caw.vim'
   "NeoBundle 'tyru/current-func-info.vim'
+  NeoBundle 'tyru/nextfile.vim'
   "NeoBundle 'tyru/operator-camelize.vim'
   NeoBundleLazy 'tyru/open-browser.vim'
   NeoBundleLazy 'tyru/operator-html-escape.vim'
@@ -1490,58 +1491,60 @@ let g:slime_paste_file = tempname()
 "---------------------------------------------------------------------------
 " for kana/vim-submode {{{2
 if s:bundled('vim-submode')
-  "let g:submode_keyseqs_to_leave = ['<Esc>']
-  "let g:submode_timeoutlen = 4000
+  let g:submode_keyseqs_to_leave = ['<Esc>']
+  let g:submode_timeoutlen = 1000000
 
-  "call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
-  "call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
-  "call submode#leave_with('undo/redo', 'n', '', '<Esc>')
-  "call submode#map('undo/redo', 'n', '', '-', 'g-')
-  "call submode#map('undo/redo', 'n', '', '+', 'g+')
+  call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
+  call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
+  call submode#map('undo/redo', 'n', '', '-', 'g-')
+  call submode#map('undo/redo', 'n', '', '+', 'g+')
 
-  "call submode#enter_with('window-mode', 'nv', '', '<C-w>')
-  "call submode#leave_with('window-mode', 'nv', '', '<Esc>')
-  "call submode#map('window-mode', 'nv', '', 'h', '<C-w>h')
-  "call submode#map('window-mode', 'nv', '', 'j', '<C-w>j')
-  "call submode#map('window-mode', 'nv', '', 'k', '<C-w>k')
-  "call submode#map('window-mode', 'nv', '', 'l', '<C-w>l')
-  "call submode#map('window-mode', 'nv', '', 'w', '<C-w>w')
-  "call submode#map('window-mode', 'nv', '', 'v', '<C-w>v')
-  "call submode#map('window-mode', 'nv', '', 's', '<C-w>s')
-  "call submode#map('window-mode', 'nv', '', 'n', '<C-w>n')
-  "call submode#map('window-mode', 'nv', '', 'q', '<C-w>q')
-  "call submode#map('window-mode', 'nv', '', '+', '<C-w>+')
-  "call submode#map('window-mode', 'nv', '', '-', '<C-w>-')
-  "call submode#map('window-mode', 'nv', '', '<', '<C-w><')
-  "call submode#map('window-mode', 'nv', '', '=', '<C-w>=')
-  "call submode#map('window-mode', 'nv', '', '>', '<C-w>>')
-  "call submode#map('window-mode', 'nv', '', 'H', '<C-w>H')
-  "call submode#map('window-mode', 'nv', '', 'J', '<C-w>J')
-  "call submode#map('window-mode', 'nv', '', 'K', '<C-w>K')
-  "call submode#map('window-mode', 'nv', '', 'L', '<C-w>L')
-  "call submode#map('window-mode', 'nv', '', 'P', '<C-w>P')
-  "call submode#map('window-mode', 'nv', '', 'R', '<C-w>R')
-  "call submode#map('window-mode', 'nv', '', 'S', '<C-w>S')
-  "call submode#map('window-mode', 'nv', '', 'T', '<C-w>T')
-  "call submode#map('window-mode', 'nv', '', 'W', '<C-w>W')
+  call submode#enter_with('window-size', 'n', '', '<C-w>+', '<C-w>+')
+  call submode#enter_with('window-size', 'n', '', '<C-w>-', '<C-w>-')
+  call submode#enter_with('window-size', 'n', '', '<C-w><', '<C-w><')
+  call submode#enter_with('window-size', 'n', '', '<C-w>=', '<C-w>=')
+  call submode#enter_with('window-size', 'n', '', '<C-w>>', '<C-w>>')
+  call submode#map('window-size', 'n', '', '+', '<C-w>+')
+  call submode#map('window-size', 'n', '', '-', '<C-w>-')
+  call submode#map('window-size', 'n', '', '<', '<C-w><')
+  call submode#map('window-size', 'n', '', '=', '<C-w>=')
+  call submode#map('window-size', 'n', '', '>', '<C-w>>')
 
-  "call submode#enter_with('tab-mode', 'nv', '', 'gt', 'gt')
-  "call submode#enter_with('tab-mode', 'nv', '', 'gT', 'gT')
-  "call submode#enter_with('tab-mode', 'nv', '', 'gr', 'gT')
-  "call submode#leave_with('tab-mode', 'nv', '', '<Esc>')
-  "call submode#map('tab-mode', 'nv', '', 't', 'gt')
-  "call submode#map('tab-mode', 'nv', '', 'T', 'gT')
-  "call submode#map('tab-mode', 'nv', '', 'r', 'gT')
+  call submode#enter_with('tab-mode', 'n', '', 'gt', 'gt')
+  call submode#enter_with('tab-mode', 'n', '', 'gT', 'gT')
+  call submode#enter_with('tab-mode', 'n', '', 'gr', 'gT')
+  call submode#map('tab-mode', 'n', '', 't', 'gt')
+  call submode#map('tab-mode', 'n', '', 'T', 'gT')
+  call submode#map('tab-mode', 'n', '', 'r', 'gT')
 
-  "call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<PageDown>')
-  "call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<PageUp>')
-  "call submode#leave_with('ex-move', 'nv', '', '<Esc>')
-  "call submode#map('ex-move', 'nv', '', 'j', '<PageDown>')
-  "call submode#map('ex-move', 'nv', '', 'k', '<PageUp>')
-  "call submode#map('ex-move', 'nv', '', 'u', '<C-u>')
-  "call submode#map('ex-move', 'nv', '', 'd', '<C-d>')
-  "call submode#map('ex-move', 'nv', '', 'g', 'gg')
-  "call submode#map('ex-move', 'nv', '', 'G', 'G')
+  call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<C-f>')
+  call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<C-b>')
+  call submode#map('ex-move', 'nv', '', 'j', '<C-f>')
+  call submode#map('ex-move', 'nv', '', 'k', '<C-b>')
+  call submode#map('ex-move', 'nv', '', 'u', '<C-u>')
+  call submode#map('ex-move', 'nv', '', 'd', '<C-d>')
+  call submode#map('ex-move', 'nv', '', 'n', '5j')
+  call submode#map('ex-move', 'nv', '', 'p', '5k')
+  call submode#map('ex-move', 'nv', '', 'g', 'gg')
+  call submode#map('ex-move', 'nv', '', 'G', 'G')
+
+  call submode#enter_with('change-list', 'n', '', 'g;', 'g;')
+  call submode#enter_with('change-list', 'n', '', 'g,', 'g,')
+  call submode#map('change-list', 'n', '', ';', 'g;')
+  call submode#map('change-list', 'n', '', ',', 'g,')
+
+  call submode#enter_with('diff', 'n', '', '<Leader>d', '<Leader>d')
+  call submode#map('diff', 'n', '', 'j', ']c') " next diff
+  call submode#map('diff', 'n', '', 'k', '[c') " prev diff
+  call submode#map('diff', 'n', '', 'h', 'do') " get diff
+  call submode#map('diff', 'n', '', 'l', 'dp') " put diff
+  call submode#map('diff', 'n', '', 'u', 'do]c') " get diff and next diff
+  call submode#map('diff', 'n', '', 'i', 'dp]c') " put diff and next diff
+
+  call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Plug>(nextfile-next)')
+  call submode#enter_with('nextfile', 'n', 'r', '<Leader>k', '<Plug>(nextfile-previous)')
+  call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
+  call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
 
 endif
 " }}}
