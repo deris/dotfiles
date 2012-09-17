@@ -1355,6 +1355,11 @@ if s:bundled('unite.vim')
     imap <buffer> jk     <Plug>(unite_insert_leave)
     "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
 
+    nmap <buffer> <Space>           <Nop>
+    nmap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_current_candidate)
+    imap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_current_candidate)
+    vmap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_selected_candidates)
+
     " <C-l>: manual neocomplcache completion.
     inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
 
@@ -1445,6 +1450,11 @@ if s:bundled('vimfiler')
       nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabopen')<Cr>
     endif
     nnoremap <buffer> s  :call vimfiler#mappings#do_action('left')<Cr>
+    nnoremap <buffer> f  :call vimfiler#mappings#do_action('diff')<Cr>
+
+    nmap <buffer> <Space>           <Nop>
+    nmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_current_line)
+    vmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_selected_lines)
 
   endfunction"}}}
 
@@ -1579,7 +1589,7 @@ if s:bundled('vim-scratch')
   endfunction
 
   command! -nargs=0 ScratchToggle call s:ScratchToggle()
-  nnoremap <Leader><Leader> :<C-u>ScratchToggle<CR>
+  "nnoremap <Leader><Leader> :<C-u>ScratchToggle<CR>
 endif
 " }}}
 
