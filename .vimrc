@@ -688,6 +688,20 @@ nnoremap R gR
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 
+" win間移動
+nnoremap <Left>  <C-w><
+nnoremap <Down>  <C-w>+
+nnoremap <Up>    <C-w>-
+nnoremap <Right> <C-w>>
+nnoremap <M-h>   <C-w>h
+nnoremap <M-j>   <C-w>j
+nnoremap <M-k>   <C-w>k
+nnoremap <M-l>   <C-w>l
+nnoremap <M-H>   <C-w>H
+nnoremap <M-J>   <C-w>J
+nnoremap <M-K>   <C-w>K
+nnoremap <M-L>   <C-w>L
+
 " command mode
 cnoremap <C-b> <Left>
 "cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
