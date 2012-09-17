@@ -737,6 +737,17 @@ vnoremap gs  :s///g<Left><Left><Left>
 "vnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
 "nnoremap <Leader>dS :%s/ *$//<CR>setlocal nohlsearch<CR>
 
+" vim diffのkeymap
+nnoremap dp dp:<C-u>diffupdate<CR>]czz
+nnoremap do do:<C-u>diffupdate<CR>]czz
+vnoremap <Leader>dp :diffput<CR>:<C-u>diffupdate<CR>zz
+vnoremap <Leader>do :diffget<CR>:<C-u>diffupdate<CR>zz
+nnoremap du :<C-u>diffupdate<CR>
+nnoremap dy [c
+nnoremap dm ]c
+vnoremap <Leader>dy [c
+vnoremap <Leader>dm ]c
+
 " insert mode
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
