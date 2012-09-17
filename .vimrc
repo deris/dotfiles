@@ -521,7 +521,7 @@ nnoremap <Space>k  <C-b>
 "nnoremap # #N
 
 " Jump to matching pairs easily, with Tab
-noremap <Tab> %
+"noremap <Tab> %
 
 " key map ^,$ to <Space>h,l. Because ^ and $ is difficult to type and damage little finger!!!
 nnoremap <Space>h ^
@@ -568,10 +568,10 @@ nnoremap <Space>sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste
 nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
 " registerを汚さずに削除
-nnoremap <Leader>d "_d
-nnoremap <Leader>D "_d$
-vnoremap <Leader>d "_d
-nnoremap <Leader>x "_x
+"nnoremap <Leader>d "_d
+"nnoremap <Leader>D "_d$
+"vnoremap <Leader>d "_d
+"nnoremap <Leader>x "_x
 
 " 行挿入後インサートモードに入らない
 nnoremap <Space>o o<Esc>k
