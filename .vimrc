@@ -619,6 +619,17 @@ nnoremap <M-J>   <C-w>J
 nnoremap <M-K>   <C-w>K
 nnoremap <M-L>   <C-w>L
 
+if has('mac')
+  nnoremap <D-h>   <C-w>h
+  nnoremap <D-j>   <C-w>j
+  nnoremap <D-k>   <C-w>k
+  nnoremap <D-l>   <C-w>l
+  nnoremap <D-H>   <C-w>H
+  nnoremap <D-J>   <C-w>J
+  nnoremap <D-K>   <C-w>K
+  nnoremap <D-L>   <C-w>L
+endif
+
 " command mode
 cnoremap <C-b> <Left>
 "cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
