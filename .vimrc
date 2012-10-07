@@ -305,6 +305,7 @@ set list
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
 set t_Co=256
 set nrformats=hex
+set winaltkeys=no
 
 scriptencoding utf-8
 
