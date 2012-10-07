@@ -476,7 +476,7 @@ nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<CR>
 onoremap gc         :<C-u>normal gc<CR>
 " 最後に変更されたテキストに移動する
-nnoremap gI `.
+nnoremap gI `.zz
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
@@ -665,10 +665,10 @@ nnoremap do do:<C-u>diffupdate<CR>]czz
 vnoremap <Leader>dp :diffput<CR>:<C-u>diffupdate<CR>zz
 vnoremap <Leader>do :diffget<CR>:<C-u>diffupdate<CR>zz
 nnoremap du :<C-u>diffupdate<CR>
-nnoremap dy [c
-nnoremap dm ]c
-vnoremap <Leader>dy [c
-vnoremap <Leader>dm ]c
+nnoremap dy [czz
+nnoremap dm ]czz
+vnoremap <Leader>dy [czz
+vnoremap <Leader>dm ]czz
 
 " insert mode
 inoremap <C-b> <Left>
@@ -694,11 +694,11 @@ nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
 " 検索移動時に折畳を開く
-nnoremap n nzv
-nnoremap N Nzv
+nnoremap n nzvzz
+nnoremap N Nzvzz
 
-nnoremap gg ggzv
-nnoremap G  Gzv
+nnoremap gg ggzvzz
+nnoremap G  Gzvzz
 
 " 仮想編集の変更
 nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>
@@ -1385,29 +1385,28 @@ if s:bundled('vim-submode')
   call submode#map('tab-mode', 'n', '', 'T', 'gT')
   call submode#map('tab-mode', 'n', '', 'r', 'gT')
 
-  call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<C-f>')
-  call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<C-b>')
-  call submode#map('ex-move', 'nv', '', 'j', '<C-f>')
-  call submode#map('ex-move', 'nv', '', 'k', '<C-b>')
-  call submode#map('ex-move', 'nv', '', 'u', '<C-u>')
-  call submode#map('ex-move', 'nv', '', 'd', '<C-d>')
-  call submode#map('ex-move', 'nv', '', 'n', '5j')
-  call submode#map('ex-move', 'nv', '', 'p', '5k')
-  call submode#map('ex-move', 'nv', '', 'g', 'gg')
-  call submode#map('ex-move', 'nv', '', 'G', 'G')
+  call submode#enter_with('ex-move', 'n', '', '<Space><Space>', '<Nop>')
+  call submode#enter_with('ex-move', 'n', '', '<Space>j', '<C-f>zz')
+  call submode#enter_with('ex-move', 'n', '', '<Space>k', '<C-b>zz')
+  call submode#map('ex-move', 'n', '', 'j', '<C-f>zz')
+  call submode#map('ex-move', 'n', '', 'k', '<C-b>zz')
+  call submode#map('ex-move', 'n', '', 'd', '5jzz')
+  call submode#map('ex-move', 'n', '', 'u', '5kzz')
+  call submode#map('ex-move', 'n', '', 'n', '}zz')
+  call submode#map('ex-move', 'n', '', 'p', '{zz')
 
-  call submode#enter_with('change-list', 'n', '', 'g;', 'g;')
-  call submode#enter_with('change-list', 'n', '', 'g,', 'g,')
-  call submode#map('change-list', 'n', '', ';', 'g;')
-  call submode#map('change-list', 'n', '', ',', 'g,')
+  call submode#enter_with('change-list', 'n', '', 'g;', 'g;zz')
+  call submode#enter_with('change-list', 'n', '', 'g,', 'g,zz')
+  call submode#map('change-list', 'n', '', ';', 'g;zz')
+  call submode#map('change-list', 'n', '', ',', 'g,zz')
 
-  call submode#enter_with('diff', 'n', '', '<Leader>d', '<Leader>d')
-  call submode#map('diff', 'n', '', 'j', ']c') " next diff
-  call submode#map('diff', 'n', '', 'k', '[c') " prev diff
+  call submode#enter_with('diff', 'n', '', '<Leader>d', '<Nop>')
+  call submode#map('diff', 'n', '', 'j', ']czz') " next diff
+  call submode#map('diff', 'n', '', 'k', '[czz') " prev diff
   call submode#map('diff', 'n', '', 'h', 'do') " get diff
   call submode#map('diff', 'n', '', 'l', 'dp') " put diff
-  call submode#map('diff', 'n', '', 'u', 'do]c') " get diff and next diff
-  call submode#map('diff', 'n', '', 'i', 'dp]c') " put diff and next diff
+  call submode#map('diff', 'n', '', 'u', 'do]czz') " get diff and next diff
+  call submode#map('diff', 'n', '', 'i', 'dp]czz') " put diff and next diff
 
   call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Plug>(nextfile-next)')
   call submode#enter_with('nextfile', 'n', 'r', '<Leader>k', '<Plug>(nextfile-previous)')
@@ -1732,10 +1731,14 @@ endif
 "---------------------------------------------------------------------------
 " for thinca/vim-visualstar {{{2
 if s:bundled('vim-visualstar')
-  map * <Plug>(visualstar-*)N
-  map # <Plug>(visualstar-#)N
-  map <Space>/ <Plug>(visualstar-*)N
-  map <Space>? <Plug>(visualstar-#)N
+  map * <Plug>(visualstar-*)Nzz
+  map # <Plug>(visualstar-#)Nzz
+  map g* <Plug>(visualstar-g*)Nzz
+  map g# <Plug>(visualstar-g#)Nzz
+  map <Space>/ <Plug>(visualstar-*)Nzz
+  map <Space>? <Plug>(visualstar-#)Nzz
+  map g<Space>/ <Plug>(visualstar-g*)Nzz
+  map g<Space>? <Plug>(visualstar-g#)Nzz
 endif
 " }}}
 
@@ -1797,16 +1800,16 @@ endif
 "---------------------------------------------------------------------------
 " for deris/columnjump {{{2
 if s:bundled('columnjump')
-  map <c-k> <Plug>(columnjump-backward)
-  map <c-j> <Plug>(columnjump-forward)
+  map <c-k> <Plug>(columnjump-backward)zz
+  map <c-j> <Plug>(columnjump-forward)zz
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for deris/parajump {{{2
 if s:bundled('parajump')
-  map { <Plug>(parajump-backward)
-  map } <Plug>(parajump-forward)
+  map { <Plug>(parajump-backward)zz
+  map } <Plug>(parajump-forward)zz
 endif
 " }}}
 
