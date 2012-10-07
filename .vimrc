@@ -48,6 +48,7 @@ endif
 if s:bundled('neobundle.vim')
   call neobundle#rc($VIMBUNDLE)
 
+  let g:neobundle_default_git_protocol = 'https'
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   "NeoBundle 'gmarik/vundle'
