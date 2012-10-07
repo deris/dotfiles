@@ -13,9 +13,6 @@
 ":help motion
 ":help visual
 "
-" 使用前提
-" ・.vim or vimfile 直下にswap,backup,snippetsディレクトリを作成しておく
-"
 "}}}
 
 "---------------------------------------------------------------------------
@@ -29,7 +26,6 @@ endif
 
 let $VIMBUNDLE=$DOTVIM.'/bundle'
 
-" bundle/ 以下に配置されているか
 function! s:bundled(bundle)
   if !isdirectory($VIMBUNDLE)
     return 0
@@ -270,35 +266,19 @@ endif
 " 文法の色付け
 syntax enable
 
-" 検索時に大文字小文字を無視 (noignorecase:無視しない)
 set ignorecase
-" 大文字小文字の両方が含まれている場合は大文字小文字を区別
 set smartcase
-" インクリメンタルサーチ
 set incsearch
-" 検索結果をハイライトする
 set hlsearch
 
-"
-" vi互換をOFFにする
-"set nocompatible
-" タブの画面上での幅
 set tabstop=4
-" タブをスペースに展開しない (expandtab:展開する)
 set expandtab
-" 自動的にインデントする (noautoindent:インデントしない)
 set autoindent
-" バックスペースでインデントや改行を削除できるようにする
 set backspace=2
-" 検索時にファイルの最後まで行ったら最初に戻る (nowrapscan:戻らない)
 set nowrapscan
-" 括弧入力時に対応する括弧を表示 (noshowmatch:表示しない)
 set showmatch
-" コマンドライン補完するときに強化されたものを使う(参照 :help wildmenu)
 set wildmenu
-" コマンドライン補完の動作を指定
 set wildmode=longest,full
-" コマンドライン補完時に無視
 set wildignore=.git,.hg,.svn
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.so,*.out,*.class
@@ -306,40 +286,23 @@ set wildignore+=*.swp,*.swo,*.swn
 set wildignore+=*.DS_Store
 " 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
 let format_allow_over_tw = 1 " ぶら下り可能幅
-"シフト移動幅
 set shiftwidth=4
-"新しい行を作ったときに高度な自動インデントを行う
 set smartindent
-"行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
-"カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
-"変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
-" 入力されているテキストの最大幅。（0は無効）
 set textwidth=0
-"自動整形の実行方法を決めるフラグ(tcは自動折り返し。roはコメント文字自動挿入)
 setlocal formatoptions=ql
-" 行番号を表示
 set number
-" 相対行番号を表示
-"set relativenumber
-" ルーラーを表示 (noruler:非表示)
 set ruler
-" タブや改行を表示 (list:表示)
 set list
-" どの文字でタブや改行を表示するかを設定
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
-" * での検索や text-object 等での選択時に - で切らない
-"setlocal iskeyword& iskeyword+=-
-" Explicitly tell vim that the terminal supports 256 colors
 set t_Co=256
-" C-a,C-xで8進数を増減しないようhexだけ設定する
 set nrformats=hex
 
-" 全角スペースを表示
 scriptencoding utf-8
 
+" 全角スペースを表示
 augroup hilightIdegraphicSpace
   autocmd!
   autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
@@ -352,54 +315,31 @@ else
   colorscheme desert
 endif
 
-" 長い行を折り返して表示 (nowrap:折り返さない)
 set nowrap
-" 常にステータス行を表示 (詳細は:he laststatus)
 set laststatus=2
-" コマンドラインの高さ (Windows用gvim使用時はgvimrcを編集すること)
 set cmdheight=2
-" コマンドをステータス行に表示
 set showcmd
-" タイトルを表示
 set title
-" 画面上の行数
 set lines=50
-" タブを常に表示する
 set showtabline=2
-" statusline
-" vim-powerlineを使用するためコメントアウト
 "set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
-" virtualedit
 set virtualedit=block
-" バックアップを作る
 set backup
-" バックアップファイルの生成ディレクトリ
 set backupdir=$DOTVIM/backup
 if !isdirectory(&backupdir)
   call mkdir(&backupdir, "p")
 endif
-" バックアップのスキップ
 if has('unix')
   set backupskip=/tmp/*,/private/tmp/*
 endif
-" スワップを有効
 set swapfile
-" クリップボードにもコピー
-"set clipboard+=unnamed
-" スワップファイルの生成ディレクトリ
 set directory=$DOTVIM/swap
 if !isdirectory(&directory)
   call mkdir(&directory, "p")
 endif
-" Command Lineの履歴数
-set history=1000
-" 検索時、カーソルの上または下は最低でも以下指定の行が表示される
-"set scrolloff=5
-" 折り返された行の先頭に表示する文字列
+set history=2000
 let &showbreak = '+++ '
-" 高速ターミナル接続を行う
 set ttyfast
-" Undo の永続化
 if has('persistent_undo')
   set undodir=$DOTVIM/undo
   set undofile
@@ -408,8 +348,6 @@ if has('persistent_undo')
   endif
 endif
 
-" set tags
-"set autochdir
 set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
 
 " 文字コードの自動判定
@@ -419,7 +357,6 @@ set fileencoding=utf-8
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
 
-" UTF-8の文字幅
 if exists('&ambiwidth')
   set ambiwidth=double
 endif
@@ -442,7 +379,6 @@ hi DiffChange ctermfg=black ctermbg=3
 hi DiffDelete ctermfg=black ctermbg=6
 hi DiffText   ctermfg=black ctermbg=7
 
-" macの場合の設定
 if has('mac')
   noremap ¥ \
   noremap \ ¥
@@ -487,7 +423,6 @@ let plugin_cmdex_disable = 1
 "---------------------------------------------------------------------------
 " key map:{{{2
 
-" leaderを変更
 let mapleader = ","
 let maplocalleader = ","
 
@@ -499,7 +434,6 @@ noremap! <C-c> <C-[>
 noremap  <C-@> <ESC>
 noremap! <C-@> <ESC>
 
-"inoremap jj <Esc>
 inoremap jk <Esc>
 
 " switch j,k and gj,gk
@@ -511,17 +445,6 @@ nnoremap gj j
 nnoremap gk k
 vnoremap gj j
 vnoremap gk k
-
-" easy scroll
-nnoremap <Space>j  <C-f>
-nnoremap <Space>k  <C-b>
-
-" *,#での単語検索時、次に単語に移動しない
-"nnoremap * *N
-"nnoremap # #N
-
-" Jump to matching pairs easily, with Tab
-"noremap <Tab> %
 
 " key map ^,$ to <Space>h,l. Because ^ and $ is difficult to type and damage little finger!!!
 nnoremap <Space>h ^
@@ -563,7 +486,7 @@ vnoremap <Space>y "*y
 nnoremap <Space>d "*d
 nnoremap <Space>D "*d$
 vnoremap <Space>d "*d
-" クリップボードからソース貼り付け
+" クリップボードからPasteモードにして貼り付け
 nnoremap <Space>sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
 nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
@@ -586,9 +509,7 @@ vnoremap gJ J
 
 " from ujihisa's vimrc
 nnoremap <Space>I $i
-"nnoremap <Space>C $C
 nnoremap X ^x
-"nnoremap cp Pjdd
 
 ";と:を入れ替え
 nnoremap ; :
@@ -599,8 +520,10 @@ nnoremap : ;
 vnoremap : ;
 nnoremap @; @:
 vnoremap @; @:
-nnoremap ,; @:
-vnoremap ,; @:
+
+" <Leader>;で最後のコマンドライン繰り返し
+nnoremap <Leader>; @:
+vnoremap <Leader>; @:
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -609,16 +532,11 @@ map Q gq
 onoremap w iw
 onoremap W iW
 
-" マッチするものがないパーレンまで移動
-" tは癖で打ってしまうのでi,aに。。。
-onoremap ) i)
-onoremap ( a(
-vnoremap ) i)
-vnoremap ( a(
-
 " よく使うものはtを省略できるようkeymap
-onoremap ; t;
-onoremap <Space> t<Space>
+onoremap ) t)
+onoremap ( t(
+vnoremap ) t)
+vnoremap ( t(
 
 " text-objectを割り当て
 onoremap aa  a>
@@ -640,11 +558,6 @@ onoremap ad  a"
 vnoremap ad  a"
 onoremap id  i"
 vnoremap id  i"
-
-"onoremap aq  a'
-"vnoremap aq  a'
-"onoremap iq  i'
-"vnoremap iq  i'
 
 " key mapping強制ギブス
 onoremap a>  <Esc>
@@ -690,10 +603,6 @@ nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 
 " win間移動
-nnoremap <Left>  <C-w><
-nnoremap <Down>  <C-w>+
-nnoremap <Up>    <C-w>-
-nnoremap <Right> <C-w>>
 nnoremap <M-h>   <C-w>h
 nnoremap <M-j>   <C-w>j
 nnoremap <M-k>   <C-w>k
@@ -725,18 +634,12 @@ cnoremap <expr> <C-r><C-l>   matchstr(getline("."), '[^ \t:][^\r\n]*')
 " command modeでの自動エスケープ
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-cnoremap <C-/>  /
-cnoremap <C-?>  ?
 
 cnoremap <C-r>' <C-r>"
 
 " 置換の自動入力
-nnoremap gs  :<C-u>%s///g<Left><Left><Left>
-vnoremap gs  :s///g<Left><Left><Left>
-
-"nnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
-"vnoremap <Leader>ds :s/ *$//<CR>setlocal nohlsearch<CR>
-"nnoremap <Leader>dS :%s/ *$//<CR>setlocal nohlsearch<CR>
+nnoremap gs  :<C-u>%s/\v//g<Left><Left><Left>
+vnoremap gs  :s/\v//g<Left><Left><Left>
 
 " vim diffのkeymap
 nnoremap dp dp:<C-u>diffupdate<CR>]czz
@@ -772,10 +675,6 @@ nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
-" * はASCIIとJISでキー配置が異なるので共通で使えるkeymapを設定
-"nnoremap <silent> <Space>/  *N
-"nnoremap <silent> <Space>?  #N
-
 " 検索移動時に折畳を開く
 nnoremap n nzv
 nnoremap N Nzv
@@ -799,31 +698,11 @@ nnoremap gl  :<C-u>bnext<CR>
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
 
-" tab page
-nnoremap [TabPage]   <Nop>
-nmap     <C-t>    [TabPage]
-nnoremap <silent> [TabPage]<C-t> :<C-u>tabnew<CR>
-nnoremap <silent> [TabPage]n     :<C-u>tabnew<CR>
-nnoremap <silent> [TabPage]<C-n> :<C-u>tabnew<CR>
-nnoremap <silent> [TabPage]c     :<C-u>tabclose<CR>
-nnoremap <silent> [TabPage]<C-c> :<C-u>tabclose<CR>
-nnoremap <silent> [TabPage]w     :<C-u>tabclose<CR>
-nnoremap <silent> [TabPage]<C-w> :<C-u>tabclose<CR>
-nnoremap <silent> [TabPage]o     :<C-u>tabonly<CR>
-nnoremap <silent> [TabPage]<C-o> :<C-u>tabonly<CR>
-nnoremap <silent> [TabPage]m     :<C-u>tabmove<CR>
-nnoremap <silent> [TabPage]<C-m> :<C-u>tabmove<CR>
-nnoremap <silent> [TabPage]l     :<C-u>tablast<CR>
-nnoremap <silent> [TabPage]<C-l> :<C-u>tablast<CR>
-nnoremap <silent> [TabPage]h     :<C-u>tabfirst<CR>
-nnoremap <silent> [TabPage]<C-h> :<C-u>tabfirst<CR>
-nnoremap <silent> [TabPage]L     :<C-u>execute 'tabmove' tabpagenr() - 2<CR>
-nnoremap <silent> [TabPage]H     :<C-u>execute 'tabmove' tabpagenr()<CR>
+" tab
+nnoremap <silent> <C-t><C-t> :<C-u>tabnew<CR>
 
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
-
-nnoremap <silent> gr gT
 
 " tag jump
 nnoremap [TagJump]    <Nop>
@@ -839,8 +718,6 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " filetype
-"nnoremap [FileType]   <Nop>
-"nmap     <Space>t     [FileType]
 nnoremap <Space>tp  :<C-u>set filetype=perl<CR>
 nnoremap <Space>tv  :<C-u>set filetype=vim<CR>
 nnoremap <Space>tc  :<C-u>set filetype=c<CR>
@@ -886,30 +763,8 @@ nnoremap <Space>td  :<C-u>set filetype=diff<CR>
 "endif
 
 
-"noremap <Leader>sp :<C-u>vsplit <CR>
-
-"nnoremap <sid>(command-line-enter) q:
-"xnoremap <sid>(command-line-enter) q:
-"nnoremap <sid>(command-line-norange) q:<C-u>
-
-" Creating underline/overline headings for markup languages
-" Inspired by http://sphinx.pocoo.org/rest.html#sections
-"nnoremap <Leader>1 yyPVr=jyypVr=
-"nnoremap <Leader>2 yyPVr*jyypVr*
-"nnoremap <Leader>3 yypVr=
-"nnoremap <Leader>4 yypVr-
-"nnoremap <Leader>5 yypVr^
-"nnoremap <Leader>6 yypVr"
-
-" カーソル行前後にコメント入力
-" TODO:一行じゃなくてvisual modeで選択した範囲をコメントで囲む
-" TODO:現在ラインと同じ文字数ではなく特定の文字数(80文字とか)のコメントを入力
-"nnoremap <Space>* yyPVr*^r/$r/jyypVr*^r/$r/
-"nnoremap <Space># yyPVr#jyypVr#
-
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
-  "nnoremap <silent> <Leader>sd :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:diff /path:"%" /notempfile /closeonend<CR>
   nnoremap <silent> <Leader>sd :<c-u>call <SID>TortoiseDiff()<CR>
   " Save the current buffer and execute the Tortoise SVN interface's log
   nnoremap <silent> <Leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
@@ -974,6 +829,7 @@ endfunction " }}}
 nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
 
+" change expandtab booster
 nnoremap t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2<CR>
 nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
 nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
@@ -1031,8 +887,9 @@ nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 
 " from ujihisa's vimrc
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
-nnoremap <silent> gl :GoToTheLine<Cr>
+"nnoremap <silent> gl :GoToTheLine<Cr>
 
+" grep
 function! s:Grep(pattern, target)
   silent NeoBundleSource unite.vim unite-quickfix
 
@@ -1124,11 +981,6 @@ augroup zshlang
   autocmd FileType zsh setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 
-"if has('mac')
-"  let $PERL_DLL = "/opt/local/lib/perl5/5.10.1/darwin-multi-2level/CORE/libperl.a"
-"  let $RUBY_DLL = "/opt/local/lib/libruby.dylib"
-"endif
-
 
 " Objective-C
 if has('mac')
@@ -1217,16 +1069,6 @@ if s:bundled('neocomplcache')
 
   "imap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
   "smap <Tab>  <Plug>(neocomplcache_start_unite_snippet)
-
-  " AutoComplPop like behavior.
-  "let g:neocomplcache_enable_auto_select = 1
-
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplcache_enable_auto_select = 1
-  "let g:neocomplcache_disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-  "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -1351,9 +1193,7 @@ if s:bundled('unite.vim')
 
     nmap <buffer> <ESC>  <Plug>(unite_exit)
     nmap <buffer> <C-c>  <Plug>(unite_exit)
-    "imap <buffer> jj     <Plug>(unite_insert_leave)
     imap <buffer> jk     <Plug>(unite_insert_leave)
-    "imap <buffer> <C-w>  <Plug>(unite_delete_backward_path)
 
     nmap <buffer> <Space>           <Nop>
     nmap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_current_candidate)
