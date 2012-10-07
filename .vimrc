@@ -903,6 +903,26 @@ endfunction
 
 nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 
+" output result of vim script to new buffer
+" :Capture <command>
+" http://vim-users.jp/2011/02/hack203/
+command! -nargs=+ -complete=command
+            \   Capture
+            \   call s:cmd_capture(<q-args>)
+
+function! s:cmd_capture(q_args)
+    redir => output
+    silent execute a:q_args
+    redir end
+    let output = substitute(output, '^\n\+', '', '')
+
+    belowright new
+
+    silent file `=printf('[capture: %s]', a:q_args)`
+    setlocal buftype=nofile bufhidden=unload noswapfile nobuflisted
+    call setline(1, split(output, '\n'))
+endfunction
+
 " from ujihisa's vimrc
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
 "nnoremap <silent> gl :GoToTheLine<Cr>
