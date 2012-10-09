@@ -1008,7 +1008,7 @@ augroup perllang
 augroup END
 augroup htmlfile
   autocmd!
-  autocmd FileType html setlocal expandtab tabstop=2 shiftwidth=2 list
+  autocmd FileType html,xhtml setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup xmlfile
   autocmd!
