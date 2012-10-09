@@ -392,7 +392,15 @@ if has('mac')
   noremap \ ¥
 
   if has('vim_starting')
-    let $PATH=$HOME."/perl5/perlbrew/bin:".$HOME."/perl5/perlbrew/perls/perl-5.10.1/bin:".$HOME."/.cabal/bin:".$PATH
+    let $PATH=$HOME."/perl5/perlbrew/bin:".$PATH
+    let my_perl_path = split(system('which perl'), '[\r\n]')[0]
+    if my_perl_path =~ '^/'
+      let $PATH=my_perl_path.':'.$PATH
+    endif
+    let my_cabal_path = split(system('which cabal'), '[\r\n]')[0]
+    if my_cabal_path =~ '^/'
+      let $PATH=my_cabal_path.':'.$PATH
+    endif
   endif
 endif
 
