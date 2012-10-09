@@ -606,7 +606,7 @@ onoremap <silent> q
   \ <Bar> endfor<CR>
 
 " exコマンド
-nnoremap <Space>w :<C-u>w<CR>
+nnoremap <Space>w :<C-u>update<CR>
 nnoremap <Space>q :<C-u>q<CR>
 nnoremap <Space>Q :<C-u>q!<CR>
 nnoremap <S-Space>Q :<C-u>q!<CR>
