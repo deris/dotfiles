@@ -1253,6 +1253,8 @@ if s:bundled('unite.vim')
     " action key mapping
     nnoremap <silent><buffer><expr> r     unite#do_action('replace')
 
+    call unite#custom_default_action('directory', 'lcd')
+
   endfunction"}}}
 
   let g:unite_source_file_mru_limit = 200
