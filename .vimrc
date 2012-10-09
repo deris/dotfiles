@@ -1155,7 +1155,8 @@ if s:bundled('neocomplcache-snippets-complete')
 
   smap <C-e>     <Plug>(neocomplcache_snippets_force_jump)
 
-  nnoremap <Space>es :<C-u>NeoComplCacheEditSnippets<Space>
+  nnoremap <Space>e  :<C-u>NeoComplCacheEditSnippets<Space>
+  nnoremap <Space>ee :<C-u>NeoComplCacheEditSnippets<CR>
 
   " SuperTab like snippets behavior.
   imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
