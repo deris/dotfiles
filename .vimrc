@@ -912,6 +912,11 @@ endfunction
 
 nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 
+" 縦に連番を入力する
+nnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
+vnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
+
 " output result of vim script to new buffer
 " :Capture <command>
 " http://vim-users.jp/2011/02/hack203/
