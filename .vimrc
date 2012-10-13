@@ -136,7 +136,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/nerdcommenter'
   NeoBundleLazy 'scrooloose/nerdtree'
-  "NeoBundle 'scrooloose/syntastic'
+  NeoBundle 'scrooloose/syntastic'
   NeoBundle 'sgur/vim-textobj-parameter'
   "NeoBundle 'sgur/unite-everything'
   "NeoBundleLazy 'sgur/unite-qf'
@@ -1671,6 +1671,12 @@ if s:bundled('nerdtree')
     \ :<C-u>NeoBundleSource nerdtree<CR>
     \:<C-u>NERDTreeToggle<CR>
 endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for scrooloose/nerdtree {{{2
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
 " }}}
 
 "---------------------------------------------------------------------------
