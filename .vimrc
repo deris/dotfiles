@@ -1840,8 +1840,8 @@ endif
 "---------------------------------------------------------------------------
 " for deris/columnjump {{{2
 if s:bundled('columnjump')
-  map <c-k> <Plug>(columnjump-backward)zz
-  map <c-j> <Plug>(columnjump-forward)zz
+  nmap <c-k> <Plug>(columnjump-backward)zz
+  nmap <c-j> <Plug>(columnjump-forward)zz
 endif
 " }}}
 
