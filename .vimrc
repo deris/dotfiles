@@ -702,9 +702,17 @@ nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
-" 検索移動時に折畳を開く
-nnoremap n nzvzz
-nnoremap N Nzvzz
+" 検索方向が変わってもnは下、Nは上に移動できるように対応
+nnoremap <expr> n <SID>search_forward_p() ? 'nzvzz' : 'Nzvzz'
+nnoremap <expr> N <SID>search_forward_p() ? 'Nzvzz' : 'nzvzz'
+vnoremap <expr> n <SID>search_forward_p() ? 'nzvzz' : 'Nzvzz'
+vnoremap <expr> N <SID>search_forward_p() ? 'Nzvzz' : 'nzvzz'
+onoremap <expr> n <SID>search_forward_p() ? 'nzz' : 'Nzz'
+onoremap <expr> N <SID>search_forward_p() ? 'Nzz' : 'nzz'
+
+function! s:search_forward_p()
+  return exists('v:searchforward') ? v:searchforward : 1
+endfunction
 
 nnoremap gg ggzvzz
 nnoremap G  Gzvzz
