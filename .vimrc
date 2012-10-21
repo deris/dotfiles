@@ -537,9 +537,9 @@ vnoremap : ;
 nnoremap @; @:
 vnoremap @; @:
 
-" <Leader>;で最後のコマンドライン繰り返し
-nnoremap <Leader>; @:
-vnoremap <Leader>; @:
+" <Space>;で最後のコマンドライン繰り返し
+nnoremap <Space>; @:
+vnoremap <Space>; @:
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
