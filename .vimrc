@@ -734,7 +734,7 @@ nnoremap gl  :<C-u>bnext<CR>
 noremap gf gF
 
 " tab
-nnoremap <silent> <C-t><C-t> :<C-u>tabnew<CR>
+nnoremap <silent> <Space>tt :<C-u>tabnew<CR>
 
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
