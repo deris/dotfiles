@@ -55,7 +55,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'Lokaltog/vim-easymotion'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'Shougo/neocomplcache'
-  NeoBundle 'Shougo/neocomplcache-snippets-complete'
+  NeoBundle 'Shougo/neosnippet'
   NeoBundleLazy 'Shougo/unite.vim'
   NeoBundleLazy 'Shougo/unite-session'
   NeoBundleLazy 'Shougo/vimfiler'
@@ -1143,24 +1143,28 @@ endif
 
 "---------------------------------------------------------------------------
 " for Shougo/neocomplcache-snippets-complete {{{2
-if s:bundled('neocomplcache-snippets-complete')
-  let g:neocomplcache_snippets_dir = $DOTVIM.'/snippets'
-  if !isdirectory(g:neocomplcache_snippets_dir)
-    call mkdir(g:neocomplcache_snippets_dir, "p")
+if s:bundled('neosnippet')
+  let g:neosnippet#snippets_directory = $DOTVIM.'/snippets'
+  if !isdirectory(g:neosnippet#snippets_directory)
+    call mkdir(g:neosnippet#snippets_directory, "p")
   endif
 
   " Plugin key-mappings.
-  imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-  smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-  smap <C-e>     <Plug>(neocomplcache_snippets_force_jump)
+  smap <C-e>     <Plug>(neosnippet_jump)
 
-  nnoremap <Space>e  :<C-u>NeoComplCacheEditSnippets<Space>
-  nnoremap <Space>ee :<C-u>NeoComplCacheEditSnippets<CR>
+  nnoremap <Space>e  :<C-u>NeoSnippetEdit
+  nnoremap <Space>ee :<C-u>NeoSnippetEdit<CR>
 
   " SuperTab like snippets behavior.
-  imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
-    \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+  "imap <expr><TAB> neosnippet#expandable() ?
+  " \ "\<Plug>(neosnippet_expand_or_jump)"
+  " \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  "smap <expr><TAB> neosnippet#expandable() ?
+  " \ "\<Plug>(neosnippet_expand_or_jump)"
+  " \: "\<TAB>"
 
   " For snippet_complete marker.
   if has('conceal')
