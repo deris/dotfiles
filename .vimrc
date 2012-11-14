@@ -456,7 +456,7 @@ endif
 " カーソルラインと行ラインを表示
 augroup cursorsetting
   autocmd!
-  autocmd BufWinEnter,WinEnter * setlocal cursorline nocursorline
+  autocmd BufWinEnter,WinEnter * setlocal cursorline cursorcolumn
   autocmd BufWinLeave,WinLeave * setlocal nocursorline nocursorcolumn
 augroup END
 
