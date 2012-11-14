@@ -533,6 +533,10 @@ nnoremap <silent> <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| s
 " helpショートカット
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
+
+" 最後に選択したテキストをOperator-pending modeで使用可能に
+onoremap gv         :<C-u>normal! gv<CR>
+
 " 最後に変更されたテキストを選択する
 nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<CR>
