@@ -517,6 +517,10 @@ nnoremap <Space>l $
 vnoremap <Space>h ^
 vnoremap <Space>l $
 
+" move middle of current line.
+nnoremap <silent> gm   :<C-u>call cursor(0, col('$') / 2)<CR>
+vnoremap <silent> gm   :<C-u>call cursor(0, col('$') / 2)<CR>
+
 " vimrc編集
 if has('gui_running')
   nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . resolve($MYVIMRC)<CR>
