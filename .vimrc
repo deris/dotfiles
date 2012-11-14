@@ -1213,6 +1213,8 @@ if s:bundled('neosnippet')
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
   smap <C-e>     <Plug>(neosnippet_jump)
 
