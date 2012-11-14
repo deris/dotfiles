@@ -57,9 +57,18 @@ if s:bundled('neobundle.vim')
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'Shougo/neosnippet'
   NeoBundleLazy 'Shougo/unite.vim'
-  NeoBundleLazy 'Shougo/unite-session'
-  NeoBundleLazy 'Shougo/vimfiler'
-  NeoBundle 'Shougo/vimproc'
+  NeoBundleLazy 'Shougo/unite-session',
+    \ { 'depends' : 'Shougo/unite.vim' }
+  NeoBundleLazy 'Shougo/vimfiler',
+    \ { 'depends' : 'Shougo/unite.vim' }
+  NeoBundle 'Shougo/vimproc', {
+    \ 'build' : {
+    \     'windows' : 'make -f make_mingw32.mak',
+    \     'cygwin'  : 'make -f make_cygwin.mak',
+    \     'mac'     : 'make -f make_mac.mak',
+    \     'unix'    : 'make -f make_unix.mak',
+    \    },
+    \ }
   "NeoBundle 'Shougo/vimshell'
   "NeoBundle 'Townk/vim-autoclose'
   NeoBundle 'airblade/vim-rooter'
@@ -69,13 +78,17 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'chrisbra/SudoEdit.vim'
   "NeoBundle 'c9s/perlomni.vim'
   "NeoBundle 'derekwyatt/vim-scala'
-  NeoBundle 'emonkak/vim-operator-comment'
-  NeoBundle 'emonkak/vim-operator-sort'
+  NeoBundle 'emonkak/vim-operator-comment',
+    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundle 'emonkak/vim-operator-sort',
+    \ { 'depends' : 'kana/vim-operator-user' }
   "NeoBundle 'godlygeek/tabular'
-  NeoBundleLazy 'h1mesuke/vim-alignta'
+  NeoBundle 'h1mesuke/vim-alignta'
   "NeoBundle 'h1mesuke/vim-benchmark'
   "NeoBundle 'h1mesuke/textobj-wiw'
-  NeoBundleLazy 'h1mesuke/unite-outline'
+    "\ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundleLazy 'h1mesuke/unite-outline',
+    \ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'hekyou/vim-rectinsert'
   "NeoBundle 'houtsnip/vim-emacscommandline'
   "NeoBundle 'fholgado/minibufexpl.vim'
@@ -83,6 +96,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'fuenor/qfixgrep'
   "NeoBundle 'fuenor/qfixhowm'
   "NeoBundle 'jceb/vim-orgmode'
+  NeoBundleLazy 'jceb/vim-hier'
   "NeoBundle 'jpalardy/vim-slime'
   "NeoBundle 'kana/vim-advice'
   "NeoBundle 'kana/vim-altr'
@@ -91,23 +105,31 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'kana/vim-gf-user'
   "NeoBundle 'kana/vim-grex'
   NeoBundle 'kana/vim-metarw'
-  "NeoBundle 'kana/vim-narrow'
+  NeoBundle 'kana/vim-narrow'
   NeoBundle 'kana/vim-niceblock'
   NeoBundle 'kana/vim-operator-user'
-  NeoBundle 'kana/vim-operator-replace'
+  NeoBundle 'kana/vim-operator-replace',
+    \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundleLazy 'kana/vim-scratch'
   NeoBundle 'kana/vim-smartchr'
   "NeoBundle 'kana/vim-smartinput'
   NeoBundle 'kana/vim-smartword'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'kana/vim-textobj-entire'
-  NeoBundle 'kana/vim-textobj-function'
-  NeoBundle 'kana/vim-textobj-indent'
-  NeoBundle 'kana/vim-textobj-jabraces'
-  NeoBundle 'kana/vim-textobj-lastpat'
-  NeoBundle 'kana/vim-textobj-line'
-  NeoBundle 'kana/vim-textobj-syntax'
+  NeoBundle 'kana/vim-textobj-entire',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-function',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-indent',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-jabraces',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-lastpat',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-line',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-syntax',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-vspec'
   NeoBundleLazy 'kien/ctrlp.vim'
   "NeoBundle 'vexxor/kwbd.vim'
@@ -120,7 +142,8 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'mattn/sonictemplate-vim'
   "NeoBundle 'mattn/vdbi-vim'
   NeoBundle 'mattn/vim-metarw-simplenote'
-  NeoBundle 'mattn/vim-textobj-url'
+  NeoBundle 'mattn/vim-textobj-url',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/webapi-vim'
   NeoBundleLazy 'mattn/zencoding-vim'
   "NeoBundle 'mileszs/ack.vim'
@@ -129,27 +152,34 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
   NeoBundle 'nathanaelkane/vim-indent-guides'
-  NeoBundleLazy 'osyo-manga/unite-quickfix'
+  NeoBundleLazy 'osyo-manga/unite-quickfix',
+    \ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'othree/eregex.vim'
   "NeoBundle 'plasticboy/vim-markdown'
   "NeoBundle 'reinh/vim-makegreen'
+  "NeoBundle 'rhysd/accelerated-jk'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/nerdcommenter'
   NeoBundleLazy 'scrooloose/nerdtree'
   NeoBundle 'scrooloose/syntastic'
-  NeoBundle 'sgur/vim-textobj-parameter'
-  "NeoBundle 'sgur/unite-everything'
-  "NeoBundleLazy 'sgur/unite-qf'
+  NeoBundle 'sgur/vim-textobj-parameter',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  "NeoBundle 'sgur/unite-everything',
+    "\ { 'depends' : 'Shougo/unite.vim' }
+  "NeoBundleLazy 'sgur/unite-qf',
+    "\ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'sjl/clam.vim'
   NeoBundle 'sjl/gundo.vim'
   "NeoBundle 'sjl/splice.vim'
   "NeoBundle 'sjl/vitality.vim'
   NeoBundle 'skammer/vim-css-color'
-  NeoBundleLazy 't9md/vim-quickhl'
+  "NeoBundle 'spolu/dwm.vim'
+  NeoBundle 't9md/vim-quickhl'
   NeoBundle 't9md/vim-surround_custom_mapping'
   "NeoBundle 't9md/vim-textmanip'
   "NeoBundle 't9md/vim-underlinetag'
-  NeoBundleLazy 't9md/vim-unite-ack'
+  NeoBundleLazy 't9md/vim-unite-ack',
+    \ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'taku-o/vim-toggle'
   "NeoBundle 'taku-o/vis-vim'
   "NeoBundle 'tejr/nextag'
@@ -158,14 +188,17 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'thinca/vim-poslist'
   NeoBundle 'thinca/vim-qfreplace'
-  NeoBundleLazy 'thinca/vim-quickrun'
+  NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'thinca/vim-scouter'
   NeoBundle 'thinca/vim-singleton'
   "NeoBundle 'thinca/vim-template'
-  NeoBundle 'thinca/vim-textobj-comment'
-  NeoBundle 'thinca/vim-textobj-between'
-  NeoBundleLazy 'thinca/vim-unite-history'
+  NeoBundle 'thinca/vim-textobj-comment',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'thinca/vim-textobj-between',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundleLazy 'thinca/vim-unite-history',
+    \ { 'depends' : 'Shougo/unite.vim' }
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
@@ -177,34 +210,50 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'tpope/vim-speeddating'
   "NeoBundle 'tpope/vim-unimpaired'
   NeoBundle 'tsukkee/lingr-vim'
-  NeoBundleLazy 'tsukkee/unite-help'
-  NeoBundleLazy 'tsukkee/unite-tag'
+  NeoBundleLazy 'tsukkee/unite-help',
+    \ { 'depends' : 'Shougo/unite.vim' }
+  NeoBundleLazy 'tsukkee/unite-tag',
+    \ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'tyru/caw.vim'
   "NeoBundle 'tyru/current-func-info.vim'
   NeoBundle 'tyru/emap.vim'
+  "NeoBundle 'tyru/eskk.vim'
   NeoBundle 'tyru/nextfile.vim'
   "NeoBundle 'tyru/operator-camelize.vim'
-  NeoBundleLazy 'tyru/open-browser.vim'
-  NeoBundleLazy 'tyru/operator-html-escape.vim'
-  NeoBundleLazy 'tyru/operator-reverse.vim'
-  NeoBundleLazy 'tyru/operator-star.vim'
+    "\ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundleLazy 'tyru/open-browser.vim',
+    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundleLazy 'tyru/operator-html-escape.vim',
+    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundleLazy 'tyru/operator-reverse.vim',
+    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundleLazy 'tyru/operator-star.vim',
+    \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'tyru/restart.vim'
   "NeoBundle 'tyru/vim-altercmd'
   NeoBundle 'tyru/winmove.vim'
+  NeoBundle 'ujihisa/neco-look',
+    \ { 'depends' : 'Shougo/neocomplcache' }
   "NeoBundle 'ujihisa/shadow.vim'
-  "NeoBundle 'ujihisa/unite-colorscheme'
-  "NeoBundle 'ujihisa/unite-locate'
+  "NeoBundle 'ujihisa/unite-colorscheme',
+    "\ { 'depends' : 'Shougo/unite.vim' }
+  "NeoBundle 'ujihisa/unite-locate',
+    "\ { 'depends' : 'Shougo/unite.vim' }
   NeoBundle 'vim-jp/vital.vim'
-  NeoBundleLazy 'vimtaku/vim-textobj-sigil'
-  "NeoBundle 'vimtaku/vim-textobj-keyvalue'
+  NeoBundle 'vimtaku/vim-textobj-sigil',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'vimtaku/vim-textobj-keyvalue',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'xolox/vim-easytags'
   "NeoBundle 'xolox/vim-notes'
   NeoBundle 'xolox/vim-session'
+  NeoBundle 'yko/mojo.vim'
   "NeoBundle 'ynkdir/vim-remote'
   "NeoBundle 'yuratomo/w3m.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/parajump'
-  NeoBundle 'deris/vim-textobj-enclosedsyntax'
+  NeoBundle 'deris/vim-textobj-enclosedsyntax',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'deris/vim-loadafterft'
 
   " vim-scripts repos
@@ -247,7 +296,7 @@ if s:bundled('neobundle.vim')
 
   " color scheme
   NeoBundleLazy 'altercation/vim-colors-solarized'
-  NeoBundleLazy 'deris/molokai'
+  NeoBundle 'deris/molokai'
   NeoBundle 'deris/vim-wombat'
   NeoBundleLazy 'jnurmine/Zenburn'
   NeoBundleLazy 'newspaper.vim'
