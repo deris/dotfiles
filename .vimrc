@@ -569,10 +569,10 @@ nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste
 "vnoremap <Leader>d "_d
 "nnoremap <Leader>x "_x
 
-" 行挿入後インサートモードに入らない
-nnoremap <Space>o o<Esc>k
-nnoremap <Space>O O<Esc>
-nnoremap <S-Space>O O<Esc>
+" 空行挿入(繰り返し対応)
+nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'), '') \| endfor<CR>
+nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor<CR>
+nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor<CR>
 
 " 連結時に空白を挿入したくないのでJとgJを入れ替え
 nnoremap J  gJ
