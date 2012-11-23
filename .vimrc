@@ -570,9 +570,9 @@ nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste
 "nnoremap <Leader>x "_x
 
 " 空行挿入(繰り返し対応)
-nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'), '') \| endfor<CR>
-nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor<CR>
-nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor<CR>
+nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
+nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
+nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1<CR>
 
 " 連結時に空白を挿入したくないのでJとgJを入れ替え
 nnoremap J  gJ
