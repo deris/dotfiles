@@ -1999,6 +1999,7 @@ endif
 "---------------------------------------------------------------------------
 " for vim-textobj-function {{{2
 if s:bundled('vim-textobj-user') && s:bundled('vim-textobj-function')
+  let g:textobj_function_no_default_key_mappings = 1
   omap iF <Plug>(textobj-function-i)
   omap aF <Plug>(textobj-function-a)
   vmap iF <Plug>(textobj-function-i)
