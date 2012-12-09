@@ -1020,6 +1020,16 @@ endfunction
 
 command! -nargs=+ Grep call s:Grep(<f-args>)
 
+function s:EchoSynName()
+  let synlist = []
+  for id in synstack(line("."), col("."))
+    call add(synlist, synIDattr(id, "name"))
+  endfor
+  echo synlist
+endfunction
+
+command! -nargs=0 EchoSynName call s:EchoSynName()
+
 " }}}
 
 "---------------------------------------------------------------------------
