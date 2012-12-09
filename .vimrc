@@ -1020,6 +1020,21 @@ endfunction
 
 command! -nargs=+ Grep call s:Grep(<f-args>)
 
+" Count Char
+function! s:CountChar(c)
+  let line = getline('.')
+  let match = stridx(line, a:c)
+  let cnt = 0
+  while match != -1
+    let cnt = cnt + 1
+    let match = stridx(line, a:c, match + 1)
+  endwhile
+
+  echo cnt . " '" . a:c . "' in current line."
+endfunction
+
+command! -nargs=1 CountChar call s:CountChar(<f-args>)
+
 function s:EchoSynName()
   let synlist = []
   for id in synstack(line("."), col("."))
