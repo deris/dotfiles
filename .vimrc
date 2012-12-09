@@ -1070,8 +1070,8 @@ augroup perllang
   autocmd BufRead,BufNewFile *.t    setfiletype perl
   autocmd FileType perl setlocal expandtab tabstop=4 shiftwidth=4 list
   " perlの関数に飛ぶ
-  autocmd filetype perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
-  autocmd filetype perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
+  autocmd FileType perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
+  autocmd FileType perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
   autocmd FileType perl compiler perl
   "autocmd BufWritePost *.pl,*.pm silent make
 augroup END
@@ -1454,7 +1454,7 @@ if s:bundled('vim-alignta')
     \:Alignta ,<CR>
 
   "augroup perllang
-    "autocmd filetype perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
+    "autocmd FileType perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
   "augroup end
 endif
 " }}}
