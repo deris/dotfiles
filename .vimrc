@@ -598,6 +598,10 @@ vnoremap @; @:
 nnoremap <Space>; @:
 vnoremap <Space>; @:
 
+" <Leader>.で直前の@xを繰り返し
+nnoremap <Leader>. @@
+vnoremap <Leader>. @@
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
