@@ -517,9 +517,19 @@ nnoremap <Space>l $
 vnoremap <Space>h ^
 vnoremap <Space>l $
 
-" move middle of current line.
-nnoremap <silent> gm   :<C-u>call cursor(0, col('$') / 2)<CR>
-vnoremap <silent> gm   :<C-u>call cursor(0, col('$') / 2)<CR>
+" move middle of current line.(not middle of screen)
+nnoremap <silent> gm   :<C-u>call <SID>MoveMiddleOfLine()<CR>
+
+function! s:MoveMiddleOfLine()
+  let strwidth = strdisplaywidth(getline('.'))
+  let winwidth  = winwidth(0)
+
+  if strwidth < winwidth
+    call cursor(0, col('$') / 2)
+  else
+    normal! gm
+  endif
+endfunction
 
 " vimrc編集
 if has('gui_running')
