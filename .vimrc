@@ -214,6 +214,7 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'Shougo/unite.vim' }
   NeoBundleLazy 'tsukkee/unite-tag',
     \ { 'depends' : 'Shougo/unite.vim' }
+  NeoBundle 'tyru/capture.vim'
   "NeoBundle 'tyru/caw.vim'
   "NeoBundle 'tyru/current-func-info.vim'
   NeoBundle 'tyru/emap.vim'
@@ -995,26 +996,6 @@ nnoremap <silent> <Space>rs :<C-u>call <SID>ReplaceGlobalSearchToRegister()<CR>
 nnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
 vnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-
-" output result of vim script to new buffer
-" :Capture <command>
-" http://vim-users.jp/2011/02/hack203/
-command! -nargs=+ -complete=command
-            \   Capture
-            \   call s:cmd_capture(<q-args>)
-
-function! s:cmd_capture(q_args)
-    redir => output
-    silent execute a:q_args
-    redir end
-    let output = substitute(output, '^\n\+', '', '')
-
-    belowright new
-
-    silent file `=printf('[capture: %s]', a:q_args)`
-    setlocal buftype=nofile bufhidden=unload noswapfile nobuflisted
-    call setline(1, split(output, '\n'))
-endfunction
 
 " from ujihisa's vimrc
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
