@@ -1883,22 +1883,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for tpope/vim-fugitive {{{2
-if s:bundled('vim-fugitive')
-  nnoremap [Git]     <Nop>
-  nmap     <Space>g  [Git]
-
-  nnoremap [Git]d :<C-u>Gdiff --cached<CR>
-  nnoremap [Git]D :<C-u>Gdiff<CR>
-  nnoremap [Git]s :<C-u>Gstatus<CR>
-  nnoremap [Git]l :<C-u>Glog<CR>
-  nnoremap [Git]a :<C-u>Gwrite<CR>
-  nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
-  nnoremap [Git]c :<C-u>Gcommit<CR>
-  nnoremap [Git]C :<C-u>Git commit --amend<CR>
-  nnoremap [Git]b :<C-u>Gblame<CR>
-  nnoremap [Git]p :<C-u>Git push<Space>
-endif
 " }}}
 
 "---------------------------------------------------------------------------
