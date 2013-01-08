@@ -25,15 +25,21 @@ else
 endif
 
 let $VIMBUNDLE=$DOTVIM.'/bundle'
+let $NEOBUNDLEPATH=$VIMBUNDLE.'/neobundle.vim'
 
 function! s:bundled(bundle)
   if !isdirectory($VIMBUNDLE)
     return 0
   endif
+  if stridx(&runtimepath, $NEOBUNDLEPATH) == -1
+    return 0
+  endif
 
-  return !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
-  "return stridx(&runtimepath, a:bundle) > -1
-    "\ && !empty(globpath($VIMBUNDLE.'/'.a:bundle, '*'))
+  if a:bundle ==# 'neobundle.vim'
+    return 1
+  else
+    return neobundle#is_installed(a:bundle)
+  endif
 endfunction
 
 "---------------------------------------------------------------------------
@@ -41,8 +47,8 @@ endfunction
 set nocompatible
 filetype off
 
-if has('vim_starting')
-  set rtp+=$VIMBUNDLE/neobundle.vim/
+if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
+  set runtimepath+=$NEOBUNDLEPATH
 endif
 
 if s:bundled('neobundle.vim')
