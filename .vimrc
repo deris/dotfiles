@@ -58,7 +58,7 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   "NeoBundle 'gmarik/vundle'
-  "NeoBundle 'Lokaltog/vim-easymotion'
+  NeoBundleLazy 'Lokaltog/vim-easymotion'
   NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'Shougo/neosnippet'
@@ -75,14 +75,14 @@ if s:bundled('neobundle.vim')
     \     'unix'    : 'make -f make_unix.mak',
     \    },
     \ }
-  "NeoBundle 'Shougo/vimshell'
-  "NeoBundle 'Townk/vim-autoclose'
+  NeoBundleLazy 'Shougo/vimshell'
   NeoBundle 'airblade/vim-rooter'
   "NeoBundle 'benmills/vimux'
   NeoBundle 'bitc/vim-bad-whitespace'
   "NeoBundle 'bootleq/ShowMarks'
-  "NeoBundle 'chrisbra/SudoEdit.vim'
-  "NeoBundle 'c9s/perlomni.vim'
+  NeoBundleLazy 'chrisbra/SudoEdit.vim'
+  NeoBundleLazy 'c9s/perlomni.vim'
+  NeoBundleLazy 'daisuzu/rainbowcyclone.vim'
   "NeoBundle 'derekwyatt/vim-scala'
   NeoBundle 'emonkak/vim-operator-comment',
     \ { 'depends' : 'kana/vim-operator-user' }
@@ -98,14 +98,13 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'hekyou/vim-rectinsert'
   "NeoBundle 'houtsnip/vim-emacscommandline'
   "NeoBundle 'fholgado/minibufexpl.vim'
-  "NeoBundle 'fuenor/vim-statusline' "手動で配置の必要あり
   "NeoBundle 'fuenor/qfixgrep'
   "NeoBundle 'fuenor/qfixhowm'
   "NeoBundle 'jceb/vim-orgmode'
   NeoBundleLazy 'jceb/vim-hier'
   "NeoBundle 'jpalardy/vim-slime'
   "NeoBundle 'kana/vim-advice'
-  "NeoBundle 'kana/vim-altr'
+  NeoBundle 'kana/vim-altr'
   "NeoBundle 'kana/vim-arpeggio'
   NeoBundle 'kana/vim-fakeclip'
   "NeoBundle 'kana/vim-gf-user'
@@ -141,7 +140,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'vexxor/kwbd.vim'
   "NeoBundle 'majutsushi/tagbar'
   "NeoBundle 'mattn/asyncgrep-vim'
-  "NeoBundle 'mattn/benchvimrc-vim'
+  NeoBundleLazy 'mattn/benchvimrc-vim'
   "NeoBundle 'mattn/excitetranslate-vim'
   NeoBundle 'mattn/gist-vim'
   NeoBundle 'mattn/learn-vimscript'
@@ -155,9 +154,10 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'mileszs/ack.vim'
   NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
-  "NeoBundle 'msanders/cocoa.vim'
+  NeoBundleLazy 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundle 'osyo-manga/vim-reanimate'
   NeoBundleLazy 'osyo-manga/unite-quickfix',
     \ { 'depends' : 'Shougo/unite.vim' }
   "NeoBundle 'othree/eregex.vim'
@@ -228,8 +228,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tyru/nextfile.vim'
   "NeoBundle 'tyru/operator-camelize.vim'
     "\ { 'depends' : 'kana/vim-operator-user' }
-  NeoBundleLazy 'tyru/open-browser.vim',
-    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundleLazy 'tyru/open-browser.vim'
   NeoBundleLazy 'tyru/operator-html-escape.vim',
     \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundleLazy 'tyru/operator-reverse.vim',
