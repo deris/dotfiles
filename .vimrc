@@ -2148,7 +2148,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for smartchr {{{2
-if s:bundled('smartchr')
+if s:bundled('vim-smartchr')
   inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
   inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
   inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
