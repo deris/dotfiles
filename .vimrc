@@ -930,12 +930,6 @@ vnoremap a"  <Esc>
 onoremap i"  <Esc>
 vnoremap i"  <Esc>
 
-" モーション時にqで記号まで飛ぶ
-onoremap <silent> q
-  \      :<C-u>for i in range(v:count1)
-  \ <Bar>   call search('.\&\(\k\<Bar>\_s\)\@!', 'W')
-  \ <Bar> endfor<CR>
-
 " exコマンド
 nnoremap <Space>w :<C-u>update<CR>
 nnoremap <Space>q :<C-u>q<CR>
@@ -1822,6 +1816,14 @@ if s:bundled('vim-scratch')
 
   command! -nargs=0 ScratchToggle call s:ScratchToggle()
   "nnoremap <Leader><Leader> :<C-u>ScratchToggle<CR>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for kana/vim-smarttill {{{2
+if s:bundled('vim-smarttill')
+  omap q  <Plug>(smarttill-t)
+  omap Q  <Plug>(smarttill-T)
 endif
 " }}}
 
