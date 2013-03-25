@@ -568,6 +568,8 @@ if s:bundled('neobundle.vim')
   " 日本語help
   NeoBundle 'vim-jp/vimdoc-ja'
 
+" Installation check.
+  NeoBundleCheck
 endif
 
 filetype plugin indent on
