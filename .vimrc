@@ -2156,7 +2156,7 @@ if s:bundled('vim-smartchr')
 
   " This is enabled while user inputs Ex commands, not search
   " patterns, etc.
-  cnoremap <expr> \  smartchr#loop('~/', '\', {'ctype': ':'})
+  cnoremap <expr> \  smartchr#loop('\', '\\', ~/', {'ctype': ':'})
 endif
 " }}}
 
