@@ -1240,8 +1240,6 @@ command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:cou
 
 " grep
 function! s:Grep(pattern, target)
-  silent NeoBundleSource unite.vim unite-quickfix
-
   execute 'grep ' . a:pattern . ' ' . a:target
   Unite -no-quit -direction=botright quickfix
 endfunction
@@ -1502,63 +1500,25 @@ if s:bundled('unite.vim')
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
 
-  nnoremap <silent> [unite]c
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-  nnoremap <silent> [unite]b
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]r
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite register<CR>
-  nnoremap <silent> [unite]o
-    \ :<C-u>silent! NeoBundleSource unite.vim unite-outline<CR>
-    \:<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]u
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite file_mru<CR>
-  nnoremap <silent> [unite]d
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite directory_mru<CR>
-  nnoremap <silent> [unite]k
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite bookmark<CR>
-  nnoremap <silent> [unite]s
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite source<CR>
-  nnoremap <silent> [unite]f
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]g
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite grep<CR>
-  nnoremap <silent> [unite]h
-    \ :<C-u>silent! NeoBundleSource unite.vim unite-help<CR>
-    \:<C-u>Unite help<CR>
-  nnoremap <silent> [unite];
-    \ :<C-u>silent! NeoBundleSource unite.vim vim-unite-history<CR>
-    \:<C-u>Unite history/command<CR>
-  nnoremap <silent> [unite]/
-    \ :<C-u>silent! NeoBundleSource unite.vim vim-unite-history<CR>
-    \:<C-u>Unite history/search<CR>
-  nnoremap <silent> [unite]y
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>Unite history/yank<CR>
-  nnoremap <silent> [unite]a
-    \ :<C-u>NeoBundleSource unite.vim<CR>
-    \:<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]n
-    \ :<C-u>silent! NeoBundleSource unite.vim neobundle.vim<CR>
-    \:<C-u>Unite neobundle/install:!<CR>
-  nnoremap <silent> [unite]e
-    \ :<C-u>silent! NeoBundleSource unite.vim neocomplcache-snippets-complete<CR>
-    \:<C-u>Unite snippet<CR>
-  nnoremap <silent> [unite]q
-    \ :<C-u>silent! NeoBundleSource unite.vim unite-quickfix<CR>
-    \:<C-u>Unite quickfix<CR>
-  nnoremap <silent> [unite]p
-    \ :<C-u>silent! NeoBundleSource unite.vim vim-quickrun<CR>
-    \:<C-u>Unite ref/perldoc<CR>
+  nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
+  nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
+  nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
+  nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
+  nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
+  nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
+  nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
+  nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
+  nnoremap <silent> [unite]y   :<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]a   :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
+  nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
+  nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
+  nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
@@ -1623,12 +1583,8 @@ if s:bundled('vimfiler')
   nnoremap [vimfiler]  <Nop>
   nmap     <Space>f  [vimfiler]
 
-  nnoremap <silent> [vimfiler]f
-    \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
-    \:<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-  nnoremap <silent> [vimfiler]d
-    \ :<C-u>NeoBundleSource unite.vim vimfiler<CR>
-    \:<C-u>VimFilerTab -double -no-quit<CR>
+  nnoremap <silent> [vimfiler]f   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+  nnoremap <silent> [vimfiler]d   :<C-u>VimFilerTab -double -no-quit<CR>
 
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_enable_auto_cd = 1
@@ -1682,27 +1638,18 @@ endif
 "---------------------------------------------------------------------------
 " for h1mesuke/vim-alignta {{{2
 if s:bundled('vim-alignta')
-  nnoremap <Space>as
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \:<C-u>Alignta =<CR>
-  vnoremap <Space>as
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \gv
-    \:Alignta =<CR>
-  nnoremap <Space>ah
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \:<C-u>Alignta =><CR>
-  vnoremap <Space>ah
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \gv
-    \:Alignta =><CR>
-  nnoremap <Space>a,
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \:<C-u>Alignta ,<CR>
-  vnoremap <Space>a,
-    \ :<C-u>NeoBundleSource vim-alignta<CR>
-    \gv
-    \:Alignta ,<CR>
+  nnoremap <Space>as :<C-u>Alignta =<CR>
+  vnoremap <Space>as :Alignta =<CR>
+  nnoremap <Space>a= :<C-u>Alignta =<CR>
+  vnoremap <Space>a= :Alignta =<CR>
+  nnoremap <Space>ah :<C-u>Alignta =><CR>
+  nnoremap <Space>ah :<C-u>Alignta =><CR>
+  vnoremap <Space>a> :Alignta =><CR>
+  vnoremap <Space>a> :Alignta =><CR>
+  nnoremap <Space>a, :<C-u>Alignta ,<CR>
+  vnoremap <Space>a, :Alignta ,<CR>
+  nnoremap <Space>a: :<C-u>Alignta :<CR>
+  vnoremap <Space>a: :Alignta :<CR>
 
   "augroup perllang
     "autocmd FileType perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
@@ -1802,7 +1749,6 @@ endif
 " for kana/vim-scratch {{{2
 if s:bundled('vim-scratch')
   function! s:ScratchToggle()
-    silent! NeoBundleSource vim-scratch
     if exists("t:is_scratch_window")
       unlet t:is_scratch_window
       ScratchClose
@@ -1860,18 +1806,10 @@ if s:bundled('ctrlp.vim')
   nnoremap [ctrlp]  <Nop>
   nmap     <Space>c [ctrlp]
 
-  nnoremap [ctrlp]b
-    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
-    \:<C-u>CtrlPBuffer<CR>
-  nnoremap [ctrlp]m
-    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
-    \:<C-u>CtrlPMRUFiles<CR>
-  nnoremap [ctrlp]u
-    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
-    \:<C-u>CtrlPMRUFiles<CR>
-  nnoremap [ctrlp]f
-    \ :<C-u>NeoBundleSource ctrlp.vim<CR>
-    \:<C-u>CtrlPCurFile<CR>
+  nnoremap [ctrlp]b :<C-u>CtrlPBuffer<CR>
+  nnoremap [ctrlp]m :<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]u :<C-u>CtrlPMRUFiles<CR>
+  nnoremap [ctrlp]f :<C-u>CtrlPCurFile<CR>
 endif
 " }}}
 
@@ -2010,9 +1948,7 @@ endif
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
 if s:bundled('nerdtree')
-  nnoremap <Space>n
-    \ :<C-u>NeoBundleSource nerdtree<CR>
-    \:<C-u>NERDTreeToggle<CR>
+  nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
 endif
 " }}}
 
@@ -2078,19 +2014,10 @@ if s:bundled('vim-quickrun')
     \   'command': 'scala',
     \ }
 
-  nnoremap <silent> <Space>r
-    \ :<C-u>NeoBundleSource vim-quickrun<CR>
-    \:<C-u>QuickRun -mode n<CR>
-  vnoremap <silent> <Space>r
-    \ :<C-u>NeoBundleSource vim-quickrun<CR>
-    \gv
-    \:QuickRun -mode v<CR>
-  nnoremap <Space>R
-    \ :<C-u>NeoBundleSource vim-quickrun<CR>
-    \:<C-u>QuickRun -args ""<Left>
-  nnoremap <S-Space>R
-    \ :<C-u>NeoBundleSource vim-quickrun<CR>
-    \:<C-u>QuickRun -args ""<Left>
+  nnoremap <silent> <Space>r  :<C-u>QuickRun -mode n<CR>
+  vnoremap <silent> <Space>r  :<C-u>QuickRun -mode v<CR>
+  nnoremap <Space>R           :<C-u>QuickRun -args ""<Left>
+  nnoremap <S-Space>R         :<C-u>QuickRun -args ""<Left>
 endif
 " }}}
 
@@ -2129,9 +2056,7 @@ endif
 " for tyru/open-browser.vim {{{2
 if s:bundled('open-browser.vim')
   let g:netrw_nogx = 1 " disable netrw's gx mapping.
-  nmap gx
-    \ :<C-u>NeoBundleSource open-browser.vim<CR>
-    \:<C-u>OpenBroserSmartSearch <C-r><C-w><CR>
+  nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)
 endif
 " }}}
@@ -2230,9 +2155,7 @@ if s:bundled('taglist.vim')
   "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
   let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
   let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
-  nnoremap <silent> <C-l>
-    \ :<C-u>NeoBundleSource taglist.vim<CR>
-    \:<C-u>TlistToggle<CR>
+  nnoremap <silent> <C-l> :<C-u>TlistToggle<CR>
 endif
 " }}}
 
