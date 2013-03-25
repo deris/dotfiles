@@ -1987,7 +1987,7 @@ let g:syntastic_auto_loc_list = 2
 if s:bundled('vim-ambicmd')
   cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
   cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
-  cnoremap <expr> <CR>      ambicmd#expand("\<CR>")
+  cnoremap <expr> <CR>      (getcmdtype() =~ '[/?]' ? "\<CR>zvzz" : ambicmd#expand("\<CR>"))
 
   function! g:ambicmd_my_custom_rule(cmd)
     return [
