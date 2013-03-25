@@ -2005,12 +2005,11 @@ if s:bundled('vim-quickrun')
   let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
   let g:quickrun_config._.runmode = 'async:vimproc'
 
-  let g:quickrun_config['markdown'] = {
+  let g:quickrun_config.markdown = {
     \ 'type'      : 'markdown/pandoc',
     \ 'outputter' : 'browser',
     \ 'cmdopt'    : '-s'
     \ }
-
   let g:quickrun_config.io = {
     \   'command': 'io',
     \ }
