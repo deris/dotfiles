@@ -622,6 +622,7 @@ set t_Co=256
 set nrformats=hex
 set winaltkeys=no
 set visualbell
+set noequalalways
 
 scriptencoding utf-8
 
@@ -646,6 +647,8 @@ set title
 set lines=50
 set showtabline=2
 "set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
+set previewheight=10
+set helpheight=12
 set virtualedit=block
 set backup
 set backupdir=$DOTVIM/backup
