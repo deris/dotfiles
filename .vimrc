@@ -1660,6 +1660,20 @@ let g:slime_paste_file = tempname()
 " }}}
 
 "---------------------------------------------------------------------------
+" for kana/vim-altr {{{2
+if s:bundled('vim-altr')
+  call altr#remove_all()
+  call altr#define('plugin/%/*.vim',
+    \              'autoload/%/*.vim')
+  call altr#define('plugin/%.vim',
+    \              'autoload/%.vim')
+
+  command! A  call altr#forward()
+  command! B  call altr#back()
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-submode {{{2
 if s:bundled('vim-submode')
   let g:submode_keyseqs_to_leave = ['<Esc>']
