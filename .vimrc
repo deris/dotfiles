@@ -1574,6 +1574,7 @@ if s:bundled('vimfiler')
 
   nnoremap <silent> [vimfiler]f   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
   nnoremap <silent> [vimfiler]d   :<C-u>VimFilerTab -double -no-quit<CR>
+  nnoremap <silent> [vimfiler]b   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit -auto-cd $VIMBUNDLE<CR>
 
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_enable_auto_cd = 1
