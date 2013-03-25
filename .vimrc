@@ -839,12 +839,6 @@ vnoremap <Space>d "*d
 nnoremap <Space>sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
 nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
-" registerを汚さずに削除
-"nnoremap <Leader>d "_d
-"nnoremap <Leader>D "_d$
-"vnoremap <Leader>d "_d
-"nnoremap <Leader>x "_x
-
 " 空行挿入(繰り返し対応)
 nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
 nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
@@ -978,7 +972,6 @@ endif
 
 " command mode
 cnoremap <C-b> <Left>
-"cnoremap <expr> <C-f> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-f>" : "\<Right>")
 cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
@@ -1207,21 +1200,6 @@ nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
 nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
 nnoremap <Space>t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
 
-if has('win32')
-  nnoremap <silent> <Leader>hg :<c-u>call <SID>HidemaruGrep()<CR>
-
-  function! s:HidemaruGrep()
-    " current word
-    let l:word = expand("<cword>")
-    " target file
-    let l:targetfile  = getcwd() . '\*'
-    " command line
-    let l:cmd = 'C:\Progra~1\Hidemaru\Hidemaru.exe /gu,"' . l:targetfile . '",' . l:word
-    " grep hidemaru
-    silent execute('! start "" ' . l:cmd)
-  endfunction
-endif
-
 " 差分モードを終了する
 function! s:DiffOff()
   diffoff!
@@ -1408,8 +1386,6 @@ endif
 
 "---------------------------------------------------------------------------
 " plugins {{{1
-
-"runtime macros/editexisting.vim
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
@@ -2119,9 +2095,6 @@ endif
 "---------------------------------------------------------------------------
 " for thinca/vim-ref {{{2
 if s:bundled('vim-ref')
-  "nnoremap <silent> <Space>a :<C-u>call ref#jump('normal', 'alc')<CR>
-  "vnoremap <silent> <Space>a :<C-u>call ref#jump('visual', 'alc')<CR>
-
   let g:ref_source_webdict_sites = {
     \   'goo': {
     \     'url': 'http://dictionary.goo.ne.jp/srch/all/%s/m0u/',
