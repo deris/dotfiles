@@ -2153,13 +2153,6 @@ if s:bundled('vim-smartchr')
   inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
   inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
   inoremap <expr> !  smartchr#loop('!', ' != ')
-  inoremap <expr> .  smartchr#loop('.', ' . ')
-  inoremap <expr> {  smartchr#loop('{}', '{')
-  inoremap <expr> [  smartchr#loop('[]', '[')
-  inoremap <expr> (  smartchr#loop('()', '(')
-  inoremap <expr> "  smartchr#loop('""', '"')
-  inoremap <expr> '  smartchr#loop("''", "'")
-  inoremap <expr> `  smartchr#loop('``', '`')
 
   " This is enabled while user inputs Ex commands, not search
   " patterns, etc.
