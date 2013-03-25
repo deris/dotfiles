@@ -1206,6 +1206,8 @@ function! s:GoogleChrome(...)
     let l:cmd = "silent !open -a Google\\ Chrome "
   elseif has('win32')
     let l:cmd = "silent !start google\\ chrome "
+  else
+    return
   endif
   if a:0 == 0
     execute l:cmd . "%"
