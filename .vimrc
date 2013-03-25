@@ -1745,6 +1745,9 @@ if s:bundled('vim-submode')
   call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
   call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
 
+  call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
+  call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
+
 endif
 " }}}
 
