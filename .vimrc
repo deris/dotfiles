@@ -1050,10 +1050,6 @@ nnoremap <Space>vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlo
 noremap /   /\v
 noremap ?   ?\v
 
-" buffer
-nnoremap gh  :<C-u>bprevious<CR>
-nnoremap gl  :<C-u>bnext<CR>
-
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
 
@@ -1684,6 +1680,11 @@ if s:bundled('vim-submode')
   call submode#map('window-size', 'n', '', '<', '<C-w><')
   call submode#map('window-size', 'n', '', '=', '<C-w>=')
   call submode#map('window-size', 'n', '', '>', '<C-w>>')
+
+  call submode#enter_with('buffer-mode', 'n', '', 'gh', ':<C-u>bprevious<CR>')
+  call submode#enter_with('buffer-mode', 'n', '', 'gl', ':<C-u>bnext<CR>')
+  call submode#map('buffer-mode', 'n', '', 'h', ':<C-u>bprevious<CR>')
+  call submode#map('buffer-mode', 'n', '', 'l', ':<C-u>bnext<CR>')
 
   call submode#enter_with('tab-mode', 'n', '', 'gt', 'gt')
   call submode#enter_with('tab-mode', 'n', '', 'gT', 'gT')
