@@ -1816,7 +1816,7 @@ endif
 
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
-let g:user_zen_expandabbr_key = '<c-y>'
+let g:user_zen_leader_key = '<c-y>'
 let g:user_zen_settings = {
   \  'lang' : 'ja',
   \  'html' : {
