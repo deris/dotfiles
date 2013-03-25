@@ -1513,7 +1513,7 @@ if s:bundled('unite.vim')
   "let g:unite_enable_start_insert = 1
 
   autocmd FileType unite call s:unite_my_settings()
-  function! s:unite_my_settings()"{{{
+  function! s:unite_my_settings() "{{{
     " Overwrite settings.
 
     nmap <buffer> <ESC>  <Plug>(unite_exit)
