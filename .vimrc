@@ -935,9 +935,26 @@ vnoremap i"  <Esc>
 
 " exコマンド
 nnoremap <Space>w :<C-u>update<CR>
-nnoremap <Space>q :<C-u>q<CR>
-nnoremap <Space>Q :<C-u>q!<CR>
-nnoremap <S-Space>Q :<C-u>q!<CR>
+nnoremap <Space>q :<C-u>SafeQuit<CR>
+nnoremap <Space>Q :<C-u>SafeQuit!<CR>
+nnoremap <S-Space>Q :<C-u>SafeQuit!<CR>
+
+function! s:safeQuit(bang)
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    echohl WarningMsg
+    let l:input = input('Are you sure to quit vim?[y/n]: ')
+    echohl None
+    redraw!
+
+    if l:input !=? 'y'
+      return
+    endif
+  endif
+
+  execute 'quit'.a:bang
+endfunction
+
+command! -bang SafeQuit call s:safeQuit('<bang>')
 
 " 仮想置換モード
 nnoremap R gR
