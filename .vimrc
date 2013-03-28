@@ -940,6 +940,7 @@ nnoremap <Space>Q :<C-u>SafeQuit!<CR>
 nnoremap <S-Space>Q :<C-u>SafeQuit!<CR>
 nnoremap <Space>bd :<C-u>bdelete<CR>
 nnoremap <Space>bD :<C-u>bdelete!<CR>
+nnoremap <Space>bb :<C-u>buffer #<CR>
 
 function! s:safeQuit(bang)
   if tabpagenr('$') == 1 && winnr('$') == 1
