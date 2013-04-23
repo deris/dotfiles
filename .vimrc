@@ -217,9 +217,9 @@ if s:bundled('neobundle.vim')
     \     'ScratchClose',
     \   ]},
     \ }
-  NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
-    \ 'insert' : 1,
-    \ }}
+  "NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
+    "\ 'insert' : 1,
+    "\ }}
   NeoBundle 'kana/vim-smartinput'
   NeoBundle 'kana/vim-smarttill'
   NeoBundle 'kana/vim-smartword'
@@ -2193,20 +2193,6 @@ if s:bundled('grep.vim')
   endif
   let Grep_Skip_Dirs = '.svn .git'
   let Grep_Skip_Files = '*.bak *~'
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for smartchr {{{2
-if s:bundled('vim-smartchr')
-  inoremap <expr> =  smartchr#loop('=', '==', ' = ', ' == ')
-  inoremap <expr> +  smartchr#loop('+', '++', ' + ', ' += ')
-  inoremap <expr> -  smartchr#loop('-', '--', ' - ', ' -= ')
-  inoremap <expr> !  smartchr#loop('!', ' != ')
-
-  " This is enabled while user inputs Ex commands, not search
-  " patterns, etc.
-  cnoremap <expr> \  smartchr#loop('\', '\\', '~/', {'ctype': ':', 'fallback': '\'})
 endif
 " }}}
 
