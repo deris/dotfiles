@@ -862,12 +862,6 @@ nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(li
 nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1<CR>
 
-" 連結時に空白を挿入したくないのでJとgJを入れ替え
-nnoremap J  gJ
-nnoremap gJ J
-vnoremap J  gJ
-vnoremap gJ J
-
 " from ujihisa's vimrc
 nnoremap <Space>I $i
 nnoremap X ^x
@@ -879,16 +873,12 @@ nnoremap q; q:
 vnoremap q; q:
 nnoremap : ;
 vnoremap : ;
-nnoremap @; @:
-vnoremap @; @:
 
 " <Space>;で最後のコマンドライン繰り返し
 nnoremap <Space>; @:
-vnoremap <Space>; @:
 
 " <Leader>.で直前の@xを繰り返し
 nnoremap <Leader>. @@
-vnoremap <Leader>. @@
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -896,12 +886,6 @@ map Q gq
 " map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
 onoremap w iw
 onoremap W iW
-
-" よく使うものはtを省略できるようkeymap
-onoremap ) t)
-onoremap ( t(
-vnoremap ) t)
-vnoremap ( t(
 
 " text-objectを割り当て
 onoremap aa  a>
