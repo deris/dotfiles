@@ -753,7 +753,14 @@ function! PromptAndMakeDirectory()
   endif
 endfunction
 
-let plugin_cmdex_disable = 1
+" kaoriya版に添付されているプラグインの無効化
+let plugin_autodate_disable  = 1
+let plugin_cmdex_disable     = 1
+let plugin_dicwin_disable    = 1
+let plugin_format_disable    = 1
+let plugin_hz_ja_disable     = 1
+let plugin_scrnmode_disable  = 1
+let plugin_verifyenc_disable = 1
 
 " }}}
 
