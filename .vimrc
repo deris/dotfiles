@@ -129,6 +129,8 @@ if s:bundled('neobundle.vim')
     \   'mappings' : ['<Plug>(vimshell_switch)']
     \ }})
   NeoBundle 'airblade/vim-rooter'
+  NeoBundle 'airblade/vim-gitgutter'
+  "NeoBundle 'akiomik/git-gutter-vim'
   "NeoBundle 'benmills/vimux'
   NeoBundle 'bitc/vim-bad-whitespace'
   "NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
@@ -1636,6 +1638,14 @@ if s:bundled('vimfiler')
 
   endfunction "}}}
 
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for airblade/vim-gitgutter {{{2
+if s:bundled('vim-gitgutter')
+  let g:gitgutter_enabled = 0
+  nnoremap <Space>gg  :<C-u>GitGutterToggle<CR>
 endif
 " }}}
 
