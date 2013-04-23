@@ -200,7 +200,7 @@ if s:bundled('neobundle.vim')
     \     'altr#back',
     \   ]},
     \ }
-  "NeoBundle 'kana/vim-arpeggio'
+  NeoBundle 'kana/vim-arpeggio'
   NeoBundleLazy 'kana/vim-fakeclip'
   "NeoBundle 'kana/vim-gf-user'
   "NeoBundle 'kana/vim-grex'
@@ -1688,6 +1688,34 @@ if s:bundled('vim-altr')
 
   command! A  call altr#forward()
   command! B  call altr#back()
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for kana/vim-arpeggio {{{2
+if s:bundled('vim-arpeggio')
+  " easy to input sign
+  call arpeggio#map('ic', '', 0, 'r`', '~')
+  call arpeggio#map('ic', '', 0, 'r1', '!')
+  call arpeggio#map('ic', '', 0, 'r2', '@')
+  call arpeggio#map('ic', '', 0, 'r3', '#')
+  call arpeggio#map('ic', '', 0, 'r4', '$')
+  call arpeggio#map('ic', '', 0, 'r5', '%')
+  call arpeggio#map('ic', '', 0, 'r6', '^')
+  call arpeggio#map('ic', '', 0, 'r7', '&')
+  call arpeggio#map('ic', '', 0, 'r8', '*')
+  call arpeggio#map('ic', '', 0, 'r9', '(')
+  call arpeggio#map('ic', '', 0, 'r0', ')')
+  call arpeggio#map('ic', '', 0, 'r-', '_')
+  call arpeggio#map('ic', '', 0, 'r=', '+')
+  call arpeggio#map('ic', '', 0, 't5', '%')
+  call arpeggio#map('ic', '', 0, 't6', '^')
+  call arpeggio#map('ic', '', 0, 'y7', '&')
+  call arpeggio#map('ic', '', 0, 'u8', '*')
+  call arpeggio#map('ic', '', 0, 'u9', '(')
+  call arpeggio#map('ic', '', 0, 'u0', ')')
+  call arpeggio#map('ic', '', 0, 'u-', '_')
+  call arpeggio#map('ic', '', 0, 'u=', '+')
 endif
 " }}}
 
