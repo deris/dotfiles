@@ -606,7 +606,12 @@ set smarttab
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set textwidth=0
-setlocal formatoptions=ql
+set formatoptions-=t
+set formatoptions-=c
+set formatoptions-=r
+set formatoptions-=o
+set formatoptions-=v
+set formatoptions+=l
 set number
 set ruler
 set list
