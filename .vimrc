@@ -565,6 +565,7 @@ if s:bundled('neobundle.vim')
   " Installation check.
   NeoBundleCheck
 endif
+" }}}
 
 filetype plugin indent on
 
@@ -573,7 +574,6 @@ if s:bundled('vim-singleton')
     call singleton#enable()
   endif
 endif
-" }}}
 
 "---------------------------------------------------------------------------
 " オプションの設定:{{{2
