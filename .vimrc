@@ -649,27 +649,33 @@ set previewheight=10
 set helpheight=12
 set virtualedit=block
 set backup
-set backupdir=$DOTVIM/backup
-if !isdirectory(&backupdir)
-  call mkdir(&backupdir, "p")
-endif
+
+function! s:LetAndMkdir(variable, path) "{{{
+  try
+    if !isdirectory(a:path)
+      call mkdir(a:path, 'p')
+    endif
+  catch
+    echohl WarningMsg
+    echom '[error]' . a:path . 'is exist and is not directory, but is file or something.'
+    echohl None
+  endtry
+
+  execute printf("let %s = '%s'", a:variable, a:path)
+endfunction "}}}
+
+call s:LetAndMkdir('&backupdir', $DOTVIM.'/backup')
 if has('unix')
   set backupskip=/tmp/*,/private/tmp/*
 endif
 set swapfile
-set directory=$DOTVIM/swap
-if !isdirectory(&directory)
-  call mkdir(&directory, "p")
-endif
+call s:LetAndMkdir('&directory', $DOTVIM.'/swap')
 set history=2000
 let &showbreak = '+++ '
 set ttyfast
 if has('persistent_undo')
-  set undodir=$DOTVIM/undo
   set undofile
-  if !isdirectory(&undodir)
-    call mkdir(&undodir, "p")
-  endif
+  call s:LetAndMkdir('&undodir', $DOTVIM.'/undo')
 endif
 
 set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
@@ -1474,10 +1480,7 @@ endif
 "---------------------------------------------------------------------------
 " for Shougo/neocomplcache-snippets-complete {{{2
 if s:bundled('neosnippet')
-  let g:neosnippet#snippets_directory = $DOTVIM.'/snippets'
-  if !isdirectory(g:neosnippet#snippets_directory)
-    call mkdir(g:neosnippet#snippets_directory, "p")
-  endif
+  call s:LetAndMkdir('g:neosnippet#snippets_directory', $DOTVIM.'/snippets')
 
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -1606,10 +1609,7 @@ if s:bundled('vimfiler')
     let g:unite_kind_file_use_trashbox = 1
   endif
 
-  let g:vimfiler_data_directory = $DOTVIM . '/.vimfiler'
-  if !isdirectory(g:vimfiler_data_directory)
-    call mkdir(g:vimfiler_data_directory, "p")
-  endif
+  call s:LetAndMkdir('g:vimfiler_data_directory', $DOTVIM.'/.vimfiler')
 
   if has('mac')
     " Like Textmate icons.
