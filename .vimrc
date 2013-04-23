@@ -588,7 +588,7 @@ set hlsearch
 set tabstop=4
 set expandtab
 set autoindent
-set backspace=2
+set backspace=indent,eol,start
 set nowrapscan
 set showmatch
 set wildmenu
