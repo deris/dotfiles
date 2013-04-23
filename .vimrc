@@ -373,15 +373,14 @@ if s:bundled('neobundle.vim')
     \     'QuickRun',
     \   ]},
     \ }
-  NeoBundleLazy 'thinca/vim-ref', {
+  NeoBundle 'thinca/vim-ref', '', 'default'
+  call neobundle#config('vim-ref',{
+    \ 'lazy' : 1,
     \ 'autoload' : {
-    \   'commands' : [
-    \     'Ref',
-    \   ],
-    \   'unite_sources' : [
-    \     'ref'
-    \   ],
-    \ }}
+    \   'commands' : [{ 'name' : 'Ref',
+    \                   'complete' : 'customlist,ref#complete'}],
+    \   'unite_sources' : ['ref'],
+    \ }})
   NeoBundleLazy 'thinca/vim-scouter', {
     \ 'autoload' : {
     \   'commands' : [
