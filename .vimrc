@@ -779,6 +779,11 @@ noremap  <C-@> <ESC>
 noremap! <C-@> <ESC>
 
 inoremap jk <Esc>
+if has('mac')
+  " 誤タイプ防止の為
+  inoremap <D-j>k <Esc>
+  inoremap <D-j><D-k> <Esc>
+endif
 
 " switch j,k and gj,gk
 nnoremap j gj
