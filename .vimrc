@@ -2181,22 +2181,6 @@ let errormarker_disablemappings = 1
 " }}}
 
 "---------------------------------------------------------------------------
-" for grep.vim {{{2
-if s:bundled('grep.vim')
-  if has('win32')
-    let Grep_Path             = 'C:\usr\local\bin\grep.exe'
-    let Fgrep_Path            = 'C:\usr\local\bin\grep.exe -F'
-    let Egrep_Path            = 'C:\usr\local\bin\grep.exe -E'
-    let Grep_Find_Path        = 'C:\usr\local\bin\find.exe'
-    let Grep_Xargs_Path       = 'C:\usr\local\bin\xargs.exe'
-    let Grep_Shell_Quote_Char = '"'
-  endif
-  let Grep_Skip_Dirs = '.svn .git'
-  let Grep_Skip_Files = '*.bak *~'
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for taglist.vim {{{2
 if s:bundled('taglist.vim')
   if has('mac')
