@@ -35,7 +35,7 @@ function! s:bundled(bundle)
 endfunction
 
 "---------------------------------------------------------------------------
-" Vundle {{{2
+" NeoBundle {{{2
 set nocompatible
 filetype off
 
@@ -560,7 +560,7 @@ if s:bundled('neobundle.vim')
   " 日本語help
   NeoBundle 'vim-jp/vimdoc-ja'
 
-" Installation check.
+  " Installation check.
   NeoBundleCheck
 endif
 
@@ -576,7 +576,7 @@ endif
 "---------------------------------------------------------------------------
 " オプションの設定:{{{2
 
-" 文法の色付け
+" 構文ハイライト有効化
 syntax enable
 
 set ignorecase
@@ -668,7 +668,6 @@ endif
 
 set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
 
-" 文字コードの自動判定
 let &termencoding = &encoding
 set encoding=utf-8
 set fileencoding=utf-8
@@ -1029,7 +1028,7 @@ inoremap <C-h> <BS>
 inoremap <C-d> <Del>
 "inoremap <C-k> <C-o>C
 "inoremap <C-y> <C-o>p
-" undoできるc-w,c-u
+" undoできるC-w,C-u
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 
@@ -1213,6 +1212,7 @@ endfunction
 
 command! DiffOff call s:DiffOff()
 
+" Google Chromeで開く
 function! s:GoogleChrome(...)
   if has('mac')
     let l:cmd = "silent !open -a Google\\ Chrome "
@@ -1502,7 +1502,6 @@ endif
 
 "---------------------------------------------------------------------------
 " for Shougo/unite.vim {{{2
-" The prefix key.
 if s:bundled('unite.vim')
   nnoremap [unite]    <Nop>
   nmap     <Space>u [unite]
@@ -1532,8 +1531,6 @@ if s:bundled('unite.vim')
 
   autocmd FileType unite call s:unite_my_settings()
   function! s:unite_my_settings() "{{{
-    " Overwrite settings.
-
     nmap <buffer> <ESC>  <Plug>(unite_exit)
     nmap <buffer> <C-c>  <Plug>(unite_exit)
     imap <buffer> jk     <Plug>(unite_insert_leave)
@@ -1551,7 +1548,7 @@ if s:bundled('unite.vim')
 
     call unite#custom_default_action('directory', 'lcd')
 
-  endfunction"}}}
+  endfunction "}}}
 
   let g:unite_source_file_mru_limit = 200
   let g:unite_cursor_line_highlight = 'TabLineSel'
@@ -1624,8 +1621,7 @@ if s:bundled('vimfiler')
   endif
 
   autocmd FileType vimfiler call s:vimfiler_my_settings()
-  function! s:vimfiler_my_settings()"{{{
-    " Overwrite settings.
+  function! s:vimfiler_my_settings() "{{{
     if has('gui_running')
       nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabdrop')<Cr>
     else
@@ -1638,7 +1634,7 @@ if s:bundled('vimfiler')
     nmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_current_line)
     vmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_selected_lines)
 
-  endfunction"}}}
+  endfunction "}}}
 
 endif
 " }}}
@@ -1993,7 +1989,7 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for scrooloose/nerdtree {{{2
+" for scrooloose/syntastic {{{2
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
 " }}}
