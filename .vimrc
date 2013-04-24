@@ -2096,6 +2096,11 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for tsukkee/lingr-vim {{{2
+let g:lingr_vim_user = 'deris0126'
+" }}}
+
+"---------------------------------------------------------------------------
 " for tyru/nextfile.vim {{{2
 let g:nf_include_dotfiles = 1
 let g:nf_loop_files = 1
