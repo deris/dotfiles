@@ -1112,38 +1112,6 @@ nnoremap <Space>th  :<C-u>set filetype=html<CR>
 nnoremap <Space>tx  :<C-u>set filetype=xml<CR>
 nnoremap <Space>td  :<C-u>set filetype=diff<CR>
 
-" cscope
-"if has("cscope")
-  "set cscopeprg=/usr/local/bin/cscope
-  "set cscopetagorder=0
-  "set cscopetag
-  "set cscopepathcomp=3
-  "set nocscopeverbose
-  "cs add .cscope.out
-  "set csverb
-
-  ""
-  "" cscope find
-  ""
-  "" 0 or s: Find this C symbol
-  "" 1 or d: Find this definition
-  "" 2 or g: Find functions called by this function
-  "" 3 or c: Find functions calling this function
-  "" 4 or t: Find assignments to
-  "" 6 or e: Find this egrep pattern
-  "" 7 or f: Find this file
-  "" 8 or i: Find files #including this file
-  ""
-  "map ^Ks     :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Kd     :cs find 1 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Kg     :cs find 2 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Kc     :cs find 3 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Kt     :cs find 4 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Ke     :cs find 6 <C-R>=expand("<cword>")<CR><CR>
-  "map ^Kf     :cs find 7 <C-R>=expand("<cfile>")<CR><CR>
-  "map ^Ki     :cs find 8 <C-R>=expand("%")<CR><CR>
-"endif
-
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
