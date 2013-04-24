@@ -1280,9 +1280,9 @@ command! WJis w ++enc=iso-2022-jp | e
 
 augroup commonfiletype
   autocmd!
-  autocmd FileType * setlocal fo-=t fo-=c fo-=r fo-=o
+  autocmd FileType * setlocal fo-=t fo-=c fo-=r fo-=o fo-=v fo+=l
   autocmd FileType * setlocal textwidth=0
-  autocmd SourceCmd .vimrc setlocal fo-=t fo-=c fo-=r fo-=o
+  autocmd SourceCmd .vimrc setlocal fo-=t fo-=c fo-=r fo-=o fo-=v fo+=l
 augroup END
 augroup vimlang
   autocmd!
