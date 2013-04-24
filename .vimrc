@@ -942,18 +942,21 @@ nnoremap <Space>bD :<C-u>bdelete!<CR>
 nnoremap <Space>bb :<C-u>buffer #<CR>
 
 function! s:safeQuit(bang)
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    echohl WarningMsg
-    let l:input = input('Are you sure to quit vim?[y/n]: ')
-    echohl None
-    redraw!
-
-    if l:input !=? 'y'
-      return
-    endif
+  " 最後のタブ&最後のウィンドウでなければ終了
+  if !(tabpagenr('$') == 1 && winnr('$') == 1)
+    execute 'quit'.a:bang
+    return
   endif
 
-  execute 'quit'.a:bang
+  " 終了するかどうか確認
+  echohl WarningMsg
+  let l:input = input('Are you sure to quit vim?[y/n]: ')
+  echohl None
+  redraw!
+
+  if l:input ==? 'y'
+    execute 'quit'.a:bang
+  endif
 endfunction
 
 command! -bang SafeQuit call s:safeQuit('<bang>')
