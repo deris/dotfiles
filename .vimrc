@@ -683,6 +683,16 @@ endif
 
 scriptencoding utf-8
 
+if has('vim_starting') && has('unix')
+  let $PATH=$PERLBREW_ROOT.'/bin:'.$PATH
+  let s:my_perl_path = split(system('which perl'), '[\r\n]')[0]
+  let s:my_perl_path = fnamemodify(s:my_perl_path, ':p:h')
+  if s:my_perl_path =~ '^/'
+    let $PATH=s:my_perl_path.':'.$PATH
+  endif
+  let $PATH=$HOME."/.cabal/bin:".$PATH
+endif
+
 let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
 
 if has('win32')
@@ -701,16 +711,6 @@ augroup hilightIdegraphicSpace
   autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
-
-if has('vim_starting') && has('unix')
-  let $PATH=$PERLBREW_ROOT.'/bin:'.$PATH
-  let s:my_perl_path = split(system('which perl'), '[\r\n]')[0]
-  let s:my_perl_path = fnamemodify(s:my_perl_path, ':p:h')
-  if s:my_perl_path =~ '^/'
-    let $PATH=s:my_perl_path.':'.$PATH
-  endif
-  let $PATH=$HOME."/.cabal/bin:".$PATH
-endif
 
 " vimdiff時のハイライト
 augroup diffcolor
