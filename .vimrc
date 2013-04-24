@@ -909,28 +909,28 @@ onoremap id  i"
 vnoremap id  i"
 
 " key mapping強制ギブス
-onoremap a>  <Esc>
-vnoremap a>  <Esc>
-onoremap i>  <Esc>
-vnoremap i>  <Esc>
-onoremap a<  <Esc>
-vnoremap a<  <Esc>
-onoremap i<  <Esc>
-vnoremap i<  <Esc>
+onoremap a>  <Nop>
+vnoremap a>  <Nop>
+onoremap i>  <Nop>
+vnoremap i>  <Nop>
+onoremap a<  <Nop>
+vnoremap a<  <Nop>
+onoremap i<  <Nop>
+vnoremap i<  <Nop>
 
-onoremap a]  <Esc>
-vnoremap a]  <Esc>
-onoremap i]  <Esc>
-vnoremap i]  <Esc>
-onoremap a[  <Esc>
-vnoremap a[  <Esc>
-onoremap i[  <Esc>
-vnoremap i[  <Esc>
+onoremap a]  <Nop>
+vnoremap a]  <Nop>
+onoremap i]  <Nop>
+vnoremap i]  <Nop>
+onoremap a[  <Nop>
+vnoremap a[  <Nop>
+onoremap i[  <Nop>
+vnoremap i[  <Nop>
 
-onoremap a"  <Esc>
-vnoremap a"  <Esc>
-onoremap i"  <Esc>
-vnoremap i"  <Esc>
+onoremap a"  <Nop>
+vnoremap a"  <Nop>
+onoremap i"  <Nop>
+vnoremap i"  <Nop>
 
 " exコマンド
 nnoremap <Space>w :<C-u>update<CR>
