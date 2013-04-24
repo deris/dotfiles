@@ -910,6 +910,10 @@ endfunction
 " マクロの誤タイプ防止(使うキーだけ残す)
 call s:LumpMap('q', '0123456789rtyuiopghjklvbnm"', '<Nop>')
 
+" use <C-q> instead of @
+nnoremap <C-q> @
+nnoremap <C-q><C-q> @@
+
 " map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
 onoremap w iw
 onoremap W iW
