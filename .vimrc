@@ -898,6 +898,18 @@ nnoremap ZQ <Nop>
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
 
+" 一括してキーマップする
+function! s:LumpMap(prefix, lhs, rhs)
+  let charlist = split(a:lhs, '\zs')
+
+  for char in charlist
+    execute 'nnoremap ' . a:prefix . char . ' ' . a:rhs
+  endfor
+endfunction
+
+" マクロの誤タイプ防止(使うキーだけ残す)
+call s:LumpMap('q', '0123456789rtyuiopghjklvbnm"', '<Nop>')
+
 " map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
 onoremap w iw
 onoremap W iW
