@@ -693,23 +693,26 @@ if has('vim_starting') && has('unix')
   let $PATH=$HOME."/.cabal/bin:".$PATH
 endif
 
-let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
-
 if has('win32')
+  let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
+
   if executable(g:my_win32_grep_path)
     let &grepprg = g:my_win32_grep_path . ' -n8 --enc utf-8,cp932,euc-jp'
   endif
 elseif has('mac')
-  if executable('ack')
-    set grepprg=ack\ -a\ $*\ /dev/null
+  if executable('ag')
+    set grepprg=ag\ -a\ $*\ /dev/null
   endif
+  "if executable('ack')
+    "set grepprg=ack\ -a\ $*\ /dev/null
+  "endif
 endif
 
 " 全角スペースを表示
 augroup hilightIdegraphicSpace
   autocmd!
-  autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+  autocmd VimEnter,ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+  autocmd WinEnter * match IdeographicSpace /　/
 augroup END
 
 " vimdiff時のハイライト
