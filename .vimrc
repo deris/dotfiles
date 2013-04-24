@@ -884,7 +884,7 @@ nnoremap <Space>; @:
 nnoremap <Leader>. @@
 
 " Don't use Ex mode, use Q for formatting
-map Q gq
+nnoremap Q gq
 
 " map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
 onoremap w iw
