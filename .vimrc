@@ -702,19 +702,14 @@ augroup hilightIdegraphicSpace
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
-if has('mac')
-
-  if has('vim_starting')
-    let $PATH=$HOME."/perl5/perlbrew/bin:".$PATH
-    let my_perl_path = split(system('which perl'), '[\r\n]')[0]
-    if my_perl_path =~ '^/'
-      let $PATH=my_perl_path.':'.$PATH
-    endif
-    let my_cabal_path = split(system('which cabal'), '[\r\n]')[0]
-    if my_cabal_path =~ '^/'
-      let $PATH=my_cabal_path.':'.$PATH
-    endif
+if has('vim_starting') && has('unix')
+  let $PATH=$PERLBREW_ROOT.'/bin:'.$PATH
+  let s:my_perl_path = split(system('which perl'), '[\r\n]')[0]
+  let s:my_perl_path = fnamemodify(s:my_perl_path, ':p:h')
+  if s:my_perl_path =~ '^/'
+    let $PATH=s:my_perl_path.':'.$PATH
   endif
+  let $PATH=$HOME."/.cabal/bin:".$PATH
 endif
 
 " vimdiff時のハイライト
