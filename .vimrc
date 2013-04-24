@@ -883,6 +883,10 @@ nnoremap <Space>; @:
 " <Leader>.で直前の@xを繰り返し
 nnoremap <Leader>. @@
 
+" disable because this is dangerous key
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
 
@@ -967,10 +971,6 @@ command! -bang SafeQuit call s:safeQuit('<bang>')
 " 仮想置換モード
 nnoremap R gR
 
-" 危険なので無効化
-nnoremap ZZ <Nop>
-nnoremap ZQ <Nop>
-
 " win間移動
 nnoremap <M-h>   <C-w>h
 nnoremap <M-j>   <C-w>j
@@ -1010,11 +1010,12 @@ cnoremap <C-v> <C-f>a
 " カーソル下のlineを挿入
 cnoremap <expr> <C-r><C-l>   matchstr(getline("."), '[^ \t:][^\r\n]*')
 
+" ASCII keyboardで打ちやすいように
+cnoremap <C-r>' <C-r>"
+
 " command modeでの自動エスケープ
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
-
-cnoremap <C-r>' <C-r>"
 
 " 置換の自動入力
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
