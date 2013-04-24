@@ -59,11 +59,11 @@ if s:bundled('neobundle.vim')
     "\ 'filetypes' : ['c', 'cpp'],
     "\ }}
   NeoBundle 'Shougo/neocomplcache', '', 'default'
-  call neobundle#config('neocomplcache', {
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'insert' : 1,
-    \ }})
+  "call neobundle#config('neocomplcache', {
+    "\ 'lazy' : 1,
+    "\ 'autoload' : {
+    "\   'insert' : 1,
+    "\ }})
   NeoBundle 'Shougo/neosnippet', '', 'default'
   call neobundle#config('neosnippet', {
     \ 'lazy' : 1,
@@ -161,7 +161,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'emonkak/vim-operator-sort',
     "\ { 'depends' : 'kana/vim-operator-user' }
   "NeoBundle 'fholgado/minibufexpl.vim'
-  NeoBundle 'fkfk/rbpit.vim'
+  "NeoBundle 'fkfk/rbpit.vim'
   "NeoBundle 'fuenor/qfixgrep'
   "NeoBundle 'fuenor/qfixhowm'
   "NeoBundle 'godlygeek/tabular'
@@ -288,6 +288,8 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'msanders/snipmate.vim'
   NeoBundle 'nathanaelkane/vim-indent-guides'
   NeoBundle 'osyo-manga/vim-reanimate'
+  "NeoBundle 'osyo-manga/vim-textobj-multiblock',
+    "\ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
     \ 'unite_sources' : 'quickfix',
     \ }}
@@ -353,6 +355,12 @@ if s:bundled('neobundle.vim')
     \   ['n', '<Plug>(fontzoom-larger)'],
     \   ['n', '<Plug>(fontzoom-smaller)']]
     \ }}
+  NeoBundleLazy 'thinca/vim-github', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Github',
+    \   ]},
+    \ }
   NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'thinca/vim-poslist'
   NeoBundleLazy 'thinca/vim-prettyprint', {
