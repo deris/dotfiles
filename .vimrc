@@ -1072,9 +1072,9 @@ nnoremap gg ggzvzz
 nnoremap G  Gzvzz
 
 " 仮想編集の変更
-nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>
-nnoremap <Space>vb  :<C-u>setlocal virtualedit=block<CR>
-nnoremap <Space>vv  :let &virtualedit=(&ve == "all" ? "block" : "all")<CR>:setlocal virtualedit<CR>
+nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>:setlocal virtualedit?<CR>
+nnoremap <Space>vb  :<C-u>setlocal virtualedit=block<CR>:setlocal virtualedit?<CR>
+nnoremap <Space>vv  :<C-u>let &virtualedit=(&ve == "block" ? "all" : "block")<CR>:setlocal virtualedit?<CR>
 
 " very magic（正規表現をエスケープしなくてよくなる）
 noremap /   /\v
