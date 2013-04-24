@@ -1014,8 +1014,10 @@ cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 cnoremap <C-r>' <C-r>"
 
 " 置換の自動入力
-nnoremap gs  :<C-u>%s/\v//g<Left><Left><Left>
-vnoremap gs  :s/\v//g<Left><Left><Left>
+nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+vnoremap gs  :s///g<Left><Left><Left>
+nnoremap gS  :<C-u>%s///gc<Left><Left><Left>
+vnoremap gS  :s///gc<Left><Left><Left>
 
 " vim diffのkeymap
 nnoremap dp dp:<C-u>diffupdate<CR>]czz
