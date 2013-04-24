@@ -718,10 +718,12 @@ if has('mac')
 endif
 
 " vimdiff時のハイライト
-hi DiffAdd    ctermfg=black ctermbg=2
-hi DiffChange ctermfg=black ctermbg=3
-hi DiffDelete ctermfg=black ctermbg=6
-hi DiffText   ctermfg=black ctermbg=7
+augroup diffcolor
+  autocmd ColorScheme * hi DiffAdd    ctermfg=black ctermbg=2
+  autocmd ColorScheme * hi DiffChange ctermfg=black ctermbg=3
+  autocmd ColorScheme * hi DiffDelete ctermfg=black ctermbg=6
+  autocmd ColorScheme * hi DiffText   ctermfg=black ctermbg=7
+augroup END
 
 " カーソルラインと行ラインを表示
 augroup cursorsetting
@@ -1374,8 +1376,10 @@ endif
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let g:EasyMotion_do_shade = 1
-hi EasyMotionTarget ctermbg=none ctermfg=green
-hi EasyMotionShade  ctermbg=none ctermfg=blue
+augroup diffcolor
+  autocmd ColorScheme * hi EasyMotionTarget ctermbg=none ctermfg=green
+  autocmd ColorScheme * hi EasyMotionShade  ctermbg=none ctermfg=blue
+augroup END
 " }}}
 
 "---------------------------------------------------------------------------
