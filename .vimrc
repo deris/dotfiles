@@ -622,21 +622,6 @@ set winaltkeys=no
 set visualbell
 set noequalalways
 
-scriptencoding utf-8
-
-" 全角スペースを表示
-augroup hilightIdegraphicSpace
-  autocmd!
-  autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
-
-if s:bundled('vim-wombat')
-  colorscheme wombat
-else
-  colorscheme desert
-endif
-
 set nowrap
 set laststatus=2
 set cmdheight=2
@@ -690,6 +675,14 @@ if exists('&ambiwidth')
   set ambiwidth=double
 endif
 
+if s:bundled('vim-wombat')
+  colorscheme wombat
+else
+  colorscheme desert
+endif
+
+scriptencoding utf-8
+
 let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
 
 if has('win32')
@@ -702,15 +695,14 @@ elseif has('mac')
   endif
 endif
 
-" vimdiff時のハイライト
-hi DiffAdd    ctermfg=black ctermbg=2
-hi DiffChange ctermfg=black ctermbg=3
-hi DiffDelete ctermfg=black ctermbg=6
-hi DiffText   ctermfg=black ctermbg=7
+" 全角スペースを表示
+augroup hilightIdegraphicSpace
+  autocmd!
+  autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
+  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
 
 if has('mac')
-  noremap ¥ \
-  noremap \ ¥
 
   if has('vim_starting')
     let $PATH=$HOME."/perl5/perlbrew/bin:".$PATH
@@ -724,6 +716,12 @@ if has('mac')
     endif
   endif
 endif
+
+" vimdiff時のハイライト
+hi DiffAdd    ctermfg=black ctermbg=2
+hi DiffChange ctermfg=black ctermbg=3
+hi DiffDelete ctermfg=black ctermbg=6
+hi DiffText   ctermfg=black ctermbg=7
 
 " カーソルラインと行ラインを表示
 augroup cursorsetting
@@ -769,6 +767,11 @@ let plugin_verifyenc_disable = 1
 
 let mapleader = ","
 let maplocalleader = ","
+
+if has('mac')
+  noremap ¥ \
+  noremap \ ¥
+endif
 
 " Escのkeymap
 noremap  <C-[> <C-c>
