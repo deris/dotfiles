@@ -166,6 +166,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'fuenor/qfixgrep'
   "NeoBundle 'fuenor/qfixhowm'
   "NeoBundle 'godlygeek/tabular'
+  "NeoBundle 'goldfeld/vim-seek'
   NeoBundleLazy 'h1mesuke/vim-alignta', {
     \ 'autoload' : {
     \   'commands' : [
@@ -235,8 +236,8 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'kana/vim-textobj-jabraces',
     "\ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-lastpat',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  "NeoBundle 'kana/vim-textobj-lastpat',
+    "\ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-textobj-line',
     \ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'kana/vim-textobj-syntax',
@@ -306,7 +307,7 @@ if s:bundled('neobundle.vim')
     \ }}
   "NeoBundle 'reinh/vim-makegreen'
   "NeoBundle 'rhysd/accelerated-jk'
-  NeoBundle 'rhysd/clever-f.vim', 'm@ster'
+  "NeoBundle 'rhysd/clever-f.vim', 'm@ster'
   NeoBundleLazy 'rking/ag.vim'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/nerdcommenter'
