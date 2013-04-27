@@ -70,6 +70,7 @@ if s:bundled('neobundle.vim')
     \ 'autoload' : {
     \   'insert' : 1,
     \   'filetypes' : 'snippet',
+    \   'commands' : ['NeoSnippetEdit'],
     \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }})
   NeoBundle 'Shougo/unite.vim', '', 'default'
