@@ -1391,7 +1391,7 @@ augroup END
 augroup scalalang
   autocmd!
   autocmd BufRead,BufNewFile *.scala setfiletype scala
-  autocmd FileType scala setlocal expandtab tabstop=4 shiftwidth=4 list
+  autocmd FileType scala setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
 augroup zshlang
   autocmd!
