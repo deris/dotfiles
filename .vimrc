@@ -1110,8 +1110,12 @@ noremap ?   ?\v
 " カーソル下のウィンドウを編集（数字が付いていればその行へ）
 noremap gf gF
 
-" tab
-nnoremap <silent> <Space>tt :<C-u>tabnew<CR>
+" tab mode
+nnoremap [tabmode]   <Nop>
+nmap     <Space>t    [tabmode]
+
+nnoremap [tabmode]t  :<C-u>tabnew<CR>
+nnoremap [tabmode]d  :<C-u>tabclose<CR>
 
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
