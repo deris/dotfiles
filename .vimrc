@@ -1123,10 +1123,12 @@ nnoremap <silent> <C-n> gt
 " tag jump
 nnoremap [TagJump]    <Nop>
 nmap     t            [TagJump]
+
 nnoremap [TagJump]t   <C-]>          " 「飛ぶ」
 nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
 nnoremap [TagJump]k   :<C-u>pop<CR>  " 「戻る」
 nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
+
 "--------------------
 " Function: Open tag under cursor in new tab
 " Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
