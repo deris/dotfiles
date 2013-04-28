@@ -1136,17 +1136,21 @@ nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
 nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " filetype
-nnoremap <Space>tp  :<C-u>set filetype=perl<CR>
-nnoremap <Space>tv  :<C-u>set filetype=vim<CR>
-nnoremap <Space>tc  :<C-u>set filetype=c<CR>
-nnoremap <Space>to  :<C-u>set filetype=objc<CR>
-nnoremap <Space>tj  :<C-u>set filetype=java<CR>
-nnoremap <Space>ts  :<C-u>set filetype=shell<CR>
-nnoremap <Space>tr  :<C-u>set filetype=ruby<CR>
-nnoremap <Space>ta  :<C-u>set filetype=javascript<CR>
-nnoremap <Space>th  :<C-u>set filetype=html<CR>
-nnoremap <Space>tx  :<C-u>set filetype=xml<CR>
-nnoremap <Space>td  :<C-u>set filetype=diff<CR>
+nnoremap [filetype]    <Nop>
+nmap     <Leader>t     [filetype]
+
+nnoremap [filetype]p   :<C-u>set filetype=perl<CR>
+nnoremap [filetype]v   :<C-u>set filetype=vim<CR>
+nnoremap [filetype]c   :<C-u>set filetype=c<CR>
+nnoremap [filetype]o   :<C-u>set filetype=objc<CR>
+nnoremap [filetype]j   :<C-u>set filetype=java<CR>
+nnoremap [filetype]s   :<C-u>set filetype=shell<CR>
+nnoremap [filetype]r   :<C-u>set filetype=ruby<CR>
+nnoremap [filetype]a   :<C-u>set filetype=javascript<CR>
+nnoremap [filetype]h   :<C-u>set filetype=html<CR>
+nnoremap [filetype]x   :<C-u>set filetype=xml<CR>
+nnoremap [filetype]d   :<C-u>set filetype=diff<CR>
+nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
 
 
 if has('win32')
