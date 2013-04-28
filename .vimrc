@@ -1152,6 +1152,7 @@ nnoremap [filetype]x   :<C-u>set filetype=xml<CR>
 nnoremap [filetype]d   :<C-u>set filetype=diff<CR>
 nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
 
+command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
 if has('win32')
   " Save the current buffer and execute the Tortoise SVN interface's diff program
@@ -1250,8 +1251,6 @@ function! s:GoogleChrome(...)
 endfunction
 
 command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
-
-command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
 " 検索文字列をレジスタでグローバル置換
 nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'
