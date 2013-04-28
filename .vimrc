@@ -1297,6 +1297,25 @@ endfunction
 
 command! -nargs=0 EchoSynName call s:EchoSynName()
 
+" visualモードで最後に選択したテキストを%sで指定してコマンドを実行する {{{
+function! ExecuteWithSelectedText(command)
+  if a:command !~? '%s'
+    return
+  endif
+
+  let reg = '"'
+  let [save_reg, save_type] = [getreg(reg), getregtype(reg)]
+  normal! gvy
+  let selectedText = @"
+  call setreg(reg, save_reg, save_type)
+  if selectedText == ''
+    return
+  endif
+
+  execute printf(a:command, selectedText)
+endfunction
+" }}}
+
 " }}}
 
 "---------------------------------------------------------------------------
