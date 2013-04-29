@@ -709,7 +709,7 @@ if has('win32')
   if executable(g:my_win32_grep_path)
     let &grepprg = g:my_win32_grep_path . ' -n8 --enc utf-8,cp932,euc-jp'
   endif
-elseif has('mac')
+elseif has('unix')
   if executable('ag')
     set grepprg=ag\ -a\ $*\ /dev/null
   endif
