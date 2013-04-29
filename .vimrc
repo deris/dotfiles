@@ -2121,10 +2121,9 @@ if s:bundled('vim-quickrun')
     \   'command': 'scala',
     \ }
 
-  nnoremap <silent> <Space>r  :<C-u>QuickRun -mode n<CR>
-  vnoremap <silent> <Space>r  :<C-u>QuickRun -mode v<CR>
-  nnoremap <Space>R           :<C-u>QuickRun -args ""<Left>
-  nnoremap <S-Space>R         :<C-u>QuickRun -args ""<Left>
+  nnoremap <silent> <Leader>r  :<C-u>QuickRun -mode n<CR>
+  vnoremap <silent> <Leader>r  :<C-u>QuickRun -mode v<CR>
+  nnoremap <Leader>R           :<C-u>QuickRun -args ""<Left>
 endif
 " }}}
 
