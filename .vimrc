@@ -1615,6 +1615,8 @@ if s:bundled('unite.vim')
       let g:unite_source_grep_default_opts = '--nocolor --nogrep'
     endif
   endif
+  let g:unite_source_grep_max_candidates = 200
+
   " For unite-session.
   " Save session automatically.
   "let g:unite_source_session_enable_auto_save = 1
