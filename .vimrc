@@ -1112,7 +1112,7 @@ noremap gf gF
 
 " tab mode
 nnoremap [tabmode]   <Nop>
-nmap     <Space>t    [tabmode]
+nmap     t           [tabmode]
 
 nnoremap [tabmode]t  :<C-u>tabnew<CR>
 nnoremap [tabmode]d  :<C-u>tabclose<CR>
@@ -1122,7 +1122,7 @@ nnoremap <silent> <C-n> gt
 
 " tag jump
 nnoremap [TagJump]    <Nop>
-nmap     t            [TagJump]
+nmap     <Space>t     [TagJump]
 
 nnoremap [TagJump]t   <C-]>          " 「飛ぶ」
 nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
