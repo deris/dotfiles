@@ -1980,8 +1980,8 @@ if s:bundled('git-vim')
   nnoremap [Git]     <Nop>
   nmap     <Space>g  [Git]
 
-  nnoremap [Git]d :<C-u>GitDiff<CR>
-  nnoremap [Git]D :<C-u>GitDiff --cached<CR>
+  nnoremap [Git]d :<C-u>GitDiff --no-prefix<CR>
+  nnoremap [Git]D :<C-u>GitDiff --no-prefix --cached<CR>
   nnoremap [Git]s :<C-u>GitStatus<CR>
   nnoremap [Git]l :<C-u>GitLog<CR>
   nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
