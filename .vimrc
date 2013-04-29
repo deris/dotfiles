@@ -1608,6 +1608,12 @@ if s:bundled('unite.vim')
       let g:unite_source_grep_recursive_opt = '-R'
       let g:unite_source_grep_default_opts = '-n --enc utf-8,cp932,euc-jp'
     endif
+  elseif has('unix')
+    if executable('ag')
+      let g:unite_source_grep_command = 'ag'
+      let g:unite_source_grep_recursive_opt = ''
+      let g:unite_source_grep_default_opts = '--nocolor --nogrep'
+    endif
   endif
   " For unite-session.
   " Save session automatically.
