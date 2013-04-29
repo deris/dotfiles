@@ -2137,13 +2137,30 @@ endif
 " for thinca/vim-ref {{{2
 if s:bundled('vim-ref')
   let g:ref_source_webdict_sites = {
-    \   'goo': {
-    \     'url': 'http://dictionary.goo.ne.jp/srch/all/%s/m0u/',
-    \     'keyword_encoding': 'utf-8',
-    \     'cache': 1,
-    \   }
+    \   'default': 'alc',
+    \
+    \   'alc': {
+    \       'url': 'http://eow.alc.co.jp/%s',
+    \       'keyword_encoding': 'utf-8',
+    \       'cache': '1',
+    \   },
+    \   'wikipedia': {
+    \       'url': 'http://ja.wikipedia.org/wiki/%s',
+    \   },
     \ }
-  let g:ref_source_webdict_sites.default = 'goo'
+  function! g:ref_source_webdict_sites.alc.filter(output)
+    return join(split(a:output, "\n")[38 :], "\n")
+  endfunction
+  function! g:ref_source_webdict_sites.wikipedia.filter(output)
+    return join(split(a:output, "\n")[6 :], "\n")
+  endfunction
+
+  nnoremap <Leader>wa :<C-u>Ref webdict alc <C-r><C-w><CR>
+  vnoremap <Leader>wa :<C-u>call ExecuteWithSelectedText('Ref webdict alc %s')<CR>
+  nnoremap <Leader>wA :<C-u>Ref webdict alc<Space>
+  nnoremap <Leader>ww :<C-u>Ref webdict wikipedia <C-r><C-w><CR>
+  vnoremap <Leader>ww :<C-u>call ExecuteWithSelectedText('Ref webdict wikipedia %s')<CR>
+  nnoremap <Leader>wW :<C-u>Ref webdict wikipedia<Space>
 endif
 " }}}
 
