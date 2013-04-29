@@ -1666,12 +1666,15 @@ if s:bundled('vimfiler')
   autocmd FileType vimfiler call s:vimfiler_my_settings()
   function! s:vimfiler_my_settings() "{{{
     if has('gui_running')
-      nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabdrop')<Cr>
+      nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabdrop')
     else
-      nnoremap <buffer> E  :call vimfiler#mappings#do_action('tabopen')<Cr>
+      nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabopen')
     endif
-    nnoremap <buffer> s  :call vimfiler#mappings#do_action('left')<Cr>
-    nnoremap <buffer> f  :call vimfiler#mappings#do_action('diff')<Cr>
+    nnoremap <silent><buffer><expr> s  vimfiler#do_action('right')
+    nnoremap <silent><buffer><expr> f  vimfiler#do_action('diff')
+    nmap <buffer><expr> e vimfiler#smart_cursor_map(
+      \  "\<Plug>(vimfiler_cd_file)",
+      \  "\<Plug>(vimfiler_edit_file)")
 
     nmap <buffer> <Space>           <Nop>
     nmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_current_line)
