@@ -1121,19 +1121,19 @@ nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
 
 " tag jump
-nnoremap [TagJump]    <Nop>
-nmap     <Space>t     [TagJump]
+nnoremap [tagjump]    <Nop>
+nmap     <Space>t     [tagjump]
 
-nnoremap [TagJump]t   <C-]>          " 「飛ぶ」
-nnoremap [TagJump]j   :<C-u>tag<CR>  " 「進む」
-nnoremap [TagJump]k   :<C-u>pop<CR>  " 「戻る」
-nnoremap [TagJump]l   :<C-u>tags<CR> " 履歴一覧
+nnoremap [tagjump]t   <C-]>          " 「飛ぶ」
+nnoremap [tagjump]j   :<C-u>tag<CR>  " 「進む」
+nnoremap [tagjump]k   :<C-u>pop<CR>  " 「戻る」
+nnoremap [tagjump]l   :<C-u>tags<CR> " 履歴一覧
 
 "--------------------
 " Function: Open tag under cursor in new tab
 " Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
 "--------------------
-nnoremap [TagJump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap [tagjump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " filetype
 nnoremap [filetype]    <Nop>
@@ -1977,23 +1977,23 @@ if s:bundled('git-vim')
   let g:git_highlight_blame = 1
   let g:git_blame_width = 50
 
-  nnoremap [Git]     <Nop>
-  nmap     <Space>g  [Git]
+  nnoremap [git]     <Nop>
+  nmap     <Space>g  [git]
 
-  nnoremap [Git]d :<C-u>GitDiff --no-prefix<CR>
-  nnoremap [Git]D :<C-u>GitDiff --no-prefix --cached<CR>
-  nnoremap [Git]s :<C-u>GitStatus<CR>
-  nnoremap [Git]l :<C-u>GitLog<CR>
-  nnoremap [Git]L :<C-u>GitLog -u \| head -10000<CR>
-  nnoremap [Git]a :<C-u>GitAdd<CR>
-  nnoremap [Git]A :<C-u>GitAdd <cfile><CR>
-  nnoremap [Git]c :<C-u>GitCommit<CR>
-  nnoremap [Git]C :<C-u>GitCommit --amend<CR>
-  nnoremap [Git]p :<C-u>Git push
-  nnoremap [Git]r :<C-u>GitPullRebase<CR>
-  nnoremap [Git]f :<C-u>GitCatFile %<CR>
-  nnoremap [Git]v :<C-u>GitVimDiffMerge<CR>
-  nnoremap [Git]b zR:<C-u>GitBlame<CR>
+  nnoremap [git]d :<C-u>GitDiff --no-prefix<CR>
+  nnoremap [git]D :<C-u>GitDiff --no-prefix --cached<CR>
+  nnoremap [git]s :<C-u>GitStatus<CR>
+  nnoremap [git]l :<C-u>GitLog<CR>
+  nnoremap [git]L :<C-u>GitLog -u \| head -10000<CR>
+  nnoremap [git]a :<C-u>GitAdd<CR>
+  nnoremap [git]A :<C-u>GitAdd <cfile><CR>
+  nnoremap [git]c :<C-u>GitCommit<CR>
+  nnoremap [git]C :<C-u>GitCommit --amend<CR>
+  nnoremap [git]p :<C-u>Git push
+  nnoremap [git]r :<C-u>GitPullRebase<CR>
+  nnoremap [git]f :<C-u>GitCatFile %<CR>
+  nnoremap [git]v :<C-u>GitVimDiffMerge<CR>
+  nnoremap [git]b zR:<C-u>GitBlame<CR>
 endif
 " }}}
 
