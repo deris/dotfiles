@@ -1887,7 +1887,8 @@ if s:bundled('vim-smartword')
   vmap w  <Plug>(smartword-w)
   map  b  <Plug>(smartword-b)
   map  e  <Plug>(smartword-e)
-  map  ge <Plug>(smartword-ge)
+  " submodeで割り当てるのでomapだけ
+  omap ge <Plug>(smartword-ge)
 endif
 " }}}
 
