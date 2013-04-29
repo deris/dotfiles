@@ -2178,8 +2178,8 @@ endif
 "---------------------------------------------------------------------------
 " for tyru/operator-html-escape.vim {{{2
 if s:bundled('operator-user') && s:bundled('operator-html-escape.vim')
-  nmap <Leader>h  <Plug>(operator-html-escape)
-  nmap <Leader>u  <Plug>(operator-html-unescape)
+  nmap <Leader>he  <Plug>(operator-html-escape)
+  nmap <Leader>hu  <Plug>(operator-html-unescape)
 endif
 " }}}
 
