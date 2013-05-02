@@ -811,10 +811,8 @@ vnoremap gj j
 vnoremap gk k
 
 " key map ^,$ to <Space>h,l. Because ^ and $ is difficult to type and damage little finger!!!
-nnoremap <Space>h ^
-nnoremap <Space>l $
-vnoremap <Space>h ^
-vnoremap <Space>l $
+noremap <Space>h ^
+noremap <Space>l $
 
 " move middle of current line.(not middle of screen)
 nnoremap <silent> gm   :<C-u>call <SID>MoveMiddleOfLine()<CR>
