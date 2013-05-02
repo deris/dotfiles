@@ -778,6 +778,8 @@ let plugin_verifyenc_disable = 1
 let mapleader = ","
 let maplocalleader = ","
 
+nnoremap \  ,
+
 if has('mac')
   noremap ¥ \
   noremap \ ¥
