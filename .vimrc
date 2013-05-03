@@ -946,27 +946,27 @@ onoremap id  i"
 vnoremap id  i"
 
 " key mapping強制ギブス
-onoremap a>  <Nop>
+onoremap a>  <Esc>
 vnoremap a>  <Nop>
-onoremap i>  <Nop>
+onoremap i>  <Esc>
 vnoremap i>  <Nop>
-onoremap a<  <Nop>
+onoremap a<  <Esc>
 vnoremap a<  <Nop>
-onoremap i<  <Nop>
+onoremap i<  <Esc>
 vnoremap i<  <Nop>
 
-onoremap a]  <Nop>
+onoremap a]  <Esc>
 vnoremap a]  <Nop>
-onoremap i]  <Nop>
+onoremap i]  <Esc>
 vnoremap i]  <Nop>
-onoremap a[  <Nop>
+onoremap a[  <Esc>
 vnoremap a[  <Nop>
-onoremap i[  <Nop>
+onoremap i[  <Esc>
 vnoremap i[  <Nop>
 
-onoremap a"  <Nop>
+onoremap a"  <Esc>
 vnoremap a"  <Nop>
-onoremap i"  <Nop>
+onoremap i"  <Esc>
 vnoremap i"  <Nop>
 
 " exコマンド
