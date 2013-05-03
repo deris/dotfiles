@@ -409,6 +409,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
+  NeoBundleLazy 'tpope/vim-endwise', { 'autoload' : {
+    \ 'insert' : 1,
+    \ }}
   "NeoBundle 'tpope/vim-fugitive'
   "NeoBundle 'tpope/vim-markdown'
   "NeoBundle 'tpope/vim-rails'
@@ -1472,7 +1475,7 @@ if s:bundled('neocomplcache')
 
   " Recommended key-mappings.
   " <CR>: close popup and save indent.
-  inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+  "inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
   " <TAB>: completion.
   "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
   " <C-h>, <BS>: close popup and delete backword char.
