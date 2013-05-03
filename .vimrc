@@ -646,6 +646,7 @@ set showtabline=2
 set previewheight=10
 set helpheight=12
 set virtualedit=block
+set scrolloff=5
 set backup
 
 function! s:LetAndMkdir(variable, path) "{{{
@@ -1100,6 +1101,12 @@ endfunction
 
 nnoremap gg ggzvzz
 nnoremap G  Gzvzz
+
+" scrolloffが設定されていてもスクリーンの最上行に移動する
+if &scrolloff > 0
+  execute 'nnoremap H H' . &scrolloff . 'kzvzz'
+  execute 'nnoremap L L' . &scrolloff . 'jzvzz'
+endif
 
 " 仮想編集の変更
 nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>:setlocal virtualedit?<CR>
