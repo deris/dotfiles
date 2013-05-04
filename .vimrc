@@ -677,7 +677,7 @@ if has('persistent_undo')
   call s:LetAndMkdir('&undodir', $DOTVIM.'/undo')
 endif
 
-set tags=./tags,../tags,./*/tags,../../tags,../../../tags,../../../../tags
+set tags=./tags;
 
 let &termencoding = &encoding
 set encoding=utf-8
