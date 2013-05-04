@@ -2005,6 +2005,14 @@ if s:bundled('git-vim')
   nnoremap [git]f :<C-u>GitCatFile %<CR>
   nnoremap [git]v :<C-u>GitVimDiffMerge<CR>
   nnoremap [git]b zR:<C-u>GitBlame<CR>
+
+  augroup git_diff
+    autocmd!
+    " 差分間の移動
+    autocmd FileType git-diff nnoremap <silent><buffer> <C-j>  :<C-u>call search('^[^+-].*\n\zs[+-]', "W")<CR>
+    autocmd FileType git-diff nnoremap <silent><buffer> <C-k>  :<C-u>call search('^[^+-].*\n\zs[+-]', "bW")<CR>
+  augroup END
+
 endif
 " }}}
 
