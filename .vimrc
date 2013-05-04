@@ -2129,9 +2129,11 @@ endif
 " for thinca/vim-quickrun {{{2
 if s:bundled('vim-quickrun')
   let g:quickrun_config = {}
-  let g:quickrun_config = { '*' : {'shebang' : '0' }}
-  let g:quickrun_config._ = {'runmode': "async:remote:vimproc", 'split': 'below 10sp'}
-  let g:quickrun_config._.runmode = 'async:vimproc'
+  let g:quickrun_config._ = {
+    \ 'runner' : 'vimproc',
+    \ 'outputter/buffer/split' : 'botright 10sp',
+    \ 'runmode' : 'async:vimproc'
+    \ }
 
   let g:quickrun_config.markdown = {
     \ 'type'      : 'markdown/pandoc',
