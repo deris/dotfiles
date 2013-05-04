@@ -933,11 +933,6 @@ vnoremap aa  a>
 onoremap ia  i>
 vnoremap ia  i>
 
-onoremap aa  a>
-vnoremap aa  a>
-onoremap ia  i>
-vnoremap ia  i>
-
 onoremap ar  a]
 vnoremap ar  a]
 onoremap ir  i]
