@@ -818,6 +818,9 @@ vnoremap gk k
 noremap <Space>h ^
 noremap <Space>l $
 
+" same as above. but don't use noremap because want to map to matchit plugin
+map <Space>n %
+
 " move middle of current line.(not middle of screen)
 nnoremap <silent> gm   :<C-u>call <SID>MoveMiddleOfLine()<CR>
 
@@ -2074,7 +2077,7 @@ endif
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
 if s:bundled('nerdtree')
-  nnoremap <Space>n :<C-u>NERDTreeToggle<CR>
+  nnoremap <Leader>n :<C-u>NERDTreeToggle<CR>
 endif
 " }}}
 
