@@ -836,7 +836,7 @@ function! s:MoveMiddleOfLine()
 endfunction
 
 " vimrc編集
-if has('gui_running')
+if has('gui')
   nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . resolve($MYVIMRC)<CR>
   nnoremap <silent> <Space>g.  :<C-u>execute 'tab drop ' . resolve($MYGVIMRC)<CR>
 else
