@@ -1086,24 +1086,21 @@ nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
 " 検索方向が変わってもnは下、Nは上に移動できるように対応
-nnoremap <expr> n <SID>search_forward_p() ? 'nzvzz' : 'Nzvzz'
-nnoremap <expr> N <SID>search_forward_p() ? 'Nzvzz' : 'nzvzz'
-vnoremap <expr> n <SID>search_forward_p() ? 'nzvzz' : 'Nzvzz'
-vnoremap <expr> N <SID>search_forward_p() ? 'Nzvzz' : 'nzvzz'
-onoremap <expr> n <SID>search_forward_p() ? 'nzz' : 'Nzz'
-onoremap <expr> N <SID>search_forward_p() ? 'Nzz' : 'nzz'
+nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
+nnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
+vnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
+vnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
+onoremap <expr> n <SID>search_forward_p() ? 'n' : 'N'
+onoremap <expr> N <SID>search_forward_p() ? 'N' : 'n'
 
 function! s:search_forward_p()
   return exists('v:searchforward') ? v:searchforward : 1
 endfunction
 
-nnoremap gg ggzvzz
-nnoremap G  Gzvzz
-
 " scrolloffが設定されていてもスクリーンの最上行に移動する
 if &scrolloff > 0
-  execute 'nnoremap H H' . &scrolloff . 'kzvzz'
-  execute 'nnoremap L L' . &scrolloff . 'jzvzz'
+  execute 'nnoremap H H' . &scrolloff . 'k'
+  execute 'nnoremap L L' . &scrolloff . 'j'
 endif
 
 " 仮想編集の変更
@@ -1815,15 +1812,15 @@ if s:bundled('vim-submode')
   call submode#map('tab-mode', 'n', '', 'd', ':<C-u>tabclose<CR>')
 
   call submode#enter_with('ex-move', 'nv', '', '<Space><Space>', '<Nop>')
-  call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<C-f>zz')
-  call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<C-b>zz')
+  call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<C-f>')
+  call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<C-b>')
   call submode#leave_with('ex-move', 'nv', '', '<Space>')
-  call submode#map('ex-move', 'nv', '', 'j', '<C-f>zz')
-  call submode#map('ex-move', 'nv', '', 'k', '<C-b>zz')
-  call submode#map('ex-move', 'nv', '', 'n', '5jzz')
-  call submode#map('ex-move', 'nv', '', 'm', '5kzz')
-  call submode#map('ex-move', 'nv', '', 'l', '}zz')
-  call submode#map('ex-move', 'nv', '', 'h', '{zz')
+  call submode#map('ex-move', 'nv', '', 'j', '<C-f>')
+  call submode#map('ex-move', 'nv', '', 'k', '<C-b>')
+  call submode#map('ex-move', 'nv', '', 'n', '5j')
+  call submode#map('ex-move', 'nv', '', 'm', '5k')
+  call submode#map('ex-move', 'nv', '', 'l', '}')
+  call submode#map('ex-move', 'nv', '', 'h', '{')
 
   call submode#enter_with('change-list', 'n', '', 'g;', 'g;zz')
   call submode#enter_with('change-list', 'n', '', 'g,', 'g,zz')
@@ -2095,7 +2092,7 @@ let g:syntastic_auto_loc_list = 2
 if s:bundled('vim-ambicmd')
   cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
   cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
-  cnoremap <expr> <CR>      (getcmdtype() =~ '[/?]' ? "\<CR>zvzz" : ambicmd#expand("\<CR>"))
+  cnoremap <expr> <CR>      (getcmdtype() =~ '[/?]' ? "\<CR>zv" : ambicmd#expand("\<CR>"))
 
   function! g:ambicmd_my_custom_rule(cmd)
     return [
@@ -2187,14 +2184,14 @@ endif
 "---------------------------------------------------------------------------
 " for thinca/vim-visualstar {{{2
 if s:bundled('vim-visualstar')
-  map * <Plug>(visualstar-*)Nzz
-  map # <Plug>(visualstar-#)Nzz
-  map g* <Plug>(visualstar-g*)Nzz
-  map g# <Plug>(visualstar-g#)Nzz
-  map <Space>/ <Plug>(visualstar-*)Nzz
-  map <Space>? <Plug>(visualstar-#)Nzz
-  map g<Space>/ <Plug>(visualstar-g*)Nzz
-  map g<Space>? <Plug>(visualstar-g#)Nzz
+  map * <Plug>(visualstar-*)N
+  map # <Plug>(visualstar-#)N
+  map g* <Plug>(visualstar-g*)N
+  map g# <Plug>(visualstar-g#)N
+  map <Space>/ <Plug>(visualstar-*)N
+  map <Space>? <Plug>(visualstar-#)N
+  map g<Space>/ <Plug>(visualstar-g*)N
+  map g<Space>? <Plug>(visualstar-g#)N
 endif
 " }}}
 
@@ -2248,16 +2245,17 @@ endif
 "---------------------------------------------------------------------------
 " for deris/columnjump {{{2
 if s:bundled('columnjump')
-  nmap <c-k> <Plug>(columnjump-backward)zz
-  nmap <c-j> <Plug>(columnjump-forward)zz
+  " TODO: vmapにも割り当てたいけどneocomとバッティングしている
+  nmap <c-k> <Plug>(columnjump-backward)
+  nmap <c-j> <Plug>(columnjump-forward)
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for deris/parajump {{{2
 if s:bundled('parajump')
-  map { <Plug>(parajump-backward)zz
-  map } <Plug>(parajump-forward)zz
+  map { <Plug>(parajump-backward)
+  map } <Plug>(parajump-forward)
 endif
 " }}}
 
