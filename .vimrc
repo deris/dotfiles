@@ -660,7 +660,7 @@ function! s:LetAndMkdir(variable, path) "{{{
     echohl None
   endtry
 
-  execute printf("let %s = '%s'", a:variable, a:path)
+  execute printf("let %s = a:path", a:variable)
 endfunction "}}}
 
 call s:LetAndMkdir('&backupdir', $DOTVIM.'/backup')
