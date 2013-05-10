@@ -1346,10 +1346,6 @@ augroup vimlang
   autocmd FileType vim setlocal expandtab tabstop=2 shiftwidth=2 list
   autocmd FileType vim let g:vim_indent_cont = 2
 augroup END
-augroup snippetlang
-  autocmd!
-  autocmd FileType snippet setlocal noexpandtab tabstop=4 shiftwidth=4 list
-augroup END
 augroup makefile
   autocmd!
   autocmd FileType make setlocal noexpandtab list
@@ -1542,6 +1538,34 @@ if s:bundled('neosnippet')
     set conceallevel=2 concealcursor=i
   endif
   set completeopt-=preview
+
+  augroup snippetlang
+    autocmd!
+    autocmd FileType snippet setlocal noexpandtab tabstop=4 shiftwidth=4 list
+    autocmd FileType snippet setlocal foldmethod=expr
+    autocmd FileType snippet setlocal foldexpr=getline(v:lnum)=~'^snippet'?'>1':getline(v:lnum)=~'^#'?0:getline(v:lnum+1)=~'^snippet'?'<1':'='
+    autocmd FileType snippet setlocal foldtext=FoldTextOfSnippet()
+  augroup END
+
+  " snippetの折りたたみ用関数。snippet名とabbrを返す
+  function! FoldTextOfSnippet()
+    let snippet = matchstr(getline(v:foldstart), '^snippet\s\+\zs\S.*')
+    let abbrstr = ''
+
+    " snippetの定義の2行目から5行目まででabbrを探す
+    for i in range(1, 4)
+      if getline(v:foldstart+i) !~ '^\w'
+        break
+      endif
+      if getline(v:foldstart+i) =~ '^abbr'
+        let abbrstr = matchstr(getline(v:foldstart+i), '^abbr\s\+\zs\S.*')
+        break
+      endif
+    endfor
+
+    return printf('%- 30s', snippet) . abbrstr
+  endfunction
+
 endif
 " }}}
 
