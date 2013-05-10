@@ -1667,7 +1667,7 @@ if s:bundled('vimfiler')
 
   autocmd FileType vimfiler call s:vimfiler_my_settings()
   function! s:vimfiler_my_settings() "{{{
-    if has('gui_running')
+    if has('gui')
       nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabdrop')
     else
       nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabopen')
