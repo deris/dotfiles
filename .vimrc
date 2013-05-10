@@ -1467,6 +1467,11 @@ if s:bundled('neocomplcache')
   endif
   let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
+  " for neco-look
+  let g:neocomplcache_text_mode_filetypes = {
+    \ 'markdown' : 1,
+    \ 'mkd' : 1,
+    \ }
 
   " Plugin key-mappings.
   inoremap <expr><C-g>     neocomplcache#undo_completion()
