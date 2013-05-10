@@ -1594,6 +1594,7 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
   nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
   nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
+  nnoremap <silent> [unite]m   :<C-u>Unite mapping<CR>
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
