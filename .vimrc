@@ -745,7 +745,7 @@ augroup cursorsetting
 augroup END
 
 " 自動的に現在編集中のファイルのカレントディレクトリに移動
-augroup grlcd
+augroup movecurrentdir
   autocmd!
   autocmd BufRead,BufEnter * lcd %:p:h
 augroup END
@@ -1687,6 +1687,39 @@ if s:bundled('vimfiler')
 
   endfunction "}}}
 
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for airblade/vim-rooter {{{2
+if s:bundled('vim-rooter')
+  let g:rooter_use_lcd = 1
+
+  augroup movecurrentdir
+    autocmd!
+    autocmd BufRead,BufEnter * call MoveRootDirOrCurrentFileDir()
+  augroup END
+
+  " Move project top directory with vim-rooter.
+  " If can't, move current file's directory.
+  function! MoveRootDirOrCurrentFileDir()
+    let currentfile = expand("%:p")
+
+    " Don't move if current file is an unnamed buffer
+    if currentfile == ''
+      return
+    endif
+
+    Rooter
+
+    let cwd = getcwd()
+
+    " Move current file's directory if could't move project top directory
+    if stridx(currentfile, cwd) != 0 ||
+      \finddir('.git', cwd) == ''
+      lcd %:p:h
+    endif
+  endfunction
 endif
 " }}}
 
