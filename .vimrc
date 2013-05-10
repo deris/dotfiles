@@ -1768,8 +1768,22 @@ if s:bundled('vim-altr')
   call altr#define('plugin/%.vim',
     \              'autoload/%.vim')
 
+  call altr#define('%.rb',
+    \              'spec/%_spec.rb')
+  call altr#define('app/models/%.rb',
+    \              'spec/models/%_spec.rb',
+    \              'spec/factories/%.rb')
+  call altr#define('app/controllers/%.rb',
+    \              'spec/controllers/%_spec.rb')
+  call altr#define('app/helpers/%.rb',
+    \              'spec/helpers/%_spec.rb')
+  call altr#define('spec/routing/%_spec.rb',
+    \              'config/routes.rb')
+
   command! A  call altr#forward()
   command! B  call altr#back()
+
+  nmap <C-m>   <Plug>(altr-forward)
 endif
 " }}}
 
