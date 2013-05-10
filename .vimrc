@@ -1616,7 +1616,8 @@ if s:bundled('unite.vim')
     " action key mapping
     nnoremap <silent><buffer><expr> r     unite#do_action('replace')
 
-    call unite#custom_default_action('directory', 'lcd')
+    call unite#custom_default_action('directory', 'tabvimfiler')
+    call unite#custom_default_action('directory_mru', 'tabvimfiler')
 
   endfunction "}}}
 
