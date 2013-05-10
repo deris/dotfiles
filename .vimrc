@@ -873,9 +873,6 @@ vnoremap <Space>y "*y
 nnoremap <Space>d "*d
 nnoremap <Space>D "*d$
 vnoremap <Space>d "*d
-" クリップボードからPasteモードにして貼り付け
-nnoremap <Space>sp :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*p:let &paste=b:save_paste<CR>
-nnoremap <Space>sP :<C-u>let b:save_paste=&paste<CR>:set paste<CR>"*P:let &paste=b:save_paste<CR>
 
 " 空行挿入(繰り返し対応)
 nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
