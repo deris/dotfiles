@@ -731,6 +731,7 @@ augroup END
 
 " vimdiff時のハイライト
 augroup diffcolor
+  autocmd!
   autocmd ColorScheme * hi DiffAdd    ctermfg=black ctermbg=2
   autocmd ColorScheme * hi DiffChange ctermfg=black ctermbg=3
   autocmd ColorScheme * hi DiffDelete ctermfg=black ctermbg=6
@@ -1428,6 +1429,7 @@ let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let g:EasyMotion_do_shade = 1
 augroup easymotioncolor
+  autocmd!
   autocmd ColorScheme * hi EasyMotionTarget ctermbg=none ctermfg=green
   autocmd ColorScheme * hi EasyMotionShade  ctermbg=none ctermfg=blue
 augroup END
