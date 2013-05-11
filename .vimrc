@@ -1427,7 +1427,7 @@ endif
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let g:EasyMotion_do_shade = 1
-augroup diffcolor
+augroup easymotioncolor
   autocmd ColorScheme * hi EasyMotionTarget ctermbg=none ctermfg=green
   autocmd ColorScheme * hi EasyMotionShade  ctermbg=none ctermfg=blue
 augroup END
