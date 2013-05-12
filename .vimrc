@@ -1096,8 +1096,8 @@ endfunction
 
 " scrolloffが設定されていてもスクリーンの最上行に移動する
 if &scrolloff > 0
-  execute 'nnoremap H H' . &scrolloff . 'k'
-  execute 'nnoremap L L' . &scrolloff . 'j'
+  nnoremap <expr> H 'H' . &scrolloff . 'kzvzz'
+  nnoremap <expr> L 'L' . &scrolloff . 'jzvzz'
 endif
 
 " 仮想編集の変更
