@@ -2215,6 +2215,9 @@ endif
 "---------------------------------------------------------------------------
 " for t9md/vim-surround_custom_mapping {{{2
 let g:surround_custom_mapping = {}
+let g:surround_custom_mapping._ = {
+  \ 's': " \r ",
+  \ }
 let g:surround_custom_mapping.perl = {
   \ 'Q': "q(\r)",
   \ 'D': "qq(\r)",
