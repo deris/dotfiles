@@ -2324,12 +2324,6 @@ if s:bundled('vim-quickrun')
     \ 'outputter' : 'browser',
     \ 'cmdopt'    : '-s'
     \ }
-  let g:quickrun_config.io = {
-    \   'command': 'io',
-    \ }
-  let g:quickrun_config.scala = {
-    \   'command': 'scala',
-    \ }
 
   nnoremap <silent> <Leader>r  :<C-u>QuickRun -mode n<CR>
   vnoremap <silent> <Leader>r  :<C-u>QuickRun -mode v<CR>
