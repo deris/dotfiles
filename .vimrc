@@ -1899,6 +1899,7 @@ endif
 if s:bundled('vim-submode')
   let g:submode_keyseqs_to_leave = ['<Esc>']
   let g:submode_timeoutlen = 1000000
+  let g:submode_keep_leaving_key = 1
 
   call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
   call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
