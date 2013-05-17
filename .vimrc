@@ -1862,7 +1862,7 @@ if s:bundled('vim-altr')
   command! A  call altr#forward()
   command! B  call altr#back()
 
-  nmap <C-m>   <Plug>(altr-forward)
+  nmap <Leader>m   <Plug>(altr-forward)
 endif
 " }}}
 
