@@ -1044,6 +1044,12 @@ cnoremap <C-r>' <C-r>"
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
+" 履歴呼び出しキー入れ替え
+cnoremap <C-p>   <Up>
+cnoremap <C-n>   <Down>
+cnoremap <Up>    <C-p>
+cnoremap <Down>  <C-n>
+
 " 置換の自動入力
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
 vnoremap gs  :s///g<Left><Left><Left>
