@@ -2013,6 +2013,15 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for kana/vim-smartinput {{{2
+if s:bundled('vim-smartinput')
+  call smartinput#clear_rules()
+  nnoremap <silent> <Leader>ie  :<C-u>call smartinput#define_default_rules()<CR>
+  nnoremap <silent> <Leader>id  :<C-u>call smartinput#clear_rules()<CR>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-smarttill {{{2
 if s:bundled('vim-smarttill')
   omap q  <Plug>(smarttill-t)
