@@ -2375,13 +2375,13 @@ endif
 " for thinca/vim-visualstar {{{2
 if s:bundled('vim-visualstar')
   map * <Plug>(visualstar-*)N
-  map # <Plug>(visualstar-#)N
+  map # <Plug>(visualstar-#)n
   map g* <Plug>(visualstar-g*)N
-  map g# <Plug>(visualstar-g#)N
+  map g# <Plug>(visualstar-g#)n
   map <Space>/ <Plug>(visualstar-*)N
-  map <Space>? <Plug>(visualstar-#)N
+  map <Space>? <Plug>(visualstar-#)n
   map g<Space>/ <Plug>(visualstar-g*)N
-  map g<Space>? <Plug>(visualstar-g#)N
+  map g<Space>? <Plug>(visualstar-g#)n
 endif
 " }}}
 
