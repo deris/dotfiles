@@ -1813,18 +1813,18 @@ endif
 "---------------------------------------------------------------------------
 " for h1mesuke/vim-alignta {{{2
 if s:bundled('vim-alignta')
-  nnoremap <Space>as :<C-u>Alignta =<CR>
-  vnoremap <Space>as :Alignta =<CR>
-  nnoremap <Space>a= :<C-u>Alignta =<CR>
-  vnoremap <Space>a= :Alignta =<CR>
-  nnoremap <Space>ah :<C-u>Alignta =><CR>
-  nnoremap <Space>ah :<C-u>Alignta =><CR>
-  vnoremap <Space>a> :Alignta =><CR>
-  vnoremap <Space>a> :Alignta =><CR>
-  nnoremap <Space>a, :<C-u>Alignta ,<CR>
-  vnoremap <Space>a, :Alignta ,<CR>
-  nnoremap <Space>a: :<C-u>Alignta :<CR>
-  vnoremap <Space>a: :Alignta :<CR>
+  nnoremap <Leader>as :<C-u>Alignta =<CR>
+  vnoremap <Leader>as :Alignta =<CR>
+  nnoremap <Leader>a= :<C-u>Alignta =<CR>
+  vnoremap <Leader>a= :Alignta =<CR>
+  nnoremap <Leader>ah :<C-u>Alignta =><CR>
+  nnoremap <Leader>ah :<C-u>Alignta =><CR>
+  vnoremap <Leader>a> :Alignta =><CR>
+  vnoremap <Leader>a> :Alignta =><CR>
+  nnoremap <Leader>a, :<C-u>Alignta ,<CR>
+  vnoremap <Leader>a, :Alignta ,<CR>
+  nnoremap <Leader>a: :<C-u>Alignta :<CR>
+  vnoremap <Leader>a: :Alignta :<CR>
 
   "augroup perllang
     "autocmd FileType perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
