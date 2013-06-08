@@ -512,6 +512,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'ynkdir/vim-remote'
   "NeoBundle 'yuratomo/w3m.vim'
   NeoBundle 'deris/columnjump'
+  NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
     \ { 'depends' : 'kana/vim-textobj-user' }
@@ -2438,6 +2439,19 @@ if s:bundled('columnjump')
   " TODO: vmapにも割り当てたいけどneocomとバッティングしている
   nmap <c-k> <Plug>(columnjump-backward)
   nmap <c-j> <Plug>(columnjump-forward)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/vim-fitcolumn {{{2
+if s:bundled('vim-fitcolumn')
+  let g:fitcolumn_no_default_key_mappings = 1
+  inoremap <expr> <C-j><C-k>  fitcolumn#fitabovecolumn({
+    \ 'insertchar': ' ',
+    \ })
+  inoremap <expr> <C-j><C-j>  fitcolumn#fitbelowcolumn({
+    \ 'insertchar': ' ',
+    \ })
 endif
 " }}}
 
