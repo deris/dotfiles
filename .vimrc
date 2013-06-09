@@ -2469,6 +2469,13 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for deris/vim-rengbang {{{2
+if s:bundled('vim-rengbang')
+  map <Leader>sn <Plug>(operator-rengbang)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for errormarker.vim {{{2
 let errormarker_disablemappings = 1
 " }}}
