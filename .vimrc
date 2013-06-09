@@ -50,11 +50,14 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   "NeoBundle 'gmarik/vundle'
-  "NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
-    "\ 'commands' : 'Switch',
-    "\ }}
+  NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
+    \ 'commands' : 'Switch',
+    \ }}
   "NeoBundleLazy 'Lokaltog/vim-easymotion'
-  NeoBundle 'Lokaltog/vim-powerline'
+  "NeoBundle 'Lokaltog/vim-powerline'
+  NeoBundle 'Lokaltog/powerline', {
+    \ 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim',
+    \ }
   "NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : {
     "\ 'filetypes' : ['c', 'cpp'],
     "\ }}
@@ -303,7 +306,7 @@ if s:bundled('neobundle.vim')
     \ 'unite_sources' : 'webcolorname',
     \ }}
   NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
-    \ 'filetypes' : ['markdown']
+    \ 'filetypes' : ['markdown', 'mkd']
     \ }}
   "NeoBundle 'reinh/vim-makegreen'
   "NeoBundle 'rhysd/accelerated-jk'
@@ -514,6 +517,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
+  NeoBundle 'deris/vim-rengbang'
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
     \ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'deris/vim-loadafterft'
