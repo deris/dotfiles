@@ -731,7 +731,7 @@ endif
 augroup hilightIdegraphicSpace
   autocmd!
   autocmd VimEnter,ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd WinEnter * match IdeographicSpace /　/
+  autocmd Syntax * syntax match IdeographicSpace containedin=ALL /　/
 augroup END
 
 " vimdiff時のハイライト
