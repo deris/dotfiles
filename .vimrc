@@ -10,6 +10,14 @@
 "---------------------------------------------------------------------------
 " basic settings {{{1
 
+if has('vim_starting') && has('reltime')
+  let g:startuptime = reltime()
+  augroup vimrc-startuptime
+    autocmd! VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+      \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+  augroup END
+endif
+
 if has('unix')
   let $DOTVIM=expand('~/.vim')
 else
