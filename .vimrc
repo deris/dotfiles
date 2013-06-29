@@ -2469,14 +2469,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for deris/parajump {{{2
-if s:bundled('parajump')
-  map { <Plug>(parajump-backward)
-  map } <Plug>(parajump-forward)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for deris/vim-rengbang {{{2
 if s:bundled('vim-rengbang')
   map <Leader>sn <Plug>(operator-rengbang)
