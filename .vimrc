@@ -298,6 +298,9 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/webapi-vim'
   NeoBundle 'mattn/zencoding-vim'
+  NeoBundle 'mhinz/vim-startify'
+  "NeoBundle 'mhinz/vim-signify'
+  NeoBundle 'deris/vim-signify'
   "NeoBundle 'mileszs/ack.vim'
   NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
@@ -320,6 +323,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
     \ 'filetypes' : ['markdown', 'mkd']
     \ }}
+  NeoBundle 'rbtnn/vimconsole.vim'
   "NeoBundle 'reinh/vim-makegreen'
   "NeoBundle 'rhysd/accelerated-jk'
   "NeoBundle 'rhysd/clever-f.vim', 'm@ster'
@@ -364,6 +368,8 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'teramako/jscomplete-vim', { 'autoload' : {
     \   'filetypes' : ['javascript']
     \ }}
+  NeoBundle 'terryma/vim-expand-region'
+  "NeoBundle 'terryma/vim-multiple-cursors'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundleLazy 'thinca/vim-fontzoom', {
     \ 'gui' : 1,
