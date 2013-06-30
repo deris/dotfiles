@@ -430,9 +430,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
-  NeoBundleLazy 'tpope/vim-endwise', { 'autoload' : {
-    \ 'insert' : 1,
-    \ }}
+  NeoBundle 'tpope/vim-endwise'
   "NeoBundle 'tpope/vim-fugitive'
   "NeoBundle 'tpope/vim-markdown'
   "NeoBundle 'tpope/vim-rails'
