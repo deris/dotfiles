@@ -2307,6 +2307,29 @@ let g:syntastic_auto_loc_list = 2
 
 "---------------------------------------------------------------------------
 " for thinca/vim-ambicmd {{{2
+if s:bundled('vim-expand-region')
+  let g:expand_region_text_objects = {
+    \ 'iw'  : 0,
+    \ 'iW'  : 0,
+    \ 'i"'  : 0,
+    \ 'i''' : 0,
+    \ 'i]'  : 1,
+    \ 'ib'  : 1,
+    \ 'iB'  : 1,
+    \ 'il'  : 0,
+    \ 'ii'  : 0,
+    \ 'ai'  : 0,
+    \ 'ip'  : 0,
+    \ 'ie'  : 0,
+    \ }
+  call submode#enter_with('expand-region', 'nv', 'r', '<Leader>e', '<Plug>(expand_region_expand)')
+  call submode#map('expand-region', 'nv', 'r', 'e', '<Plug>(expand_region_expand)')
+  call submode#map('expand-region', 'nv', 'r', 's', '<Plug>(expand_region_shrink)')
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for thinca/vim-ambicmd {{{2
 if s:bundled('vim-ambicmd')
   cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
   cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
