@@ -211,8 +211,12 @@ if s:bundled('neobundle.vim')
     \   'functions' : [
     \     'altr#forward',
     \     'altr#back',
-    \   ]},
-    \ }
+    \   ],
+    \   'mappings' : [
+    \     '<Plug>(altr-forward)',
+    \     '<Plug>(altr-back)',
+    \   ],
+    \ }}
   NeoBundle 'kana/vim-arpeggio'
   NeoBundleLazy 'kana/vim-fakeclip'
   "NeoBundle 'kana/vim-gf-user'
