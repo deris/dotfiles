@@ -1040,6 +1040,10 @@ if has('mac')
   nnoremap <D-L>   <C-w>L
 endif
 
+" Search the word nearest to the cursor in new window.
+nnoremap <C-w>*  <C-w>s*
+nnoremap <C-w>#  <C-w>s#
+
 " command mode
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
