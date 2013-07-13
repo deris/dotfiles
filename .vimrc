@@ -2172,6 +2172,18 @@ if s:bundled('git-vim')
     autocmd FileType git-log setlocal foldtext=FoldTextOfGitLog()
   augroup END
 
+  " Inspired by ujihisa's vimrc
+  function! s:GitLogViewer()
+    " vnewだとコミットメッセージが切れてしまうのでnew
+    new
+    VimProcRead git log -u 'ORIG_HEAD..HEAD'
+    set filetype=git-log.git-diff
+    setlocal foldmethod=expr
+    setlocal foldexpr=getline(v:lnum)=~'^commit'?'>1':getline(v:lnum+1)=~'^commit'?'<1':'='
+    setlocal foldtext=FoldTextOfGitLog()
+  endfunction
+  command! GitLogViewer call s:GitLogViewer()
+
   " git log表示時の折りたたみ用
   function! FoldTextOfGitLog()
     let month_map = {
@@ -2218,6 +2230,50 @@ if s:bundled('git-vim')
     let datestr = join([year, month_map[month], day], '-')
 
     return join([datestr, time, author, message], ' ')
+  endfunction
+
+  function! BranchHashList()
+    let branchhashlist = []
+    let branchlist = BranchList()
+    for branch in branchlist
+      call add(branchhashlist, {
+        \ 'branch'  : branch[0],
+        \ 'hash'    : CommitHash(branch[0]),
+        \ 'current' : branch[1],
+        \ })
+    endfor
+    return branchhashlist
+  endfunction
+
+  function! CommitHash(branch)
+    try
+      let hash = system('git rev-parse ' . a:branch)
+      let devidedhash = split(hash, '[\r\n]\+')
+    catch
+      return ''
+    endtry
+
+    return devidedhash[0]
+  endfunction
+
+  function! BranchList()
+    let branchlist = []
+    try
+      let res = system('git branch -a')
+      let lines = split(res, '[\r\n]\+')
+
+      for line in lines
+        let list = matchlist(line, '^\(.\).\%(remotes/\)\?\zs\S\+')
+        let [branch, current] = list[0:1]
+        if branch != ''
+          call add(branchlist, [branch, current=='*'])
+        endif
+      endfor
+    catch
+      return []
+    endtry
+
+    return branchlist
   endfunction
 
 endif
