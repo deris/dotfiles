@@ -429,6 +429,7 @@ if s:bundled('neobundle.vim')
     \ }}
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
+  NeoBundle 'tpope/vim-commentary'
   "NeoBundle 'tpope/vim-eunuch'
   NeoBundle 'tpope/vim-endwise'
   NeoBundle 'tpope/vim-fugitive'
@@ -2487,6 +2488,16 @@ if s:bundled('vim-visualstar')
   map <Space>? <Plug>(visualstar-#)n
   map g<Space>/ <Plug>(visualstar-g*)N
   map g<Space>? <Plug>(visualstar-g#)n
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for tpope/vim-commentary {{{2
+if s:bundled('vim-commentary')
+  xmap <Leader>c   <Plug>Commentary
+  nmap <Leader>c   <Plug>Commentary
+  nmap <Leader>cc  <Plug>CommentaryLine
+  nmap <Leader>cu  <Plug>CommentaryUndo
 endif
 " }}}
 
