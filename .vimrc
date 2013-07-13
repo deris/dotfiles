@@ -2496,6 +2496,8 @@ if s:bundled('vim-fitcolumn')
   inoremap <expr> <C-j><C-j>  fitcolumn#fitbelowcolumn({
     \ 'insertchar': ' ',
     \ })
+  imap <C-j><C-h>  <Plug>(fitcolumn-abovecolumn)
+  imap <C-j><C-l>  <Plug>(fitcolumn-belowcolumn)
 endif
 " }}}
 
