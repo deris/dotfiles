@@ -1300,10 +1300,19 @@ command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <co
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
 "nnoremap <silent> gl :GoToTheLine<Cr>
 
+" If unite-quickfix is bundled use unite-quickfix, otherwise use built-in quickfix window
+function s:OpenQuickFix()
+  if s:bundled('unite.vim') && s:bundled('unite-quickfix')
+    Unite -no-quit -direction=botright quickfix
+  else
+    copen
+  endif
+endfunction
+
 " grep
 function! s:Grep(pattern, target)
   execute 'grep ' . a:pattern . ' ' . a:target
-  Unite -no-quit -direction=botright quickfix
+  call s:OpenQuickFix()
 endfunction
 
 command! -nargs=+ Grep call s:Grep(<f-args>)
