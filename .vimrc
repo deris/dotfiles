@@ -431,7 +431,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'tpope/vim-abolish'
   "NeoBundle 'tpope/vim-eunuch'
   NeoBundle 'tpope/vim-endwise'
-  "NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-fugitive'
   "NeoBundle 'tpope/vim-markdown'
   "NeoBundle 'tpope/vim-rails'
   NeoBundle 'tpope/vim-repeat'
@@ -2483,6 +2483,25 @@ if s:bundled('vim-visualstar')
   map <Space>? <Plug>(visualstar-#)n
   map g<Space>/ <Plug>(visualstar-g*)N
   map g<Space>? <Plug>(visualstar-g#)n
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for tpope/vim-fugitive {{{2
+if s:bundled('vim-fugitive')
+  nnoremap [Git]     <Nop>
+  nmap     <Space>g  [Git]
+
+  nnoremap [Git]d :<C-u>Gdiff<CR>
+  nnoremap [Git]D :<C-u>Gdiff --cached<CR>
+  nnoremap [Git]s :<C-u>Gstatus<CR>
+  nnoremap [Git]l :<C-u>Glog<CR>
+  nnoremap [Git]a :<C-u>Gwrite<CR>
+  nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
+  nnoremap [Git]c :<C-u>Gcommit -v<CR>
+  nnoremap [Git]C :<C-u>Git commit --amend<CR>
+  nnoremap [Git]b :<C-u>Gblame<CR>
+  nnoremap [Git]p :<C-u>Git push<Space>
 endif
 " }}}
 
