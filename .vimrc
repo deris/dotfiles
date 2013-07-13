@@ -2519,7 +2519,7 @@ if s:bundled('vim-fugitive')
   nnoremap [Git]d :<C-u>Gdiff<CR>
   nnoremap [Git]D :<C-u>Gdiff --cached<CR>
   nnoremap [Git]s :<C-u>Gstatus<CR>
-  nnoremap [Git]l :<C-u>Glog<CR>
+  nnoremap [Git]l :<C-u>Glog<CR>:call <SID>OpenQuickFix()<CR>
   nnoremap [Git]a :<C-u>Gwrite<CR>
   nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
   nnoremap [Git]c :<C-u>Gcommit -v<CR>
