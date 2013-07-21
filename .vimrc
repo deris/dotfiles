@@ -66,6 +66,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'Lokaltog/powerline', {
     "\ 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim',
     "\ }
+  "NeoBundle 'Raimondi/delimitMate'
   "NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : {
     "\ 'filetypes' : ['c', 'cpp'],
     "\ }}
@@ -143,6 +144,16 @@ if s:bundled('neobundle.vim')
   NeoBundle 'airblade/vim-rooter'
   NeoBundle 'airblade/vim-gitgutter'
   "NeoBundle 'akiomik/git-gutter-vim'
+  NeoBundleLazy 'basyura/J6uil.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'J6uil',
+    \   ],
+    \   'unite_sources' : [
+    \     'J6uil/rooms',
+    \     'J6uil/members',
+    \   ]},
+    \ }
   "NeoBundle 'benmills/vimux'
   NeoBundle 'bitc/vim-bad-whitespace'
   NeoBundle 'bling/vim-airline'
@@ -151,6 +162,18 @@ if s:bundled('neobundle.vim')
     "\               '<Plug>CamelCaseMotion_b'],
     "\ }}
   "NeoBundle 'bootleq/ShowMarks'
+  NeoBundleLazy 'choplin/unite-vim_hacks', { 'autoload' : {
+    \ 'unite_sources' : 'vim_hacks',
+    \ }}
+  NeoBundleLazy 'chrisbra/NrrwRgn', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'NR',
+    \     'NarrowRegion',
+    \     'NW',
+    \     'NarrowWindow',
+    \   ]},
+    \ }
   NeoBundleLazy 'chrisbra/SudoEdit.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -161,6 +184,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
+  "NeoBundle 'dahu/vim-fanfingtastic'
   "NeoBundleLazy 'daisuzu/rainbowcyclone.vim'
   "NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : {
     "\ 'filetypes' : ['python', 'python3'],
@@ -169,6 +193,7 @@ if s:bundled('neobundle.vim')
     \ 'filetypes' : ['scala']
     \ }}
   "NeoBundleLazy 'deton/jasegment.vim'
+  NeoBundleLazy 'dhruvasagar/vim-table-mode'
   "NeoBundle 'emonkak/vim-operator-comment',
     "\ { 'depends' : 'kana/vim-operator-user' }
   "NeoBundle 'emonkak/vim-operator-sort',
@@ -192,7 +217,7 @@ if s:bundled('neobundle.vim')
     \     'Alignta',
     \   ]},
     \ }
-  "NeoBundle 'h1mesuke/vim-benchmark'
+  NeoBundle 'h1mesuke/vim-benchmark'
   "NeoBundle 'h1mesuke/textobj-wiw'
     "\ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'hekyou/vim-rectinsert'
@@ -216,6 +241,8 @@ if s:bundled('neobundle.vim')
     "\ 'filetypes' : 'javascript',
     "\ }}
   "NeoBundle 'jpalardy/vim-slime'
+  "NeoBundle 'lilydjwg/colorizer'
+  NeoBundle 'lucapette/vim-textobj-underscore'
   "NeoBundle 'kana/vim-advice'
   NeoBundleLazy 'kana/vim-altr', {
     \ 'autoload' : {
@@ -269,6 +296,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'kana/vim-textobj-syntax',
     "\ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-vspec'
+  NeoBundle 'kannokanno/vimtest'
   NeoBundleLazy 'kien/ctrlp.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -277,6 +305,7 @@ if s:bundled('neobundle.vim')
     \     'CtrlPCurFile',
     \   ]},
     \ }
+  "NeoBundle 'kshenoy/vim-signature'
   "NeoBundle 'vexxor/kwbd.vim'
   "NeoBundle 'majutsushi/tagbar'
   "NeoBundle 'mattn/asyncgrep-vim'
@@ -308,6 +337,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mattn/vim-textobj-url',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/webapi-vim'
+  NeoBundleLazy 'mattn/wwwrenderer-vim'
   NeoBundle 'mattn/zencoding-vim'
   NeoBundle 'mhinz/vim-startify'
   "NeoBundle 'mhinz/vim-signify'
@@ -318,6 +348,20 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundleLazy 'nono/jquery.vim', { 'autoload' : {
+    \   'filetypes' : ['jquery']
+    \ }}
+  NeoBundleLazy 'nosami/Omnisharp', {
+    \ 'autoload' : {
+    \   'filetypes' : ['cs']
+    \ },
+    \ 'build' : {
+    \   'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+    \   'mac': 'xbuild server/OmniSharp.sln',
+    \   'unix': 'xbuild server/OmniSharp.sln',
+    \ }}
+  "NeoBundle 'osyo-manga/vim-anzu'
+  NeoBundle 'osyo-manga/vim-jplus'
   NeoBundle 'osyo-manga/vim-reanimate'
   "NeoBundle 'osyo-manga/vim-textobj-multiblock',
     "\ { 'depends' : 'kana/vim-textobj-user' }
@@ -340,7 +384,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'rhysd/clever-f.vim', 'm@ster'
   NeoBundleLazy 'rking/ag.vim'
   NeoBundle 'rphillips/vim-zoomwin'
-  NeoBundle 'scrooloose/nerdcommenter'
+  "NeoBundle 'scrooloose/nerdcommenter'
   NeoBundleLazy 'scrooloose/nerdtree', {
     \ 'autoload' : {
     \   'commands' : [
@@ -403,9 +447,7 @@ if s:bundled('neobundle.vim')
     \     'PP',
     \   ]},
     \ }
-  NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
-    \ 'filetypes' : ['unite', 'quickfix'],
-    \ }}
+  NeoBundle 'thinca/vim-qfreplace'
   NeoBundleLazy 'thinca/vim-quickrun', {
     \ 'autoload' : {
     \   'mappings' : [
@@ -431,8 +473,8 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'thinca/vim-singleton'
   "NeoBundle 'thinca/vim-template'
-  "NeoBundle 'thinca/vim-textobj-comment',
-    "\ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'thinca/vim-textobj-comment',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'thinca/vim-textobj-between',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
@@ -542,6 +584,9 @@ if s:bundled('neobundle.vim')
     \ }}
   "NeoBundle 'ynkdir/vim-remote'
   "NeoBundle 'yuratomo/w3m.vim'
+  NeoBundleLazy 'zhaocai/unite-scriptnames', { 'autoload' : {
+    \ 'unite_sources' : 'scriptnames',
+    \ }}
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
@@ -579,6 +624,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'dbext.vim'
   "NeoBundle 'errormarker.vim'
   "NeoBundle 'grep.vim'
+  NeoBundle 'gtags.vim'
   NeoBundle 'matchit.zip'
   "NeoBundle 'monday'
   "NeoBundle 'perl-support.vim'
@@ -599,6 +645,7 @@ if s:bundled('neobundle.vim')
 
   " color scheme
   NeoBundleLazy 'altercation/vim-colors-solarized'
+  NeoBundle 'croaker/mustang-vim'
   NeoBundle 'deris/molokai'
   NeoBundle 'deris/vim-wombat'
   NeoBundleLazy 'jnurmine/Zenburn'
