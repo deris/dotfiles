@@ -979,6 +979,12 @@ nnoremap <Space>; @:
 " <Leader>.で直前の@xを繰り返し
 nnoremap <Leader>. @@
 
+" .: repeats the last command on every line
+vnoremap .  :normal .<CR>
+
+" @: repeats macro on every line
+vnoremap @  :normal @
+
 " disable because this is dangerous key
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
