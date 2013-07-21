@@ -179,6 +179,13 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'fuenor/qfixhowm'
   "NeoBundle 'godlygeek/tabular'
   "NeoBundle 'goldfeld/vim-seek'
+  NeoBundleLazy 'gregsexton/gitv', {
+    \ 'depends' : 'tpope/vim-fugitive',
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Gitv',
+    \   ]},
+    \ }
   NeoBundleLazy 'h1mesuke/vim-alignta', {
     \ 'autoload' : {
     \   'commands' : [
@@ -190,6 +197,9 @@ if s:bundled('neobundle.vim')
     "\ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'hekyou/vim-rectinsert'
   "NeoBundle 'houtsnip/vim-emacscommandline'
+  NeoBundle 'int3/vim-extradite', {
+    \ 'depends' : 'tpope/vim-fugitive',
+    \ }
   NeoBundleLazy 'itchyny/thumbnail.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -303,7 +313,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'mhinz/vim-signify'
   NeoBundle 'deris/vim-signify'
   "NeoBundle 'mileszs/ack.vim'
-  NeoBundle 'motemen/git-vim'
+  "NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
   NeoBundleLazy 'msanders/cocoa.vim'
   "NeoBundle 'msanders/snipmate.vim'
@@ -1848,6 +1858,26 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for gregsexton/gitv {{{2
+if s:bundled('gitv')
+  let g:Gitv_OpenHorizontal = 1
+  let g:Gitv_DoNotMapCtrlKey = 1
+  let g:Gitv_TruncateCommitSubjects = 1
+
+  set lazyredraw
+
+  nnoremap [Git]v :Gitv --all<CR>
+  vnoremap [Git]v :Gitv --all<CR>
+  autocmd FileType gitv call s:my_gitv_settings()
+  function! s:my_gitv_settings()
+    setlocal iskeyword+=/,-,.
+    nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+  endfunction
+
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for h1mesuke/vim-alignta {{{2
 if s:bundled('vim-alignta')
   nnoremap <Leader>as :<C-u>Alignta =<CR>
@@ -2518,7 +2548,7 @@ if s:bundled('vim-fugitive')
   nmap     <Space>g  [Git]
 
   nnoremap [Git]d :<C-u>Gdiff<CR>
-  nnoremap [Git]D :<C-u>Gdiff --cached<CR>
+  nnoremap [Git]D :<C-u>Git diff --cached<CR>
   nnoremap [Git]s :<C-u>Gstatus<CR>
   nnoremap [Git]l :<C-u>Glog<CR>:call <SID>OpenQuickFix()<CR>
   nnoremap [Git]a :<C-u>Gwrite<CR>
