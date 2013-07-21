@@ -1905,6 +1905,70 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for basyura/J6uil.vim {{{2
+"if s:bundled('J6uil.vim')
+  augroup my_j6uil
+    autocmd!
+    autocmd CursorHold * call s:MyJ6uil_update()
+  augroup END
+
+  function! s:MyJ6uil_update()
+    if &filetype == 'J6uil'
+      let s:j6uil_user_color_list = [
+        \ 'Red',
+        \ 'Green',
+        \ 'Blue',
+        \ 'Cyan',
+        \ 'Magenta',
+        \ 'Yellow',
+        \ 'Gray',
+        \ 'Black',
+        \ ]
+
+      let w:j6uil_users = []
+      call s:MyJ6uil_update_users()
+      call s:MyJ6uil_colorise_user()
+    endif
+  endfunction
+
+  function! s:MyJ6uil_colorise_user()
+    let w:j6uil_last_highlight = 0
+    let i = w:j6uil_last_highlight
+    let color_len = len(s:j6uil_user_color_list)
+
+    while i < len(w:j6uil_users)
+      execute 'highlight MyJ6uilUser' . i . ' ' . 'guifg=' .
+        \ s:j6uil_user_color_list[i % color_len]
+        \ ' ctermfg=' .
+        \ s:j6uil_user_color_list[i % color_len]
+      call matchadd('MyJ6UilUser' . i, '\<'.w:j6uil_users[i].'\>')
+      let i += 1
+    endwhile
+    let w:j6uil_last_highlight = i
+  endfunction
+
+  function! s:MyJ6uil_update_users()
+    let w:j6uil_last_line = 0
+    let i = w:j6uil_last_line
+
+    while (i < line('$'))
+      let line = getline(i)
+
+      let user = matchstr(line, '^\(-- \)\@!\S\+')
+      if user != '' &&
+        \index(w:j6uil_users, user) == -1
+        call add(w:j6uil_users, user)
+      endif
+      let i += 1
+    endwhile
+
+    let w:j6uil_last_line = line('$')
+  endfunction
+
+"endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for gregsexton/gitv {{{2
 if s:bundled('gitv')
   let g:Gitv_OpenHorizontal = 1
