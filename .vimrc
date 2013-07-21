@@ -63,9 +63,9 @@ if s:bundled('neobundle.vim')
     \ }}
   "NeoBundleLazy 'Lokaltog/vim-easymotion'
   "NeoBundle 'Lokaltog/vim-powerline'
-  NeoBundle 'Lokaltog/powerline', {
-    \ 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim',
-    \ }
+  "NeoBundle 'Lokaltog/powerline', {
+    "\ 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim',
+    "\ }
   "NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : {
     "\ 'filetypes' : ['c', 'cpp'],
     "\ }}
@@ -145,6 +145,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'akiomik/git-gutter-vim'
   "NeoBundle 'benmills/vimux'
   NeoBundle 'bitc/vim-bad-whitespace'
+  NeoBundle 'bling/vim-airline'
   "NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
     "\ 'mappings' : ['<Plug>CamelCaseMotion_w',
     "\               '<Plug>CamelCaseMotion_b'],
