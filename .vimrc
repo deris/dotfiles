@@ -1888,8 +1888,9 @@ if s:bundled('vim-rooter')
     let cwd = getcwd()
 
     " Move current file's directory if could't move project top directory
-    if stridx(currentfile, cwd) != 0 ||
-      \finddir('.git', cwd) == ''
+    if (stridx(currentfile, cwd) != 0 ||
+      \finddir('.git', cwd) == '') &&
+      \isdirectory(expand('%:p:h'))
       lcd %:p:h
     endif
   endfunction
