@@ -153,7 +153,7 @@ if s:bundled('neobundle.vim')
     \   'mappings' : ['<Plug>(vimshell_switch)']
     \ }})
   NeoBundle 'airblade/vim-rooter'
-  NeoBundle 'airblade/vim-gitgutter'
+  "NeoBundle 'airblade/vim-gitgutter'
   "NeoBundle 'akiomik/git-gutter-vim'
   NeoBundleLazy 'basyura/J6uil.vim', {
     \ 'autoload' : {
@@ -351,8 +351,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'mattn/wwwrenderer-vim'
   NeoBundle 'mattn/zencoding-vim'
   NeoBundle 'mhinz/vim-startify'
-  "NeoBundle 'mhinz/vim-signify'
-  NeoBundle 'deris/vim-signify'
+  NeoBundle 'mhinz/vim-signify'
   "NeoBundle 'mileszs/ack.vim'
   "NeoBundle 'motemen/git-vim'
   "NeoBundle 'motemen/hatena-vim'
@@ -2286,6 +2285,24 @@ let g:user_zen_settings = {
   \    },
   \  },
   \}
+" }}}
+
+"---------------------------------------------------------------------------
+" for mhinz/vim-signify {{{2
+if s:bundled('vim-signify')
+  let g:signify_disable_by_default = 1
+  if s:bundled('vim-submode')
+    call submode#enter_with('vim-signify', 'n', 'r', '<Leader>gj', '<Plug>(signify-next-hunk)zz')
+    call submode#enter_with('vim-signify', 'n', 'r', '<Leader>gk', '<Plug>(signify-prev-hunk)zz')
+    call submode#map('vim-signify', 'n', 'r', 'j', '<Plug>(signify-next-hunk)zz')
+    call submode#map('vim-signify', 'n', 'r', 'k', '<Plug>(signify-prev-hunk)zz')
+  else
+    nmap <Leader>gj <Plug>(signify-next-hunk)zz
+    nmap <Leader>gk <Plug>(signify-prev-hunk)zz
+  endif
+  nmap <Leader>gh <Plug>(signify-toggle-highlight)
+  nmap <Leader>gt <Plug>(signify-toggle)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
