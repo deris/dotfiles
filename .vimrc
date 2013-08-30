@@ -349,7 +349,7 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/webapi-vim'
   NeoBundleLazy 'mattn/wwwrenderer-vim'
-  NeoBundle 'mattn/zencoding-vim'
+  NeoBundle 'mattn/emmet-vim'
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   "NeoBundle 'mileszs/ack.vim'
@@ -2252,8 +2252,8 @@ endif
 
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
-let g:user_zen_leader_key = '<c-y>'
-let g:user_zen_settings = {
+let g:user_emmet_leader_key = '<c-y>'
+let g:user_emmet_settings = {
   \  'lang' : 'ja',
   \  'html' : {
   \    'filters' : 'html',
