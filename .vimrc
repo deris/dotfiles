@@ -2142,11 +2142,6 @@ if s:bundled('vim-submode')
   call submode#map('diff', 'n', '', 'u', 'do]czz') " get diff and next diff
   call submode#map('diff', 'n', '', 'i', 'dp]czz') " put diff and next diff
 
-  call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Plug>(nextfile-next)')
-  call submode#enter_with('nextfile', 'n', 'r', '<Leader>k', '<Plug>(nextfile-previous)')
-  call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
-  call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
-
   call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
   call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
 
@@ -2700,8 +2695,20 @@ let g:lingr_vim_user = 'deris0126'
 
 "---------------------------------------------------------------------------
 " for tyru/nextfile.vim {{{2
-let g:nf_include_dotfiles = 1
-let g:nf_loop_files = 1
+if s:bundled('nextfile.vim')
+  let g:nf_include_dotfiles = 1
+  let g:nf_loop_files = 1
+
+  if s:bundled('vim-submode')
+    call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Plug>(nextfile-next)')
+    call submode#enter_with('nextfile', 'n', 'r', '<Leader>k', '<Plug>(nextfile-previous)')
+    call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
+    call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
+  else
+    nmap <Leader>j  <Plug>(nextfile-next)
+    nmap <Leader>k  <Plug>(nextfile-previous)
+  endif
+endif
 " }}}
 
 "---------------------------------------------------------------------------
