@@ -2142,9 +2142,6 @@ if s:bundled('vim-submode')
   call submode#map('diff', 'n', '', 'u', 'do]czz') " get diff and next diff
   call submode#map('diff', 'n', '', 'i', 'dp]czz') " put diff and next diff
 
-  call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
-  call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
-
 endif
 " }}}
 
@@ -2211,7 +2208,14 @@ if s:bundled('vim-smartword')
   vmap w  <Plug>(smartword-w)
   map  b  <Plug>(smartword-b)
   map  e  <Plug>(smartword-e)
-  " submodeで割り当てるのでomapだけ
+
+  if s:bundled('vim-submode')
+    call submode#enter_with('ge-mode', 'nv', 'r', 'ge', '<Plug>(smartword-ge)')
+    call submode#map('ge-mode', 'nv', 'r', 'e', '<Plug>(smartword-ge)')
+  else
+    nmap ge <Plug>(smartword-ge)
+    vmap ge <Plug>(smartword-ge)
+  endif
   omap ge <Plug>(smartword-ge)
 endif
 " }}}
