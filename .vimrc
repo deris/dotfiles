@@ -1025,7 +1025,15 @@ nnoremap <Leader>. @@
 vnoremap .  :normal .<CR>
 
 " @: repeats macro on every line
-vnoremap @  :normal @
+" vnoremap @  :normal @
+
+let reg_list = []
+call extend(reg_list, range(char2nr('0'), char2nr('9')))
+call extend(reg_list, range(char2nr('a'), char2nr('z')))
+call extend(reg_list, ['"', '.', '=', '*', '+', ':', '@'])
+for i in reg_list
+  execute 'vnoremap @'.i . ' :normal @'.i.'<CR>'
+endfor
 
 " disable because this is dangerous key
 nnoremap ZZ <Nop>
