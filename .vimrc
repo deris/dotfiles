@@ -725,6 +725,7 @@ set autoindent
 set backspace=indent,eol,start
 set nowrapscan
 set showmatch
+set matchpairs+=<:>,《:》,〈:〉,［:］,（:）,「:」,『:』,‘:’,“:”
 set wildmenu
 set wildmode=longest,full
 set wildignore=.git,.hg,.svn
