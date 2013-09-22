@@ -2504,6 +2504,13 @@ let g:indent_guides_guide_size = 1
 " }}}
 
 "---------------------------------------------------------------------------
+" for osyo-manga/vim-pronamachang {{{2
+if s:bundled('vim-pronamachang')
+  let g:pronamachang_voice_root = '~/pronamachang'
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for t9md/vim-quickhl {{{2
 if s:bundled('vim-quickhl')
   nmap <Leader>hm <Plug>(quickhl-toggle)
