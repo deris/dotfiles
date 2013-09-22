@@ -2180,8 +2180,8 @@ if s:bundled('vim-submode')
   call submode#enter_with('diff', 'n', '', '<Leader>d', '<Nop>')
   call submode#map('diff', 'n', '', 'j', ']czz') " next diff
   call submode#map('diff', 'n', '', 'k', '[czz') " prev diff
-  call submode#map('diff', 'n', '', 'h', 'do') " get diff
-  call submode#map('diff', 'n', '', 'l', 'dp') " put diff
+  call submode#map('diff', 'n', '', 'o', 'do') " get diff
+  call submode#map('diff', 'n', '', 'p', 'dp') " put diff
   call submode#map('diff', 'n', '', 'u', 'do]czz') " get diff and next diff
   call submode#map('diff', 'n', '', 'i', 'dp]czz') " put diff and next diff
 
