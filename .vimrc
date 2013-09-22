@@ -44,7 +44,6 @@ endfunction
 
 "---------------------------------------------------------------------------
 " NeoBundle {{{2
-set nocompatible
 filetype off
 
 if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
