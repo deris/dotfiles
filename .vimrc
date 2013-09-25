@@ -1185,7 +1185,7 @@ cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
 " expand directory of active file
-cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h").'/' : '%%'
+cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " 置換の自動入力
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
