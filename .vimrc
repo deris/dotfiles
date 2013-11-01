@@ -57,9 +57,25 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   "NeoBundle 'gmarik/vundle'
+  NeoBundleLazy 'AndrewRadev/linediff.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Linediff',
+    \     'LinediffReset',
+    \   ],
+    \ }}
+  NeoBundleLazy 'AndrewRadev/splitjoin.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'SplitjoinSplit',
+    \     'SplitjoinJoin',
+    \   ],
+    \ }}
   NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
     \ 'commands' : 'Switch',
     \ }}
+  NeoBundle 'AndrewRadev/vimrunner'
+  "NeoBundle 'FredKSchott/CoVim'
   "NeoBundleLazy 'Lokaltog/vim-easymotion'
   "NeoBundle 'Lokaltog/vim-powerline'
   "NeoBundle 'Lokaltog/powerline', {
@@ -203,7 +219,14 @@ if s:bundled('neobundle.vim')
     \ 'filetypes' : ['scala']
     \ }}
   "NeoBundleLazy 'deton/jasegment.vim'
-  NeoBundleLazy 'dhruvasagar/vim-table-mode'
+  NeoBundleLazy 'dhruvasagar/vim-table-mode', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Tableize',
+    \     'TableAddFormula',
+    \     'TableEvalEfomulaLine',
+    \   ]},
+    \ }
   NeoBundle 'emonkak/vim-operator-comment',
     \ { 'depends' : 'kana/vim-operator-user' }
   "NeoBundle 'emonkak/vim-operator-sort',
@@ -253,6 +276,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'joedicastro/vim-pentadactyl', {
     \ 'autoload': {'filetypes': ['pentadactyl']}}
   "NeoBundle 'jpalardy/vim-slime'
+  "NeoBundle 'justinmk/vim-sneak'
   "NeoBundle 'lilydjwg/colorizer'
   NeoBundle 'lucapette/vim-textobj-underscore'
   "NeoBundle 'kana/vim-advice'
@@ -346,6 +370,7 @@ if s:bundled('neobundle.vim')
     \   ],
     \   'unite_sources' : 'httpstatus',
     \ }}
+  NeoBundle 'nelstrom/vim-markdown-folding'
   NeoBundle 'mattn/learn-vimscript'
   "NeoBundle 'mattn/sonictemplate-vim'
   "NeoBundle 'mattn/vdbi-vim'
@@ -388,8 +413,8 @@ if s:bundled('neobundle.vim')
     \ },
     \ }
   NeoBundle 'osyo-manga/vim-reanimate'
-  "NeoBundle 'osyo-manga/vim-textobj-multiblock',
-    "\ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundleLazy 'osyo-manga/vim-textobj-multiblock',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
     \ 'unite_sources' : 'quickfix',
     \ }}
@@ -400,9 +425,24 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'pasela/unite-webcolorname', { 'autoload' : {
     \ 'unite_sources' : 'webcolorname',
     \ }}
+  NeoBundleLazy 'phleet/vim-mercenary', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'HGblame',
+    \     'HGshow',
+    \     'HGcat',
+    \     'HGdiff',
+    \   ]},
+    \ }
   NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
     \ 'filetypes' : ['markdown', 'mkd']
     \ }}
+  NeoBundle 'rbtnn/puyo.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Puyo',
+    \   ]},
+    \ }
   NeoBundle 'rbtnn/vimconsole.vim'
   "NeoBundle 'reinh/vim-makegreen'
   "NeoBundle 'rhysd/accelerated-jk'
@@ -520,6 +560,7 @@ if s:bundled('neobundle.vim')
     \ }}
   NeoBundle 'thinca/vim-visualstar'
   "NeoBundle 'tpope/vim-abolish'
+  " NeoBundle 'tpope/vim-capslock'
   NeoBundle 'tpope/vim-commentary'
   "NeoBundle 'tpope/vim-eunuch'
   NeoBundle 'tpope/vim-endwise'
@@ -617,7 +658,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'vimtaku/vim-textobj-keyvalue',
     "\ { 'depends' : 'kana/vim-textobj-user' }
   "NeoBundle 'xolox/vim-easytags'
-  "NeoBundle 'xolox/vim-notes'
+  NeoBundle 'xolox/vim-notes'
   "NeoBundle 'xolox/vim-session'
   NeoBundleLazy 'yko/mojo.vim', { 'autoload' : {
     \   'filetypes' : 'perl',
