@@ -1148,8 +1148,8 @@ nnoremap <Space>w :<C-u>update<CR>
 nnoremap <Space>q :<C-u>SafeQuit<CR>
 nnoremap <Space>Q :<C-u>SafeQuit!<CR>
 nnoremap <S-Space>Q :<C-u>SafeQuit!<CR>
-nnoremap <Space>bd :<C-u>bdelete<CR>
-nnoremap <Space>bD :<C-u>bdelete!<CR>
+nnoremap <Space>bd :<C-u>bwipeout<CR>
+nnoremap <Space>bD :<C-u>bwipeout!<CR>
 nnoremap <Space>bb :<C-u>buffer #<CR>
 
 function! s:safeQuit(bang)
@@ -2185,7 +2185,7 @@ if s:bundled('vim-submode')
   call submode#enter_with('buffer-mode', 'n', '', 'gl', ':<C-u>bnext<CR>')
   call submode#map('buffer-mode', 'n', '', 'h', ':<C-u>bprevious<CR>')
   call submode#map('buffer-mode', 'n', '', 'l', ':<C-u>bnext<CR>')
-  call submode#map('buffer-mode', 'n', '', 'd', ':<C-u>bdelete<CR>')
+  call submode#map('buffer-mode', 'n', '', 'd', ':<C-u>bwipeout<CR>')
 
   call submode#enter_with('tab-mode', 'n', '', 'tl', 'gt')
   call submode#enter_with('tab-mode', 'n', '', 'th', 'gT')
