@@ -1095,6 +1095,34 @@ endfunction
 " マクロの誤タイプ防止(使うキーだけ残す)
 call s:LumpMap('q', '0123456789rtyuiopghjklvbnm"', '<Nop>')
 
+" Sticky Shift if difficult to type key
+inoremap <expr> ;  <SID>sticky_func()
+cnoremap <expr> ;  <SID>sticky_func()
+snoremap <expr> ;  <SID>sticky_func()
+
+function! s:sticky_func()
+  let l:sticky_table = {
+    \ ',' : '<', '.' : '>', '/' : '?',
+    \ '1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
+    \ '6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
+    \ ';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
+    \ }
+  let l:special_table = {
+    \ "\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
+    \ }
+
+  let l:key = nr2char(getchar())
+  if l:key =~ '\l'
+    return toupper(l:key)
+  elseif has_key(l:sticky_table, l:key)
+    return l:sticky_table[l:key]
+  elseif has_key(l:special_table, l:key)
+    return l:special_table[l:key]
+  else
+    return 0
+  endif
+endfunction
+
 " use <C-q> instead of @
 nnoremap <C-q> @
 nnoremap <C-q><C-q> @@
