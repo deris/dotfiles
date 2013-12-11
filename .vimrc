@@ -833,7 +833,7 @@ set autoindent
 set backspace=indent,eol,start
 set nowrapscan
 set showmatch
-set matchpairs+=<:>,《:》,〈:〉,［:］,（:）,「:」,『:』,‘:’,“:”
+set matchpairs+=<:>
 set wildmenu
 set wildmode=longest,full
 set wildignore=.git,.hg,.svn
@@ -934,7 +934,6 @@ if has('vim_starting') && has('unix')
   if s:my_perl_path =~ '^/'
     let $PATH=s:my_perl_path.':'.$PATH
   endif
-  let $PATH=$HOME."/.cabal/bin:".$PATH
 endif
 
 if has('win32')
@@ -1149,18 +1148,6 @@ nnoremap ZQ <Nop>
 
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
-
-" 一括してキーマップする
-function! s:LumpMap(prefix, lhs, rhs)
-  let charlist = split(a:lhs, '\zs')
-
-  for char in charlist
-    execute 'nnoremap ' . a:prefix . char . ' ' . a:rhs
-  endfor
-endfunction
-
-" マクロの誤タイプ防止(使うキーだけ残す)
-call s:LumpMap('q', '0123456789rtyuiopghjklvbnm"', '<Nop>')
 
 " Sticky Shift if difficult to type key
 inoremap <expr> ;  <SID>sticky_func()
@@ -2237,34 +2224,6 @@ if s:bundled('vim-altr')
   command! B  call altr#back()
 
   nmap <Leader>m   <Plug>(altr-forward)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for kana/vim-arpeggio {{{2
-if s:bundled('vim-arpeggio')
-  " easy to input sign
-  call arpeggio#map('ic', '', 0, 'r`', '~')
-  call arpeggio#map('ic', '', 0, 'r1', '!')
-  call arpeggio#map('ic', '', 0, 'r2', '@')
-  call arpeggio#map('ic', '', 0, 'r3', '#')
-  call arpeggio#map('ic', '', 0, 'r4', '$')
-  call arpeggio#map('ic', '', 0, 'r5', '%')
-  call arpeggio#map('ic', '', 0, 'r6', '^')
-  call arpeggio#map('ic', '', 0, 'r7', '&')
-  call arpeggio#map('ic', '', 0, 'r8', '*')
-  call arpeggio#map('ic', '', 0, 'r9', '(')
-  call arpeggio#map('ic', '', 0, 'r0', ')')
-  call arpeggio#map('ic', '', 0, 'r-', '_')
-  call arpeggio#map('ic', '', 0, 'r=', '+')
-  call arpeggio#map('ic', '', 0, 't5', '%')
-  call arpeggio#map('ic', '', 0, 't6', '^')
-  call arpeggio#map('ic', '', 0, 'y7', '&')
-  call arpeggio#map('ic', '', 0, 'u8', '*')
-  call arpeggio#map('ic', '', 0, 'u9', '(')
-  call arpeggio#map('ic', '', 0, 'u0', ')')
-  call arpeggio#map('ic', '', 0, 'u-', '_')
-  call arpeggio#map('ic', '', 0, 'u=', '+')
 endif
 " }}}
 
