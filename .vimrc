@@ -2162,6 +2162,7 @@ if s:bundled('gitv')
 
   nnoremap [Git]v :Gitv --all<CR>
   vnoremap [Git]v :Gitv --all<CR>
+  nnoremap [Git]V :Gitv! --all<CR>
   autocmd FileType gitv call s:my_gitv_settings()
   function! s:my_gitv_settings()
     setlocal iskeyword+=/,-,.
@@ -2840,13 +2841,11 @@ if s:bundled('vim-fugitive')
   nmap     <Space>g  [Git]
 
   nnoremap [Git]d :<C-u>Gdiff<CR>
-  nnoremap [Git]D :<C-u>Git diff --cached<CR>
   nnoremap [Git]s :<C-u>Gstatus<CR>
-  nnoremap [Git]l :<C-u>Glog<CR>:call <SID>OpenQuickFix()<CR>
   nnoremap [Git]a :<C-u>Gwrite<CR>
   nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
   nnoremap [Git]c :<C-u>Gcommit -v<CR>
-  nnoremap [Git]C :<C-u>Git commit --amend<CR>
+  nnoremap [Git]C :<C-u>Gcommit --amend<CR>
   nnoremap [Git]b :<C-u>Gblame<CR>
   nnoremap [Git]p :<C-u>Git push<Space>
 endif
