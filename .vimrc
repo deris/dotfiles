@@ -1089,6 +1089,10 @@ onoremap gc         :<C-u>normal gc<CR>
 " 最後に変更されたテキストに移動する
 nnoremap gI `.zz
 
+
+" 直近コピーしたテキストを貼り付け
+nnoremap 'p  "0p
+
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
 " クリップボードからペースト
