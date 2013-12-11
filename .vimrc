@@ -2221,6 +2221,9 @@ if s:bundled('vim-altr')
   call altr#define('spec/routing/%_spec.rb',
     \              'config/routes.rb')
 
+  call altr#define('%.c',
+    \              '%.h')
+
   command! A  call altr#forward()
   command! B  call altr#back()
 
