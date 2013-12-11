@@ -1190,6 +1190,21 @@ function! s:sticky_func()
   endif
 endfunction
 
+
+nnoremap <silent><expr> r   <SID>sticky_with_replacemode(0)
+nnoremap <silent><expr> gr  <SID>sticky_with_replacemode(1)
+
+function! s:sticky_with_replacemode(gr)
+  let l:gr = (a:gr ? 'gr' : 'r')
+
+  let l:key = nr2char(getchar())
+  if l:key == ';'
+    return l:gr . s:sticky_func()
+  else
+    return l:gr . l:key
+  endif
+endfunction
+
 " use <C-q> instead of @
 nnoremap <C-q> @
 nnoremap <C-q><C-q> @@
