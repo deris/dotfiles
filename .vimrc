@@ -77,7 +77,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'AndrewRadev/vimrunner'
   "NeoBundle 'FredKSchott/CoVim'
   "NeoBundleLazy 'Lokaltog/vim-easymotion'
-  "NeoBundle 'Lokaltog/vim-powerline'
+  NeoBundle 'LeafCage/yankround.vim'
   "NeoBundle 'Lokaltog/powerline', {
     "\ 'rtp' : '~/.vim/bundle/powerline/powerline/bindings/vim',
     "\ }
@@ -105,6 +105,7 @@ if s:bundled('neobundle.vim')
     \   'commands' : ['NeoSnippetEdit'],
     \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }})
+  NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/unite.vim', '', 'default'
   call neobundle#config('unite.vim',{
     \ 'lazy' : 1,
@@ -260,6 +261,12 @@ if s:bundled('neobundle.vim')
     \     'Extradite',
     \   ]},
     \ }
+  NeoBundleLazy 'itchyny/calendar.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Calendar',
+    \   ]},
+    \ }
   NeoBundleLazy 'itchyny/thumbnail.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -357,17 +364,6 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   "NeoBundle 'kshenoy/vim-signature'
-  NeoBundleLazy 'LeafCage/yankround.vim', {
-    \ 'autoload' : {
-    \   'mappings' : [
-    \     '<Plug>(yankround-p)',
-    \     '<Plug>(yankround-P)',
-    \     '<Plug>(yankround-gp)',
-    \     '<Plug>(yankround-gP)',
-    \     '<Plug>(yankround-prev)',
-    \     '<Plug>(yankround-next)',
-    \   ],
-    \ }}
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
     \   'commands' : [
@@ -381,7 +377,7 @@ if s:bundled('neobundle.vim')
     \     'BenchVimrc'
     \   ]},
     \ }
-  NeoBundleLazy 'mattn/calendar-vim'
+  " NeoBundleLazy 'mattn/calendar-vim'
   "NeoBundle 'mattn/excitetranslate-vim'
   NeoBundleLazy 'mattn/gist-vim', {
     \ 'autoload' : {
@@ -400,6 +396,9 @@ if s:bundled('neobundle.vim')
     \     'CtrlPHttpStatus',
     \   ],
     \   'unite_sources' : 'httpstatus',
+    \ }}
+  NeoBundleLazy 'mattn/jscomplete-vim', { 'autoload' : {
+    \   'filetypes' : ['javascript']
     \ }}
   NeoBundle 'mattn/learn-vimscript'
   "NeoBundle 'mattn/sonictemplate-vim'
@@ -466,7 +465,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
     \ 'unite_sources' : 'filetype',
     \ }}
-  NeoBundleLazy 'othree/eregex.vim'
+  " NeoBundleLazy 'othree/eregex.vim'
   NeoBundleLazy 'pasela/unite-webcolorname', { 'autoload' : {
     \ 'unite_sources' : 'webcolorname',
     \ }}
@@ -504,7 +503,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'reinh/vim-makegreen'
   NeoBundleLazy 'rhysd/accelerated-jk'
   NeoBundleLazy 'rhysd/clever-f.vim', 'm@ster'
-  NeoBundle 'rhysd/vim-textobj-word-column'
+  " NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundleLazy 'rking/ag.vim'
   NeoBundle 'rphillips/vim-zoomwin'
   "NeoBundle 'scrooloose/nerdcommenter'
@@ -538,6 +537,7 @@ if s:bundled('neobundle.vim')
     \ }}
   NeoBundleLazy 'supermomonga/thingspast.vim'
   NeoBundleLazy 'spolu/dwm.vim'
+  NeoBundleLazy 'szw/vim-ctrlspace'
   NeoBundle 't9md/vim-quickhl'
   NeoBundleLazy 't9md/vim-smalls'
   NeoBundle 't9md/vim-surround_custom_mapping'
@@ -545,9 +545,9 @@ if s:bundled('neobundle.vim')
   "NeoBundle 't9md/vim-underlinetag'
   "NeoBundleLazy 't9md/vim-unite-ack',
     "\ { 'depends' : 'Shougo/unite.vim' }
-  NeoBundleLazy 'taichouchou2/unite-rails_best_practices', { 'autoload' : {
-    \ 'unite_sources' : 'rails_best_practices',
-    \ }}
+  " NeoBundleLazy 'taichouchou2/unite-rails_best_practices', { 'autoload' : {
+  "   \ 'unite_sources' : 'rails_best_practices',
+  "   \ }}
   NeoBundleLazy 'taka84u9/vim-ref-ri', {
     \ 'autoload' : {
     \   'filetypes' : ['ruby', 'eruby', 'haml'],
@@ -556,11 +556,8 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'taku-o/vim-toggle'
   "NeoBundle 'taku-o/vis-vim'
   NeoBundleLazy 'tejr/nextag'
-  NeoBundleLazy 'teramako/jscomplete-vim', { 'autoload' : {
-    \   'filetypes' : ['javascript']
-    \ }}
   NeoBundle 'terryma/vim-expand-region'
-  NeoBundleLazy 'terryma/vim-multiple-cursors'
+  " NeoBundle 'terryma/vim-multiple-cursors'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundleLazy 'thinca/vim-fontzoom', {
     \ 'gui' : 1,
@@ -618,6 +615,7 @@ if s:bundled('neobundle.vim')
     \ 'unite_sources' : ['history/command', 'history/search'],
     \ }}
   NeoBundle 'thinca/vim-visualstar'
+  NeoBundleLazy 'tommcdo/vim-exchange'
   "NeoBundle 'tpope/vim-abolish'
   " NeoBundle 'tpope/vim-capslock'
   NeoBundle 'tpope/vim-commentary'
