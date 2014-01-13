@@ -1,4 +1,4 @@
-Config
+dotfiles
 ======
 
-it's my config like dotfiles
+This is my dotfiles.
