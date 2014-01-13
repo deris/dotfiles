@@ -1441,34 +1441,6 @@ nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
 
 command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
-if has('win32')
-  " Save the current buffer and execute the Tortoise SVN interface's diff program
-  nnoremap <silent> <Leader>sd :<c-u>call <SID>TortoiseDiff()<CR>
-  " Save the current buffer and execute the Tortoise SVN interface's log
-  nnoremap <silent> <Leader>sl :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:log /path:"%" /notempfile /closeonend<CR>
-  " Save the current buffer and execute the Tortoise SVN interface's revision graph
-  nnoremap <silent> <Leader>sr :<c-u>w<CR>:silent !C:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe /command:revisiongraph /path:"%" /notempfile /closeonend<CR>
-  " Save the current buffer and execute the Tortoise SVN interface's blame program
-  nnoremap <silent> <Leader>sb :<c-u>call <SID>TortoiseBlame()<CR>
-
-  function! s:TortoiseDiff()
-    silent execute(':w')
-    let filename = shellescape(expand("%:p"))
-    let cmdname = escape(shellescape('D:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe'), ' \')
-    let cmdline = '! start "" ' . cmdname . ' /command:diff /path:' . filename . ' /notempfile /closeonend'
-    silent execute(cmdline)
-  endfunction
-
-  function! s:TortoiseBlame()
-    silent execute(':w')
-    let filename = shellescape(expand("%:p"))
-    let linenum = line(".")
-    let cmdname = escape(shellescape('D:\Progra~1\TortoiseSVN\bin\TortoiseProc.exe'), ' \')
-    let cmdline = '! start "" ' . cmdname . ' /command:blame /path:' . filename . ' /line:' . linenum . '/notempfile /closeonend'
-    silent execute(cmdline)
-  endfunction
-endif
-
 " kana's useful tab function {{{
 function! s:move_window_into_tab_page(target_tabpagenr)
   " Move the current window into a:target_tabpagenr.
