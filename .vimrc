@@ -2445,6 +2445,13 @@ let g:user_emmet_settings = {
 " }}}
 
 "---------------------------------------------------------------------------
+" for mhinz/vim-startify {{{2
+if s:bundled('vim-startify')
+  let g:startify_custom_indices = ['f', 'g', 'h', 'r', 'i', 'o', 'b']
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for mhinz/vim-signify {{{2
 if s:bundled('vim-signify')
   let g:signify_disable_by_default = 1
