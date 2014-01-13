@@ -1689,6 +1689,33 @@ endif
 " plugins {{{1
 
 "---------------------------------------------------------------------------
+" for AndrewRadev/switch.vim {{{2
+if s:bundled('switch.vim')
+  let g:switch_custom_definitions = [
+    \   ['true', 'false'],
+    \ ]
+  autocmd FileType vim let b:switch_custom_definitions = [
+    \   {'\vhttps?://github.com/([^/]+)/([^/]+)%(\.git)?': '\1/\2'},
+    \   ['NeoBundle', 'NeoBundleLazy'],
+    \   {'\vlet\s+(%([gstb]:)?\a+)\s*[.+\-*/]?\=.*': 'unlet \1'},
+    \   ['echo', 'echomsg'],
+    \   ['if', 'elseif'],
+    \   ['try', 'catch', 'finally'],
+    \   {'\<\([nvxsoilc]\?\)noremap': '\1map'},
+    \   {'\<\([nvxsoilc]\?\)map':     '\1noremap'},
+    \ ]
+  autocmd FileType markdown let b:switch_custom_definitions = [
+    \   ['[ ]', '[x]'],
+    \   ['#', '##', '###', '####', '#####'],
+    \   { '\(\*\*\|__\)\(.*\)\1': '_\2_' },
+    \   { '\(\*\|_\)\(.*\)\1': '__\2__' },
+    \ ]
+
+  nnoremap <Space>m  <Plug>(switch-next)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
