@@ -1862,14 +1862,14 @@ if s:bundled('unite.vim')
 
   nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
   nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
+  " nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
   nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
   nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]g   :<C-u>Unite grep<CR>
+  nnoremap <silent> [unite]g   :<C-u>call <SID>unite_grep_with_filetype()<CR>
   nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
   nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
   nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
@@ -1881,6 +1881,38 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
   nnoremap <silent> [unite]m   :<C-u>Unite mapping<CR>
   nnoremap <silent> [unite]l   :<C-u>Unite colorscheme -auto-preview<CR>
+  nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
+
+  let s:target_ft = {
+    \ 'c': '**/*.[ch]',
+    \ 'pl': '**/*.pl',
+    \ 'rb': '**/*.rb',
+    \ }
+  function! s:unite_grep_with_filetype() "{{{
+    try
+      if get(s:target_ft, &ft, '') != ''
+        let pattern = s:input('Pattern: ')
+        let pattern = pattern=='' ? expand('<cword>') : pattern
+        execute 'Unite grep:' . s:target_ft[&ft] . ' -input=' . pattern
+      else
+        execute 'Unite grep'
+      endif
+    catch /Canceled/
+    endtry
+  endfunction "}}}
+
+  function! s:input(...) abort
+    new
+    cmap <buffer> <esc> __CANCELED__<cr>
+    let ret = call('input', a:000)
+    bw!
+    redraw
+    if ret =~ '__CANCELED__$'
+      throw "Canceled"
+    endif
+    echom ret
+    return ret
+  endfunction
 
   " Start insert.
   "let g:unite_enable_start_insert = 1
