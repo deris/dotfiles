@@ -1584,6 +1584,18 @@ function! ExecuteWithSelectedText(command)
 endfunction
 " }}}
 
+command -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
+
+function! s:extract_matches(...) range
+  let s:pattern = get(a:000, 0, @/)
+
+  let s:result = filter(getline(a:firstline, a:lastline), 'v:val =~# s:pattern')
+
+  new
+  setlocal buftype=nofile
+  call setline(1, s:result)
+endfunction
+
 " }}}
 
 "---------------------------------------------------------------------------
