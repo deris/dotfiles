@@ -1716,6 +1716,16 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for LeafCage/yankround.vim {{{2
+if s:bundled('yankround.vim')
+  call submode#enter_with('yankround', 'n', 'r', '<Leader>p', '<Plug>(yankround-p)')
+  call submode#enter_with('yankround', 'n', 'r', '<Leader>P', '<Plug>(yankround-P)')
+  call submode#map('yankround', 'n', 'r', 'p', '<Plug>(yankround-prev)')
+  call submode#map('yankround', 'n', 'r', 'n', '<Plug>(yankround-next)')
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
 let g:EasyMotion_leader_key = ','
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
