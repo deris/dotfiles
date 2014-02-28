@@ -44,15 +44,10 @@ vnoremap gk  k
 vnoremap gj  j
 
 nnoremap <Space>/  *<C-o>
-nnoremap <Space>?  #<C-o>
 nnoremap <Space>g/ g*<C-o>
-nnoremap <Space>g? g#<C-o>
 
 nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
 nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
-
-nnoremap <Space>k  <C-b>
-nnoremap <Space>j  <C-f>
 
 nnoremap tt     :<C-u>tabe<CR>
 nnoremap <silent> <C-p>  gT
