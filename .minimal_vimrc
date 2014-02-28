@@ -55,8 +55,8 @@ nnoremap <Space>k  <C-b>
 nnoremap <Space>j  <C-f>
 
 nnoremap tt     :<C-u>tabe<CR>
-nnoremap <C-p>  gT
-nnoremap <C-n>  gt
+nnoremap <silent> <C-p>  gT
+nnoremap <silent> <C-n>  gt
 
 inoremap jk  <Esc>
 
