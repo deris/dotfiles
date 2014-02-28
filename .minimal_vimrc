@@ -76,6 +76,11 @@ onoremap id  i"
 
 inoremap jk  <Esc>
 
+
+nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+vnoremap gs  :s///g<Left><Left><Left>
+
+
 cnoremap <C-f>  <Right>
 cnoremap <C-b>  <Left>
 cnoremap <C-a>  <C-b>
