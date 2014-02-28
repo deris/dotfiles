@@ -34,6 +34,15 @@ vnoremap :  ;
 nnoremap <Space>h  ^
 nnoremap <Space>l  $
 
+nnoremap k   gk
+nnoremap j   gj
+vnoremap k   gk
+vnoremap j   gj
+nnoremap gk  k
+nnoremap gj  j
+vnoremap gk  k
+vnoremap gj  j
+
 nnoremap <Space>/  *<C-o>
 nnoremap <Space>?  #<C-o>
 nnoremap <Space>g/ g*<C-o>
