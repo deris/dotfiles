@@ -28,6 +28,8 @@ nnoremap <Space>Q  :<C-u>q!<CR>
 
 nnoremap ;  :
 nnoremap :  ;
+vnoremap ;  :
+vnoremap :  ;
 
 nnoremap <Space>h  ^
 nnoremap <Space>l  $
