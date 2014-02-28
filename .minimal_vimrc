@@ -34,10 +34,10 @@ vnoremap :  ;
 nnoremap <Space>h  ^
 nnoremap <Space>l  $
 
-nnoremap <Space>/  *
-nnoremap <Space>?  #
-nnoremap <Space>g/ g*
-nnoremap <Space>g? g#
+nnoremap <Space>/  *<C-o>
+nnoremap <Space>?  #<C-o>
+nnoremap <Space>g/ g*<C-o>
+nnoremap <Space>g? g#<C-o>
 
 nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
 nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
