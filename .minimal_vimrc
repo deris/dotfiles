@@ -58,6 +58,8 @@ nnoremap tt     :<C-u>tabe<CR>
 nnoremap <silent> <C-p>  gT
 nnoremap <silent> <C-n>  gt
 
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+
 inoremap jk  <Esc>
 
 cnoremap <C-f>  <Right>
