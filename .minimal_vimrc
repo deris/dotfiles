@@ -60,6 +60,12 @@ nnoremap <silent> <C-n>  gt
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+
+nnoremap Q gq
+
+
 inoremap jk  <Esc>
 
 cnoremap <C-f>  <Right>
