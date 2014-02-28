@@ -66,6 +66,14 @@ nnoremap ZQ <Nop>
 nnoremap Q gq
 
 
+onoremap aa  a>
+onoremap ia  i>
+onoremap ar  a]
+onoremap ir  i]
+onoremap ad  a"
+onoremap id  i"
+
+
 inoremap jk  <Esc>
 
 cnoremap <C-f>  <Right>
