@@ -1246,30 +1246,6 @@ vnoremap ad  a"
 onoremap id  i"
 vnoremap id  i"
 
-" key mapping強制ギブス
-onoremap a>  <Esc>
-vnoremap a>  <Nop>
-onoremap i>  <Esc>
-vnoremap i>  <Nop>
-onoremap a<  <Esc>
-vnoremap a<  <Nop>
-onoremap i<  <Esc>
-vnoremap i<  <Nop>
-
-onoremap a]  <Esc>
-vnoremap a]  <Nop>
-onoremap i]  <Esc>
-vnoremap i]  <Nop>
-onoremap a[  <Esc>
-vnoremap a[  <Nop>
-onoremap i[  <Esc>
-vnoremap i[  <Nop>
-
-onoremap a"  <Esc>
-vnoremap a"  <Nop>
-onoremap i"  <Esc>
-vnoremap i"  <Nop>
-
 " exコマンド
 nnoremap <Space>w :<C-u>update<CR>
 nnoremap <Space>q :<C-u>SafeQuit<CR>
@@ -1367,10 +1343,6 @@ nnoremap do do:<C-u>diffupdate<CR>]czz
 vnoremap <Leader>dp :diffput<CR>:<C-u>diffupdate<CR>zz
 vnoremap <Leader>do :diffget<CR>:<C-u>diffupdate<CR>zz
 nnoremap du :<C-u>diffupdate<CR>
-nnoremap dy [czz
-nnoremap dm ]czz
-vnoremap <Leader>dy [czz
-vnoremap <Leader>dm ]czz
 
 " insert mode
 inoremap <C-b> <Left>
