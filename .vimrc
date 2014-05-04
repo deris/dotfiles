@@ -1097,12 +1097,9 @@ endfunction
 " vimrc編集
 if has('gui')
   nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . escape(resolve($MYVIMRC), ' ')<CR>
-  nnoremap <silent> <Space>g.  :<C-u>execute 'tab drop ' . escape(resolve($MYGVIMRC), ' ')<CR>
 else
   nnoremap <silent> <Space>.   :<C-u>execute 'tabe ' . escape(resolve($MYVIMRC), ' ')<CR>
-  nnoremap <silent> <Space>g.  :<C-u>execute 'tabe ' . escape(resolve($MYGVIMRC), ' ')<CR>
 endif
-nnoremap <silent> <Space>s.  :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif<CR>
 
 " helpショートカット
 nnoremap <C-h>      :<C-u>help<Space>
