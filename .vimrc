@@ -1829,8 +1829,8 @@ if s:bundled('neosnippet')
 
   smap <C-e>     <Plug>(neosnippet_jump)
 
-  nnoremap <Space>e  :<C-u>NeoSnippetEdit<Space>
-  nnoremap <Space>ee :<C-u>NeoSnippetEdit<CR>
+  nnoremap <Space>e<Space>  :<C-u>NeoSnippetEdit<Space>
+  nnoremap <Space>ee        :<C-u>NeoSnippetEdit<CR>
 
   " SuperTab like snippets behavior.
   "imap <expr><TAB> neosnippet#expandable() ?
