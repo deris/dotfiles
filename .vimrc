@@ -1832,14 +1832,6 @@ if s:bundled('neosnippet')
   nnoremap <Space>e<Space>  :<C-u>NeoSnippetEdit<Space>
   nnoremap <Space>ee        :<C-u>NeoSnippetEdit<CR>
 
-  " SuperTab like snippets behavior.
-  "imap <expr><TAB> neosnippet#expandable() ?
-  " \ "\<Plug>(neosnippet_expand_or_jump)"
-  " \: pumvisible() ? "\<C-n>" : "\<TAB>"
-  "smap <expr><TAB> neosnippet#expandable() ?
-  " \ "\<Plug>(neosnippet_expand_or_jump)"
-  " \: "\<TAB>"
-
   " For snippet_complete marker.
   if has('conceal')
     set conceallevel=2 concealcursor=i
@@ -1884,7 +1876,6 @@ if s:bundled('unite.vim')
 
   nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
   nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  " nnoremap <silent> [unite]r   :<C-u>Unite register<CR>
   nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
   nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
@@ -1935,9 +1926,6 @@ if s:bundled('unite.vim')
     echom ret
     return ret
   endfunction
-
-  " Start insert.
-  "let g:unite_enable_start_insert = 1
 
   autocmd FileType unite call s:unite_my_settings()
   function! s:unite_my_settings() "{{{
@@ -1990,18 +1978,11 @@ if s:bundled('unite.vim')
   endif
   let g:unite_source_grep_max_candidates = 200
 
-  " For unite-session.
-  " Save session automatically.
-  "let g:unite_source_session_enable_auto_save = 1
-  " Load session automatically.
-  "autocmd VimEnter * UniteSessionLoad
-
 endif
 " }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/vimfiler {{{2
-" File explorer like behavior.
 if s:bundled('vimfiler')
   nnoremap [vimfiler]  <Nop>
   nmap     <Space>f  [vimfiler]
@@ -2045,9 +2026,6 @@ if s:bundled('vimfiler')
     endif
     nnoremap <silent><buffer><expr> s  vimfiler#do_action('right')
     nnoremap <silent><buffer><expr> f  vimfiler#do_action('diff')
-    nmap <buffer><expr> e vimfiler#smart_cursor_map(
-      \  "\<Plug>(vimfiler_cd_file)",
-      \  "\<Plug>(vimfiler_edit_file)")
 
     nmap <buffer> <Space>           <Nop>
     nmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_current_line)
@@ -2243,9 +2221,6 @@ if s:bundled('vim-alignta')
   nnoremap <Leader>a: :<C-u>Alignta :<CR>
   vnoremap <Leader>a: :Alignta :<CR>
 
-  "augroup perllang
-    "autocmd FileType perl vnoremap <space>ah  :<c-u>alignctrl l-l<cr>gv:align =><cr>
-  "augroup end
 endif
 " }}}
 
@@ -2694,9 +2669,6 @@ if s:bundled('vim-quickhl')
   nmap <Leader>hM <Plug>(quickhl-reset)
   xmap <Leader>hM <Plug>(quickhl-reset)
   nmap <Leader>hh <Plug>(quickhl-match)
-  "let g:quickhl_keywords = [
-  "    \ "keyword",
-  "    \ ]
 endif
 " }}}
 
@@ -2995,7 +2967,6 @@ endif
 "---------------------------------------------------------------------------
 " for deris/columnjump {{{2
 if s:bundled('columnjump')
-  " TODO: vmapにも割り当てたいけどneocomとバッティングしている
   nmap <c-k> <Plug>(columnjump-backward)
   nmap <c-j> <Plug>(columnjump-forward)
 endif
