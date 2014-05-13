@@ -2820,6 +2820,13 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for deris/vim-cmdline-switch {{{2
+if s:bundled('vim-cmdline-switch')
+  cmap <C-j>  <Plug>(cmdline-switch)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for deris/vim-fitcolumn {{{2
 if s:bundled('vim-fitcolumn')
   let g:fitcolumn_no_default_key_mappings = 1
