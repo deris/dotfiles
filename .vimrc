@@ -2286,8 +2286,6 @@ if s:bundled('vim-submode')
   call submode#map('tab-mode', 'n', '', 'd', ':<C-u>tabclose<CR>')
 
   call submode#enter_with('ex-move', 'nv', '', '<Space><Space>', '<Nop>')
-  call submode#enter_with('ex-move', 'nv', '', '<Space>j', '<C-f>zz')
-  call submode#enter_with('ex-move', 'nv', '', '<Space>k', '<C-b>zz')
   call submode#leave_with('ex-move', 'nv', '', '<Space>')
   call submode#map('ex-move', 'nv', '', 'j', '<C-f>zz')
   call submode#map('ex-move', 'nv', '', 'k', '<C-b>zz')
