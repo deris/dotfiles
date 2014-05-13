@@ -2731,13 +2731,12 @@ if s:bundled('nextfile.vim')
   let g:nf_loop_files = 1
 
   if s:bundled('vim-submode')
-    call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Plug>(nextfile-next)')
-    call submode#enter_with('nextfile', 'n', 'r', '<Leader>k', '<Plug>(nextfile-previous)')
-    call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
-    call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
+    call submode#enter_with('nextfile', 'n', 'r', '<Leader>n', '<Nop>')
+    call submode#map('nextfile', 'n', 'r', 'n', '<Plug>(nextfile-next)')
+    call submode#map('nextfile', 'n', 'r', 'p', '<Plug>(nextfile-previous)')
   else
-    nmap <Leader>j  <Plug>(nextfile-next)
-    nmap <Leader>k  <Plug>(nextfile-previous)
+    nmap <Leader>nn  <Plug>(nextfile-next)
+    nmap <Leader>np  <Plug>(nextfile-previous)
   endif
 endif
 " }}}
