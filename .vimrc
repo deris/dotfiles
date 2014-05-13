@@ -2488,6 +2488,15 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for rhysd/vim-operator-surround {{{2
+if s:bundled('vim-operator-surround')
+  map <silent><Leader>sa <Plug>(operator-surround-append)
+  map <silent><Leader>sd <Plug>(operator-surround-delete)
+  map <silent><Leader>sr <Plug>(operator-surround-replace)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for t9md/vim-quickhl {{{2
 if s:bundled('vim-quickhl')
   nmap <Leader>hm <Plug>(quickhl-toggle)
