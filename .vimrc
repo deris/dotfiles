@@ -1512,10 +1512,6 @@ command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 " replace search word to unnamed register
 nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'
 
-nnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
-vnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
-
 " from ujihisa's vimrc
 command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
 "nnoremap <silent> gl :GoToTheLine<Cr>
@@ -1781,15 +1777,6 @@ if s:bundled('neocomplete')
     \ 'mkd' : 1,
     \ }
 
-  " Plugin key-mappings.
-  inoremap <expr><C-g>  neocomplete#undo_completion()
-  inoremap <expr><C-l>  neocomplete#complete_common_string()
-
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-y>  neocomplete#close_popup()
-
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -1825,9 +1812,6 @@ if s:bundled('neosnippet')
   xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
   smap <C-e>     <Plug>(neosnippet_jump)
-
-  nnoremap <Space>e<Space>  :<C-u>NeoSnippetEdit<Space>
-  nnoremap <Space>ee        :<C-u>NeoSnippetEdit<CR>
 
   " For snippet_complete marker.
   if has('conceal')
@@ -2372,8 +2356,6 @@ endif
 " for kana/vim-smartinput {{{2
 if s:bundled('vim-smartinput')
   call smartinput#clear_rules()
-  nnoremap <silent> <Leader>ie  :<C-u>call smartinput#define_default_rules()<CR>
-  nnoremap <silent> <Leader>id  :<C-u>call smartinput#clear_rules()<CR>
 endif
 " }}}
 
@@ -2571,7 +2553,7 @@ endif
 "---------------------------------------------------------------------------
 " for scrooloose/nerdtree {{{2
 if s:bundled('nerdtree')
-  nnoremap <Leader>n :<C-u>NERDTreeToggle<CR>
+  " nnoremap <Leader>n :<C-u>NERDTreeToggle<CR>
 endif
 " }}}
 
@@ -2844,7 +2826,7 @@ endif
 "---------------------------------------------------------------------------
 " for deris/vim-rengbang {{{2
 if s:bundled('vim-rengbang')
-  map <Leader>sn <Plug>(operator-rengbang)
+  " map <Leader>sn <Plug>(operator-rengbang)
 endif
 " }}}
 
