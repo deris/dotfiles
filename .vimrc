@@ -792,7 +792,7 @@ if s:bundled('neobundle.vim')
   "NeoBundle 'Toggle'
   NeoBundleLazy 'UnconditionalPaste'
   "NeoBundle 'ViewOutput'
-  "NeoBundle 'YankRing.vim' "あまり使わないのとkeymap設定で悪さをするので削除
+  "NeoBundle 'YankRing.vim'
   "NeoBundle 'a.vim'
   "NeoBundle 'bufexplorer.zip'
   "NeoBundle 'closetag.vim'
@@ -829,7 +829,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'newspaper.vim'
   NeoBundle 'w0ng/vim-hybrid'
 
-  " 日本語help
+  " Japanese help
   NeoBundle 'vim-jp/vimdoc-ja'
 
   " Installation check.
@@ -846,9 +846,9 @@ if s:bundled('vim-singleton')
 endif
 
 "---------------------------------------------------------------------------
-" オプションの設定:{{{2
+" Setting options:{{{2
 
-" 構文ハイライト有効化
+" enable syntax highlighting
 syntax enable
 
 set ignorecase
@@ -870,9 +870,8 @@ set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.so,*.out,*.class
 set wildignore+=*.swp,*.swo,*.swn
 set wildignore+=*.DS_Store
-" 日本語整形スクリプト(by. 西岡拓洋さん)用の設定
-let format_allow_over_tw = 1 " ぶら下り可能幅
-set shiftwidth=4
+let format_allow_over_tw = 1
+set shiftwidth=2
 set smartindent
 set smarttab
 set whichwrap=b,s,h,l,<,>,[,]
@@ -980,14 +979,14 @@ elseif has('unix')
   "endif
 endif
 
-" 全角スペースを表示
+" Show em space
 augroup hilightIdegraphicSpace
   autocmd!
   autocmd VimEnter,ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
   autocmd Syntax * syntax match IdeographicSpace containedin=ALL /　/
 augroup END
 
-" vimdiff時のハイライト
+" vimdiff highlight
 augroup diffcolor
   autocmd!
   autocmd ColorScheme * hi DiffAdd    ctermfg=black ctermbg=2
@@ -996,20 +995,20 @@ augroup diffcolor
   autocmd ColorScheme * hi DiffText   ctermfg=black ctermbg=7
 augroup END
 
-" カーソルラインと行ラインを表示
+" highlight cursorline and cursorcolumn only current window
 augroup cursorsetting
   autocmd!
   autocmd BufWinEnter,WinEnter * setlocal cursorline cursorcolumn
   autocmd BufWinLeave,WinLeave * setlocal nocursorline nocursorcolumn
 augroup END
 
-" 自動的に現在編集中のファイルのカレントディレクトリに移動
+" move current file directory
 augroup movecurrentdir
   autocmd!
   autocmd BufRead,BufEnter * lcd %:p:h
 augroup END
 
-" 親ディレクトリが存在していなければ作成するかどうか確認
+" make directory if parent directory does'nt exist
 augroup AutoMkdir
   autocmd!
   autocmd BufNewFile * call PromptAndMakeDirectory()
@@ -1024,7 +1023,6 @@ function! PromptAndMakeDirectory()
   endif
 endfunction
 
-" kaoriya版に添付されているプラグインの無効化
 let plugin_autodate_disable  = 1
 let plugin_cmdex_disable     = 1
 let plugin_dicwin_disable    = 1
@@ -1048,7 +1046,7 @@ if has('mac')
   noremap \ ¥
 endif
 
-" Escのkeymap
+" Esc
 noremap  <C-[> <C-c>
 noremap! <C-[> <C-c>
 noremap  <C-c> <C-[>
@@ -1058,7 +1056,7 @@ noremap! <C-@> <ESC>
 
 inoremap jk <Esc>
 if has('mac')
-  " 誤タイプ防止の為
+  " prevent miss type
   inoremap <D-j>k <Esc>
   inoremap <D-j><D-k> <Esc>
 endif
@@ -1094,48 +1092,48 @@ function! s:MoveMiddleOfLine()
   endif
 endfunction
 
-" vimrc編集
+" edit vimrc
 if has('gui')
   nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . escape(resolve($MYVIMRC), ' ')<CR>
 else
   nnoremap <silent> <Space>.   :<C-u>execute 'tabe ' . escape(resolve($MYVIMRC), ' ')<CR>
 endif
 
-" helpショートカット
+" for help
 nnoremap <C-h>      :<C-u>help<Space>
 nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
-" 最後に選択したテキストをOperator-pending modeで使用可能に
+" last selected text operator
 onoremap gv         :<C-u>normal! gv<CR>
 
-" 最後に変更されたテキストを選択する
+" select last changed text
 nnoremap gc         `[v`]
 vnoremap gc         :<C-u>normal gc<CR>
 onoremap gc         :<C-u>normal gc<CR>
-" 最後に変更されたテキストに移動する
+" move last changed text
 nnoremap gI `.zz
 
 
-" 直近コピーしたテキストを貼り付け
+" paste last yanked text
 nnoremap 'p  "0p
 
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
-" クリップボードからペースト
+" paste from clipboard
 nnoremap <Space>p "*p
 vnoremap <Space>p "*p
 nnoremap <Space>P "*P
 vnoremap <Space>P "*P
-" クリップボードにヤンク
+" yank to clipboard
 nnoremap <Space>y "*y
 nnoremap <Space>Y "*y$
 vnoremap <Space>y "*y
-" クリップボードにヤンクして削除
+" delete to clipboard
 nnoremap <Space>d "*d
 nnoremap <Space>D "*d$
 vnoremap <Space>d "*d
 
-" 空行挿入(繰り返し対応)
+" insert blank line
 nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
 nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1<CR>
@@ -1144,7 +1142,7 @@ nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(li
 nnoremap <Space>I $i
 nnoremap X ^x
 
-";と:を入れ替え
+" swap ; and :
 nnoremap ; :
 vnoremap ; :
 nnoremap q; q:
@@ -1152,13 +1150,13 @@ vnoremap q; q:
 nnoremap : ;
 vnoremap : ;
 
-" <Space>;で最後のコマンドライン繰り返し
+" repeat last command-line
 nnoremap <Space>; @:
 
-" <Leader>.で直前の@xを繰り返し
+" repeat the previous @x
 nnoremap <Leader>. @@
 
-" .: repeats the last command on every line
+" repeats the last command on every line
 vnoremap .  :normal .<CR>
 
 " @: repeats macro on every line
@@ -1230,7 +1228,7 @@ nnoremap <C-q><C-q> @@
 onoremap w iw
 onoremap W iW
 
-" text-objectを割り当て
+" text-object
 onoremap aa  a>
 vnoremap aa  a>
 onoremap ia  i>
@@ -1246,7 +1244,7 @@ vnoremap ad  a"
 onoremap id  i"
 vnoremap id  i"
 
-" exコマンド
+" ex command
 nnoremap <Space>w :<C-u>update<CR>
 nnoremap <Space>q :<C-u>SafeQuit<CR>
 nnoremap <Space>Q :<C-u>SafeQuit!<CR>
@@ -1256,13 +1254,13 @@ nnoremap <Space>bD :<C-u>bwipeout!<CR>
 nnoremap <Space>bb :<C-u>buffer #<CR>
 
 function! s:safeQuit(bang)
-  " 最後のタブ&最後のウィンドウでなければ終了
+  " exit if current buffer is last tab or last window
   if !(tabpagenr('$') == 1 && winnr('$') == 1)
     execute 'quit'.a:bang
     return
   endif
 
-  " 終了するかどうか確認
+  " confirm whether exit or not
   echohl WarningMsg
   let l:input = input('Are you sure to quit vim?[y/n]: ')
   echohl None
@@ -1275,10 +1273,10 @@ endfunction
 
 command! -bang SafeQuit call s:safeQuit('<bang>')
 
-" 仮想置換モード
+" virtual replace mode
 nnoremap R gR
 
-" win間移動
+" window commands
 nnoremap <M-h>   <C-w>h
 nnoremap <M-j>   <C-w>j
 nnoremap <M-k>   <C-w>k
@@ -1312,32 +1310,31 @@ cnoremap <C-a> <Home>
 cnoremap <expr> <C-d> (getcmdpos()==strlen(getcmdline())+1 ? "\<C-d>" : "\<Del>")
 cnoremap <C-e> <END>
 cnoremap <C-h> <BS>
-" カーソル位置にかかわらず全部消す
 cnoremap <C-u> <C-e><C-u>
 
-" コマンドラインモードでコマンドラインウィンドウを開く
+" open the command-line window from command-line mode
 cnoremap <C-v> <C-f>a
 
-" カーソル下のlineを挿入
+" insert the line under the cursor
 cnoremap <expr> <C-r><C-l>   matchstr(getline("."), '[^ \t:][^\r\n]*')
 
-" ASCII keyboardで打ちやすいように
+" easy to type in ASCII keyboard
 cnoremap <C-r>' <C-r>"
 
-" command modeでの自動エスケープ
+" auto escape in command-line mode
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
 " expand directory of active file
 cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" 置換の自動入力
+" insert substitute command
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
 vnoremap gs  :s///g<Left><Left><Left>
 nnoremap gS  :<C-u>%s///gc<Left><Left><Left>
 vnoremap gS  :s///gc<Left><Left><Left>
 
-" vim diffのkeymap
+" for vimdiff
 nnoremap dp dp:<C-u>diffupdate<CR>]czz
 nnoremap do do:<C-u>diffupdate<CR>]czz
 vnoremap <Leader>dp :diffput<CR>:<C-u>diffupdate<CR>zz
@@ -1355,19 +1352,19 @@ inoremap <C-h> <BS>
 inoremap <C-d> <Del>
 "inoremap <C-k> <C-o>C
 "inoremap <C-y> <C-o>p
-" undoできるC-w,C-u
+" undoable C-w,C-u
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 
 inoremap <S-Enter> <C-o>O
 
-" ハイライトを消す
+" stop the highlighting
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
-" 検索方向が変わってもnは下、Nは上に移動できるように対応
+" n is always search forwward and N is always search backward
 nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
 nnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
 vnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
@@ -1379,23 +1376,24 @@ function! s:search_forward_p()
   return exists('v:searchforward') ? v:searchforward : 1
 endfunction
 
-" scrolloffが設定されていてもスクリーンの最上行に移動する
+" type H to move top of screen and type L to move bottom of screen if scrolloff set
 if &scrolloff > 0
   nnoremap <expr> H 'H' . &scrolloff . 'kzvzz'
   nnoremap <expr> L 'L' . &scrolloff . 'jzvzz'
 endif
 
-" 仮想編集の変更
+" change virtualedit
 nnoremap <Space>va  :<C-u>setlocal virtualedit=all<CR>:setlocal virtualedit?<CR>
 nnoremap <Space>vb  :<C-u>setlocal virtualedit=block<CR>:setlocal virtualedit?<CR>
 nnoremap <Space>vv  :<C-u>let &virtualedit=(&ve == "block" ? "all" : "block")<CR>:setlocal virtualedit?<CR>
 
-" very magic（正規表現をエスケープしなくてよくなる）
+" very magic
 noremap /   /\v
 noremap ?   ?\v
 
-" カーソル下のウィンドウを編集（数字が付いていればその行へ）
+" swap gf and gF
 noremap gf gF
+noremap gF gf
 
 " tab mode
 nnoremap [tabmode]   <Nop>
@@ -1411,10 +1409,10 @@ nnoremap <silent> <C-n> gt
 nnoremap [tagjump]    <Nop>
 nmap     <Space>t     [tagjump]
 
-nnoremap [tagjump]t   <C-]>          " 「飛ぶ」
-nnoremap [tagjump]j   :<C-u>tag<CR>  " 「進む」
-nnoremap [tagjump]k   :<C-u>pop<CR>  " 「戻る」
-nnoremap [tagjump]l   :<C-u>tags<CR> " 履歴一覧
+nnoremap [tagjump]t   <C-]>
+nnoremap [tagjump]j   :<C-u>tag<CR>
+nnoremap [tagjump]k   :<C-u>pop<CR>
+nnoremap [tagjump]l   :<C-u>tags<CR>
 
 "--------------------
 " Function: Open tag under cursor in new tab
@@ -1485,7 +1483,7 @@ nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
 nnoremap <Space>t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2 nolist<CR>
 nnoremap <Space>t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4 nolist<CR>
 
-" 差分モードを終了する
+" Switch off diff mode
 function! s:DiffOff()
   diffoff!
   set nowrap
@@ -1493,7 +1491,7 @@ endfunction
 
 command! DiffOff call s:DiffOff()
 
-" Google Chromeで開く
+" Open with Google Chrome
 function! s:GoogleChrome(...)
   if has('mac')
     let l:cmd = "silent !open -a Google\\ Chrome "
@@ -1511,10 +1509,9 @@ endfunction
 
 command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 
-" 検索文字列をレジスタでグローバル置換
+" replace search word to unnamed register
 nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'
 
-" 縦に連番を入力する
 nnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
 vnoremap <silent> <space>co :ContinuousNumber <c-a><cr>
 command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
@@ -1565,7 +1562,7 @@ endfunction
 
 command! -nargs=0 EchoSynName call s:EchoSynName()
 
-" visualモードで最後に選択したテキストを%sで指定してコマンドを実行する {{{
+" execute command (inner %s replace last selected text)
 function! ExecuteWithSelectedText(command)
   if a:command !~? '%s'
     return
@@ -1641,7 +1638,7 @@ augroup perllang
   autocmd BufRead,BufNewFile *.psgi setfiletype perl
   autocmd BufRead,BufNewFile *.t    setfiletype perl
   autocmd FileType perl setlocal expandtab tabstop=4 shiftwidth=4 list
-  " perlの関数に飛ぶ
+  " jump to perl function
   autocmd FileType perl noremap <silent><buffer> ]]  m':<c-u>call search('^\s*sub\>', "W")<CR>
   autocmd FileType perl noremap <silent><buffer> [[  m':<c-u>call search('^\s*sub\>', "bW")<CR>
   autocmd FileType perl compiler perl
@@ -1683,7 +1680,7 @@ if has('mac')
   let g:alternateExtensions_h = "m,mm,c,cpp"
   let g:alternateExtensions_m = "h"
   let g:alternateExtensions_mm = "h,hpp"
-  " for Objective-C gfでジャンプできるように
+  " for Objective-C enable to jump with gf
   augroup objclang
     autocmd!
     autocmd FileType objc setlocal path=.;,/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks,/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks,,
@@ -1846,12 +1843,12 @@ if s:bundled('neosnippet')
     autocmd FileType snippet setlocal foldtext=FoldTextOfSnippet()
   augroup END
 
-  " snippetの折りたたみ用関数。snippet名とabbrを返す
+  " function for neosnippet fold
   function! FoldTextOfSnippet()
     let snippet = matchstr(getline(v:foldstart), '^snippet\s\+\zs\S.*')
     let abbrstr = ''
 
-    " snippetの定義の2行目から5行目まででabbrを探す
+    " search abbr
     for i in range(1, 4)
       if getline(v:foldstart+i) !~ '^\w'
         break
@@ -2322,12 +2319,12 @@ if s:bundled('vim-submode')
   call submode#map('change-list', 'n', '', ',', 'g,zz')
 
   call submode#enter_with('diff', 'n', '', '<Leader>d', '<Nop>')
-  call submode#map('diff', 'n', '', 'j', ']czz') " next diff
-  call submode#map('diff', 'n', '', 'k', '[czz') " prev diff
-  call submode#map('diff', 'n', '', 'o', 'do') " get diff
-  call submode#map('diff', 'n', '', 'p', 'dp') " put diff
-  call submode#map('diff', 'n', '', 'u', 'do]czz') " get diff and next diff
-  call submode#map('diff', 'n', '', 'i', 'dp]czz') " put diff and next diff
+  call submode#map('diff', 'n', '', 'j', ']czz')
+  call submode#map('diff', 'n', '', 'k', '[czz')
+  call submode#map('diff', 'n', '', 'o', 'do')
+  call submode#map('diff', 'n', '', 'p', 'dp')
+  call submode#map('diff', 'n', '', 'u', 'do]czz')
+  call submode#map('diff', 'n', '', 'i', 'dp]czz')
 
 endif
 " }}}
@@ -2337,7 +2334,7 @@ endif
 if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
   map s <Plug>(operator-replace)
   map S <Plug>(operator-replace)$
-  " clipboardからoperator-replace
+  " operator-replace from clipboard
   map <Space>s "*<Plug>(operator-replace)
   map <Space>S "*<Plug>(operator-replace)$
 endif
@@ -2853,13 +2850,13 @@ let errormarker_disablemappings = 1
 " for taglist.vim {{{2
 if s:bundled('taglist.vim')
   if has('mac')
-    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"    "ctagsのパス
+    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
   elseif has('win32')
-    let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"    "ctagsのパス
+    let Tlist_Ctags_Cmd = "c:/usr/local/bin/ctags.exe"
   endif
-  "let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない
-  let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる
-  let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示
+
+  let Tlist_Exit_OnlyWindow = 1
+  let Tlist_Use_Right_Window = 1
   nnoremap <silent> <C-l> :<C-u>TlistToggle<CR>
 endif
 " }}}
