@@ -1732,14 +1732,13 @@ endif
 
 "---------------------------------------------------------------------------
 " for Lokaltog/vim-easymotion {{{2
-let g:EasyMotion_leader_key = ','
-let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-let g:EasyMotion_do_shade = 1
-augroup easymotioncolor
-  autocmd!
-  autocmd ColorScheme * hi EasyMotionTarget ctermbg=none ctermfg=green
-  autocmd ColorScheme * hi EasyMotionShade  ctermbg=none ctermfg=blue
-augroup END
+if s:bundled('vim-easymotion')
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_keys       = 'fjghdksla;tyrueiwoqpvbncmxz'
+  let g:EasyMotion_smartcase  = 1
+  let g:EasyMotion_use_migemo = 1
+  map <Space>e  <Plug>(easymotion-s2)
+endif
 " }}}
 
 "---------------------------------------------------------------------------
