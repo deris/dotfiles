@@ -59,9 +59,9 @@ endfunction
 nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
 nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
 
-nnoremap tt     :<C-u>tabe<CR>
-nnoremap <silent> <C-p>  gT
-nnoremap <silent> <C-n>  gt
+nnoremap <silent> tt  :<C-u>tabe<CR>
+nnoremap <C-p>  gT
+nnoremap <C-n>  gt
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
