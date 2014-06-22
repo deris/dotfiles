@@ -20,6 +20,10 @@ set tabstop=2
 set shiftwidth=2
 set helplang=en
 
+set nobackup
+set noswapfile
+set noundofile
+
 if has('gui_running')
   set lines=999
   set columns=120
