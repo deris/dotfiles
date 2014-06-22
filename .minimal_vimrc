@@ -20,6 +20,17 @@ set tabstop=2
 set shiftwidth=2
 set helplang=en
 
+if has('gui_running')
+  set lines=999
+  set columns=120
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=l
+  set guioptions-=L
+endif
+
 colorscheme desert
 
 nnoremap <Space>w  :<C-u>w<CR>
