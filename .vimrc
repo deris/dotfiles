@@ -2047,10 +2047,10 @@ if s:bundled('vimshell')
     call vimshell#altercmd#define('g', 'git')
     call vimshell#altercmd#define('l', 'll')
     call vimshell#altercmd#define('ll', 'ls -l')
-    call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+    call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
   endfunction "}}}
 
-  function! g:my_chpwd(args, context)
+  function! MyChpwd(args, context)
     call vimshell#execute('ls')
   endfunction
 
@@ -2597,7 +2597,7 @@ if s:bundled('vim-ambicmd')
   cnoremap <expr> <S-Space> ambicmd#expand("\<Space>")
   cnoremap <expr> <CR>      (getcmdtype() =~ '[/?]' ? "\<CR>zv" : ambicmd#expand("\<CR>"))
 
-  function! g:ambicmd_my_custom_rule(cmd)
+  function! AmbicmdMyCustomRule(cmd)
     return [
     \   '\c^' . a:cmd . '$',
     \   '\c^' . a:cmd,
@@ -2609,7 +2609,7 @@ if s:bundled('vim-ambicmd')
     \   '\C^' . substitute(a:cmd, '^.', '\u\0', 'g'),
     \ ]
   endfunction
-  let g:ambicmd#build_rule = 'g:ambicmd_my_custom_rule'
+  let g:ambicmd#build_rule = 'AmbicmdMyCustomRule'
 endif
 " }}}
 
