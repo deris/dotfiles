@@ -1,0 +1,33 @@
+defencoding utf8
+encoding utf8 utf8
+startup_message off
+shell bash
+hardstatus alwayslastline '%{= kw}%02c:%s %{= .y}%H %L=%{= .b}%-w%46>%{= .r}%n %t*%{= .b}%+w%-16=%{= .y}[%l]'
+autodetach on
+
+escape ^Zz
+
+bind v  eval 'split -v' focus screen
+bind ^v eval 'split -v' focus screen
+bind s  eval split focus screen
+bind ^s eval split focus screen
+
+bind j  eval focus down
+bind ^j eval focus down
+bind k  eval focus up
+bind ^k eval focus up
+bind h  eval focus right
+bind ^h eval focus right
+bind l  eval focus left
+bind ^l eval focus left
+
+bind J  eval resize -h -5
+bind K  eval resize -h -5
+bind H  eval resize -v +5
+bind L  eval resize -v -5
+
+bind x  eval kill
+bind ^x eval kill
+bind k  eval remove
+bind ^k eval remove
+
