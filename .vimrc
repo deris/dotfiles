@@ -2344,8 +2344,8 @@ endif
 "---------------------------------------------------------------------------
 " for kana/vim-operator-user {{{2
 if s:bundled('vim-operator-user')
-    call operator#user#define_ex_command('blank-killer', 's/\s\+$//')
-    nmap <Leader>bk <Plug>(operator-blank-killer)
+  call operator#user#define_ex_command('blank-killer', 's/\s\+$//')
+  nmap <Leader>ok <Plug>(operator-blank-killer)
 endif
 " }}}
 
