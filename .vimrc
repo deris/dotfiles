@@ -785,6 +785,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/vim-pasta'
   NeoBundle 'deris/vim-operator-insert'
   NeoBundle 'deris/vim-rengbang'
+  NeoBundle 'deris/vim-shot-f'
   NeoBundle 'deris/vim-textobj-ipmac'
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
     \ { 'depends' : 'kana/vim-textobj-user' }
@@ -2845,6 +2846,21 @@ if s:bundled('vim-fitcolumn')
     \ })
   imap <C-j><C-h>  <Plug>(fitcolumn-abovecolumn)
   imap <C-j><C-l>  <Plug>(fitcolumn-belowcolumn)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/vim-shot-f {{{2
+if s:bundled('vim-shot-f')
+  let g:shot_f_no_default_key_mappings = 1
+  nmap <expr> f  col('.')+1 != col('$') ? "\<Plug>(shot-f-f)" : "\<Plug>(shot-f-F)"
+  nmap <expr> F  col('.')   != 1        ? "\<Plug>(shot-f-F)" : "\<Plug>(shot-f-f)"
+  xmap <expr> f  col('.')+1 != col('$') ? "\<Plug>(shot-f-f)" : "\<Plug>(shot-f-F)"
+  xmap <expr> F  col('.')   != 1        ? "\<Plug>(shot-f-F)" : "\<Plug>(shot-f-f)"
+  omap <expr> f  col('.')+1 != col('$') ? "\<Plug>(shot-f-f)" : "\<Plug>(shot-f-F)"
+  omap <expr> F  col('.')   != 1        ? "\<Plug>(shot-f-F)" : "\<Plug>(shot-f-f)"
+  omap <expr> t  col('.')+1 != col('$') ? "\<Plug>(shot-f-t)" : "\<Plug>(shot-f-T)"
+  omap <expr> T  col('.')   != 1        ? "\<Plug>(shot-f-T)" : "\<Plug>(shot-f-t)"
 endif
 " }}}
 
