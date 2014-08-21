@@ -1816,6 +1816,15 @@ if s:bundled('neocomplete')
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+  " For smart TAB completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ neocomplete#start_manual_complete()
+  function! s:check_back_space() "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
 endif
 " }}}
 
