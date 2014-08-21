@@ -210,6 +210,7 @@ if s:bundled('neobundle.vim')
     "\   ]},
     "\ }
   NeoBundle 'coderifous/textobj-word-column.vim'
+  NeoBundle 'cohama/agit.vim'
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
@@ -452,6 +453,11 @@ if s:bundled('neobundle.vim')
     \     '<Plug>(jplus-input-with-space)',
     \   ],
     \ }}
+  NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
+    \   'filetypes' : ['ruby', 'eruby', 'haml'],
+    \ }}
+  NeoBundleLazy 'osyo-manga/vim-operator-blockwise',
+    \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundleLazy 'osyo-manga/vim-over', {
     \ 'autoload' : {
     \   'commands' : [
@@ -497,15 +503,16 @@ if s:bundled('neobundle.vim')
     "\     'HGdiff',
     "\   ]},
     "\ }
-  NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
-    \ 'filetypes' : ['markdown', 'mkd']
-    \ }}
+  " NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+  "   \ 'filetypes' : ['markdown', 'mkd']
+  "   \ }}
   NeoBundle 'rbtnn/puyo.vim', {
     \ 'autoload' : {
     \   'commands' : [
     \     'Puyo',
     \   ]},
     \ }
+  NeoBundleLazy 'rbtnn/vim-textobj-statement'
   NeoBundleLazy 'rbtnn/vimconsole.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -522,6 +529,14 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'reinh/vim-makegreen'
   "NeoBundleLazy 'rhysd/accelerated-jk'
   NeoBundleLazy 'rhysd/clever-f.vim'
+  NeoBundle 'rhysd/committia.vim'
+  NeoBundleLazy 'rhysd/vim-grammarous', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'GrammarousCheck',
+    \     'GrammarousReset',
+    \   ]},
+    \ }
   NeoBundle 'rhysd/unite-ruby-require.vim'
   "NeoBundle 'rhysd/vim-operator-surround'
   " NeoBundle 'rhysd/vim-textobj-word-column'
@@ -596,13 +611,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'terryma/vim-expand-region'
   " NeoBundle 'terryma/vim-multiple-cursors'
   NeoBundle 'thinca/vim-ambicmd'
-  NeoBundleLazy 'thinca/vim-fontzoom', {
-    \ 'gui' : 1,
-    \ 'autoload' : {
-    \  'mappings' : [
-    \   ['n', '<Plug>(fontzoom-larger)'],
-    \   ['n', '<Plug>(fontzoom-smaller)']]
-    \ }}
+  NeoBundle 'thinca/vim-fontzoom'
   NeoBundleLazy 'thinca/vim-github', {
     \ 'autoload' : {
     \   'commands' : [
@@ -719,14 +728,7 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   "NeoBundle 'tyru/vim-altercmd'
-  NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
-    \ 'gui' : 1,
-    \ 'mappings' : [
-    \   ['n', '<Plug>(winmove-up)'],
-    \   ['n', '<Plug>(winmove-down)'],
-    \   ['n', '<Plug>(winmove-left)'],
-    \   ['n', '<Plug>(winmove-right)']],
-    \ }}
+  NeoBundle 'tyru/winmove.vim'
   "NeoBundle 'ujihisa/neco-look',
   "  \ { 'depends' : 'Shougo/neocomplcache' }
   NeoBundle 'ujihisa/neco-rubymf'
@@ -773,6 +775,7 @@ if s:bundled('neobundle.vim')
     \ }}
   "NeoBundle 'ynkdir/vim-remote'
   "NeoBundle 'yuratomo/w3m.vim'
+  "NeoBundle 'yuratomo/dbg.vim'
   NeoBundleLazy 'zhaocai/unite-scriptnames', { 'autoload' : {
     \ 'unite_sources' : 'scriptnames',
     \ }}
