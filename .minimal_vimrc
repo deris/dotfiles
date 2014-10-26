@@ -47,7 +47,9 @@ vnoremap ;  :
 vnoremap :  ;
 
 nnoremap <Space>h  ^
+vnoremap <Space>h  ^
 nnoremap <Space>l  $
+vnoremap <Space>l  $
 
 nnoremap k   gk
 nnoremap j   gj
