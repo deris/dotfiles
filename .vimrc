@@ -73,7 +73,6 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
     \ 'commands' : 'Switch',
     \ }}
-  "NeoBundleLazy 'Lokaltog/vim-easymotion'
   NeoBundle 'LeafCage/yankround.vim'
   "NeoBundleLazy 'Rip-Rip/clang_complete', { 'autoload' : {
     "\ 'filetypes' : ['c', 'cpp'],
@@ -663,7 +662,6 @@ set showcmd
 set title
 set lines=50
 set showtabline=2
-"set statusline=%t\ %y\ [%{&fenc}][%{&ff}]\ %m%r%w%h%=%l/%L\ %v\ %P
 set previewheight=10
 set helpheight=12
 set virtualedit=block
@@ -1202,44 +1200,6 @@ nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
 
 command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
-" kana's useful tab function {{{
-function! s:move_window_into_tab_page(target_tabpagenr)
-  " Move the current window into a:target_tabpagenr.
-  " If a:target_tabpagenr is 0, move into new tab page.
-  if a:target_tabpagenr < 0  " ignore invalid number.
-    return
-  endif
-  let original_tabnr = tabpagenr()
-  let target_bufnr = bufnr('')
-  let window_view = winsaveview()
-
-  if a:target_tabpagenr == 0
-    tabnew
-    tabmove  " Move new tabpage at the last.
-    execute target_bufnr 'buffer'
-    let target_tabpagenr = tabpagenr()
-  else
-    execute a:target_tabpagenr 'tabnext'
-    let target_tabpagenr = a:target_tabpagenr
-    topleft new  " FIXME: be customizable?
-    execute target_bufnr 'buffer'
-  endif
-  call winrestview(window_view)
-
-  execute original_tabnr 'tabnext'
-  if 1 < winnr('$')
-    close
-  else
-    enew
-  endif
-
-  execute target_tabpagenr 'tabnext'
-endfunction " }}}
-
-" move current buffer into a new tab.
-nnoremap <silent> <C-w><C-t> :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-nnoremap <silent> <C-w>t     :<C-u>call <SID>move_window_into_tab_page(0)<CR>
-
 " change expandtab booster
 nnoremap t2 :<C-U>setlocal expandtab shiftwidth=2 tabstop=2<CR>
 nnoremap t4 :<C-U>setlocal noexpandtab shiftwidth=4 tabstop=4<CR>
@@ -1275,10 +1235,6 @@ command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 " replace search word to unnamed register
 nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'
 
-" from ujihisa's vimrc
-command! -count=1 -nargs=0 GoToTheLine silent execute getpos('.')[1][:-len(v:count)-1] . v:count
-"nnoremap <silent> gl :GoToTheLine<Cr>
-
 " If unite-quickfix is bundled use unite-quickfix, otherwise use built-in quickfix window
 function s:OpenQuickFix()
   if s:bundled('unite.vim') && s:bundled('unite-quickfix')
@@ -1296,30 +1252,7 @@ endfunction
 
 command! -nargs=+ Grep call s:Grep(<f-args>)
 
-" Count Char
-function! s:CountChar(c)
-  let line = getline('.')
-  let match = stridx(line, a:c)
-  let cnt = 0
-  while match != -1
-    let cnt = cnt + 1
-    let match = stridx(line, a:c, match + 1)
-  endwhile
-
-  echo cnt . " '" . a:c . "' in current line."
-endfunction
-
-command! -nargs=1 CountChar call s:CountChar(<f-args>)
-
-function s:EchoSynName()
-  let synlist = []
-  for id in synstack(line("."), col("."))
-    call add(synlist, synIDattr(id, "name"))
-  endfor
-  echo synlist
-endfunction
-
-command! -nargs=0 EchoSynName call s:EchoSynName()
+command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 
 " execute command (inner %s replace last selected text)
 function! ExecuteWithSelectedText(command)
@@ -1490,17 +1423,6 @@ if s:bundled('yankround.vim')
   call submode#enter_with('yankround', 'n', 'r', '<Leader>P', '<Plug>(yankround-P)')
   call submode#map('yankround', 'n', 'r', 'p', '<Plug>(yankround-prev)')
   call submode#map('yankround', 'n', 'r', 'n', '<Plug>(yankround-next)')
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for Lokaltog/vim-easymotion {{{2
-if s:bundled('vim-easymotion')
-  let g:EasyMotion_do_mapping = 0
-  let g:EasyMotion_keys       = 'fjghdksla;tyrueiwoqpvbncmxz'
-  let g:EasyMotion_smartcase  = 1
-  let g:EasyMotion_use_migemo = 1
-  map g/  <Plug>(easymotion-s2)
 endif
 " }}}
 
@@ -1861,14 +1783,6 @@ if s:bundled('vim-rooter')
       lcd %:p:h
     endif
   endfunction
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for airblade/vim-gitgutter {{{2
-if s:bundled('vim-gitgutter')
-  let g:gitgutter_enabled = 0
-  nnoremap <Space>gg  :<C-u>GitGutterToggle<CR>
 endif
 " }}}
 
@@ -2495,23 +2409,6 @@ endif
 "---------------------------------------------------------------------------
 " for tsukkee/lingr-vim {{{2
 let g:lingr_vim_user = 'deris0126'
-" }}}
-
-"---------------------------------------------------------------------------
-" for tyru/nextfile.vim {{{2
-if s:bundled('nextfile.vim')
-  let g:nf_include_dotfiles = 1
-  let g:nf_loop_files = 1
-
-  if s:bundled('vim-submode')
-    call submode#enter_with('nextfile', 'n', 'r', '<Leader>n', '<Nop>')
-    call submode#map('nextfile', 'n', 'r', 'n', '<Plug>(nextfile-next)')
-    call submode#map('nextfile', 'n', 'r', 'p', '<Plug>(nextfile-previous)')
-  else
-    nmap <Leader>nn  <Plug>(nextfile-next)
-    nmap <Leader>np  <Plug>(nextfile-previous)
-  endif
-endif
 " }}}
 
 "---------------------------------------------------------------------------
