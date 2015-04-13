@@ -1663,6 +1663,20 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for haya14busa/vim-asterisk {{{2
+if s:bundled('vim-asterisk')
+  map *  <Plug>(asterisk-z*)
+  map #  <Plug>(asterisk-z#)
+  map g* <Plug>(asterisk-gz*)
+  map g# <Plug>(asterisk-gz#)
+  map <Space>/  <Plug>(asterisk-z*)
+  map <Space>?  <Plug>(asterisk-z#)
+  map g<Space>/ <Plug>(asterisk-gz*)
+  map g<Space>? <Plug>(asterisk-gz#)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for jpalardy/vim-slime {{{2
 let g:slime_target = 'tmux'
 let g:slime_paste_file = tempname()
@@ -1990,20 +2004,6 @@ if s:bundled('vim-ref')
   nnoremap <Leader>ww :<C-u>Ref webdict wikipedia <C-r><C-w><CR>
   vnoremap <Leader>ww :<C-u>call ExecuteWithSelectedText('Ref webdict wikipedia %s')<CR>
   nnoremap <Leader>wW :<C-u>Ref webdict wikipedia<Space>
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for thinca/vim-visualstar {{{2
-if s:bundled('vim-visualstar')
-  map * <Plug>(visualstar-*)N
-  map # <Plug>(visualstar-#)n
-  map g* <Plug>(visualstar-g*)N
-  map g# <Plug>(visualstar-g#)n
-  map <Space>/ <Plug>(visualstar-*)N
-  map <Space>? <Plug>(visualstar-#)n
-  map g<Space>/ <Plug>(visualstar-g*)N
-  map g<Space>? <Plug>(visualstar-g#)n
 endif
 " }}}
 
