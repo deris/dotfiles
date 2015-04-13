@@ -1051,7 +1051,7 @@ endfunction
 command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 
 " replace search word to unnamed register
-nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'
+nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'<CR>
 
 " If unite-quickfix is bundled use unite-quickfix, otherwise use built-in quickfix window
 function s:OpenQuickFix()
