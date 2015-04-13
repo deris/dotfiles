@@ -557,7 +557,7 @@ if has('win32')
   endif
 elseif has('unix')
   if executable('ag')
-    set grepprg=ag\ --vimgrep\ -S\ --stats\ --ignore-dir\ ".git-"\ --ignore-dir\ ".hg"\ $*\ /dev/null
+    set grepprg=ag\ --vimgrep\ -S\ $*\ /dev/null
     set grepformat=%f:%l:%c:%m
   endif
 endif
