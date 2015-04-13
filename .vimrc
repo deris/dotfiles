@@ -56,6 +56,7 @@ if s:bundled('neobundle.vim')
   let g:neobundle_default_git_protocol = 'https'
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
+  NeoBundle 'AndrewRadev/linediff.vim'
   NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'Shougo/neocomplete'
   NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
@@ -384,6 +385,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/vim-duzzle'
   NeoBundle 'deris/vim-pasta'
   NeoBundle 'deris/vim-operator-insert'
+  NeoBundle 'deris/vim-quickfixdo'
   NeoBundle 'deris/vim-rengbang'
   NeoBundle 'deris/vim-shot-f'
   NeoBundle 'deris/vim-textobj-ipmac'
