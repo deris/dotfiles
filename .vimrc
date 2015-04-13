@@ -1103,6 +1103,33 @@ function! s:extract_matches(...) range
   call setline(1, s:result)
 endfunction
 
+" for quickfix windows
+augroup MyQuickFix
+  autocmd!
+  autocmd FileType qf  nnoremap <buffer> p  <CR>zz<C-w>p
+  autocmd FileType qf  nnoremap <silent> <buffer> dd  :call <SID>del_quickfix_entry()<CR>
+  autocmd FileType qf  vnoremap <silent> <buffer> d   :call <SID>del_quickfix_entry()<CR>
+  autocmd FileType qf  nnoremap <silent> <buffer> u   :<C-u>call <SID>undo_quickfix_entry()<CR>
+  autocmd QuickFixCmdPost *  cwindow
+augroup END
+
+function! s:undo_quickfix_entry()
+  let history = get(w:, 'qf_history', [])
+  if !empty(history)
+    call setqflist(remove(history, -1), 'r')
+  endif
+endfunction
+
+function! s:del_quickfix_entry() range
+  let qf = getqflist()
+  let history = get(w:, 'qf_history', [])
+  call add(history, copy(qf))
+  let w:qf_history = history
+  unlet! qf[a:firstline - 1 : a:lastline - 1]
+  call setqflist(qf, 'r')
+  execute a:firstline
+endfunction
+
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1770,6 +1797,12 @@ if s:bundled('vim-submode')
   call submode#map('diff', 'n', '', 'p', 'dp')
   call submode#map('diff', 'n', '', 'u', 'do]czz')
   call submode#map('diff', 'n', '', 'i', 'dp]czz')
+
+  call submode#enter_with('quickfix', 'n', '', '<Leader>q', '<Nop>')
+  call submode#map('quickfix', 'n', '', 'j', ':cnext')
+  call submode#map('quickfix', 'n', '', 'k', ':cprevious')
+  call submode#map('quickfix', 'n', '', 'g', ':cfirst')
+  call submode#map('quickfix', 'n', '', 'G', ':clast')
 
 endif
 " }}}
