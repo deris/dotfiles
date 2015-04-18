@@ -1799,10 +1799,10 @@ if s:bundled('vim-submode')
   call submode#map('diff', 'n', '', 'i', 'dp]czz')
 
   call submode#enter_with('quickfix', 'n', '', '<Leader>q', '<Nop>')
-  call submode#map('quickfix', 'n', '', 'j', ':cnext')
-  call submode#map('quickfix', 'n', '', 'k', ':cprevious')
-  call submode#map('quickfix', 'n', '', 'g', ':cfirst')
-  call submode#map('quickfix', 'n', '', 'G', ':clast')
+  call submode#map('quickfix', 'n', '', 'j', ':cnext<CR>')
+  call submode#map('quickfix', 'n', '', 'k', ':cprevious<CR>')
+  call submode#map('quickfix', 'n', '', 'g', ':cfirst<CR>')
+  call submode#map('quickfix', 'n', '', 'G', ':clast<CR>')
 
 endif
 " }}}
