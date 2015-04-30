@@ -161,6 +161,8 @@ if s:bundled('neobundle.vim')
     \     'Alignta',
     \   ]},
     \ }
+  " NeoBundle 'itchyny/vim-autoft'
+  NeoBundle 'deris/vim-autoft'
   NeoBundleLazy 'kana/vim-altr', {
     \ 'autoload' : {
     \   'functions' : [
@@ -196,6 +198,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-textobj-line',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'kana/vim-vspec'
+  NeoBundle 'lambdalisue/vital-ArgumentParser'
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
@@ -225,9 +228,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'nelstrom/vim-markdown-folding'
   NeoBundle 'ntpeters/vim-better-whitespace'
   NeoBundleLazy 'osyo-manga/vim-brightest'
-  NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
-    \   'filetypes' : ['ruby', 'eruby', 'haml'],
-    \ }}
+  " NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
+  "   \   'filetypes' : ['ruby', 'eruby', 'haml'],
+  "   \ }}
   NeoBundleLazy 'osyo-manga/vim-over', {
     \ 'autoload' : {
     \   'commands' : [
@@ -291,6 +294,7 @@ if s:bundled('neobundle.vim')
     \     'Github',
     \   ]},
     \ }
+  NeoBundle 'thinca/vim-localrc'
   NeoBundle 'thinca/vim-poslist'
   NeoBundleLazy 'thinca/vim-prettyprint', {
     \ 'autoload' : {
@@ -371,6 +375,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : {
     \ 'unite_sources' : 'colorscheme',
     \ }}
+  NeoBundle 'vim-jp/vim-cpp'
   NeoBundle 'vim-jp/vital.vim'
   NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
     \ 'mappings' : '<Plug>(ref-keyword)',
@@ -381,18 +386,36 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-cmdline-switch'
-  NeoBundle 'deris/vim-diffbuf'
-  NeoBundle 'deris/vim-duzzle'
+  " NeoBundle 'deris/vim-diffbuf'
+  " NeoBundle 'deris/vim-duzzle'
   NeoBundle 'deris/vim-pasta'
   NeoBundle 'deris/vim-operator-insert'
-  NeoBundle 'deris/vim-quickfixdo'
-  NeoBundle 'deris/vim-rengbang'
+  " NeoBundle 'deris/vim-quickfixdo'
+  " NeoBundle 'deris/vim-rengbang'
   NeoBundle 'deris/vim-shot-f'
   NeoBundle 'deris/vim-textobj-ipmac'
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'deris/vim-textobj-headwordofline',
     \ { 'depends' : 'kana/vim-textobj-user' }
+  set rtp+=~/localrepos/vim/vital.vim
+  set rtp+=~/localrepos/vim/vital-test
+  set rtp+=~/localrepos/vim/vim-kobito
+  set rtp+=~/localrepos/vim/vim-hatenablog
+  set rtp+=~/localrepos/vim/vim-operator-insert
+  set rtp+=~/localrepos/vim/vim-hightlight-anylog
+  set rtp+=~/localrepos/vim/vim-textobj-email
+  set rtp+=~/localrepos/vim/vim-visualinc
+  set rtp+=~/localrepos/vim/vim-magicalize
+  set rtp+=~/localrepos/vim/vim-opaste
+  set rtp+=~/localrepos/vim/vim-markdown
+  set rtp+=~/localrepos/vim/vim-gdb
+  set rtp+=~/localrepos/vim/vim-duzzle
+  set rtp+=~/localrepos/vim/vim-diffbuf
+  set rtp+=~/localrepos/vim/neosnippet-rukkit
+  set rtp+=~/localrepos/vim/vim-dirdo
+  set rtp+=~/localrepos/vim/vim-quickfixdo
+  set rtp+=~/localrepos/vim/vim-rengbang
 
   " vim-scripts repos
   NeoBundleLazy 'HybridText', { 'autoload' : {
@@ -1165,6 +1188,7 @@ augroup END
 augroup clang
   autocmd!
   autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2 list
+  autocmd FileType c setlocal textwidth=80 fo+=t fo-=l fo-=v
 augroup END
 augroup rubylang
   autocmd!
@@ -1207,6 +1231,10 @@ augroup zshlang
   autocmd!
   autocmd FileType zsh setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
+augroup rukkit
+  autocmd!
+  autocmd BufNewFile,BufRead */akechi.rukkit*/*.rb set ft=ruby.rukkit
+augroup END
 
 " }}}
 
@@ -1244,8 +1272,7 @@ if s:bundled('neocomplete')
   " Define dictionary.
   let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ 'rukkit' : $DOTVIM . '/dict/rukkit.dict'
     \ }
 
   " Define keyword.
@@ -1710,6 +1737,20 @@ let g:slime_paste_file = tempname()
 " }}}
 
 "---------------------------------------------------------------------------
+" for itchyny/vim-autoft {{{2
+if s:bundled('vim-autoft')
+  let g:autoft_ignore_current_filetype = 1
+  let g:autoft_config = [
+    \ { 'filetype': 'html'       , 'pattern': '<\%(!DOCTYPE\|html\|head\|script\)' },
+    \ { 'filetype': 'c'          , 'pattern': '^\s*#\s*\%(include\|define\)\>' },
+    \ { 'filetype': 'diff'       , 'pattern': '^diff -' },
+    \ { 'filetype': 'sh'         , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
+    \ ]
+    " \ { 'filetype': 'ruby.rukkit', 'pattern': 'org\.bukkit\.' },
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-altr {{{2
 if s:bundled('vim-altr')
   call altr#remove_all()
@@ -1878,9 +1919,24 @@ endif
 "---------------------------------------------------------------------------
 " for rhysd/vim-operator-surround {{{2
 if s:bundled('vim-operator-surround')
-  map <silent><Leader>sa <Plug>(operator-surround-append)
-  map <silent><Leader>sd <Plug>(operator-surround-delete)
-  map <silent><Leader>sr <Plug>(operator-surround-replace)
+  map <silent><Leader>sy <Plug>(operator-surround-append)a
+  map <silent><Leader>sd <Plug>(operator-surround-delete)a
+  map <silent><Leader>sc <Plug>(operator-surround-replace)a
+
+  let g:operator#surround#blocks =
+    \ {
+    \   '-' : [
+    \       { 'block' : ['(', ')'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['(', ')', 'b'] },
+    \       { 'block' : ['[', ']'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['[', ']', 'r'] },
+    \       { 'block' : ['{', '}'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['{', '}', 'B'] },
+    \       { 'block' : ['<', '>'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['<', '>', 'a'] },
+    \       { 'block' : ['"', '"'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['"', 'd'] },
+    \       { 'block' : ["'", "'"],  'motionwise' : ['char', 'line', 'block'], 'keys' : ["'", 'q'] },
+    \       { 'block' : ['`', '`'],  'motionwise' : ['char', 'line', 'block'], 'keys' : ['`'] },
+    \       { 'block' : ['( ', ' )'], 'motionwise' : ['char', 'line', 'block'], 'keys' : [' (', ' )'] },
+    \       { 'block' : ['{ ', ' }'], 'motionwise' : ['char', 'line', 'block'], 'keys' : [' {', ' }'] },
+    \   ],
+    \ }
 endif
 " }}}
 
@@ -2196,6 +2252,13 @@ if s:bundled('vim-textobj-user') && s:bundled('vim-textobj-function')
   vmap aF <Plug>(textobj-function-a)
 endif
 " }}}
+
+set formatexpr=MyFormatExpr()
+
+function! MyFormatExpr() abort
+  echom 'lnum=' v:lnum 'count=' v:count 'char=' v:char
+  echom 'mode=' mode()
+endfunction
 
 " }}}
 
