@@ -57,6 +57,9 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'AndrewRadev/linediff.vim'
+  NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
+    \ 'filetypes' : 'swift',
+    \ }}
   NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'Shougo/neocomplete'
   NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
@@ -142,6 +145,12 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'basyura/unite-rails'
   NeoBundle 'bling/vim-airline'
+  NeoBundleLazy 'chrisbra/vim-diff-enhanced', { 'autoload' : {
+    \ 'commands' : [
+    \   'EnhancedDiff',
+    \   'PatienceDiff',
+    \ ]}
+    \ }
   NeoBundle 'cohama/agit.vim'
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
@@ -177,6 +186,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-operator-user'
   NeoBundle 'kana/vim-operator-replace',
     \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundle 'kana/vim-smartchr'
   NeoBundleLazy 'kana/vim-smarttill', {
     \ 'autoload' : {
     \   'mappings' : [
@@ -378,6 +388,11 @@ if s:bundled('neobundle.vim')
     \ 'filetypes' : ['ruby', 'eruby', 'haml'],
     \ }}
   NeoBundle 'vimtaku/hl_matchit.vim'
+  NeoBundleLazy 'will133/vim-dirdiff', { 'autoload' : {
+    \ 'commands' : [
+    \   'DirDiff',
+    \ ]},
+    \ }
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
@@ -1820,6 +1835,16 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for kana/vim-smartchr {{{2
+if s:bundled('vim-smartchr')
+  augroup haskelllang
+    autocmd!
+    autocmd FileType haskell inoremap <buffer> <expr> -  smartchr#loop('-', '->', '--')
+  augroup END
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-smarttill {{{2
 if s:bundled('vim-smarttill')
   omap q  <Plug>(smarttill-t)
@@ -2152,6 +2177,13 @@ endif
 " for xolox/vim-easytags {{{2
 if has('win32')
   let g:easytags_cmd = ''
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for will133/vim-dirdiff {{{2
+if s:bundled('vim-dirdiff')
+  let g:DirDiffEnableMappings = 0
 endif
 " }}}
 
