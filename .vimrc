@@ -262,6 +262,7 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'rhysd/committia.vim'
+  NeoBundle 'rhysd/conflict-marker.vim'
   NeoBundleLazy 'rhysd/vim-grammarous', {
     \ 'autoload' : {
     \   'commands' : [
@@ -1872,6 +1873,31 @@ if s:bundled('vim-signify')
   endif
   nmap <Leader>gh <Plug>(signify-toggle-highlight)
   nmap <Leader>gt <Plug>(signify-toggle)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for rhysd/conflict-marker.vim {{{2
+if s:bundled('conflict-marker.vim')
+  let g:conflict_marker_enable_mappings = 0
+  if s:bundled('vim-submode')
+    call submode#enter_with('conflict', 'n', 'r', '<Leader>l', '<Nop>')
+    call submode#map('conflict', 'n', 'r', 'j', '<Plug>(conflict-marker-next-hunk)zz')
+    call submode#map('conflict', 'n', 'r', 'k', '<Plug>(conflict-marker-prev-hunk)zz')
+    call submode#map('conflict', 'n', 'r', 'l', '<Plug>(conflict-marker-themselves)<Plug>(conflict-marker-next-hunk)zz')
+    call submode#map('conflict', 'n', 'r', 'h', '<Plug>(conflict-marker-ourselves)<Plug>(conflict-marker-next-hunk)zz')
+    call submode#map('conflict', 'n', 'r', 't', '<Plug>(conflict-marker-themselves)')
+    call submode#map('conflict', 'n', 'r', 'o', '<Plug>(conflict-marker-ourselves)')
+    call submode#map('conflict', 'n', 'r', 'b', '<Plug>(conflict-marker-both)')
+    call submode#map('conflict', 'n', 'r', 'n', '<Plug>(conflict-marker-none)')
+  else
+    nmap <Leader>lj  <Plug>(conflict-marker-next-hunk)zz
+    nmap <Leader>lk  <Plug>(conflict-marker-prev-hunk)zz
+    nmap <Leader>lt  <Plug>(conflict-marker-themselves)
+    nmap <Leader>lo  <Plug>(conflict-marker-ourselves)
+    nmap <Leader>lb  <Plug>(conflict-marker-both)
+    nmap <Leader>ln  <Plug>(conflict-marker-none)
+  endif
 endif
 " }}}
 
