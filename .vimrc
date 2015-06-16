@@ -588,10 +588,10 @@ augroup END
 " vimdiff highlight
 augroup diffcolor
   autocmd!
-  autocmd ColorScheme * hi DiffAdd    ctermfg=black ctermbg=2
-  autocmd ColorScheme * hi DiffChange ctermfg=black ctermbg=3
-  autocmd ColorScheme * hi DiffDelete ctermfg=black ctermbg=6
-  autocmd ColorScheme * hi DiffText   ctermfg=black ctermbg=7
+  autocmd VimEnter,ColorScheme * hi DiffAdd    cterm=bold ctermbg=DarkGreen   gui=bold guibg=DarkGreen
+  autocmd VimEnter,ColorScheme * hi DiffChange            ctermbg=DarkMagenta          guibg=DarkMagenta
+  autocmd VimEnter,ColorScheme * hi DiffDelete            ctermbg=DarkRed              guibg=DarkRed
+  autocmd VimEnter,ColorScheme * hi DiffText   cterm=bold ctermbg=Blue        gui=bold guibg=Blue
 augroup END
 
 " highlight cursorline and cursorcolumn only current window
