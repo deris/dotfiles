@@ -939,6 +939,10 @@ nnoremap do do:<C-u>diffupdate<CR>]czz
 vnoremap <Leader>dp :diffput<CR>:<C-u>diffupdate<CR>zz
 vnoremap <Leader>do :diffget<CR>:<C-u>diffupdate<CR>zz
 nnoremap du :<C-u>diffupdate<CR>
+augroup diffsetting
+  autocmd!
+  autocmd InsertLeave * if &diff | diffupdate | echo 'diffupdated' | endif
+augroup END
 
 " insert mode
 inoremap <C-b> <Left>
