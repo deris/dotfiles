@@ -212,6 +212,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH=~/local/bin:$PATH
 export PATH=~/.cabal/bin:$PATH
 export PATH=$PATH:`find /Applications/Xcode.app -name swift|grep bin|xargs -I{} dirname {}`
+export PATH=~/.plenv/bin:$PATH
 eval "$(rbenv init -)"
 eval "$(plenv init -)"
 
