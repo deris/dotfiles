@@ -152,6 +152,9 @@ if s:bundled('neobundle.vim')
     \ ]}
     \ }
   NeoBundle 'cohama/agit.vim'
+  NeoBundleLazy 'ctrlpvim/ctrlp.vim', { 'autoload' : {
+    \   'mappings' : '<Plug>(ctrlp',
+    \ }}
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
@@ -163,13 +166,17 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'haya14busa/vim-asterisk'
-  NeoBundle 'haya14busa/incsearch.vim'
-  NeoBundleLazy 'h1mesuke/vim-alignta', {
+  NeoBundleLazy 'haya14busa/incsearch.vim', {
     \ 'autoload' : {
-    \   'commands' : [
-    \     'Alignta',
-    \   ]},
-    \ }
+    \   'mappings' : '<Plug>(incsearch',
+    \ }}
+  NeoBundle 'junegunn/vim-easy-align'
+  NeoBundleLazy 'justinmk/vim-sneak', {
+    \ 'autoload' : {
+    \   'mappings' : [
+    \     '<Plug>Sneak',
+    \   ]
+    \ }}
   NeoBundleLazy 'kana/vim-altr', {
     \ 'autoload' : {
     \   'functions' : [
@@ -1575,6 +1582,7 @@ endif
 if s:bundled('vim-rooter')
   let g:rooter_use_lcd = 1
   let g:rooter_manual_only = 1
+  let g:rooter_disable_map = 1
 
   augroup movecurrentdir
     autocmd!
@@ -1670,6 +1678,13 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for ctrlpvim/ctrlp.vim {{{2
+if s:bundled('ctrlp.vim')
+  nmap <Leader>z <plug>(ctrlp)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for gregsexton/gitv {{{2
 if s:bundled('gitv')
   let g:Gitv_OpenHorizontal = 1
@@ -1691,25 +1706,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for h1mesuke/vim-alignta {{{2
-if s:bundled('vim-alignta')
-  nnoremap <Leader>as :<C-u>Alignta =<CR>
-  vnoremap <Leader>as :Alignta =<CR>
-  nnoremap <Leader>a= :<C-u>Alignta =<CR>
-  vnoremap <Leader>a= :Alignta =<CR>
-  nnoremap <Leader>ah :<C-u>Alignta =><CR>
-  nnoremap <Leader>ah :<C-u>Alignta =><CR>
-  vnoremap <Leader>a> :Alignta =><CR>
-  vnoremap <Leader>a> :Alignta =><CR>
-  nnoremap <Leader>a, :<C-u>Alignta ,<CR>
-  vnoremap <Leader>a, :Alignta ,<CR>
-  nnoremap <Leader>a: :<C-u>Alignta :<CR>
-  vnoremap <Leader>a: :Alignta :<CR>
-
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for haya14busa/vim-asterisk {{{2
 if s:bundled('vim-asterisk')
   map *  <Plug>(asterisk-z*)
@@ -1724,9 +1720,62 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for haya14busa/incsearch.vim {{{2
+if s:bundled('incsearch.vim')
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for jpalardy/vim-slime {{{2
 let g:slime_target = 'tmux'
 let g:slime_paste_file = tempname()
+" }}}
+
+"---------------------------------------------------------------------------
+" for junegunn/vim-easy-align {{{2
+if s:bundled('vim-easy-align')
+  let g:easy_align_delimiters = {
+    \ ':' : {
+    \   'pattern' : ':',
+    \   'left_margin' : 1,
+    \   'right_margin' : 1,
+    \   'stick_to_left' : 0,
+    \ },
+    \ }
+
+  nmap <Leader>aa <Plug>(EasyAlign)
+  xmap <Leader>aa <Plug>(EasyAlign)
+
+  nnoremap <Leader>as :<C-u>EasyAlign \<CR>
+  xnoremap <Leader>as :     EasyAlign \<CR>
+  nnoremap <Leader>as :<C-u>EasyAlign \<CR>
+  xnoremap <Leader>as :     EasyAlign \<CR>
+  nnoremap <Leader>a= :<C-u>EasyAlign =<CR>
+  xnoremap <Leader>a= :     EasyAlign =<CR>
+  nnoremap <Leader>ae :<C-u>EasyAlign =<CR>
+  xnoremap <Leader>ae :     EasyAlign =<CR>
+  nnoremap <Leader>a> :<C-u>EasyAlign =><CR>
+  xnoremap <Leader>a> :     EasyAlign =><CR>
+  nnoremap <Leader>ah :<C-u>EasyAlign =><CR>
+  xnoremap <Leader>ah :     EasyAlign =><CR>
+  nnoremap <Leader>a, :<C-u>EasyAlign ,<CR>
+  xnoremap <Leader>a, :     EasyAlign ,<CR>
+  nnoremap <Leader>a: :<C-u>EasyAlign :<CR>
+  xnoremap <Leader>a: :     EasyAlign :<CR>
+  nnoremap <Leader>ac :<C-u>EasyAlign :<CR>
+  xnoremap <Leader>ac :     EasyAlign :<CR>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for justinmk/vim-sneak {{{2
+if s:bundled('vim-sneak')
+  nmap <Leader>s <Plug>Sneak_s
+  nmap <Leader>S <Plug>Sneak_S
+endif
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1902,6 +1951,20 @@ if s:bundled('vim-signify')
   endif
   nmap <Leader>gh <Plug>(signify-toggle-highlight)
   nmap <Leader>gt <Plug>(signify-toggle)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for ntpeters/vim-better-whitespace {{{2
+if s:bundled('vim-better-whitespace')
+  let g:better_whitespace_filetypes_blacklist = [
+    \ 'diff',
+    \ 'gitcommit',
+    \ 'unite',
+    \ 'vimfiler',
+    \ 'qf',
+    \ 'help',
+    \ ]
 endif
 " }}}
 
