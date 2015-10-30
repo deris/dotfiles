@@ -121,16 +121,6 @@ if s:bundled('neobundle.vim')
     \     'unix'    : 'make -f make_unix.mak',
     \    },
     \ })
-  NeoBundle 'Shougo/vimshell', '', 'default'
-  call neobundle#config('vimshell', {
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'commands' : [{ 'name' : 'VimShell',
-    \                   'complete' : 'customlist,vimshell#complete'},
-    \                 'VimShellExecute', 'VimShellInteractive',
-    \                 'VimShellTerminal', 'VimShellPop'],
-    \   'mappings' : ['<Plug>(vimshell_switch)']
-    \ }})
   NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'airblade/vim-rooter'
   NeoBundleLazy 'basyura/J6uil.vim', {
@@ -1271,7 +1261,6 @@ if s:bundled('neocomplete')
   " Define dictionary.
   let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
     \ }
 
@@ -1532,47 +1521,6 @@ if s:bundled('vimfiler')
     vmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_selected_lines)
 
   endfunction "}}}
-
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for Shougo/vimshell {{{2
-if s:bundled('vimshell')
-  nnoremap <Leader>vv  :<C-u>tabnew<CR>:<C-u>VimShell<CR>
-  let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-  let g:vimshell_enable_smart_case = 1
-
-  if has('win32') || has('win64')
-    " Display user name on Windows.
-    let g:vimshell_prompt = $USERNAME."% "
-  else
-    " Display user name on Linux.
-    let g:vimshell_prompt = $USER."% "
-  endif
-
-  " Initialize execute file list.
-  let g:vimshell_execute_file_list = {}
-  call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java,rb,pl', 'vim')
-
-  let g:vimshell_split_command = 'tabnew'
-
-  autocmd FileType vimshell call s:vimshell_my_settings()
-  function! s:vimshell_my_settings() "{{{
-    nmap <silent><buffer> <C-j>  <Plug>(vimshell_next_prompt)
-    nmap <silent><buffer> <C-k>  <Plug>(vimshell_previous_prompt)
-    nnoremap <silent><buffer> <C-p>  gT
-    nnoremap <silent><buffer> <C-n>  gt
-
-    call vimshell#altercmd#define('g', 'git')
-    call vimshell#altercmd#define('l', 'll')
-    call vimshell#altercmd#define('ll', 'ls -l')
-    call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
-  endfunction "}}}
-
-  function! MyChpwd(args, context)
-    call vimshell#execute('ls')
-  endfunction
 
 endif
 " }}}
