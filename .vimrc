@@ -148,6 +148,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
+  NeoBundle 'fatih/vim-go'
   NeoBundleLazy 'gregsexton/gitv', {
     \ 'depends' : 'tpope/vim-fugitive',
     \ 'autoload' : {
@@ -434,6 +435,10 @@ if s:bundled('neobundle.vim')
   call neobundle#end()
 endif
 " }}}
+
+if has('mac')
+  set rtp+=~/go/src/github.com/nsf/gocode/vim
+endif
 
 filetype plugin indent on
 
@@ -1224,6 +1229,28 @@ augroup zshlang
   autocmd!
   autocmd FileType zsh setlocal expandtab tabstop=2 shiftwidth=2 list
 augroup END
+augroup golang
+  autocmd!
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
+  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd FileType go :match goErr /\<err\>/
+  autocmd FileType go nmap <buffer> <Leader>i  <Plug>(go-info)
+  autocmd FileType go nmap <buffer> <Leader>fc <Plug>(go-doc)
+  autocmd FileType go nmap <buffer> <Leader>fv <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <buffer> <leader>fb <Plug>(go-build)
+  autocmd FileType go nmap <buffer> <leader>ft <Plug>(go-test)
+  autocmd FileType go nmap <buffer> gd         <Plug>(go-def)
+  autocmd FileType go nmap <buffer> <Leader>fl :GoLint<CR>
+  autocmd CursorHold * call s:go_show_info()
+augroup END
+
+function! s:go_show_info()
+  if &ft != 'go'
+    return
+  endif
+
+  normal ,i
+endfunction
 
 " }}}
 
@@ -1293,6 +1320,7 @@ if s:bundled('neocomplete')
   let g:neocomplete#sources#omni#input_patterns.c = '\%(\.\|->\)\h\w*'
   let g:neocomplete#sources#omni#input_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
   let g:neocomplete#sources#omni#input_patterns.cs = '.*'
+  let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
@@ -1633,6 +1661,14 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for fatih/vim-go {{{2
+let g:go_fmt_fail_silently = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+"---------------------------------------------------------------------------
+
+"---------------------------------------------------------------------------
 " for gregsexton/gitv {{{2
 if s:bundled('gitv')
   let g:Gitv_OpenHorizontal = 1
@@ -1873,6 +1909,37 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for majutsushi/tagbar {{{2
+let g:tagbar_type_go = {
+  \ 'ctagstype' : 'go',
+  \ 'kinds'     : [
+  \ 'p:package',
+  \ 'i:imports:1',
+  \ 'c:constants',
+  \ 'v:variables',
+  \ 't:types',
+  \ 'n:interfaces',
+  \ 'w:fields',
+  \ 'e:embedded',
+  \ 'm:methods',
+  \ 'r:constructor',
+  \ 'f:functions'
+  \ ],
+  \ 'sro' : '.',
+  \ 'kind2scope' : {
+  \ 't' : 'ctype',
+  \ 'n' : 'ntype'
+  \ },
+  \ 'scope2kind' : {
+  \ 'ctype' : 't',
+  \ 'ntype' : 'n'
+  \ },
+  \ 'ctagsbin'  : 'gotags',
+  \ 'ctagsargs' : '-sort -silent'
+  \ }
+" }}}
+
+"---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
 let g:user_emmet_leader_key = '<c-y>'
 " }}}
@@ -1995,6 +2062,11 @@ let g:surround_custom_mapping.snippet= {
 " for scrooloose/syntastic {{{2
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 2
+let g:syntastic_mode_map = {
+  \ 'mode'             : 'passive',
+  \ 'active_filetypes' : ['go'],
+  \ }
+let g:syntastic_go_checkers = ['go', 'golint']
 " }}}
 
 "---------------------------------------------------------------------------
