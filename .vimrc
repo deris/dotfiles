@@ -196,6 +196,7 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'kana/vim-vspec'
   NeoBundle 'rhysd/vim-operator-surround'
+  NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
     \   'commands' : [
