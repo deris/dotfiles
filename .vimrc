@@ -57,6 +57,7 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'AndrewRadev/linediff.vim'
+  NeoBundle 'AndrewRadev/sideways.vim'
   NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
     \ 'filetypes' : 'swift',
     \ }}
@@ -690,8 +691,8 @@ else
 endif
 
 " for help
-nnoremap <C-h>      :<C-u>help<Space>
-nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
+" nnoremap <C-h>      :<C-u>help<Space>
+" nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 " last selected text operator
 onoremap gv         :<C-u>normal! gv<CR>
@@ -1225,7 +1226,7 @@ augroup golang
   autocmd FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd FileType go :match goErr /\<err\>/
   autocmd FileType go nmap <buffer> <Space>i   <Plug>(go-info)
-  autocmd FileType go nmap <buffer> <C-h><C-h> <Plug>(go-doc)
+  " autocmd FileType go nmap <buffer> <C-h><C-h> <Plug>(go-doc)
   autocmd FileType go nmap <buffer> <leader>fb <Plug>(go-build)
   autocmd FileType go nmap <buffer> <leader>ft <Plug>(go-test)
   autocmd FileType go nmap <buffer> gd         <Plug>(go-def)
@@ -1268,6 +1269,16 @@ endfunction
 
 "---------------------------------------------------------------------------
 " plugins {{{1
+
+"---------------------------------------------------------------------------
+" for LeafCage/yankround.vim {{{2
+if s:bundled('sideways.vim')
+  nnoremap <silent> <C-h>          :<C-u>SidewaysJumpLeft<CR>
+  nnoremap <silent> <C-l>          :<C-u>SidewaysJumpRight<CR>
+  nnoremap <silent> <Leader><C-h>  :<C-u>SidewaysLeft<CR>
+  nnoremap <silent> <Leader><C-l>  :<C-u>SidewaysRight<CR>
+endif
+" }}}
 
 "---------------------------------------------------------------------------
 " for LeafCage/yankround.vim {{{2
