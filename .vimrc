@@ -168,17 +168,7 @@ if s:bundled('neobundle.vim')
     \     '<Plug>Sneak',
     \   ]
     \ }}
-  NeoBundleLazy 'kana/vim-altr', {
-    \ 'autoload' : {
-    \   'functions' : [
-    \     'altr#forward',
-    \     'altr#back',
-    \   ],
-    \   'mappings' : [
-    \     '<Plug>(altr-forward)',
-    \     '<Plug>(altr-back)',
-    \   ],
-    \ }}
+  NeoBundle 'kana/vim-altr'
   NeoBundleLazy 'kana/vim-fakeclip'
   NeoBundle 'kana/vim-niceblock'
   NeoBundle 'kana/vim-operator-user'
