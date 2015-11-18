@@ -330,7 +330,6 @@ if s:bundled('neobundle.vim')
     \ 'unite_sources' : ['history/command', 'history/search'],
     \ }}
   NeoBundle 'thinca/vim-themis'
-  NeoBundle 'thinca/vim-visualstar'
   NeoBundle 'tpope/vim-commentary'
   NeoBundle 'tpope/vim-endwise'
   NeoBundle 'tpope/vim-fugitive'
