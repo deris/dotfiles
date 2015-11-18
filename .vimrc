@@ -377,6 +377,7 @@ if s:bundled('neobundle.vim')
     \ 'filetypes' : ['ruby', 'eruby', 'haml'],
     \ }}
   NeoBundle 'vimtaku/hl_matchit.vim'
+  NeoBundle 'wellle/targets.vim'
   NeoBundleLazy 'will133/vim-dirdiff', { 'autoload' : {
     \ 'commands' : [
     \   'DirDiff',
