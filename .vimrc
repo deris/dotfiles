@@ -1037,6 +1037,7 @@ nnoremap [filetype]h   :<C-u>set filetype=html<CR>
 nnoremap [filetype]x   :<C-u>set filetype=xml<CR>
 nnoremap [filetype]d   :<C-u>set filetype=diff<CR>
 nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
+nnoremap [filetype]g   :<C-u>set filetype=go<CR>
 
 command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
 
@@ -1234,22 +1235,42 @@ augroup golang
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 list
   autocmd FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd FileType go :match goErr /\<err\>/
-  autocmd FileType go nmap <buffer> <Leader>i  <Plug>(go-info)
-  autocmd FileType go nmap <buffer> <Leader>fc <Plug>(go-doc)
-  autocmd FileType go nmap <buffer> <Leader>fv <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <buffer> <Space>i   <Plug>(go-info)
+  autocmd FileType go nmap <buffer> <C-h><C-h> <Plug>(go-doc)
   autocmd FileType go nmap <buffer> <leader>fb <Plug>(go-build)
   autocmd FileType go nmap <buffer> <leader>ft <Plug>(go-test)
   autocmd FileType go nmap <buffer> gd         <Plug>(go-def)
   autocmd FileType go nmap <buffer> <Leader>fl :GoLint<CR>
-  autocmd CursorHold * call s:go_show_info()
+  autocmd FileType go nnoremap <silent> <buffer> [[ :<C-U>call <SID>searchsyn('\<\%(func\<Bar>type\)\>','goDeclaration','b','n')<CR>
+  autocmd FileType go xnoremap <silent> <buffer> [[ :<C-U>call <SID>searchsyn('\<\%(func\<Bar>type\)\>','goDeclaration','b','v')<CR>
+  autocmd FileType go nnoremap <silent> <buffer> ]] :<C-U>call <SID>searchsyn('\<\%(func\<Bar>type\)\>','goDeclaration','','n')<CR>
+  autocmd FileType go xnoremap <silent> <buffer> ]] :<C-U>call <SID>searchsyn('\<\%(func\<Bar>type\)\>','goDeclaration','','v')<CR>
 augroup END
 
-function! s:go_show_info()
-  if &ft != 'go'
-    return
+function! s:searchsyn(pattern,syn,flags,mode)
+  norm! m'
+  if a:mode ==# 'v'
+    norm! gv
   endif
+  let i = 0
+  let cnt = v:count ? v:count : 1
+  while i < cnt
+    let i = i + 1
+    let line = line('.')
+    let col  = col('.')
+    let pos = search(a:pattern,'W'.a:flags)
+    while pos != 0 && s:synname() !~# a:syn
+      let pos = search(a:pattern,'W'.a:flags)
+    endwhile
+    if pos == 0
+      call cursor(line,col)
+      return
+    endif
+  endwhile
+endfunction
 
-  normal ,i
+function! s:synname()
+  return synIDattr(synID(line('.'),col('.'),0),'name')
 endfunction
 
 " }}}
@@ -1666,7 +1687,7 @@ let g:go_fmt_fail_silently = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-"---------------------------------------------------------------------------
+" }}}
 
 "---------------------------------------------------------------------------
 " for gregsexton/gitv {{{2
