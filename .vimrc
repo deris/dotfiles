@@ -58,6 +58,8 @@ if s:bundled('neobundle.vim')
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'AndrewRadev/linediff.vim'
   NeoBundle 'AndrewRadev/sideways.vim'
+  NeoBundle 'AndrewRadev/inline_edit.vim'
+  NeoBundle 'keith/investigate.vim'
   NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
     \ 'filetypes' : 'swift',
     \ }}
@@ -136,6 +138,7 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'basyura/unite-rails'
   NeoBundle 'bling/vim-airline'
+  NeoBundle 'chrisbra/Recover.vim'
   NeoBundleLazy 'chrisbra/vim-diff-enhanced', { 'autoload' : {
     \ 'commands' : [
     \   'EnhancedDiff',
@@ -149,6 +152,14 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
+  NeoBundleLazy 'dhruvasagar/vim-table-mode', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'TableModeToggle',
+    \     'TableModeEnable',
+    \     'Tableize',
+    \   ]
+    \ }
   NeoBundle 'fatih/vim-go'
   NeoBundleLazy 'gregsexton/gitv', {
     \ 'depends' : 'tpope/vim-fugitive',
@@ -274,8 +285,8 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'rking/ag.vim'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
-  NeoBundle 'sgur/vim-textobj-parameter',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  " NeoBundle 'sgur/vim-textobj-parameter',
+  "   \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'sjl/gundo.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -1273,12 +1284,16 @@ endfunction
 " plugins {{{1
 
 "---------------------------------------------------------------------------
-" for LeafCage/yankround.vim {{{2
+" for AndrewRadev/sideways.vim {{{2
 if s:bundled('sideways.vim')
   nnoremap <silent> <C-h>          :<C-u>SidewaysJumpLeft<CR>
   nnoremap <silent> <C-l>          :<C-u>SidewaysJumpRight<CR>
   nnoremap <silent> <Leader><C-h>  :<C-u>SidewaysLeft<CR>
   nnoremap <silent> <Leader><C-l>  :<C-u>SidewaysRight<CR>
+  omap <silent> ao  <Plug>SidewaysArgumentTextobjA
+  xmap <silent> ao  <Plug>SidewaysArgumentTextobjA
+  omap <silent> io  <Plug>SidewaysArgumentTextobjI
+  xmap <silent> io  <Plug>SidewaysArgumentTextobjI
 endif
 " }}}
 
@@ -1928,6 +1943,13 @@ if s:bundled('vim-smartword')
     vmap ge <Plug>(smartword-ge)
   endif
   omap ge <Plug>(smartword-ge)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for keith/investigate.vim {{{2
+if has('mac')
+  let g:investigate_use_dash=1
 endif
 " }}}
 
