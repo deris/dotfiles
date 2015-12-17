@@ -59,7 +59,6 @@ if s:bundled('neobundle.vim')
   NeoBundle 'AndrewRadev/linediff.vim'
   NeoBundle 'AndrewRadev/sideways.vim'
   NeoBundle 'AndrewRadev/inline_edit.vim'
-  NeoBundle 'keith/investigate.vim'
   NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
     \ 'filetypes' : 'swift',
     \ }}
@@ -206,8 +205,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-textobj-line',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'kana/vim-vspec'
-  NeoBundle 'rhysd/vim-operator-surround'
-  NeoBundle 'rhysd/vim-textobj-word-column'
+  NeoBundle 'keith/investigate.vim'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
     \   'commands' : [
@@ -282,6 +280,8 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'rhysd/unite-ruby-require.vim'
+  NeoBundle 'rhysd/vim-operator-surround'
+  NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundleLazy 'rking/ag.vim'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
