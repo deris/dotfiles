@@ -2359,6 +2359,17 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" local vimrc {{{1
+let s:local_vimrc = has('unix') ?
+  \ '~/.local_vimrc' :
+  \ '~/_local_vimrc'
+let s:local_vimrc = expand(s:local_vimrc)
+if filereadable(s:local_vimrc)
+  execute 'source ' . s:local_vimrc
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " __END__  "{{{1
 " vim: expandtab softtabstop=2 shiftwidth=2
 " vim: foldmethod=marker
