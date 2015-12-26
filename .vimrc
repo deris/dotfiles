@@ -158,7 +158,7 @@ if s:bundled('neobundle.vim')
     \     'TableModeEnable',
     \     'Tableize',
     \   ]
-    \ }
+    \ }}
   NeoBundle 'fatih/vim-go'
   NeoBundleLazy 'gregsexton/gitv', {
     \ 'depends' : 'tpope/vim-fugitive',
