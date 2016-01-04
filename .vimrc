@@ -832,10 +832,6 @@ endfunction
 nnoremap <C-q> @
 nnoremap <C-q><C-q> @@
 
-" map w to iw in motion. Because iw is commonly-used key and don't use w in motion.
-onoremap w iw
-onoremap W iW
-
 " text-object
 onoremap aa  a>
 vnoremap aa  a>
