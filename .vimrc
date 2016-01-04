@@ -159,6 +159,10 @@ if s:bundled('neobundle.vim')
     \     'Tableize',
     \   ]
     \ }}
+  NeoBundle 'easymotion/vim-easymotion', {
+    \ 'autoload' : {
+    \   'mappings' : '<Plug>(easymotion-',
+    \ }}
   NeoBundle 'fatih/vim-go'
   NeoBundleLazy 'gregsexton/gitv', {
     \ 'depends' : 'tpope/vim-fugitive',
@@ -1699,6 +1703,16 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for easymotion/vim-easymotion {{{2
+if s:bundled('vim-easymotion')
+  let g:EasyMotion_do_mapping = 0
+
+  map <Leader>w <Plug>(easymotion-w)
+  map <Leader>b <Plug>(easymotion-b)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for fatih/vim-go {{{2
 let g:go_fmt_fail_silently = 1
 let g:go_highlight_functions = 1
@@ -2183,12 +2197,12 @@ if s:bundled('vim-ref')
     return join(split(a:output, "\n")[6 :], "\n")
   endfunction
 
-  nnoremap <Leader>wa :<C-u>Ref webdict alc <C-r><C-w><CR>
-  vnoremap <Leader>wa :<C-u>call ExecuteWithSelectedText('Ref webdict alc %s')<CR>
-  nnoremap <Leader>wA :<C-u>Ref webdict alc<Space>
-  nnoremap <Leader>ww :<C-u>Ref webdict wikipedia <C-r><C-w><CR>
-  vnoremap <Leader>ww :<C-u>call ExecuteWithSelectedText('Ref webdict wikipedia %s')<CR>
-  nnoremap <Leader>wW :<C-u>Ref webdict wikipedia<Space>
+  " nnoremap <Leader>wa :<C-u>Ref webdict alc <C-r><C-w><CR>
+  " vnoremap <Leader>wa :<C-u>call ExecuteWithSelectedText('Ref webdict alc %s')<CR>
+  " nnoremap <Leader>wA :<C-u>Ref webdict alc<Space>
+  " nnoremap <Leader>ww :<C-u>Ref webdict wikipedia <C-r><C-w><CR>
+  " vnoremap <Leader>ww :<C-u>call ExecuteWithSelectedText('Ref webdict wikipedia %s')<CR>
+  " nnoremap <Leader>wW :<C-u>Ref webdict wikipedia<Space>
 endif
 " }}}
 
