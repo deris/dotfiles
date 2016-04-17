@@ -240,6 +240,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   NeoBundle 'nelstrom/vim-markdown-folding'
+  NeoBundle 'nixprime/cpsm', {
+    \ 'depends' : 'ctrlpvim/ctrlp.vim',
+    \ }
   NeoBundle 'ntpeters/vim-better-whitespace'
   NeoBundleLazy 'osyo-manga/vim-brightest'
   NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
