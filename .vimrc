@@ -159,6 +159,7 @@ if s:bundled('neobundle.vim')
     \     'Tableize',
     \   ]
     \ }}
+  NeoBundle 'dyng/ctrlsf.vim'
   NeoBundle 'easymotion/vim-easymotion', {
     \ 'autoload' : {
     \   'mappings' : '<Plug>(easymotion-',
@@ -183,6 +184,7 @@ if s:bundled('neobundle.vim')
     \     '<Plug>Sneak',
     \   ]
     \ }}
+  NeoBundle 'justinmk/vim-dirvish'
   NeoBundle 'kana/vim-altr'
   NeoBundleLazy 'kana/vim-fakeclip'
   NeoBundle 'kana/vim-niceblock'
@@ -210,6 +212,7 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'kana/vim-vspec'
   NeoBundle 'keith/investigate.vim'
+  NeoBundle 'koron/vim-gosrc'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
     \   'commands' : [
@@ -221,6 +224,7 @@ if s:bundled('neobundle.vim')
     \   'commands' : [
     \     'Gist'
     \   ]},
+    \ 'depends' : 'mattn/webapi-vim',
     \ }
   NeoBundleLazy 'mattn/httpstatus-vim', {
     \ 'autoload' : {
@@ -297,6 +301,8 @@ if s:bundled('neobundle.vim')
     \     'GundoToggle',
     \   ]},
     \ }
+  NeoBundle 'sophacles/vim-processing'
+  NeoBundle 'sudar/vim-arduino-syntax'
   NeoBundle 't9md/vim-surround_custom_mapping'
   NeoBundle 'terryma/vim-expand-region'
   NeoBundle 'thinca/vim-ambicmd'
@@ -363,6 +369,7 @@ if s:bundled('neobundle.vim')
     \     'Capture',
     \   ]},
     \ }
+  NeoBundle 'tyru/eskk.vim'
   NeoBundle 'tyru/operator-camelize.vim',
     \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'tyru/open-browser.vim', {
@@ -443,8 +450,11 @@ if s:bundled('neobundle.vim')
 endif
 " }}}
 
-if has('mac')
-  set rtp+=~/go/src/github.com/nsf/gocode/vim
+if isdirectory(expand('~/go'))
+  let $GOPATH=expand('~/go')
+  if isdirectory(expand('~/go/src/github.com/nsf/gocode/vim'))
+    set rtp+=~/go/src/github.com/nsf/gocode/vim
+  endif
 endif
 
 filetype plugin indent on
@@ -1994,6 +2004,13 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for nixprime/cpsm {{{2
+if s:bundled('cpsm')
+  let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for ntpeters/vim-better-whitespace {{{2
 if s:bundled('vim-better-whitespace')
   let g:better_whitespace_filetypes_blacklist = [
@@ -2096,7 +2113,12 @@ let g:syntastic_go_checkers = ['go', 'golint']
 "---------------------------------------------------------------------------
 " for terryma/vim-expand-region {{{2
 if s:bundled('vim-expand-region')
+  nmap <Leader>e  <Plug>(expand_region_expand)
+  xmap <Leader>e  <Plug>(expand_region_expand)
+  nmap <Leader>E  <Plug>(expand_region_shrink)
+  xmap <Leader>E  <Plug>(expand_region_shrink)
   let g:expand_region_text_objects = {
+    \ 'iw'  : 0,
     \ 'iW'  : 0,
     \ 'i]'  : 1,
     \ 'ib'  : 1,
@@ -2264,6 +2286,15 @@ if s:bundled('open-browser.vim')
     endif
   endfunction
 endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for tyru/eskk.vim {{{2
+let g:eskk#large_dictionary = {
+  \	'path': '~/.eskk/SKK-JISYO.L',
+  \	'sorted': 1,
+  \	'encoding': 'euc-jp',
+  \}
 " }}}
 
 "---------------------------------------------------------------------------
