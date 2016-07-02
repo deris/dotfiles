@@ -403,16 +403,12 @@ if s:bundled('neobundle.vim')
     \ }}
   NeoBundle 'vimtaku/hl_matchit.vim'
   NeoBundle 'wellle/targets.vim'
-  NeoBundleLazy 'will133/vim-dirdiff', { 'autoload' : {
-    \ 'commands' : [
-    \   'DirDiff',
-    \ ]},
-    \ }
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-cmdline-switch'
   NeoBundle 'deris/vim-diffbuf'
+  NeoBundle 'deris/vim-dirdiff', 'dev'
   NeoBundle 'deris/vim-duzzle'
   NeoBundle 'deris/vim-pasta'
   NeoBundle 'deris/vim-operator-insert'
@@ -423,6 +419,8 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'deris/vim-textobj-headwordofline',
+    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'deris/vim-multi-replace',
     \ { 'depends' : 'kana/vim-textobj-user' }
 
   " vim-scripts repos
@@ -577,15 +575,6 @@ else
 endif
 
 scriptencoding utf-8
-
-if has('vim_starting') && has('unix')
-  let $PATH=$PERLBREW_ROOT.'/bin:'.$PATH
-  let s:my_perl_path = split(system('which perl'), '[\r\n]')[0]
-  let s:my_perl_path = fnamemodify(s:my_perl_path, ':p:h')
-  if s:my_perl_path =~ '^/'
-    let $PATH=s:my_perl_path.':'.$PATH
-  endif
-endif
 
 if has('win32')
   let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
@@ -1780,6 +1769,16 @@ let g:slime_paste_file = tempname()
 " }}}
 
 "---------------------------------------------------------------------------
+" for junegunn/vim-after-object {{{2
+if s:bundled('vim-after-object')
+  augroup vim-after-object
+    autocmd!
+    autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+  augroup END
+endif
+"}}}
+
+"---------------------------------------------------------------------------
 " for junegunn/vim-easy-align {{{2
 if s:bundled('vim-easy-align')
   let g:easy_align_delimiters = {
@@ -2343,7 +2342,7 @@ endif
 "---------------------------------------------------------------------------
 " for deris/vim-cmdline-switch {{{2
 if s:bundled('vim-cmdline-switch')
-  cmap <C-j>  <Plug>(cmdline-switch)
+  cmap <C-k>  <Plug>(cmdline-switch)
 endif
 " }}}
 
@@ -2351,14 +2350,22 @@ endif
 " for deris/vim-fitcolumn {{{2
 if s:bundled('vim-fitcolumn')
   let g:fitcolumn_no_default_key_mappings = 1
-  inoremap <expr> <C-j><C-k>  fitcolumn#fitabovecolumn({
+  inoremap <expr> <C-k><C-k>  fitcolumn#fitabovecolumn({
     \ 'insertchar': ' ',
     \ })
-  inoremap <expr> <C-j><C-j>  fitcolumn#fitbelowcolumn({
+  inoremap <expr> <C-k><C-j>  fitcolumn#fitbelowcolumn({
     \ 'insertchar': ' ',
     \ })
-  imap <C-j><C-h>  <Plug>(fitcolumn-abovecolumn)
-  imap <C-j><C-l>  <Plug>(fitcolumn-belowcolumn)
+  imap <C-k><C-h>  <Plug>(fitcolumn-abovecolumn)
+  imap <C-k><C-l>  <Plug>(fitcolumn-belowcolumn)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/vim-multi-replace {{{2
+if s:bundled('vim-multi-replace')
+  map <Space>c  <Plug>(operator-multi-replace)
+  map <Space>C  <Plug>(operator-multi-replace-cycle)
 endif
 " }}}
 
