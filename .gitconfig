@@ -1,5 +1,5 @@
 [user]
-	name = deris0126
+	name = deris
 	email = deris0126@gmail.com
 [core]
 	pager = lv -c
@@ -75,3 +75,5 @@
 	rebase = true
 [branch]
 	autosetuprebase = always
+[http]
+	postBuffer = 524288000
