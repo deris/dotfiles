@@ -185,6 +185,9 @@ if s:bundled('neobundle.vim')
     \   ]
     \ }}
   NeoBundle 'justinmk/vim-dirvish'
+  NeoBundle 'justmao945/vim-clang', { 'autoload' : {
+    \   'filetypes' : ['c', 'cpp'],
+    \ }}
   NeoBundle 'kana/vim-altr'
   NeoBundleLazy 'kana/vim-fakeclip'
   NeoBundle 'kana/vim-niceblock'
@@ -291,6 +294,8 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'rhysd/unite-ruby-require.vim'
+  NeoBundle 'rhysd/vim-clang-format',
+    \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundleLazy 'rking/ag.vim'
@@ -1823,6 +1828,14 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for justmao945/vim-clang {{{2
+if s:bundled('vim-clang')
+  let g:clang_c_options = '-std=c89'
+  let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for kana/vim-altr {{{2
 if s:bundled('vim-altr')
   call altr#remove_all()
@@ -2057,6 +2070,15 @@ if s:bundled('vim-operator-surround')
   map <silent><Leader>sa <Plug>(operator-surround-append)
   map <silent><Leader>sd <Plug>(operator-surround-delete)
   map <silent><Leader>sr <Plug>(operator-surround-replace)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for rhysd/vim-clang-format {{{2
+if s:bundled('vim-clang-format')
+  " let g:clang_format#auto_format_on_insert_leave = 1
+
+  map <silent><Space>x <Plug>(operator-clang-format)
 endif
 " }}}
 
