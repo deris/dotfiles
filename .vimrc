@@ -173,10 +173,12 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'haya14busa/vim-asterisk'
+  NeoBundle 'haya14busa/vim-auto-programming'
   NeoBundleLazy 'haya14busa/incsearch.vim', {
     \ 'autoload' : {
     \   'mappings' : '<Plug>(incsearch',
     \ }}
+  NeoBundle 'haya14busa/vim-metarepeat'
   NeoBundle 'junegunn/vim-easy-align'
   NeoBundleLazy 'justinmk/vim-sneak', {
     \ 'autoload' : {
