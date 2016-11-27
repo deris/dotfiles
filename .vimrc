@@ -583,17 +583,27 @@ endif
 
 scriptencoding utf-8
 
+let g:my_rg_path = ''
+let g:my_ag_path = ''
+let g:my_jvgrep_path = ''
 if has('win32')
-  let g:my_win32_grep_path = 'C:/usr/local/bin/jvgrep.exe'
-
-  if executable(g:my_win32_grep_path)
-    let &grepprg = g:my_win32_grep_path . ' -n8 --enc utf-8,cp932,euc-jp'
-  endif
+  let g:my_rg_path = 'C:/usr/local/bin/rg.exe'
+  let g:my_ag_path = 'C:/usr/local/bin/ag.exe'
+  let g:my_jvgrep_path = 'C:/usr/local/bin/jvgrep.exe'
 elseif has('unix')
-  if executable('ag')
-    set grepprg=ag\ --vimgrep\ -S\ $*\ /dev/null
-    set grepformat=%f:%l:%c:%m
-  endif
+  let g:my_rg_path = 'rg'
+  let g:my_ag_path = 'ag'
+  let g:my_jvgrep_path = 'jvgrep'
+endif
+
+if executable(g:my_rg_path)
+  let &grepprg = g:my_rg_path . ' --vimgrep -S --no-heading --hidden'
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable(g:my_ag_path)
+  let &grepprg = g:my_ag_path . ' --vimgrep -S --hidden'
+  set grepformat=%f:%l:%c:%m
+elseif executable(g:my_jvgrep_path)
+  let &grepprg = g:my_jvgrep_path . ' --no-color -nr8 --enc utf-8,cp932,euc-jp'
 endif
 
 " Show em space
@@ -1527,18 +1537,18 @@ if s:bundled('unite.vim')
   let g:unite_source_history_yank_limit = 100
   let g:unite_source_history_yank_file = $DOTVIM.'/history_yank'
 
-  if has('win32')
-    if executable(g:my_win32_grep_path)
-      let g:unite_source_grep_command = g:my_win32_grep_path
-      let g:unite_source_grep_recursive_opt = '-R'
-      let g:unite_source_grep_default_opts = '-n --enc utf-8,cp932,euc-jp'
-    endif
-  elseif has('unix')
-    if executable('ag')
-      let g:unite_source_grep_command = 'ag'
-      let g:unite_source_grep_recursive_opt = ''
-      let g:unite_source_grep_default_opts = '--nocolor --nogroup --hidden --ignore-dir=.git'
-    endif
+  if executable(g:my_rg_path)
+    let g:unite_source_grep_command = g:my_rg_path
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_default_opts = '--vimgrep --no-heading --hidden'
+  elseif executable(g:my_ag_path)
+    let g:unite_source_grep_command = g:my_ag_path
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_default_opts = '--vimgrep --hidden'
+  elseif executable(g:my_jvgrep_path)
+    let g:unite_source_grep_command = g:my_jvgrep_path
+    let g:unite_source_grep_recursive_opt = '-R'
+    let g:unite_source_grep_default_opts = '--no-color -nr8 --enc utf-8,cp932,euc-jp'
   endif
   let g:unite_source_grep_max_candidates = 200
 
