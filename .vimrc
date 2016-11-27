@@ -249,6 +249,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mattn/vim-textobj-url',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/emmet-vim'
+  NeoBundle 'mhinz/vim-grepper'
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   NeoBundle 'nelstrom/vim-markdown-folding'
@@ -2027,6 +2028,29 @@ endif
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
 let g:user_emmet_leader_key = '<c-y>'
+" }}}
+
+"---------------------------------------------------------------------------
+" for mhinz/vim-grepper {{{2
+if s:bundled('vim-grepper')
+  nmap gl  <plug>(GrepperOperator)
+  xmap gl  <plug>(GrepperOperator)
+  nnoremap <leader>* :<C-u>Grepper -cword -noprompt<CR>
+  nnoremap <leader>/ :<C-u>Grepper<CR>
+
+  let g:grepper = {
+    \ 'tools': ['rg', 'ag'],
+    \ 'next_tool': '<C-g>',
+    \ 'rg': {
+    \   'grepprg':    g:my_rg_path . ' --vimgrep -S --no-heading --hidden',
+    \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
+    \ },
+    \ 'ag': {
+    \   'grepprg':    g:my_ag_path . ' --vimgrep -S --hidden',
+    \   'grepformat': '%f:%l:%c:%m',
+    \ },
+    \ }
+endif
 " }}}
 
 "---------------------------------------------------------------------------
