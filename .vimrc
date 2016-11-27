@@ -512,7 +512,7 @@ set formatoptions-=o
 set formatoptions-=v
 set formatoptions+=l
 set formatoptions+=j
-set number
+set nonumber
 set ruler
 set list
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<,eol:<
