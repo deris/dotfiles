@@ -2047,9 +2047,9 @@ endif
 
 "---------------------------------------------------------------------------
 " for nixprime/cpsm {{{2
-if s:bundled('cpsm')
-  let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-endif
+" if s:bundled('cpsm')
+"   let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+" endif
 " }}}
 
 "---------------------------------------------------------------------------
