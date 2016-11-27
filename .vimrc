@@ -1849,8 +1849,8 @@ endif
 "---------------------------------------------------------------------------
 " for justinmk/vim-sneak {{{2
 if s:bundled('vim-sneak')
-  nmap <Leader>s <Plug>Sneak_s
-  nmap <Leader>S <Plug>Sneak_S
+  " nmap <Leader>s <Plug>Sneak_s
+  " nmap <Leader>S <Plug>Sneak_S
 endif
 " }}}
 
