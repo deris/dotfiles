@@ -145,9 +145,7 @@ if s:bundled('neobundle.vim')
     \ ]}
     \ }
   NeoBundle 'cohama/agit.vim'
-  NeoBundleLazy 'ctrlpvim/ctrlp.vim', { 'autoload' : {
-    \   'mappings' : '<Plug>(ctrlp',
-    \ }}
+  NeoBundle 'ctrlpvim/ctrlp.vim'
   NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
     \ 'filetypes' : ['perl']
     \ }}
@@ -179,6 +177,15 @@ if s:bundled('neobundle.vim')
     \   'mappings' : '<Plug>(incsearch',
     \ }}
   NeoBundle 'haya14busa/vim-metarepeat'
+  NeoBundle 'junegunn/fzf'
+  call neobundle#config('fzf', {
+    \ 'build' : {
+    \     'cygwin'  : './install --all',
+    \     'mac'     : './install --all',
+    \     'unix'    : './install --all',
+    \    },
+    \ })
+  NeoBundle 'junegunn/fzf.vim'
   NeoBundle 'junegunn/vim-easy-align'
   NeoBundleLazy 'justinmk/vim-sneak', {
     \ 'autoload' : {
@@ -245,9 +252,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   NeoBundle 'nelstrom/vim-markdown-folding'
-  NeoBundle 'nixprime/cpsm', {
-    \ 'depends' : 'ctrlpvim/ctrlp.vim',
-    \ }
+  " NeoBundle 'nixprime/cpsm', {
+  "   \ 'depends' : 'ctrlpvim/ctrlp.vim',
+  "   \ }
   NeoBundle 'ntpeters/vim-better-whitespace'
   NeoBundleLazy 'osyo-manga/vim-brightest'
   NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
@@ -300,7 +307,15 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundle 'rhysd/vim-textobj-word-column'
-  NeoBundleLazy 'rking/ag.vim'
+  NeoBundleLazy 'rking/ag.vim', {
+    \ 'autoload' : {
+    \   'commands' : [
+    \     'Ag',
+    \     'AgBuffer',
+    \     'AgAdd',
+    \     'AgFromSearch',
+    \   ]},
+    \ }
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
   " NeoBundle 'sgur/vim-textobj-parameter',
@@ -409,7 +424,7 @@ if s:bundled('neobundle.vim')
     \ 'filetypes' : ['ruby', 'eruby', 'haml'],
     \ }}
   NeoBundle 'vimtaku/hl_matchit.vim'
-  NeoBundle 'wellle/targets.vim'
+  " NeoBundle 'wellle/targets.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
