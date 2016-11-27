@@ -1728,7 +1728,16 @@ endif
 "---------------------------------------------------------------------------
 " for ctrlpvim/ctrlp.vim {{{2
 if s:bundled('ctrlp.vim')
+  let g:ctrlp_cmd          = 'CtrlPMRU'
   nmap <Leader>z <plug>(ctrlp)
+
+  if executable(g:my_rg_path)
+    let g:ctrlp_user_command = g:my_rg_path . ' %s -l --hidden'
+    let g:ctrlp_user_caching = 0
+  elseif executable(g:my_ag_path)
+    let g:ctrlp_user_command = g:my_ag_path . ' %s -l --hidden --nocolor'
+    let g:ctrlp_user_caching = 0
+  endif
 endif
 " }}}
 
