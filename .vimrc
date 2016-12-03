@@ -428,6 +428,7 @@ if s:bundled('neobundle.vim')
   " NeoBundle 'wellle/targets.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
+  NeoBundle 'deris/vim-capslock'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-cmdline-switch'
   NeoBundle 'deris/vim-diffbuf'
@@ -2418,6 +2419,13 @@ endif
 if s:bundled('columnjump')
   nmap <c-k> <Plug>(columnjump-backward)
   nmap <c-j> <Plug>(columnjump-forward)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for deris/vim-capslock {{{2
+if s:bundled('vim-capslock')
+  imap ;<Tab> <Plug>CapsLockToggle
 endif
 " }}}
 
