@@ -844,6 +844,8 @@ function! s:sticky_func()
     return l:sticky_table[l:key]
   elseif has_key(l:special_table, l:key)
     return l:special_table[l:key]
+  elseif s:bundled('vim-capslock') && l:key == '\<Tab>'
+    return '\<Plug>CapsLockToggle'
   else
     return 0
   endif
@@ -2419,13 +2421,6 @@ endif
 if s:bundled('columnjump')
   nmap <c-k> <Plug>(columnjump-backward)
   nmap <c-j> <Plug>(columnjump-forward)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for deris/vim-capslock {{{2
-if s:bundled('vim-capslock')
-  imap ;<Tab> <Plug>CapsLockToggle
 endif
 " }}}
 
