@@ -62,6 +62,7 @@ if s:bundled('neobundle.vim')
   NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
     \ 'filetypes' : 'swift',
     \ }}
+  NeoBundle 'DeaR/vim-tabpagebuffer-misc'
   NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'Shougo/neocomplete'
   NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
@@ -77,6 +78,7 @@ if s:bundled('neobundle.vim')
     \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }})
   NeoBundle 'Shougo/neosnippet-snippets'
+  NeoBundle 'Shougo/tabpagebuffer.vim'
   NeoBundle 'Shougo/unite.vim', '', 'default'
   call neobundle#config('unite.vim',{
     \ 'lazy' : 1,
@@ -84,15 +86,6 @@ if s:bundled('neobundle.vim')
     \   'commands' : [{ 'name' : 'Unite',
     \                   'complete' : 'customlist,unite#complete_source'},
     \                 'UniteWithCursorWord', 'UniteWithInput']
-    \ }})
-  NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
-    \ 'unite_sources' : 'help',
-    \ }}
-  NeoBundle 'Shougo/unite-outline', '', 'default'
-  call neobundle#config('unite-outline', {
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'unite_sources' : 'outline',
     \ }})
   NeoBundle 'Shougo/vimfiler', '', 'default'
   call neobundle#config('vimfiler', {
@@ -125,17 +118,6 @@ if s:bundled('neobundle.vim')
     \ })
   NeoBundle 'Yggdroot/indentLine'
   NeoBundle 'airblade/vim-rooter'
-  NeoBundleLazy 'basyura/J6uil.vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'J6uil',
-    \   ],
-    \   'unite_sources' : [
-    \     'J6uil/rooms',
-    \     'J6uil/members',
-    \   ]},
-    \ }
-  NeoBundle 'basyura/unite-rails'
   NeoBundle 'bling/vim-airline'
   NeoBundle 'chrisbra/Recover.vim'
   NeoBundleLazy 'chrisbra/vim-diff-enhanced', { 'autoload' : {
@@ -146,17 +128,6 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'cohama/agit.vim'
   NeoBundle 'ctrlpvim/ctrlp.vim'
-  NeoBundleLazy 'c9s/perlomni.vim', { 'autoload' : {
-    \ 'filetypes' : ['perl']
-    \ }}
-  NeoBundleLazy 'dhruvasagar/vim-table-mode', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'TableModeToggle',
-    \     'TableModeEnable',
-    \     'Tableize',
-    \   ]
-    \ }}
   NeoBundle 'dyng/ctrlsf.vim'
   NeoBundle 'easymotion/vim-easymotion', {
     \ 'autoload' : {
@@ -172,10 +143,7 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'haya14busa/vim-auto-programming'
-  NeoBundleLazy 'haya14busa/incsearch.vim', {
-    \ 'autoload' : {
-    \   'mappings' : '<Plug>(incsearch',
-    \ }}
+  NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-metarepeat'
   NeoBundle 'junegunn/fzf'
   call neobundle#config('fzf', {
@@ -186,6 +154,7 @@ if s:bundled('neobundle.vim')
     \    },
     \ })
   NeoBundle 'junegunn/fzf.vim'
+  NeoBundle 'junegunn/vim-after-object'
   NeoBundle 'junegunn/vim-easy-align'
   NeoBundleLazy 'justinmk/vim-sneak', {
     \ 'autoload' : {
@@ -194,11 +163,8 @@ if s:bundled('neobundle.vim')
     \   ]
     \ }}
   NeoBundle 'justinmk/vim-dirvish'
-  NeoBundle 'justmao945/vim-clang', { 'autoload' : {
-    \   'filetypes' : ['c', 'cpp'],
-    \ }}
+  NeoBundle 'justmao945/vim-clang'
   NeoBundle 'kana/vim-altr'
-  NeoBundleLazy 'kana/vim-fakeclip'
   NeoBundle 'kana/vim-niceblock'
   NeoBundle 'kana/vim-operator-user'
   NeoBundle 'kana/vim-operator-replace',
@@ -222,9 +188,8 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'kana/vim-textobj-line',
     \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundleLazy 'kana/vim-vspec'
-  NeoBundle 'keith/investigate.vim'
   NeoBundle 'koron/vim-gosrc'
+  NeoBundle 'lambdalisue/pinkyless.vim'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
     \   'commands' : [
@@ -238,13 +203,6 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ 'depends' : 'mattn/webapi-vim',
     \ }
-  NeoBundleLazy 'mattn/httpstatus-vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'HttpStatus',
-    \   ],
-    \   'unite_sources' : 'httpstatus',
-    \ }}
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/vim-textobj-url',
     \ { 'depends' : 'kana/vim-textobj-user' }
@@ -257,30 +215,6 @@ if s:bundled('neobundle.vim')
   "   \ 'depends' : 'ctrlpvim/ctrlp.vim',
   "   \ }
   NeoBundle 'ntpeters/vim-better-whitespace'
-  NeoBundleLazy 'osyo-manga/vim-brightest'
-  NeoBundleLazy 'osyo-manga/vim-monster', { 'autoload' : {
-    \   'filetypes' : ['ruby', 'eruby', 'haml'],
-    \ }}
-  NeoBundleLazy 'osyo-manga/vim-over', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'OverCommandLine',
-    \   ]},
-    \ }
-  NeoBundle 'osyo-manga/vim-reanimate'
-  NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
-    \ 'unite_sources' : 'quickfix',
-    \ }}
-  NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
-    \ 'unite_sources' : 'filetype',
-    \ }}
-  NeoBundleLazy 'osyo-manga/unite-highlight', { 'autoload' : {
-    \ 'unite_sources' : 'output:highlight',
-    \ }}
-  NeoBundle 'osyo-manga/vim-watchdogs'
-  NeoBundleLazy 'pasela/unite-webcolorname', { 'autoload' : {
-    \ 'unite_sources' : 'webcolorname',
-    \ }}
   NeoBundleLazy 'rbtnn/vimconsole.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -303,7 +237,6 @@ if s:bundled('neobundle.vim')
     \     'GrammarousReset',
     \   ]},
     \ }
-  NeoBundle 'rhysd/unite-ruby-require.vim'
   NeoBundle 'rhysd/vim-clang-format',
     \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'rhysd/vim-operator-surround'
@@ -319,33 +252,18 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
-  " NeoBundle 'sgur/vim-textobj-parameter',
-  "   \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'sgur/vim-textobj-parameter',
+    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundleLazy 'sjl/gundo.vim', {
     \ 'autoload' : {
     \   'commands' : [
     \     'GundoToggle',
     \   ]},
     \ }
-  NeoBundle 'sophacles/vim-processing'
-  NeoBundle 'sudar/vim-arduino-syntax'
   NeoBundle 't9md/vim-surround_custom_mapping'
-  NeoBundle 'terryma/vim-expand-region'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundle 'thinca/vim-fontzoom'
-  NeoBundleLazy 'thinca/vim-github', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Github',
-    \   ]},
-    \ }
   NeoBundle 'thinca/vim-poslist'
-  NeoBundleLazy 'thinca/vim-prettyprint', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'PP',
-    \   ]},
-    \ }
   NeoBundle 'thinca/vim-qfreplace'
   NeoBundleLazy 'thinca/vim-quickrun', {
     \ 'autoload' : {
@@ -356,14 +274,6 @@ if s:bundled('neobundle.vim')
     \     'QuickRun',
     \   ]},
     \ }
-  NeoBundle 'thinca/vim-ref', '', 'default'
-  call neobundle#config('vim-ref',{
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'commands' : [{ 'name' : 'Ref',
-    \                   'complete' : 'customlist,ref#complete'}],
-    \   'unite_sources' : ['ref'],
-    \ }})
   NeoBundleLazy 'thinca/vim-scouter', {
     \ 'autoload' : {
     \   'commands' : [
@@ -375,20 +285,13 @@ if s:bundled('neobundle.vim')
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'thinca/vim-textobj-between',
     \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
-    \ 'unite_sources' : ['history/command', 'history/search'],
-    \ }}
   NeoBundle 'thinca/vim-themis'
   NeoBundle 'tpope/vim-commentary'
   NeoBundle 'tpope/vim-endwise'
   NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'tpope/vim-rails'
-  NeoBundle 'tpope/vim-rbenv'
   NeoBundle 'tpope/vim-repeat'
   NeoBundle 'tpope/vim-surround'
-  NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
-    \ 'unite_sources' : 'tag',
-    \ }}
   NeoBundleLazy 'tyru/capture.vim', {
     \ 'autoload' : {
     \   'commands' : [
@@ -396,8 +299,6 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'tyru/eskk.vim'
-  NeoBundle 'tyru/operator-camelize.vim',
-    \ { 'depends' : 'kana/vim-operator-user' }
   NeoBundle 'tyru/open-browser.vim', {
     \ 'autoload' : {
     \   'mappings' : '<Plug>(openbrowser-smart-search)',
@@ -406,19 +307,7 @@ if s:bundled('neobundle.vim')
     \     'OpenBrowser',
     \   ]},
     \ }
-  NeoBundleLazy 'tyru/operator-html-escape.vim',
-    \ { 'depends' : 'kana/vim-operator-user' }
-  NeoBundleLazy 'tyru/restart.vim', {
-    \ 'gui' : 1,
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Restart',
-    \   ]},
-    \ }
   NeoBundle 'tyru/winmove.vim'
-  NeoBundleLazy 'ujihisa/unite-colorscheme', { 'autoload' : {
-    \ 'unite_sources' : 'colorscheme',
-    \ }}
   NeoBundle 'vim-jp/vital.vim'
   NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
     \ 'mappings' : '<Plug>(ref-keyword)',
@@ -428,21 +317,15 @@ if s:bundled('neobundle.vim')
   " NeoBundle 'wellle/targets.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
-  NeoBundle 'deris/vim-capslock'
   NeoBundle 'deris/parajump'
   NeoBundle 'deris/vim-cmdline-switch'
   NeoBundle 'deris/vim-diffbuf'
   NeoBundle 'deris/vim-dirdiff', 'dev'
-  NeoBundle 'deris/vim-duzzle'
   NeoBundle 'deris/vim-pasta'
   NeoBundle 'deris/vim-operator-insert'
-  NeoBundle 'deris/vim-quickfixdo'
   NeoBundle 'deris/vim-rengbang'
   NeoBundle 'deris/vim-shot-f'
-  NeoBundle 'deris/vim-textobj-ipmac'
   NeoBundle 'deris/vim-textobj-enclosedsyntax',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'deris/vim-textobj-headwordofline',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'deris/vim-multi-replace',
     \ { 'depends' : 'kana/vim-textobj-user' }
@@ -454,15 +337,10 @@ if s:bundled('neobundle.vim')
   NeoBundle 'L9'
   NeoBundleLazy 'UnconditionalPaste'
   NeoBundle 'matchit.zip'
-  NeoBundleLazy 'vimwiki'
 
   " color scheme
-  NeoBundle 'altercation/vim-colors-solarized'
-  NeoBundle 'croaker/mustang-vim'
   NeoBundle 'deris/molokai'
   NeoBundle 'deris/vim-wombat'
-  NeoBundle 'jnurmine/Zenburn'
-  NeoBundle 'nanotech/jellybeans.vim'
   NeoBundle 'newspaper.vim'
   NeoBundle 'w0ng/vim-hybrid'
 
@@ -667,14 +545,6 @@ function! PromptAndMakeDirectory()
   endif
 endfunction
 
-let plugin_autodate_disable  = 1
-let plugin_cmdex_disable     = 1
-let plugin_dicwin_disable    = 1
-let plugin_format_disable    = 1
-let plugin_hz_ja_disable     = 1
-let plugin_scrnmode_disable  = 1
-let plugin_verifyenc_disable = 1
-
 " }}}
 
 "---------------------------------------------------------------------------
@@ -691,13 +561,6 @@ if has('mac')
 endif
 
 " Esc
-noremap  <C-[> <C-c>
-noremap! <C-[> <C-c>
-noremap  <C-c> <C-[>
-noremap! <C-c> <C-[>
-noremap  <C-@> <ESC>
-noremap! <C-@> <ESC>
-
 inoremap jk <Esc>
 if has('mac')
   " prevent miss type
@@ -722,30 +585,12 @@ noremap <Space>l $
 " same as above. but don't use noremap because want to map to matchit plugin
 map <Space>n %
 
-" move middle of current line.(not middle of screen)
-nnoremap <silent> gm   :<C-u>call <SID>MoveMiddleOfLine()<CR>
-
-function! s:MoveMiddleOfLine()
-  let strwidth = strdisplaywidth(getline('.'))
-  let winwidth  = winwidth(0)
-
-  if strwidth < winwidth
-    call cursor(0, col('$') / 2)
-  else
-    normal! gm
-  endif
-endfunction
-
 " edit vimrc
 if has('gui')
   nnoremap <silent> <Space>.   :<C-u>execute 'tab drop ' . escape(resolve($MYVIMRC), ' ')<CR>
 else
   nnoremap <silent> <Space>.   :<C-u>execute 'tabe ' . escape(resolve($MYVIMRC), ' ')<CR>
 endif
-
-" for help
-" nnoremap <C-h>      :<C-u>help<Space>
-" nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 " last selected text operator
 onoremap gv         :<C-u>normal! gv<CR>
@@ -756,7 +601,6 @@ vnoremap gc         :<C-u>normal gc<CR>
 onoremap gc         :<C-u>normal gc<CR>
 " move last changed text
 nnoremap gI `.zz
-
 
 " paste last yanked text
 nnoremap 'p  "0p
@@ -826,51 +670,6 @@ nnoremap ZQ <Nop>
 " Don't use Ex mode, use Q for formatting
 nnoremap Q gq
 
-" Sticky Shift if difficult to type key
-inoremap <expr> ;  <SID>sticky_func()
-cnoremap <expr> ;  <SID>sticky_func()
-snoremap <expr> ;  <SID>sticky_func()
-
-function! s:sticky_func()
-  let l:sticky_table = {
-    \ ',' : '<', '.' : '>', '/' : '?',
-    \ '1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
-    \ '6' : '^', '7' : '&', '8' : '*', '9' : '(', '0' : ')', '-' : '_', '=' : '+',
-    \ ';' : ':', '[' : '{', ']' : '}', '`' : '~', "'" : "\"", '\' : '|',
-    \ }
-  let l:special_table = {
-    \ "\<ESC>" : "\<ESC>", "\<Space>" : ';', "\<CR>" : ";\<CR>"
-    \ }
-
-  let l:key = nr2char(getchar())
-  if l:key =~ '\l'
-    return toupper(l:key)
-  elseif has_key(l:sticky_table, l:key)
-    return l:sticky_table[l:key]
-  elseif has_key(l:special_table, l:key)
-    return l:special_table[l:key]
-  elseif s:bundled('vim-capslock') && l:key == '\<Tab>'
-    return '\<Plug>CapsLockToggle'
-  else
-    return 0
-  endif
-endfunction
-
-
-nnoremap <silent><expr> r   <SID>sticky_with_replacemode(0)
-nnoremap <silent><expr> gr  <SID>sticky_with_replacemode(1)
-
-function! s:sticky_with_replacemode(gr)
-  let l:gr = (a:gr ? 'gr' : 'r')
-
-  let l:key = nr2char(getchar())
-  if l:key == ';'
-    return l:gr . s:sticky_func()
-  else
-    return l:gr . l:key
-  endif
-endfunction
-
 " use <C-q> instead of @
 nnoremap <C-q> @
 nnoremap <C-q><C-q> @@
@@ -932,17 +731,6 @@ nnoremap <M-H>   <C-w>H
 nnoremap <M-J>   <C-w>J
 nnoremap <M-K>   <C-w>K
 nnoremap <M-L>   <C-w>L
-
-if has('mac')
-  nnoremap <D-h>   <C-w>h
-  nnoremap <D-j>   <C-w>j
-  nnoremap <D-k>   <C-w>k
-  nnoremap <D-l>   <C-w>l
-  nnoremap <D-H>   <C-w>H
-  nnoremap <D-J>   <C-w>J
-  nnoremap <D-K>   <C-w>K
-  nnoremap <D-L>   <C-w>L
-endif
 
 " Search the word nearest to the cursor in new window.
 nnoremap <C-w>*  <C-w>s*
@@ -1100,29 +888,6 @@ function! s:DiffOff()
 endfunction
 
 command! DiffOff call s:DiffOff()
-
-" Open with Google Chrome
-function! s:GoogleChrome(...)
-  if has('mac')
-    let l:cmd = "silent !open -a Google\\ Chrome "
-  elseif has('win32')
-    let l:cmd = "silent !start google\\ chrome "
-  else
-    return
-  endif
-  if a:0 == 0
-    execute l:cmd . "%"
-  else
-    execute l:cmd . a:1
-  endif
-endfunction
-
-command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
-
-" replace search word to unnamed register
-nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'<CR>
-
-command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
 
 command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 
@@ -1359,7 +1124,7 @@ if s:bundled('neocomplete')
 
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
-      let g:neocomplete#keyword_patterns = {}
+    let g:neocomplete#keyword_patterns = {}
   endif
   let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
@@ -1411,7 +1176,6 @@ if s:bundled('neosnippet')
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
-  xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
   smap <C-e>     <Plug>(neosnippet_jump)
 
@@ -1459,24 +1223,15 @@ if s:bundled('unite.vim')
 
   nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
   nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]o   :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
   nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
   nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
   nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> [unite]g   :<C-u>call <SID>unite_grep_with_filetype()<CR>
-  nnoremap <silent> [unite]h   :<C-u>Unite help<CR>
-  nnoremap <silent> [unite];   :<C-u>Unite history/command<CR>
-  nnoremap <silent> [unite]/   :<C-u>Unite history/search<CR>
-  nnoremap <silent> [unite]y   :<C-u>Unite history/yank<CR>
   nnoremap <silent> [unite]a   :<C-u>UniteBookmarkAdd<CR>
   nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
-  nnoremap <silent> [unite]e   :<C-u>Unite snippet<CR>
-  nnoremap <silent> [unite]q   :<C-u>Unite quickfix<CR>
-  nnoremap <silent> [unite]p   :<C-u>Unite ref/perldoc<CR>
   nnoremap <silent> [unite]m   :<C-u>Unite mapping<CR>
-  nnoremap <silent> [unite]l   :<C-u>Unite colorscheme -auto-preview<CR>
   nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
 
   let s:target_ft = {
@@ -1540,11 +1295,6 @@ if s:bundled('unite.vim')
 
   " For optimize.
   let g:neomru#filename_format = ''
-
-  " For history/yank
-  let g:unite_source_history_yank_enable = 1
-  let g:unite_source_history_yank_limit = 100
-  let g:unite_source_history_yank_file = $DOTVIM.'/history_yank'
 
   if executable(g:my_rg_path)
     let g:unite_source_grep_command = g:my_rg_path
@@ -1625,98 +1375,7 @@ if s:bundled('vim-rooter')
   let g:rooter_use_lcd = 1
   let g:rooter_manual_only = 1
   let g:rooter_disable_map = 1
-
-  augroup movecurrentdir
-    autocmd!
-    autocmd BufRead,BufEnter * call MoveRootDirOrCurrentFileDir()
-  augroup END
-
-  " Move project top directory with vim-rooter.
-  " If can't, move current file's directory.
-  function! MoveRootDirOrCurrentFileDir()
-    let currentfile = expand("%:p")
-
-    " Don't move if current file is an unnamed buffer
-    if currentfile == ''
-      return
-    endif
-
-    Rooter
-
-    let cwd = getcwd()
-
-    " Move current file's directory if could't move project top directory
-    if (stridx(currentfile, cwd) != 0 ||
-      \finddir('.git', cwd) == '') &&
-      \isdirectory(expand('%:p:h'))
-      lcd %:p:h
-    endif
-  endfunction
 endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for basyura/J6uil.vim {{{2
-"if s:bundled('J6uil.vim')
-  augroup my_j6uil
-    autocmd!
-    autocmd CursorHold * call s:MyJ6uil_update()
-  augroup END
-
-  function! s:MyJ6uil_update()
-    if &filetype == 'J6uil'
-      let s:j6uil_user_color_list = [
-        \ 'Red',
-        \ 'Green',
-        \ 'Blue',
-        \ 'Cyan',
-        \ 'Magenta',
-        \ 'Yellow',
-        \ 'Gray',
-        \ 'Black',
-        \ ]
-
-      let w:j6uil_users = []
-      call s:MyJ6uil_update_users()
-      call s:MyJ6uil_colorise_user()
-    endif
-  endfunction
-
-  function! s:MyJ6uil_colorise_user()
-    let w:j6uil_last_highlight = 0
-    let i = w:j6uil_last_highlight
-    let color_len = len(s:j6uil_user_color_list)
-
-    while i < len(w:j6uil_users)
-      execute 'highlight MyJ6uilUser' . i . ' ' . 'guifg=' .
-        \ s:j6uil_user_color_list[i % color_len]
-        \ ' ctermfg=' .
-        \ s:j6uil_user_color_list[i % color_len]
-      call matchadd('MyJ6UilUser' . i, '\<'.w:j6uil_users[i].'\>')
-      let i += 1
-    endwhile
-    let w:j6uil_last_highlight = i
-  endfunction
-
-  function! s:MyJ6uil_update_users()
-    let w:j6uil_last_line = 0
-    let i = w:j6uil_last_line
-
-    while (i < line('$'))
-      let line = getline(i)
-
-      let user = matchstr(line, '^\(-- \)\@!\S\+')
-      if user != '' &&
-        \index(w:j6uil_users, user) == -1
-        call add(w:j6uil_users, user)
-      endif
-      let i += 1
-    endwhile
-
-    let w:j6uil_last_line = line('$')
-  endfunction
-
-"endif
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1798,12 +1457,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for jpalardy/vim-slime {{{2
-let g:slime_target = 'tmux'
-let g:slime_paste_file = tempname()
-" }}}
-
-"---------------------------------------------------------------------------
 " for junegunn/vim-after-object {{{2
 if s:bundled('vim-after-object')
   augroup vim-after-object
@@ -1827,25 +1480,18 @@ if s:bundled('vim-easy-align')
 
   nmap <Leader>aa <Plug>(EasyAlign)
   xmap <Leader>aa <Plug>(EasyAlign)
+  nmap <Leader>al <Plug>(LiveEasyAlign)
+  xmap <Leader>al <Plug>(LiveEasyAlign)
 
-  nnoremap <Leader>as :<C-u>EasyAlign \<CR>
-  xnoremap <Leader>as :     EasyAlign \<CR>
-  nnoremap <Leader>as :<C-u>EasyAlign \<CR>
-  xnoremap <Leader>as :     EasyAlign \<CR>
-  nnoremap <Leader>a= :<C-u>EasyAlign =<CR>
-  xnoremap <Leader>a= :     EasyAlign =<CR>
-  nnoremap <Leader>ae :<C-u>EasyAlign =<CR>
-  xnoremap <Leader>ae :     EasyAlign =<CR>
-  nnoremap <Leader>a> :<C-u>EasyAlign =><CR>
-  xnoremap <Leader>a> :     EasyAlign =><CR>
-  nnoremap <Leader>ah :<C-u>EasyAlign =><CR>
-  xnoremap <Leader>ah :     EasyAlign =><CR>
-  nnoremap <Leader>a, :<C-u>EasyAlign ,<CR>
-  xnoremap <Leader>a, :     EasyAlign ,<CR>
-  nnoremap <Leader>a: :<C-u>EasyAlign :<CR>
-  xnoremap <Leader>a: :     EasyAlign :<CR>
-  nnoremap <Leader>ac :<C-u>EasyAlign :<CR>
-  xnoremap <Leader>ac :     EasyAlign :<CR>
+  xnoremap <Leader>as :EasyAlign \<CR>
+  xnoremap <Leader>as :EasyAlign \<CR>
+  xnoremap <Leader>a= :EasyAlign =<CR>
+  xnoremap <Leader>ae :EasyAlign =<CR>
+  xnoremap <Leader>a> :EasyAlign =><CR>
+  xnoremap <Leader>ah :EasyAlign =><CR>
+  xnoremap <Leader>a, :EasyAlign ,<CR>
+  xnoremap <Leader>a: :EasyAlign :<CR>
+  xnoremap <Leader>ac :EasyAlign :<CR>
 endif
 " }}}
 
@@ -1965,22 +1611,12 @@ endif
 
 "---------------------------------------------------------------------------
 " for kana/vim-operator-replace {{{2
-if s:bundled('vim-operator-user') && s:bundled('vim-operator-replace')
+if s:bundled('vim-operator-replace')
   map s <Plug>(operator-replace)
   map S <Plug>(operator-replace)$
   " operator-replace from clipboard
   map <Space>s "*<Plug>(operator-replace)
   map <Space>S "*<Plug>(operator-replace)$
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for kana/vim-smartchr {{{2
-if s:bundled('vim-smartchr')
-  augroup haskelllang
-    autocmd!
-    autocmd FileType haskell inoremap <buffer> <expr> -  smartchr#loop('-', '->', '--')
-  augroup END
 endif
 " }}}
 
@@ -2012,10 +1648,8 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for keith/investigate.vim {{{2
-if has('mac')
-  let g:investigate_use_dash=1
-endif
+" for lambdalisue/pinkyless.vim {{{2
+let g:pinkyless_capslock_trigger = ";<Tab>"
 " }}}
 
 "---------------------------------------------------------------------------
@@ -2188,32 +1822,6 @@ let g:syntastic_go_checkers = ['go', 'golint']
 " }}}
 
 "---------------------------------------------------------------------------
-" for terryma/vim-expand-region {{{2
-if s:bundled('vim-expand-region')
-  nmap <Leader>e  <Plug>(expand_region_expand)
-  xmap <Leader>e  <Plug>(expand_region_expand)
-  nmap <Leader>E  <Plug>(expand_region_shrink)
-  xmap <Leader>E  <Plug>(expand_region_shrink)
-  let g:expand_region_text_objects = {
-    \ 'iw'  : 0,
-    \ 'iW'  : 0,
-    \ 'i]'  : 1,
-    \ 'ib'  : 1,
-    \ 'iB'  : 1,
-    \ 'il'  : 0,
-    \ 'ii'  : 0,
-    \ 'ai'  : 0,
-    \ 'ip'  : 0,
-    \ }
-  if s:bundled('vim-submode')
-    call submode#enter_with('expand-region', 'nv', 'r', '<Leader>e', '<Plug>(expand_region_expand)')
-    call submode#map('expand-region', 'nv', 'r', 'e', '<Plug>(expand_region_expand)')
-    call submode#map('expand-region', 'nv', 'r', 's', '<Plug>(expand_region_shrink)')
-  endif
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for thinca/vim-ambicmd {{{2
 if s:bundled('vim-ambicmd')
   cnoremap <expr> <Space>   ambicmd#expand("\<Space>")
@@ -2271,37 +1879,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for thinca/vim-ref {{{2
-if s:bundled('vim-ref')
-  let g:ref_source_webdict_sites = {
-    \   'default': 'alc',
-    \
-    \   'alc': {
-    \       'url': 'http://eow.alc.co.jp/%s',
-    \       'keyword_encoding': 'utf-8',
-    \       'cache': '1',
-    \   },
-    \   'wikipedia': {
-    \       'url': 'http://ja.wikipedia.org/wiki/%s',
-    \   },
-    \ }
-  function! g:ref_source_webdict_sites.alc.filter(output)
-    return join(split(a:output, "\n")[38 :], "\n")
-  endfunction
-  function! g:ref_source_webdict_sites.wikipedia.filter(output)
-    return join(split(a:output, "\n")[6 :], "\n")
-  endfunction
-
-  " nnoremap <Leader>wa :<C-u>Ref webdict alc <C-r><C-w><CR>
-  " vnoremap <Leader>wa :<C-u>call ExecuteWithSelectedText('Ref webdict alc %s')<CR>
-  " nnoremap <Leader>wA :<C-u>Ref webdict alc<Space>
-  " nnoremap <Leader>ww :<C-u>Ref webdict wikipedia <C-r><C-w><CR>
-  " vnoremap <Leader>ww :<C-u>call ExecuteWithSelectedText('Ref webdict wikipedia %s')<CR>
-  " nnoremap <Leader>wW :<C-u>Ref webdict wikipedia<Space>
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for tpope/vim-commentary {{{2
 if s:bundled('vim-commentary')
   xmap <Leader>c   <Plug>Commentary
@@ -2326,11 +1903,6 @@ if s:bundled('vim-fugitive')
   nnoremap [Git]b :<C-u>Gblame<CR>
   nnoremap [Git]p :<C-u>Git push<Space>
 endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for tsukkee/lingr-vim {{{2
-let g:lingr_vim_user = 'deris0126'
 " }}}
 
 "---------------------------------------------------------------------------
@@ -2375,27 +1947,12 @@ let g:eskk#large_dictionary = {
 " }}}
 
 "---------------------------------------------------------------------------
-" for tyru/operator-html-escape.vim {{{2
-if s:bundled('operator-user') && s:bundled('operator-html-escape.vim')
-  nmap <Leader>he  <Plug>(operator-html-escape)
-  nmap <Leader>hu  <Plug>(operator-html-unescape)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for tyru/operator-star.vim {{{2
 if s:bundled('operator-user') && s:bundled('operator-star.vim')
   nmap <Leader>*  <Plug>(operator-*)
   nmap <Leader>g* <Plug>(operator-g*)
   nmap <Leader>#  <Plug>(operator-#)
   nmap <Leader>g# <Plug>(operator-g#)
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for xolox/vim-easytags {{{2
-if has('win32')
-  let g:easytags_cmd = ''
 endif
 " }}}
 
@@ -2464,11 +2021,6 @@ endif
 if s:bundled('vim-rengbang')
   " map <Leader>sn <Plug>(operator-rengbang)
 endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for errormarker.vim {{{2
-let errormarker_disablemappings = 1
 " }}}
 
 "---------------------------------------------------------------------------
