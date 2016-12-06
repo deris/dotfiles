@@ -797,14 +797,19 @@ vnoremap : ;
 " repeat last command-line
 nnoremap <Space>; @:
 
-" repeat the previous @x
-nnoremap <Leader>. @@
-
 " repeats the last command on every line
 vnoremap .  :normal .<CR>
 
-" @: repeats macro on every line
-" vnoremap @  :normal @
+function! s:dot_repeat(bang)
+  for i in range(v:count1)
+    execute "normal".a:bang." ."
+  endfor
+endfunction
+
+command! -nargs=0 -bang DotRepeat call s:dot_repeat("<bang>")
+
+" repeats the last command v:count1 time
+nnoremap <Leader>.  :<C-u>DotRepeat<CR>
 
 let reg_list = []
 call extend(reg_list, range(char2nr('0'), char2nr('9')))
