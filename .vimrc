@@ -1122,22 +1122,7 @@ command! -nargs=? GoogleChrome call s:GoogleChrome(<f-args>)
 " replace search word to unnamed register
 nnoremap <silent> <Space>rs :<C-u>execute '%substitute//' . escape(getreg(), '/\') . '/g'<CR>
 
-" If unite-quickfix is bundled use unite-quickfix, otherwise use built-in quickfix window
-function s:OpenQuickFix()
-  if s:bundled('unite.vim') && s:bundled('unite-quickfix')
-    Unite -no-quit -direction=botright quickfix
-  else
-    copen
-  endif
-endfunction
-
-" grep
-function! s:Grep(pattern, target)
-  execute 'grep ' . a:pattern . ' ' . a:target
-  call s:OpenQuickFix()
-endfunction
-
-command! -nargs=+ Grep call s:Grep(<f-args>)
+command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
 
 command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 
