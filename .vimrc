@@ -501,13 +501,6 @@ elseif executable(g:my_jvgrep_path)
   let &grepprg = g:my_jvgrep_path . ' --no-color -nr8 --enc utf-8,cp932,euc-jp'
 endif
 
-" Show em space
-augroup hilightIdegraphicSpace
-  autocmd!
-  autocmd VimEnter,ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd Syntax * syntax match IdeographicSpace containedin=ALL /　/
-augroup END
-
 " vimdiff highlight
 augroup diffcolor
   autocmd!
@@ -548,7 +541,7 @@ endfunction
 " }}}
 
 "---------------------------------------------------------------------------
-" key map:{{{2
+" custom keymaps and commands {{{2
 
 let mapleader = ","
 let maplocalleader = ","
@@ -692,32 +685,12 @@ vnoremap id  i"
 
 " ex command
 nnoremap <Space>w :<C-u>update<CR>
-nnoremap <Space>q :<C-u>SafeQuit<CR>
-nnoremap <Space>Q :<C-u>SafeQuit!<CR>
-nnoremap <S-Space>Q :<C-u>SafeQuit!<CR>
+nnoremap <Space>q :<C-u>q<CR>
+nnoremap <Space>Q :<C-u>q!<CR>
+nnoremap <S-Space>Q :<C-u>q!<CR>
 nnoremap <Space>bd :<C-u>bwipeout<CR>
 nnoremap <Space>bD :<C-u>bwipeout!<CR>
 nnoremap <Space>bb :<C-u>buffer #<CR>
-
-function! s:safeQuit(bang)
-  " exit if current buffer is last tab or last window
-  if !(tabpagenr('$') == 1 && winnr('$') == 1)
-    execute 'quit'.a:bang
-    return
-  endif
-
-  " confirm whether exit or not
-  echohl WarningMsg
-  let l:input = input('Are you sure to quit vim?[y/n]: ')
-  echohl None
-  redraw!
-
-  if l:input ==? 'y'
-    execute 'quit'.a:bang
-  endif
-endfunction
-
-command! -bang SafeQuit call s:safeQuit('<bang>')
 
 " virtual replace mode
 nnoremap R gR
@@ -760,9 +733,6 @@ cnoremap <C-r>' <C-r>"
 cnoremap <expr> /  getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?  getcmdtype() == '?' ? '\?' : '?'
 
-" expand directory of active file
-cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
 " insert substitute command
 nnoremap gs  :<C-u>%s///g<Left><Left><Left>
 vnoremap gs  :s///g<Left><Left><Left>
@@ -799,9 +769,7 @@ inoremap <S-Enter> <C-o>O
 
 " stop the highlighting
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
-nnoremap <silent> <C-c><C-c> :<C-u>nohlsearch<CR>
 nnoremap <silent> <C-[><C-[> :<C-u>nohlsearch<CR>
-nnoremap <silent> <C-@><C-@> :<C-u>nohlsearch<CR>
 
 " n is always search forwward and N is always search backward
 nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
@@ -862,15 +830,10 @@ nmap     <Leader>t     [filetype]
 nnoremap [filetype]p   :<C-u>set filetype=perl<CR>
 nnoremap [filetype]v   :<C-u>set filetype=vim<CR>
 nnoremap [filetype]c   :<C-u>set filetype=c<CR>
-nnoremap [filetype]o   :<C-u>set filetype=objc<CR>
-nnoremap [filetype]j   :<C-u>set filetype=java<CR>
 nnoremap [filetype]s   :<C-u>set filetype=shell<CR>
 nnoremap [filetype]r   :<C-u>set filetype=ruby<CR>
-nnoremap [filetype]a   :<C-u>set filetype=javascript<CR>
+nnoremap [filetype]j   :<C-u>set filetype=javascript<CR>
 nnoremap [filetype]h   :<C-u>set filetype=html<CR>
-nnoremap [filetype]x   :<C-u>set filetype=xml<CR>
-nnoremap [filetype]d   :<C-u>set filetype=diff<CR>
-nnoremap [filetype]l   :<C-u>set filetype=scala<CR>
 nnoremap [filetype]g   :<C-u>set filetype=go<CR>
 
 command! -nargs=1 -complete=filetype FileType execute "set filetype=".<q-args>
@@ -890,6 +853,13 @@ endfunction
 command! DiffOff call s:DiffOff()
 
 command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+
+function! s:Grep(arg)
+  let arg = a:arg != '' ? a:arg : expand("<cword>")
+  execute 'silent grep!' arg
+endfunction
+
+command! -nargs=* G  call s:Grep(<q-args>)
 
 " execute command (inner %s replace last selected text)
 function! ExecuteWithSelectedText(command)
@@ -949,10 +919,6 @@ function! s:del_quickfix_entry() range
   execute a:firstline
 endfunction
 
-" }}}
-
-"---------------------------------------------------------------------------
-" Command {{{2
 command! Utf8 e ++enc=utf-8
 command! Euc e ++enc=euc-jp
 command! Sjis e ++enc=cp932
@@ -1049,17 +1015,15 @@ function! s:searchsyn(pattern,syn,flags,mode)
     norm! gv
   endif
   let i = 0
-  let cnt = v:count ? v:count : 1
-  while i < cnt
+  while i < v:count1
     let i = i + 1
-    let line = line('.')
-    let col  = col('.')
+    let save_pos = getcurpos()
     let pos = search(a:pattern,'W'.a:flags)
     while pos != 0 && s:synname() !~# a:syn
       let pos = search(a:pattern,'W'.a:flags)
     endwhile
     if pos == 0
-      call cursor(line,col)
+      call setpos('.', save_pos)
       return
     endif
   endwhile
@@ -1233,59 +1197,6 @@ if s:bundled('unite.vim')
   nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
   nnoremap <silent> [unite]m   :<C-u>Unite mapping<CR>
   nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
-
-  let s:target_ft = {
-    \ 'c': '**/*.[ch]',
-    \ 'pl': '**/*.pl',
-    \ 'rb': '**/*.rb',
-    \ }
-  function! s:unite_grep_with_filetype() "{{{
-    try
-      if get(s:target_ft, &ft, '') != ''
-        let pattern = s:input('Pattern: ')
-        let pattern = pattern=='' ? expand('<cword>') : pattern
-        execute 'Unite grep:' . s:target_ft[&ft] . ' -input=' . pattern
-      else
-        execute 'Unite grep'
-      endif
-    catch /Canceled/
-    endtry
-  endfunction "}}}
-
-  function! s:input(...) abort
-    new
-    cmap <buffer> <esc> __CANCELED__<cr>
-    let ret = call('input', a:000)
-    bw!
-    redraw
-    if ret =~ '__CANCELED__$'
-      throw "Canceled"
-    endif
-    echom ret
-    return ret
-  endfunction
-
-  autocmd FileType unite call s:unite_my_settings()
-  function! s:unite_my_settings() "{{{
-    nmap <buffer> <ESC>  <Plug>(unite_exit)
-    nmap <buffer> <C-c>  <Plug>(unite_exit)
-    imap <buffer> jk     <Plug>(unite_insert_leave)
-
-    nmap <buffer> <Space>           <Nop>
-    nmap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_current_candidate)
-    imap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_current_candidate)
-    vmap <buffer> <Leader><Leader>  <Plug>(unite_toggle_mark_selected_candidates)
-
-    " <C-l>: manual neocomplete completion.
-    inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
-
-    " action key mapping
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-
-    call unite#custom_default_action('directory', 'tabvimfiler')
-    call unite#custom_default_action('directory_mru', 'tabvimfiler')
-
-  endfunction "}}}
 
   let g:neomru#file_mru_limit = 200
   let g:unite_cursor_line_highlight = 'TabLineSel'
