@@ -878,7 +878,6 @@ function! ExecuteWithSelectedText(command)
 
   execute printf(a:command, selectedText)
 endfunction
-" }}}
 
 command -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
 
