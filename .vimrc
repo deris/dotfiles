@@ -286,6 +286,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-textobj-between',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'thinca/vim-themis'
+  NeoBundle 'thinca/vim-zenspace'
   NeoBundle 'tpope/vim-commentary'
   NeoBundle 'tpope/vim-endwise'
   NeoBundle 'tpope/vim-fugitive'
