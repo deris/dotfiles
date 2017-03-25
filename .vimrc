@@ -57,17 +57,11 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'AndrewRadev/linediff.vim'
-  NeoBundle 'AndrewRadev/sideways.vim'
-  NeoBundle 'AndrewRadev/inline_edit.vim'
   NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
     \ 'filetypes' : 'swift',
     \ }}
   NeoBundle 'DeaR/vim-tabpagebuffer-misc'
-  NeoBundle 'LeafCage/yankround.vim'
   NeoBundle 'Shougo/neocomplete'
-  NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
-    \ 'unite_sources' : 'file_mru',
-    \ }}
   NeoBundle 'Shougo/neosnippet', '', 'default'
   call neobundle#config('neosnippet', {
     \ 'lazy' : 1,
@@ -75,7 +69,6 @@ if s:bundled('neobundle.vim')
     \   'insert' : 1,
     \   'filetypes' : 'snippet',
     \   'commands' : ['NeoSnippetEdit'],
-    \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }})
   NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/tabpagebuffer.vim'
@@ -126,23 +119,13 @@ if s:bundled('neobundle.vim')
     \   'PatienceDiff',
     \ ]}
     \ }
-  NeoBundle 'cohama/agit.vim'
   NeoBundle 'ctrlpvim/ctrlp.vim'
-  NeoBundle 'dyng/ctrlsf.vim'
   NeoBundle 'easymotion/vim-easymotion', {
     \ 'autoload' : {
     \   'mappings' : '<Plug>(easymotion-',
     \ }}
   NeoBundle 'fatih/vim-go'
-  NeoBundleLazy 'gregsexton/gitv', {
-    \ 'depends' : 'tpope/vim-fugitive',
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Gitv',
-    \   ]},
-    \ }
   NeoBundle 'haya14busa/vim-asterisk'
-  NeoBundle 'haya14busa/vim-auto-programming'
   NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-metarepeat'
   NeoBundle 'junegunn/fzf'
@@ -199,7 +182,6 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/emmet-vim'
-  NeoBundle 'mhinz/vim-grepper'
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   NeoBundle 'nelstrom/vim-markdown-folding'
@@ -207,19 +189,6 @@ if s:bundled('neobundle.vim')
   "   \ 'depends' : 'ctrlpvim/ctrlp.vim',
   "   \ }
   NeoBundle 'ntpeters/vim-better-whitespace'
-  NeoBundleLazy 'rbtnn/vimconsole.vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'VimConsoleRedraw',
-    \     'VimConsoleClear',
-    \     'VimConsoleToggle',
-    \     'VimConsoleDump',
-    \     'VimConsole',
-    \     'VimConsoleLog',
-    \     'VimConsoleError',
-    \     'VimConsoleWarn',
-    \   ]},
-    \ }
   NeoBundle 'rhysd/committia.vim'
   NeoBundle 'rhysd/conflict-marker.vim'
   NeoBundleLazy 'rhysd/vim-grammarous', {
@@ -232,15 +201,6 @@ if s:bundled('neobundle.vim')
   NeoBundle 'rhysd/vim-clang-format'
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundle 'rhysd/vim-textobj-word-column'
-  NeoBundleLazy 'rking/ag.vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Ag',
-    \     'AgBuffer',
-    \     'AgAdd',
-    \     'AgFromSearch',
-    \   ]},
-    \ }
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
   NeoBundle 'sgur/vim-textobj-parameter',
@@ -297,14 +257,12 @@ if s:bundled('neobundle.vim')
     \     'OpenBrowser',
     \   ]},
     \ }
-  NeoBundle 'tyru/winmove.vim'
   NeoBundle 'vim-jp/vital.vim'
   NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
     \ 'mappings' : '<Plug>(ref-keyword)',
     \ 'filetypes' : ['ruby', 'eruby', 'haml'],
     \ }}
   NeoBundle 'vimtaku/hl_matchit.vim'
-  " NeoBundle 'wellle/targets.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
   NeoBundle 'deris/parajump'
@@ -685,16 +643,6 @@ nnoremap <Space>bb :<C-u>buffer #<CR>
 " virtual replace mode
 nnoremap R gR
 
-" window commands
-nnoremap <M-h>   <C-w>h
-nnoremap <M-j>   <C-w>j
-nnoremap <M-k>   <C-w>k
-nnoremap <M-l>   <C-w>l
-nnoremap <M-H>   <C-w>H
-nnoremap <M-J>   <C-w>J
-nnoremap <M-K>   <C-w>K
-nnoremap <M-L>   <C-w>L
-
 " Search the word nearest to the cursor in new window.
 nnoremap <C-w>*  <C-w>s*
 nnoremap <C-w>#  <C-w>s#
@@ -842,14 +790,14 @@ endfunction
 
 command! DiffOff call s:DiffOff()
 
-command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-
-function! s:Grep(arg)
-  let arg = a:arg != '' ? a:arg : expand("<cword>")
-  execute 'silent grep!' arg
+function! s:DiffClose()
+  DiffOff
+  wincmd bwipeout!
 endfunction
 
-command! -nargs=* G  call s:Grep(<q-args>)
+command! DiffClose call s:DiffClose()
+
+command! -nargs=0 EchoSynName echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 
 " execute command (inner %s replace last selected text)
 function! ExecuteWithSelectedText(command)
@@ -1028,30 +976,6 @@ endfunction
 
 "---------------------------------------------------------------------------
 " plugins {{{1
-
-"---------------------------------------------------------------------------
-" for AndrewRadev/sideways.vim {{{2
-if s:bundled('sideways.vim')
-  nnoremap <silent> <C-h>          :<C-u>SidewaysJumpLeft<CR>
-  nnoremap <silent> <C-l>          :<C-u>SidewaysJumpRight<CR>
-  nnoremap <silent> <Leader><C-h>  :<C-u>SidewaysLeft<CR>
-  nnoremap <silent> <Leader><C-l>  :<C-u>SidewaysRight<CR>
-  omap <silent> ao  <Plug>SidewaysArgumentTextobjA
-  xmap <silent> ao  <Plug>SidewaysArgumentTextobjA
-  omap <silent> io  <Plug>SidewaysArgumentTextobjI
-  xmap <silent> io  <Plug>SidewaysArgumentTextobjI
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for LeafCage/yankround.vim {{{2
-if s:bundled('yankround.vim')
-  call submode#enter_with('yankround', 'n', 'r', '<Leader>p', '<Plug>(yankround-p)')
-  call submode#enter_with('yankround', 'n', 'r', '<Leader>P', '<Plug>(yankround-P)')
-  call submode#map('yankround', 'n', 'r', 'p', '<Plug>(yankround-prev)')
-  call submode#map('yankround', 'n', 'r', 'n', '<Plug>(yankround-next)')
-endif
-" }}}
 
 "---------------------------------------------------------------------------
 " for Shougo/neocomplete {{{2
@@ -1313,27 +1237,6 @@ let g:go_highlight_structs = 1
 " }}}
 
 "---------------------------------------------------------------------------
-" for gregsexton/gitv {{{2
-if s:bundled('gitv')
-  let g:Gitv_OpenHorizontal = 1
-  let g:Gitv_DoNotMapCtrlKey = 1
-  let g:Gitv_TruncateCommitSubjects = 1
-
-  set lazyredraw
-
-  nnoremap [Git]v :Gitv --all<CR>
-  vnoremap [Git]v :Gitv --all<CR>
-  nnoremap [Git]V :Gitv! --all<CR>
-  autocmd FileType gitv call s:my_gitv_settings()
-  function! s:my_gitv_settings()
-    setlocal iskeyword+=/,-,.
-    nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
-  endfunction
-
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for haya14busa/vim-asterisk {{{2
 if s:bundled('vim-asterisk')
   map *  <Plug>(asterisk-z*)
@@ -1392,14 +1295,6 @@ if s:bundled('vim-easy-align')
   xnoremap <Leader>a, :EasyAlign ,<CR>
   xnoremap <Leader>a: :EasyAlign :<CR>
   xnoremap <Leader>ac :EasyAlign :<CR>
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for justinmk/vim-sneak {{{2
-if s:bundled('vim-sneak')
-  " nmap <Leader>s <Plug>Sneak_s
-  " nmap <Leader>S <Plug>Sneak_S
 endif
 " }}}
 
@@ -1559,29 +1454,6 @@ let g:pinkyless_capslock_trigger = ";<Tab>"
 "---------------------------------------------------------------------------
 " for mattn/zencoding-vim {{{2
 let g:user_emmet_leader_key = '<c-y>'
-" }}}
-
-"---------------------------------------------------------------------------
-" for mhinz/vim-grepper {{{2
-if s:bundled('vim-grepper')
-  nmap gl  <plug>(GrepperOperator)
-  xmap gl  <plug>(GrepperOperator)
-  nnoremap <leader>* :<C-u>Grepper -cword -noprompt<CR>
-  nnoremap <leader>/ :<C-u>Grepper<CR>
-
-  let g:grepper = {
-    \ 'tools': ['rg', 'ag'],
-    \ 'next_tool': '<C-g>',
-    \ 'rg': {
-    \   'grepprg':    g:my_rg_path . ' --vimgrep -S --no-heading --hidden',
-    \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
-    \ },
-    \ 'ag': {
-    \   'grepprg':    g:my_ag_path . ' --vimgrep -S --hidden',
-    \   'grepformat': '%f:%l:%c:%m',
-    \ },
-    \ }
-endif
 " }}}
 
 "---------------------------------------------------------------------------
@@ -1848,16 +1720,6 @@ let g:eskk#large_dictionary = {
   \	'sorted': 1,
   \	'encoding': 'euc-jp',
   \}
-" }}}
-
-"---------------------------------------------------------------------------
-" for tyru/operator-star.vim {{{2
-if s:bundled('operator-user') && s:bundled('operator-star.vim')
-  nmap <Leader>*  <Plug>(operator-*)
-  nmap <Leader>g* <Plug>(operator-g*)
-  nmap <Leader>#  <Plug>(operator-#)
-  nmap <Leader>g# <Plug>(operator-g#)
-endif
 " }}}
 
 "---------------------------------------------------------------------------
