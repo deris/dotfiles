@@ -156,12 +156,6 @@ if s:bundled('neobundle.vim')
   NeoBundle 'junegunn/fzf.vim'
   NeoBundle 'junegunn/vim-after-object'
   NeoBundle 'junegunn/vim-easy-align'
-  NeoBundleLazy 'justinmk/vim-sneak', {
-    \ 'autoload' : {
-    \   'mappings' : [
-    \     '<Plug>Sneak',
-    \   ]
-    \ }}
   NeoBundle 'justinmk/vim-dirvish'
   NeoBundle 'justmao945/vim-clang'
   NeoBundle 'kana/vim-altr'
@@ -169,7 +163,6 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-operator-user'
   NeoBundle 'kana/vim-operator-replace',
     \ { 'depends' : 'kana/vim-operator-user' }
-  NeoBundle 'kana/vim-smartchr'
   NeoBundleLazy 'kana/vim-smarttill', {
     \ 'autoload' : {
     \   'mappings' : [
@@ -189,6 +182,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-textobj-line',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'koron/vim-gosrc'
+  NeoBundle 'koturn/vim-replica'
   NeoBundle 'lambdalisue/pinkyless.vim'
   NeoBundleLazy 'majutsushi/tagbar', {
     \ 'autoload' : {
@@ -204,8 +198,6 @@ if s:bundled('neobundle.vim')
     \ 'depends' : 'mattn/webapi-vim',
     \ }
   NeoBundle 'mattn/learn-vimscript'
-  NeoBundle 'mattn/vim-textobj-url',
-    \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'mattn/emmet-vim'
   NeoBundle 'mhinz/vim-grepper'
   NeoBundle 'mhinz/vim-startify'
@@ -237,8 +229,7 @@ if s:bundled('neobundle.vim')
     \     'GrammarousReset',
     \   ]},
     \ }
-  NeoBundle 'rhysd/vim-clang-format',
-    \ { 'depends' : 'kana/vim-operator-user' }
+  NeoBundle 'rhysd/vim-clang-format'
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundleLazy 'rking/ag.vim', {
@@ -282,8 +273,6 @@ if s:bundled('neobundle.vim')
     \ }
   NeoBundle 'thinca/vim-singleton'
   NeoBundle 'thinca/vim-textobj-comment',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'thinca/vim-textobj-between',
     \ { 'depends' : 'kana/vim-textobj-user' }
   NeoBundle 'thinca/vim-themis'
   NeoBundle 'thinca/vim-zenspace'
@@ -1502,6 +1491,10 @@ if s:bundled('vim-submode')
   call submode#map('ex-move', 'nv', '', 'm', '5kzz')
   call submode#map('ex-move', 'nv', '', 'l', '}zz')
   call submode#map('ex-move', 'nv', '', 'h', '{zz')
+  call submode#map('ex-move', 'nv', '', 's', '/')
+  call submode#map('ex-move', 'nv', '', 'a', '*')
+  call submode#map('ex-move', 'nv', '', 'b', 'N')
+  call submode#map('ex-move', 'nv', '', 'f', 'n')
 
   call submode#enter_with('diff', 'n', '', '<Leader>d', '<Nop>')
   call submode#map('diff', 'n', '', 'j', ']czz')
@@ -1924,13 +1917,6 @@ if s:bundled('vim-shot-f')
   omap <expr> F  col('.')   != 1        ? "\<Plug>(shot-f-F)" : "\<Plug>(shot-f-f)"
   omap <expr> t  col('.')+1 != col('$') ? "\<Plug>(shot-f-t)" : "\<Plug>(shot-f-T)"
   omap <expr> T  col('.')   != 1        ? "\<Plug>(shot-f-T)" : "\<Plug>(shot-f-t)"
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for deris/vim-rengbang {{{2
-if s:bundled('vim-rengbang')
-  " map <Leader>sn <Plug>(operator-rengbang)
 endif
 " }}}
 
