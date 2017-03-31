@@ -80,26 +80,6 @@ if s:bundled('neobundle.vim')
     \                   'complete' : 'customlist,unite#complete_source'},
     \                 'UniteWithCursorWord', 'UniteWithInput']
     \ }})
-  NeoBundle 'Shougo/vimfiler', '', 'default'
-  call neobundle#config('vimfiler', {
-    \ 'lazy' : 1,
-    \ 'depends' : 'Shougo/unite.vim',
-    \ 'autoload' : {
-    \   'commands' : [
-    \                 { 'name' : 'VimFiler',
-    \                   'complete' : 'customlist,vimfiler#complete' },
-    \                 { 'name' : 'VimFilerTab',
-    \                   'complete' : 'customlist,vimfiler#complete' },
-    \                 { 'name' : 'VimFilerExplorer',
-    \                   'complete' : 'customlist,vimfiler#complete' },
-    \                 { 'name' : 'Edit',
-    \                   'complete' : 'customlist,vimfiler#complete' },
-    \                 { 'name' : 'Write',
-    \                   'complete' : 'customlist,vimfiler#complete' },
-    \                 'Read', 'Source'],
-    \   'mappings' : ['<Plug>(vimfiler_switch)'],
-    \   'explorer' : 1,
-    \ }})
   NeoBundle 'Shougo/vimproc.vim', '', 'default'
   call neobundle#config('vimproc.vim', {
     \ 'build' : {
@@ -1139,61 +1119,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for Shougo/vimfiler {{{2
-if s:bundled('vimfiler')
-  nnoremap [vimfiler]  <Nop>
-  nmap     <Space>f  [vimfiler]
-
-  nnoremap <silent> [vimfiler]f   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-  nnoremap <silent> [vimfiler]d   :<C-u>VimFilerTab -double -no-quit<CR>
-  nnoremap <silent> [vimfiler]b   :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit -auto-cd $VIMBUNDLE<CR>
-
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_enable_auto_cd = 1
-
-  " Use trashbox.
-  " Windows only and require latest vimproc.
-  if has('win32')
-    let g:unite_kind_file_use_trashbox = 1
-  endif
-
-  call s:LetAndMkdir('g:vimfiler_data_directory', $DOTVIM.'/.vimfiler')
-
-  if has('mac')
-    " Like Textmate icons.
-    let g:vimfiler_tree_leaf_icon = ' '
-    let g:vimfiler_tree_opened_icon = '-'
-    let g:vimfiler_tree_closed_icon = '+'
-    let g:vimfiler_file_icon = '-'
-    let g:vimfiler_marked_file_icon = '*'
-  else
-    let g:vimfiler_tree_leaf_icon = ' '
-    let g:vimfiler_tree_opened_icon = '-'
-    let g:vimfiler_tree_closed_icon = '+'
-    let g:vimfiler_file_icon = '-'
-    let g:vimfiler_marked_file_icon = '*'
-  endif
-
-  autocmd FileType vimfiler call s:vimfiler_my_settings()
-  function! s:vimfiler_my_settings() "{{{
-    if has('gui')
-      nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabdrop')
-    else
-      nnoremap <silent><buffer><expr> E  vimfiler#do_action('tabopen')
-    endif
-    nnoremap <silent><buffer><expr> s  vimfiler#do_action('right')
-    nnoremap <silent><buffer><expr> f  vimfiler#do_action('diff')
-
-    nmap <buffer> <Space>           <Nop>
-    nmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_current_line)
-    vmap <buffer> <Leader><Leader>  <Plug>(vimfiler_toggle_mark_selected_lines)
-
-  endfunction "}}}
-
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for airblade/vim-rooter {{{2
 if s:bundled('vim-rooter')
   let g:rooter_use_lcd = 1
@@ -1495,7 +1420,7 @@ if s:bundled('vim-better-whitespace')
     \ 'diff',
     \ 'gitcommit',
     \ 'unite',
-    \ 'vimfiler',
+    \ 'dirvish',
     \ 'qf',
     \ 'help',
     \ ]
