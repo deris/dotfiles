@@ -1169,6 +1169,81 @@ if s:bundled('vim-easy-align')
 endif
 " }}}
 
+
+"---------------------------------------------------------------------------
+" for justinmk/vim-dirvish {{{2
+if s:bundled('vim-dirvish')
+  " Dirvish上で renameできるよう以下設定
+  let s:dirvish_rename_started_list = []
+
+  function! s:start_rename_mode()
+    echom 'start rename'
+    " reload the Dirvish buffer
+    Dirvish %
+
+    let s:dirvish_rename_started_list = getbufline('%', 1, '$')
+    let s:dirvish_save_conceallevel = &conceallevel
+    if has('conceal')
+      setlocal conceallevel=0
+    endif
+  endfunction
+
+  function! s:stop_rename_mode()
+    if empty(s:dirvish_rename_started_list)
+      return
+    endif
+
+    " conceallevelを元に戻しておく
+    if has('conceal')
+      let &conceallevel = s:dirvish_save_conceallevel
+    endif
+    " 途中で関数を抜けたときに残らないようにローカル変数にコピーして空に
+    let startedlist = s:dirvish_rename_started_list
+    let s:dirvish_rename_started_list = []
+
+    let endlist = getbufline('%', 1, '$')
+
+    if endlist == startedlist
+      echom 'no rename'
+      return
+    endif
+
+    " reload the Dirvish buffer
+    Dirvish %
+
+    let reallist = getbufline('%', 1, '$')
+
+    if reallist != startedlist
+      echom 'no rename because some files have changed background'
+      return
+    endif
+
+    if len(endlist) != len(reallist)
+      echom 'no rename because file count have changed'
+      return
+    endif
+
+    for i in range(len(endlist))
+      if endlist[i] != reallist[i]
+        echom 'rename' reallist[i] 'to' endlist[i]
+        call rename(reallist[i], endlist[i])
+      endif
+    endfor
+    echom 'end rename'
+
+    " reload the Dirvish buffer
+    Dirvish %
+  endfunction
+
+  augroup my_dirvish_events
+    autocmd!
+    " Rename mode
+    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>R :call <SID>start_rename_mode()<CR>
+    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>r :call <SID>stop_rename_mode()<CR>
+  augroup END
+endif
+" }}}
+
 "---------------------------------------------------------------------------
 " for justmao945/vim-clang {{{2
 if s:bundled('vim-clang')
