@@ -72,14 +72,6 @@ if s:bundled('neobundle.vim')
     \ }})
   NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/tabpagebuffer.vim'
-  NeoBundle 'Shougo/unite.vim', '', 'default'
-  call neobundle#config('unite.vim',{
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'commands' : [{ 'name' : 'Unite',
-    \                   'complete' : 'customlist,unite#complete_source'},
-    \                 'UniteWithCursorWord', 'UniteWithInput']
-    \ }})
   NeoBundle 'Shougo/vimproc.vim', '', 'default'
   call neobundle#config('vimproc.vim', {
     \ 'build' : {
@@ -1073,52 +1065,6 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
-" for Shougo/unite.vim {{{2
-if s:bundled('unite.vim')
-  nnoremap [unite]    <Nop>
-  nmap     <Space>u [unite]
-
-  nnoremap <silent> [unite]c   :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-  nnoremap <silent> [unite]b   :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]u   :<C-u>Unite file_mru<CR>
-  nnoremap <silent> [unite]d   :<C-u>Unite directory_mru<CR>
-  nnoremap <silent> [unite]k   :<C-u>Unite bookmark<CR>
-  nnoremap <silent> [unite]s   :<C-u>Unite source<CR>
-  nnoremap <silent> [unite]f   :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]g   :<C-u>call <SID>unite_grep_with_filetype()<CR>
-  nnoremap <silent> [unite]a   :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]n   :<C-u>Unite neobundle/install:!<CR>
-  nnoremap <silent> [unite]m   :<C-u>Unite mapping<CR>
-  nnoremap <silent> [unite]r   :<C-u>UniteResume<CR>
-
-  let g:neomru#file_mru_limit = 200
-  let g:unite_cursor_line_highlight = 'TabLineSel'
-  let g:unite_abbr_highlight = 'TabLine'
-  let g:unite_winheight = 15
-  let g:neomru#time_format = "%m/%d %H:%M "
-
-  " For optimize.
-  let g:neomru#filename_format = ''
-
-  if executable(g:my_rg_path)
-    let g:unite_source_grep_command = g:my_rg_path
-    let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_default_opts = '--vimgrep --no-heading --hidden'
-  elseif executable(g:my_ag_path)
-    let g:unite_source_grep_command = g:my_ag_path
-    let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_default_opts = '--vimgrep --hidden'
-  elseif executable(g:my_jvgrep_path)
-    let g:unite_source_grep_command = g:my_jvgrep_path
-    let g:unite_source_grep_recursive_opt = '-R'
-    let g:unite_source_grep_default_opts = '--no-color -nr8 --enc utf-8,cp932,euc-jp'
-  endif
-  let g:unite_source_grep_max_candidates = 200
-
-endif
-" }}}
-
-"---------------------------------------------------------------------------
 " for airblade/vim-rooter {{{2
 if s:bundled('vim-rooter')
   let g:rooter_use_lcd = 1
@@ -1419,7 +1365,6 @@ if s:bundled('vim-better-whitespace')
   let g:better_whitespace_filetypes_blacklist = [
     \ 'diff',
     \ 'gitcommit',
-    \ 'unite',
     \ 'dirvish',
     \ 'qf',
     \ 'help',
