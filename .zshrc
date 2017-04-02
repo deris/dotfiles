@@ -211,10 +211,18 @@ typeset -U PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/local/bin:$PATH
 export PATH=~/.cabal/bin:$PATH
-export PATH=$PATH:`find /Applications/Xcode.app -name swift|grep bin|xargs -I{} dirname {}`
+export PATH=~/.rbenv/bin:$PATH
 export PATH=~/.plenv/bin:$PATH
 eval "$(rbenv init -)"
 eval "$(plenv init -)"
+case ${OSTYPE} in
+  darwin*)
+    export PATH=$PATH:`find /Applications/Xcode.app -name swift|grep bin|xargs -I{} dirname {}`
+    :;
+esac
+
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
 
 compdef _mojoliciousCmd mojo
 function _mojoliciousCmd {
@@ -327,3 +335,4 @@ fi
 #
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
