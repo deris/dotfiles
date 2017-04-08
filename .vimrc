@@ -789,6 +789,26 @@ function! ExecuteWithSelectedText(command)
   execute printf(a:command, selectedText)
 endfunction
 
+
+function! MyPrintNumber(motion_wise)
+  let spos = getpos("'[")
+  let epos = getpos("']")
+
+  if (spos[1] != epos[1]) || (spos[2] > epos[2])
+    return
+  endif
+
+  let line = getline(spos[1])
+  let target = line[spos[2]-1 : epos[2]-1]
+  echo printf("BIN: %b\n" .
+    \         "DEC: %d\n" .
+    \         "HEX: 0x%X\n", target, target, target)
+endfunction
+
+call operator#user#define('my-print-num', 'MyPrintNumber')
+
+nmap <Space>u  <Plug>(operator-my-print-num)
+
 command -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
 
 function! s:extract_matches(...) range
