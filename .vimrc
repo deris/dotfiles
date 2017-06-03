@@ -25,176 +25,131 @@ else
 endif
 
 let $VIMBUNDLE=$DOTVIM.'/bundle'
-let $NEOBUNDLEPATH=$VIMBUNDLE.'/neobundle.vim'
 
 function! s:bundled(bundle)
-  if !isdirectory($VIMBUNDLE)
-    return 0
-  endif
-  if stridx(&runtimepath, $NEOBUNDLEPATH) == -1
-    return 0
-  endif
-
-  if a:bundle ==# 'neobundle.vim'
-    return 1
-  else
-    return neobundle#is_installed(a:bundle)
-  endif
+  let plugs = get(g:, 'plugs', {})
+  return has_key(plugs, a:bundle) ? isdirectory(plugs[a:bundle].dir) : 0
 endfunction
 
 "---------------------------------------------------------------------------
-" NeoBundle {{{2
-filetype off
+" Plug {{{2
+call plug#begin($VIMBUNDLE)
 
-if has('vim_starting') && isdirectory($NEOBUNDLEPATH)
-  set runtimepath+=$NEOBUNDLEPATH
-endif
+" original repos on github
+Plug 'AndrewRadev/linediff.vim'
+Plug 'Keithbsmiley/swift.vim'
+Plug 'DeaR/vim-tabpagebuffer-misc'
+Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/tabpagebuffer.vim'
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-rooter'
+Plug 'bling/vim-airline'
+Plug 'chrisbra/Recover.vim'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go'
+Plug 'haya14busa/vim-asterisk'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/vim-metarepeat'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' :  './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-after-object'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-dirvish'
+Plug 'justmao945/vim-clang'
+Plug 'kana/vim-altr'
+Plug 'kana/vim-niceblock'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-operator-replace'
+Plug 'kana/vim-smarttill'
+Plug 'kana/vim-smartword'
+Plug 'kana/vim-submode'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+Plug 'koron/vim-gosrc'
+Plug 'koturn/vim-replica'
+Plug 'lambdalisue/pinkyless.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/gist-vim'
+Plug 'mattn/learn-vimscript'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-signify'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'nixprime/cpsm'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'rhysd/committia.vim'
+Plug 'rhysd/conflict-marker.vim'
+Plug 'rhysd/vim-grammarous'
+Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-operator-surround'
+Plug 'rhysd/vim-textobj-word-column'
+Plug 'rphillips/vim-zoomwin'
+Plug 'scrooloose/syntastic'
+Plug 'sgur/vim-textobj-parameter'
+Plug 'sjl/gundo.vim'
+Plug 'supermomonga/thingspast.vim'
+Plug 't9md/vim-surround_custom_mapping'
+Plug 'thinca/vim-ambicmd'
+Plug 'thinca/vim-fontzoom'
+Plug 'thinca/vim-poslist'
+Plug 'thinca/vim-qfreplace'
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-scouter'
+Plug 'thinca/vim-singleton'
+Plug 'thinca/vim-textobj-comment'
+Plug 'thinca/vim-themis'
+Plug 'thinca/vim-zenspace'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tyru/capture.vim'
+Plug 'tyru/eskk.vim'
+Plug 'tyru/nextfile.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'vim-jp/vital.vim'
+Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
+Plug 'vimtaku/hl_matchit.vim'
+Plug 'deris/columnjump'
+Plug 'deris/vim-fitcolumn'
+Plug 'deris/parajump'
+Plug 'deris/vim-cmdline-switch'
+Plug 'deris/vim-diffbuf'
+Plug 'deris/vim-dirdiff', 'dev'
+Plug 'deris/vim-pasta'
+Plug 'deris/vim-operator-insert'
+Plug 'deris/vim-rengbang'
+Plug 'deris/vim-shot-f'
+Plug 'deris/vim-textobj-enclosedsyntax'
+Plug 'deris/vim-multi-replace'
 
-if s:bundled('neobundle.vim')
-  call neobundle#begin($VIMBUNDLE)
+" vim-scripts repos
+Plug 'vim-scripts/HybridText'
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/UnconditionalPaste'
+Plug 'vim-scripts/matchit.zip'
 
-  let g:neobundle_default_git_protocol = 'https'
-  " original repos on github
-  NeoBundle 'Shougo/neobundle.vim'
-  NeoBundle 'AndrewRadev/linediff.vim'
-  NeoBundle 'Keithbsmiley/swift.vim'
-  NeoBundle 'DeaR/vim-tabpagebuffer-misc'
-  NeoBundle 'Shougo/neocomplete'
-  NeoBundle 'Shougo/neosnippet', '', 'default'
-  call neobundle#config('neosnippet', {
-    \ 'lazy' : 1,
-    \ 'autoload' : {
-    \   'insert' : 1,
-    \   'filetypes' : 'snippet',
-    \   'commands' : ['NeoSnippetEdit'],
-    \ }})
-  NeoBundle 'Shougo/neosnippet-snippets'
-  NeoBundle 'Shougo/tabpagebuffer.vim'
-  NeoBundle 'Shougo/vimproc.vim', '', 'default'
-  call neobundle#config('vimproc.vim', {
-    \ 'build' : {
-    \     'windows' : 'make -f make_mingw32.mak',
-    \     'cygwin'  : 'make -f make_cygwin.mak',
-    \     'mac'     : 'make -f make_mac.mak',
-    \     'unix'    : 'make -f make_unix.mak',
-    \    },
-    \ })
-  NeoBundle 'Yggdroot/indentLine'
-  NeoBundle 'airblade/vim-rooter'
-  NeoBundle 'bling/vim-airline'
-  NeoBundle 'chrisbra/Recover.vim'
-  NeoBundle 'chrisbra/vim-diff-enhanced'
-  NeoBundle 'ctrlpvim/ctrlp.vim'
-  NeoBundle 'easymotion/vim-easymotion'
-  NeoBundle 'fatih/vim-go'
-  NeoBundle 'haya14busa/vim-asterisk'
-  NeoBundle 'haya14busa/incsearch.vim'
-  NeoBundle 'haya14busa/vim-metarepeat'
-  NeoBundle 'Julian/vim-textobj-variable-segment'
-  NeoBundle 'junegunn/fzf'
-  call neobundle#config('fzf', {
-    \ 'build' : {
-    \     'cygwin'  : './install --all',
-    \     'mac'     : './install --all',
-    \     'unix'    : './install --all',
-    \    },
-    \ })
-  NeoBundle 'junegunn/fzf.vim'
-  NeoBundle 'junegunn/vim-after-object'
-  NeoBundle 'junegunn/vim-easy-align'
-  NeoBundle 'justinmk/vim-dirvish'
-  NeoBundle 'justmao945/vim-clang'
-  NeoBundle 'kana/vim-altr'
-  NeoBundle 'kana/vim-niceblock'
-  NeoBundle 'kana/vim-operator-user'
-  NeoBundle 'kana/vim-operator-replace'
-  NeoBundle 'kana/vim-smarttill'
-  NeoBundle 'kana/vim-smartword'
-  NeoBundle 'kana/vim-submode'
-  NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'kana/vim-textobj-entire'
-  NeoBundle 'kana/vim-textobj-function'
-  NeoBundle 'kana/vim-textobj-indent'
-  NeoBundle 'kana/vim-textobj-line'
-  NeoBundle 'koron/vim-gosrc'
-  NeoBundle 'koturn/vim-replica'
-  NeoBundle 'lambdalisue/pinkyless.vim'
-  NeoBundle 'majutsushi/tagbar'
-  NeoBundle 'mattn/gist-vim'
-  NeoBundle 'mattn/learn-vimscript'
-  NeoBundle 'mattn/emmet-vim'
-  NeoBundle 'mhinz/vim-startify'
-  NeoBundle 'mhinz/vim-signify'
-  NeoBundle 'nelstrom/vim-markdown-folding'
-  " NeoBundle 'nixprime/cpsm'
-  NeoBundle 'ntpeters/vim-better-whitespace'
-  NeoBundle 'rhysd/committia.vim'
-  NeoBundle 'rhysd/conflict-marker.vim'
-  NeoBundle 'rhysd/vim-grammarous'
-  NeoBundle 'rhysd/vim-clang-format'
-  NeoBundle 'rhysd/vim-operator-surround'
-  NeoBundle 'rhysd/vim-textobj-word-column'
-  NeoBundle 'rphillips/vim-zoomwin'
-  NeoBundle 'scrooloose/syntastic'
-  NeoBundle 'sgur/vim-textobj-parameter'
-  NeoBundle 'sjl/gundo.vim'
-  NeoBundle 'supermomonga/thingspast.vim'
-  NeoBundle 't9md/vim-surround_custom_mapping'
-  NeoBundle 'thinca/vim-ambicmd'
-  NeoBundle 'thinca/vim-fontzoom'
-  NeoBundle 'thinca/vim-poslist'
-  NeoBundle 'thinca/vim-qfreplace'
-  NeoBundle 'thinca/vim-quickrun'
-  NeoBundle 'thinca/vim-scouter'
-  NeoBundle 'thinca/vim-singleton'
-  NeoBundle 'thinca/vim-textobj-comment'
-  NeoBundle 'thinca/vim-themis'
-  NeoBundle 'thinca/vim-zenspace'
-  NeoBundle 'tpope/vim-commentary'
-  NeoBundle 'tpope/vim-endwise'
-  NeoBundle 'tpope/vim-fugitive'
-  NeoBundle 'tpope/vim-rails'
-  NeoBundle 'tpope/vim-repeat'
-  NeoBundle 'tpope/vim-surround'
-  NeoBundle 'tyru/capture.vim'
-  NeoBundle 'tyru/eskk.vim'
-  NeoBundle 'tyru/nextfile.vim'
-  NeoBundle 'tyru/open-browser.vim'
-  NeoBundle 'vim-jp/vital.vim'
-  NeoBundle 'vim-ruby/vim-ruby'
-  NeoBundle 'vimtaku/hl_matchit.vim'
-  NeoBundle 'deris/columnjump'
-  NeoBundle 'deris/vim-fitcolumn'
-  NeoBundle 'deris/parajump'
-  NeoBundle 'deris/vim-cmdline-switch'
-  NeoBundle 'deris/vim-diffbuf'
-  NeoBundle 'deris/vim-dirdiff', 'dev'
-  NeoBundle 'deris/vim-pasta'
-  NeoBundle 'deris/vim-operator-insert'
-  NeoBundle 'deris/vim-rengbang'
-  NeoBundle 'deris/vim-shot-f'
-  NeoBundle 'deris/vim-textobj-enclosedsyntax'
-  NeoBundle 'deris/vim-multi-replace'
+" color scheme
+Plug 'deris/molokai'
+Plug 'deris/vim-wombat'
+Plug 'vim-scripts/newspaper.vim'
+Plug 'w0ng/vim-hybrid'
 
-  " vim-scripts repos
-  NeoBundle 'vim-scripts/HybridText'
-  NeoBundle 'vim-scripts/L9'
-  NeoBundle 'vim-scripts/UnconditionalPaste'
-  NeoBundle 'vim-scripts/matchit.zip'
+" Japanese help
+Plug 'vim-jp/vimdoc-ja'
 
-  " color scheme
-  NeoBundle 'deris/molokai'
-  NeoBundle 'deris/vim-wombat'
-  NeoBundle 'vim-scripts/newspaper.vim'
-  NeoBundle 'w0ng/vim-hybrid'
-
-  " Japanese help
-  NeoBundle 'vim-jp/vimdoc-ja'
-
-  " Installation check.
-  NeoBundleCheck
-  call neobundle#end()
-endif
+call plug#end()
 " }}}
 
 if isdirectory(expand('~/go'))
@@ -203,8 +158,6 @@ if isdirectory(expand('~/go'))
     set rtp+=~/go/src/github.com/nsf/gocode/vim
   endif
 endif
-
-filetype plugin indent on
 
 if s:bundled('vim-singleton')
   if has('clientserver')
