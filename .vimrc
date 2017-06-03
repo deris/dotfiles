@@ -85,10 +85,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'chrisbra/Recover.vim'
   NeoBundle 'chrisbra/vim-diff-enhanced'
   NeoBundle 'ctrlpvim/ctrlp.vim'
-  NeoBundle 'easymotion/vim-easymotion', {
-    \ 'autoload' : {
-    \   'mappings' : '<Plug>(easymotion-',
-    \ }}
+  NeoBundle 'easymotion/vim-easymotion'
   NeoBundle 'fatih/vim-go'
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'haya14busa/incsearch.vim'
@@ -162,14 +159,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tyru/capture.vim'
   NeoBundle 'tyru/eskk.vim'
   NeoBundle 'tyru/nextfile.vim'
-  NeoBundle 'tyru/open-browser.vim', {
-    \ 'autoload' : {
-    \   'mappings' : '<Plug>(openbrowser-smart-search)',
-    \   'commands' : [
-    \     'OpenBrowserSmartSearch',
-    \     'OpenBrowser',
-    \   ]},
-    \ }
+  NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'vim-jp/vital.vim'
   NeoBundle 'vim-ruby/vim-ruby'
   NeoBundle 'vimtaku/hl_matchit.vim'
