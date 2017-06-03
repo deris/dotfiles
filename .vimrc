@@ -100,6 +100,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'haya14busa/vim-asterisk'
   NeoBundle 'haya14busa/incsearch.vim'
   NeoBundle 'haya14busa/vim-metarepeat'
+  NeoBundle 'Julian/vim-textobj-variable-segment'
   NeoBundle 'junegunn/fzf'
   call neobundle#config('fzf', {
     \ 'build' : {
