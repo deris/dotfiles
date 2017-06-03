@@ -57,9 +57,7 @@ if s:bundled('neobundle.vim')
   " original repos on github
   NeoBundle 'Shougo/neobundle.vim'
   NeoBundle 'AndrewRadev/linediff.vim'
-  NeoBundleLazy 'Keithbsmiley/swift.vim', { 'autoload' : {
-    \ 'filetypes' : 'swift',
-    \ }}
+  NeoBundle 'Keithbsmiley/swift.vim'
   NeoBundle 'DeaR/vim-tabpagebuffer-misc'
   NeoBundle 'Shougo/neocomplete'
   NeoBundle 'Shougo/neosnippet', '', 'default'
@@ -85,12 +83,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'airblade/vim-rooter'
   NeoBundle 'bling/vim-airline'
   NeoBundle 'chrisbra/Recover.vim'
-  NeoBundleLazy 'chrisbra/vim-diff-enhanced', { 'autoload' : {
-    \ 'commands' : [
-    \   'EnhancedDiff',
-    \   'PatienceDiff',
-    \ ]}
-    \ }
+  NeoBundle 'chrisbra/vim-diff-enhanced'
   NeoBundle 'ctrlpvim/ctrlp.vim'
   NeoBundle 'easymotion/vim-easymotion', {
     \ 'autoload' : {
@@ -117,15 +110,8 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-altr'
   NeoBundle 'kana/vim-niceblock'
   NeoBundle 'kana/vim-operator-user'
-  NeoBundle 'kana/vim-operator-replace',
-    \ { 'depends' : 'kana/vim-operator-user' }
-  NeoBundleLazy 'kana/vim-smarttill', {
-    \ 'autoload' : {
-    \   'mappings' : [
-    \     '<Plug>(smarttill-t)',
-    \     '<Plug>(smarttill-T)',
-    \   ],
-    \ }}
+  NeoBundle 'kana/vim-operator-replace'
+  NeoBundle 'kana/vim-smarttill'
   NeoBundle 'kana/vim-smartword'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'kana/vim-textobj-user'
@@ -140,37 +126,18 @@ if s:bundled('neobundle.vim')
   NeoBundle 'koron/vim-gosrc'
   NeoBundle 'koturn/vim-replica'
   NeoBundle 'lambdalisue/pinkyless.vim'
-  NeoBundleLazy 'majutsushi/tagbar', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Tagbar'
-    \   ]},
-    \ }
-  NeoBundleLazy 'mattn/gist-vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Gist'
-    \   ]},
-    \ 'depends' : 'mattn/webapi-vim',
-    \ }
+  NeoBundle 'majutsushi/tagbar'
+  NeoBundle 'mattn/gist-vim'
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/emmet-vim'
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'mhinz/vim-signify'
   NeoBundle 'nelstrom/vim-markdown-folding'
-  " NeoBundle 'nixprime/cpsm', {
-  "   \ 'depends' : 'ctrlpvim/ctrlp.vim',
-  "   \ }
+  " NeoBundle 'nixprime/cpsm'
   NeoBundle 'ntpeters/vim-better-whitespace'
   NeoBundle 'rhysd/committia.vim'
   NeoBundle 'rhysd/conflict-marker.vim'
-  NeoBundleLazy 'rhysd/vim-grammarous', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'GrammarousCheck',
-    \     'GrammarousReset',
-    \   ]},
-    \ }
+  NeoBundle 'rhysd/vim-grammarous'
   NeoBundle 'rhysd/vim-clang-format'
   NeoBundle 'rhysd/vim-operator-surround'
   NeoBundle 'rhysd/vim-textobj-word-column'
@@ -178,32 +145,15 @@ if s:bundled('neobundle.vim')
   NeoBundle 'scrooloose/syntastic'
   NeoBundle 'sgur/vim-textobj-parameter',
     \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundleLazy 'sjl/gundo.vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'GundoToggle',
-    \   ]},
-    \ }
+  NeoBundle 'sjl/gundo.vim'
+  NeoBundle 'supermomonga/thingspast.vim'
   NeoBundle 't9md/vim-surround_custom_mapping'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundle 'thinca/vim-fontzoom'
   NeoBundle 'thinca/vim-poslist'
   NeoBundle 'thinca/vim-qfreplace'
-  NeoBundleLazy 'thinca/vim-quickrun', {
-    \ 'autoload' : {
-    \   'mappings' : [
-    \     ['nxo', '<Plug>(quickrun)']
-    \   ],
-    \   'commands' : [
-    \     'QuickRun',
-    \   ]},
-    \ }
-  NeoBundleLazy 'thinca/vim-scouter', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Scouter',
-    \   ]},
-    \ }
+  NeoBundle 'thinca/vim-quickrun'
+  NeoBundle 'thinca/vim-scouter'
   NeoBundle 'thinca/vim-singleton'
   NeoBundle 'thinca/vim-textobj-comment',
     \ { 'depends' : 'kana/vim-textobj-user' }
@@ -215,13 +165,9 @@ if s:bundled('neobundle.vim')
   NeoBundle 'tpope/vim-rails'
   NeoBundle 'tpope/vim-repeat'
   NeoBundle 'tpope/vim-surround'
-  NeoBundleLazy 'tyru/capture.vim', {
-    \ 'autoload' : {
-    \   'commands' : [
-    \     'Capture',
-    \   ]},
-    \ }
+  NeoBundle 'tyru/capture.vim'
   NeoBundle 'tyru/eskk.vim'
+  NeoBundle 'tyru/nextfile.vim'
   NeoBundle 'tyru/open-browser.vim', {
     \ 'autoload' : {
     \   'mappings' : '<Plug>(openbrowser-smart-search)',
@@ -231,10 +177,7 @@ if s:bundled('neobundle.vim')
     \   ]},
     \ }
   NeoBundle 'vim-jp/vital.vim'
-  NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
-    \ 'mappings' : '<Plug>(ref-keyword)',
-    \ 'filetypes' : ['ruby', 'eruby', 'haml'],
-    \ }}
+  NeoBundle 'vim-ruby/vim-ruby'
   NeoBundle 'vimtaku/hl_matchit.vim'
   NeoBundle 'deris/columnjump'
   NeoBundle 'deris/vim-fitcolumn'
@@ -246,23 +189,19 @@ if s:bundled('neobundle.vim')
   NeoBundle 'deris/vim-operator-insert'
   NeoBundle 'deris/vim-rengbang'
   NeoBundle 'deris/vim-shot-f'
-  NeoBundle 'deris/vim-textobj-enclosedsyntax',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'deris/vim-multi-replace',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'deris/vim-textobj-enclosedsyntax'
+  NeoBundle 'deris/vim-multi-replace'
 
   " vim-scripts repos
-  NeoBundleLazy 'HybridText', { 'autoload' : {
-    \ 'filetypes' : 'hybrid',
-    \ }}
-  NeoBundle 'L9'
-  NeoBundleLazy 'UnconditionalPaste'
-  NeoBundle 'matchit.zip'
+  NeoBundle 'vim-scripts/HybridText'
+  NeoBundle 'vim-scripts/L9'
+  NeoBundle 'vim-scripts/UnconditionalPaste'
+  NeoBundle 'vim-scripts/matchit.zip'
 
   " color scheme
   NeoBundle 'deris/molokai'
   NeoBundle 'deris/vim-wombat'
-  NeoBundle 'newspaper.vim'
+  NeoBundle 'vim-scripts/newspaper.vim'
   NeoBundle 'w0ng/vim-hybrid'
 
   " Japanese help
