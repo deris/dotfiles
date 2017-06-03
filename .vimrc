@@ -115,14 +115,10 @@ if s:bundled('neobundle.vim')
   NeoBundle 'kana/vim-smartword'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'kana/vim-textobj-entire',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-function',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-indent',
-    \ { 'depends' : 'kana/vim-textobj-user' }
-  NeoBundle 'kana/vim-textobj-line',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'kana/vim-textobj-entire'
+  NeoBundle 'kana/vim-textobj-function'
+  NeoBundle 'kana/vim-textobj-indent'
+  NeoBundle 'kana/vim-textobj-line'
   NeoBundle 'koron/vim-gosrc'
   NeoBundle 'koturn/vim-replica'
   NeoBundle 'lambdalisue/pinkyless.vim'
@@ -143,8 +139,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'rhysd/vim-textobj-word-column'
   NeoBundle 'rphillips/vim-zoomwin'
   NeoBundle 'scrooloose/syntastic'
-  NeoBundle 'sgur/vim-textobj-parameter',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'sgur/vim-textobj-parameter'
   NeoBundle 'sjl/gundo.vim'
   NeoBundle 'supermomonga/thingspast.vim'
   NeoBundle 't9md/vim-surround_custom_mapping'
@@ -155,8 +150,7 @@ if s:bundled('neobundle.vim')
   NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'thinca/vim-scouter'
   NeoBundle 'thinca/vim-singleton'
-  NeoBundle 'thinca/vim-textobj-comment',
-    \ { 'depends' : 'kana/vim-textobj-user' }
+  NeoBundle 'thinca/vim-textobj-comment'
   NeoBundle 'thinca/vim-themis'
   NeoBundle 'thinca/vim-zenspace'
   NeoBundle 'tpope/vim-commentary'
