@@ -56,7 +56,7 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/vim-metarepeat'
 Plug 'Julian/vim-textobj-variable-segment'
-Plug 'junegunn/fzf', { 'dir' : '~/.fzf', 'do' :  './install --all' }
+Plug 'junegunn/fzf', { 'do' :  './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
@@ -121,6 +121,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vital.vim'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'vimtaku/hl_matchit.vim'
+Plug 'wellle/targets.vim'
 Plug 'deris/columnjump'
 Plug 'deris/vim-fitcolumn'
 Plug 'deris/parajump'
@@ -136,7 +137,6 @@ Plug 'deris/vim-multi-replace'
 
 " vim-scripts repos
 Plug 'vim-scripts/HybridText'
-Plug 'vim-scripts/L9'
 Plug 'vim-scripts/UnconditionalPaste'
 Plug 'vim-scripts/matchit.zip'
 
