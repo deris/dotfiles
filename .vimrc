@@ -1154,6 +1154,11 @@ endif
 "---------------------------------------------------------------------------
 " for justmao945/vim-clang {{{2
 if s:bundled('vim-clang')
+  let g:clang_auto = 0
+
+  let g:clang_c_completeopt   = 'menuone'
+  let g:clang_cpp_completeopt = 'menuone'
+
   let g:clang_c_options = '-std=c89'
   let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 endif
@@ -1391,7 +1396,7 @@ endif
 "---------------------------------------------------------------------------
 " for rhysd/vim-clang-format {{{2
 if s:bundled('vim-clang-format')
-  " let g:clang_format#auto_format_on_insert_leave = 1
+  command! -range=% -nargs=0 VClangFormat call clang_format#replace(<line1>, <line2>)
 
   map <silent><Space>x <Plug>(operator-clang-format)
 endif
