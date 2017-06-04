@@ -317,7 +317,7 @@ augroup END
 " move current file directory
 augroup movecurrentdir
   autocmd!
-  autocmd BufRead,BufEnter * lcd %:p:h
+  autocmd BufRead,BufEnter * if isdirectory(expand('%:p:h')) | lcd %:p:h | endif
 augroup END
 
 " make directory if parent directory does'nt exist
@@ -641,7 +641,7 @@ command! DiffOff call s:DiffOff()
 
 function! s:DiffClose()
   DiffOff
-  wincmd bwipeout!
+  windo bwipeout!
 endfunction
 
 command! DiffClose call s:DiffClose()
@@ -1028,6 +1028,17 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for Julian/vim-textobj-variable-segment {{{2
+if s:bundled('vim-textobj-variable-segment')
+  let g:textobj_variable_no_default_key_mappings = 1
+  omap iy <Plug>(textobj-variable-i)
+  omap ay <Plug>(textobj-variable-a)
+  vmap iy <Plug>(textobj-variable-i)
+  vmap ay <Plug>(textobj-variable-a)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for junegunn/vim-after-object {{{2
 if s:bundled('vim-after-object')
   augroup vim-after-object
@@ -1065,7 +1076,6 @@ if s:bundled('vim-easy-align')
   xnoremap <Leader>ac :EasyAlign :<CR>
 endif
 " }}}
-
 
 "---------------------------------------------------------------------------
 " for justinmk/vim-dirvish {{{2
@@ -1520,6 +1530,20 @@ if s:bundled('vim-fugitive')
   nnoremap [Git]C :<C-u>Gcommit --amend<CR>
   nnoremap [Git]b :<C-u>Gblame<CR>
   nnoremap [Git]p :<C-u>Git push<Space>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for tyru/nextfile.vim {{{2
+if s:bundled('nextfile.vim')
+  if s:bundled('vim-submode')
+    call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Nop>')
+    call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
+    call submode#map('nextfile', 'n', 'r', 'k', '<Plug>(nextfile-previous)')
+  else
+    let g:nf_map_next = '<Leader>jj'
+    let g:nf_map_previous = '<Leader>jk'
+  endif
 endif
 " }}}
 
