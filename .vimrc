@@ -1080,6 +1080,8 @@ endif
 "---------------------------------------------------------------------------
 " for justinmk/vim-dirvish {{{2
 if s:bundled('vim-dirvish')
+  nnoremap <Space>f :<C-U>Dirvish<CR>
+
   " Dirvish上で renameできるよう以下設定
   let s:dirvish_rename_started_list = []
 
@@ -1145,8 +1147,10 @@ if s:bundled('vim-dirvish')
   augroup my_dirvish_events
     autocmd!
     " Rename mode
-    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>R :call <SID>start_rename_mode()<CR>
-    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>r :call <SID>stop_rename_mode()<CR>
+    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>R :<C-u>call <SID>start_rename_mode()<CR>
+    autocmd FileType dirvish  nnoremap <silent><buffer> <Space>r :<C-u>call <SID>stop_rename_mode()<CR>
+    autocmd FileType dirvish  nmap <silent><buffer> h <Plug>(dirvish_up)
+    autocmd FileType dirvish  nmap <silent><buffer> l <CR>
   augroup END
 endif
 " }}}
