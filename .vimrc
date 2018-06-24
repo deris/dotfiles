@@ -1092,15 +1092,25 @@ endif
 "---------------------------------------------------------------------------
 " for ctrlpvim/ctrlp.vim {{{2
 if s:bundled('ctrlp.vim')
-  let g:ctrlp_cmd          = 'CtrlPMRU'
-  let g:ctrlp_mruf_max     = 2000
+  let g:ctrlp_map         = ''
+  let g:ctrlp_by_filename = 1
+  let g:ctrlp_regexp      = 1
+  let g:ctrlp_mruf_max    = 2000
   if has('win32')
-    let g:ctrlp_mruf_exclude = $TMP
+    if exists('$TMP')
+      let g:ctrlp_mruf_exclude = $TMP
+    endif
   elseif has('unix')
     let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
+    if exists('$TMPDIR')
+      let g:ctrlp_mruf_exclude .= '\|'.resolve(expand('$TMPDIR')).'/.*'
+    endif
   endif
 
-  nmap <Leader>z <plug>(ctrlp)
+  nnoremap <Leader>zz  :<C-u>CtrlPMRU<CR>
+  nnoremap <Leader>zf  :<C-u>CtrlPCurFile<CR>
+  nnoremap <Leader>zb  :<C-u>CtrlPBuffer<CR>
+  nnoremap <Leader>zd  :<C-u>CtrlPBookmarkDir<CR>
 
   if executable(g:my_rg_path)
     let g:ctrlp_user_command = g:my_rg_path . ' %s -l --hidden'
@@ -1108,6 +1118,8 @@ if s:bundled('ctrlp.vim')
   elseif executable(g:my_ag_path)
     let g:ctrlp_user_command = g:my_ag_path . ' %s -l --hidden --nocolor'
     let g:ctrlp_user_caching = 0
+  elseif executable(g:my_jvgrep_path)
+    let g:ctrlp_user_command = 'cd %s && jvgrep "" -i -r --no-color -l ./**/*'
   endif
 endif
 " }}}
