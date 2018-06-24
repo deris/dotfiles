@@ -1075,6 +1075,13 @@ endif
 " for ctrlpvim/ctrlp.vim {{{2
 if s:bundled('ctrlp.vim')
   let g:ctrlp_cmd          = 'CtrlPMRU'
+  let g:ctrlp_mruf_max     = 2000
+  if has('win32')
+    let g:ctrlp_mruf_exclude = $TMP
+  elseif has('unix')
+    let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
+  endif
+
   nmap <Leader>z <plug>(ctrlp)
 
   if executable(g:my_rg_path)
