@@ -245,9 +245,6 @@ function! s:LetAndMkdir(variable, path) "{{{
 endfunction "}}}
 
 call s:LetAndMkdir('&backupdir', $DOTVIM.'/backup')
-if has('unix')
-  set backupskip=/tmp/*,/private/tmp/*
-endif
 set swapfile
 call s:LetAndMkdir('&directory', $DOTVIM.'/swap')
 set history=2000
