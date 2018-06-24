@@ -592,6 +592,18 @@ noremap gF gf
 nnoremap [tabmode]   <Nop>
 nmap     t           [tabmode]
 
+nnoremap <Space>,  :<C-u>MyHome<CR>
+
+command! -nargs=0 MyHome call s:home()
+function! s:home()
+  let memo = '~/memo.md'
+  if has('gui')
+    execute 'tab drop ' . memo
+  else
+    execute 'tabe ' . memo
+  endif
+endfunction
+
 nnoremap [tabmode]t  :<C-u>MyMemoNew<CR>
 nnoremap [tabmode]d  :<C-u>tabclose<CR>
 
