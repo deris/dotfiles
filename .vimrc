@@ -788,7 +788,6 @@ endfunction
 " for quickfix windows
 augroup MyQuickFix
   autocmd!
-  autocmd FileType qf  nnoremap <buffer> p  <CR>zz<C-w>p
   autocmd FileType qf  nnoremap <silent> <buffer> dd  :call <SID>del_quickfix_entry()<CR>
   autocmd FileType qf  vnoremap <silent> <buffer> d   :call <SID>del_quickfix_entry()<CR>
   autocmd FileType qf  nnoremap <silent> <buffer> u   :<C-u>call <SID>undo_quickfix_entry()<CR>
