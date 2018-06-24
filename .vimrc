@@ -529,6 +529,10 @@ vnoremap gs  :s///g<Left><Left><Left>
 nnoremap gS  :<C-u>%s///gc<Left><Left><Left>
 vnoremap gS  :s///gc<Left><Left><Left>
 
+" insert grep/vimgrep command
+nnoremap gr         :<C-u>grep 
+nnoremap <Space>gr  :<C-u>vimgrep // **<Left><Left><Left><Left>
+
 " for vimdiff
 nnoremap dp dp:<C-u>diffupdate<CR>]czz
 nnoremap do do:<C-u>diffupdate<CR>]czz
