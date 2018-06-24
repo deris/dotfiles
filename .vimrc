@@ -648,6 +648,8 @@ nnoremap [tagjump]l   :<C-u>tags<CR>
 " Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
 "--------------------
 nnoremap [tagjump]n   :<C-u>tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap [tagjump]s   :<C-u>split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap [tagjump]v   :<C-u>vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " filetype
 nnoremap [filetype]    <Nop>
