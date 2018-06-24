@@ -605,6 +605,7 @@ function! s:home()
 endfunction
 
 nnoremap [tabmode]t  :<C-u>MyMemoNew<CR>
+nnoremap [tabmode]n  :<C-u>tab %<CR>
 nnoremap [tabmode]d  :<C-u>tabclose<CR>
 
 call s:LetAndMkdir('g:my_memo_save_dir', $DOTVIM.'/memo')
