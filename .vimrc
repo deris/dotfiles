@@ -729,11 +729,11 @@ command -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<
 function! s:extract_matches(...) range
   let s:pattern = get(a:000, 0, @/)
 
-  let s:result = filter(getline(a:firstline, a:lastline), 'v:val =~# s:pattern')
+  let s:result_line = filter(getline(a:firstline, a:lastline), 'v:val =~# s:pattern')
 
   new
   setlocal buftype=nofile
-  call setline(1, s:result)
+  call setline(1, s:result_line)
 endfunction
 
 command -nargs=? -range=% ExtractMatchWords call s:extract_match_words(<line1>, <line2>, <q-args>)
