@@ -592,8 +592,31 @@ noremap gF gf
 nnoremap [tabmode]   <Nop>
 nmap     t           [tabmode]
 
-nnoremap [tabmode]t  :<C-u>tabnew<CR>
+nnoremap [tabmode]t  :<C-u>MyMemoNew<CR>
 nnoremap [tabmode]d  :<C-u>tabclose<CR>
+
+call s:LetAndMkdir('g:my_memo_save_dir', $DOTVIM.'/memo')
+command! -nargs=? MyMemoNew call s:create_memo(<f-args>)
+command! -nargs=1 MyMemoGrep call s:grep_memo(<q-args>)
+
+function! s:create_memo(...)
+  if a:0 == 0
+    let ext = get(g:, 'my_memo_default_ext', '.txt')
+  else
+    if a:1 !~ '^\.\?\w\+$'
+      echohl WarningMsg
+      echom '[error]' . a:1 . 'is must be word.'
+      echohl None
+    endif
+    let ext = (a:1 =~ '^\.' ? '' : '.') . a:1
+  endif
+
+  execute printf('tabe %s/%s%s', g:my_memo_save_dir, strftime('%Y-%m-%d_%T'), ext)
+endfunction
+
+function! s:grep_memo(pat)
+  execute printf('vimgrep %s %s/*', a:pat, g:my_memo_save_dir)
+endfunction
 
 nnoremap <silent> <C-p> gT
 nnoremap <silent> <C-n> gt
