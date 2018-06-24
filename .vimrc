@@ -736,6 +736,52 @@ function! s:extract_matches(...) range
   call setline(1, s:result)
 endfunction
 
+command -nargs=? -range=% ExtractMatchWords call s:extract_match_words(<line1>, <line2>, <q-args>)
+
+let g:extract_match_word_with_word = 1
+let g:extract_match_word_with_sort = 1
+let g:extract_match_word_line_num = 10
+
+function! s:extract_match_words(fline, lline, pattern) range
+  let s:result_word = {}
+
+  let save_pos = getcurpos()
+
+  if a:fline == a:lline
+    let [firstline, lastline] = [1, line('$')]
+  else
+    let [firstline, lastline] = [a:fline, a:lline]
+  endif
+
+  let pattern = a:pattern
+  if g:extract_match_word_with_word != 0
+    let pattern = '\<\w*' . a:pattern . '\m\w*\>'
+  endif
+
+  silent! execute printf('%s,%ss/%s/\=s:save_match(s:result_word)/gn', firstline, lastline, pattern)
+  call setpos('.', save_pos)
+
+  if empty(s:result_word)
+    echo 'no match found'
+  else
+    let result = []
+    if g:extract_match_word_with_sort != 0
+      let result = sort(keys(s:result_word))
+    endif
+    new
+    setlocal buftype=nofile
+    setlocal noswapfile
+    call setline(1, result)
+    execute 'resize ' . g:extract_match_word_line_num
+  endif
+
+endfunction
+
+function! s:save_match(result_word)
+  let a:result_word[submatch(0)] = get(a:result_word, submatch(0), 0) + 1
+  return ''
+endfunction
+
 " for quickfix windows
 augroup MyQuickFix
   autocmd!
