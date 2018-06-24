@@ -809,6 +809,23 @@ function! s:del_quickfix_entry() range
   execute a:firstline
 endfunction
 
+function! QFSortWithText(func)
+  if &ft != 'qf'
+    return
+  endif
+
+  call s:sort_quickfix_entry(a:func)
+endfunction
+
+function! s:sort_quickfix_entry(func)
+  let qf = getqflist()
+  let history = get(w:, 'qf_history', [])
+  call add(history, copy(qf))
+  let w:qf_history = history
+  let qf = sort(qf, {arg1, arg2 ->a:func(arg1.text, arg2.text)})
+  call setqflist(qf, 'r')
+endfunction
+
 command! Utf8 e ++enc=utf-8
 command! Euc e ++enc=euc-jp
 command! Sjis e ++enc=cp932
