@@ -788,11 +788,23 @@ endfunction
 " for quickfix windows
 augroup MyQuickFix
   autocmd!
+  autocmd FileType qf  nnoremap <silent> <buffer> o   :<C-u>call <SID>tabopen_quickfix_entry()<CR>
   autocmd FileType qf  nnoremap <silent> <buffer> dd  :call <SID>del_quickfix_entry()<CR>
   autocmd FileType qf  vnoremap <silent> <buffer> d   :call <SID>del_quickfix_entry()<CR>
   autocmd FileType qf  nnoremap <silent> <buffer> u   :<C-u>call <SID>undo_quickfix_entry()<CR>
   autocmd QuickFixCmdPost *  cwindow
 augroup END
+
+function! s:tabopen_quickfix_entry()
+  let qf = getqflist()
+  if empty(qf)
+    return
+  endif
+
+  let index = line('.') - 1
+  tabe
+  execute printf('buffer +%d %d', qf[index].lnum, qf[index].bufnr)
+endfunction
 
 function! s:undo_quickfix_entry()
   let history = get(w:, 'qf_history', [])
