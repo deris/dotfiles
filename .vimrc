@@ -1120,6 +1120,7 @@ if s:bundled('ctrlp.vim')
     let g:ctrlp_user_caching = 0
   elseif executable(g:my_jvgrep_path)
     let g:ctrlp_user_command = 'cd %s && jvgrep "" -i -r --no-color -l ./**/*'
+    let g:ctrlp_user_caching = 0
   endif
 
   let g:ctrlp_prompt_mappings = {
