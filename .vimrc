@@ -1121,6 +1121,33 @@ if s:bundled('ctrlp.vim')
   elseif executable(g:my_jvgrep_path)
     let g:ctrlp_user_command = 'cd %s && jvgrep "" -i -r --no-color -l ./**/*'
   endif
+
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("q")': ['<c-q>'],
+    \ }
+
+  let g:ctrlp_open_func = {
+    \ 'bookmarked dirs' : 'OpenCtrlPBookmarkedDirs',
+    \ }
+  function! OpenCtrlPBookmarkedDirs(action, line)
+    if a:action =~ '^[tq]$'
+      let dirname = matchstr(a:line, '^.*\ze\t')
+      if !isdirectory(dirname)
+        return
+      endif
+
+      call ctrlp#exit()
+
+      if a:action == 't'
+        tabe
+      else  " a:action == 'q'
+        rightbelow vnew
+      endif
+      execute printf('lcd %s', dirname)
+    else
+      call call('ctrlp#bookmarkdir#accept', [a:action, a:line])
+    endif
+  endfunction
 endif
 " }}}
 
