@@ -628,7 +628,7 @@ function! s:create_memo(...)
     let ext = (a:1 =~ '^\.' ? '' : '.') . a:1
   endif
 
-  execute printf('tabe %s/%s%s', g:my_memo_save_dir, strftime('%Y-%m-%d_%T'), ext)
+  execute printf('tabe %s/%s%s', g:my_memo_save_dir, strftime('%Y-%m-%d_%H%M%S'), ext)
 endfunction
 
 function! s:grep_memo(pat)
