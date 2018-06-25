@@ -1094,7 +1094,7 @@ if s:bundled('ctrlp.vim')
   let g:ctrlp_mruf_max    = 2000
   if has('win32')
     if exists('$TMP')
-      let g:ctrlp_mruf_exclude = $TMP.'/.*'
+      let g:ctrlp_mruf_exclude = escape($TMP, ' \').'\\.*'
     endif
   elseif has('unix')
     let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
