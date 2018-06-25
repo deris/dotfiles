@@ -18,10 +18,10 @@ if has('vim_starting') && has('reltime')
   augroup END
 endif
 
-if has('unix')
-  let $DOTVIM=expand('~/.vim')
-else
+if has('win32')
   let $DOTVIM=expand('~/vimfiles')
+else
+  let $DOTVIM=expand('~/.vim')
 endif
 
 let $VIMBUNDLE=$DOTVIM.expand('/bundle')
