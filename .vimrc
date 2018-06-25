@@ -1484,6 +1484,17 @@ let g:user_emmet_leader_key = '<c-y>'
 " for mhinz/vim-startify {{{2
 if s:bundled('vim-startify')
   let g:startify_custom_indices = ['f', 'g', 'h', 'r', 'i', 'o', 'b']
+  if has('win32')
+    let g:startify_skiplist = [
+      \ escape($TMP, ' \'),
+      \ escape($VIMBUNDLE, ' \').'\\.*\\doc',
+      \ ]
+  elseif has('unix')
+    let g:startify_skiplist = [
+      \ $TMPDIR,
+      \ $VIMBUNDLE.'/.*/doc',
+      \ ]
+  endif
 endif
 " }}}
 
