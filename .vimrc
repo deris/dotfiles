@@ -24,7 +24,7 @@ else
   let $DOTVIM=expand('~/vimfiles')
 endif
 
-let $VIMBUNDLE=$DOTVIM.'/bundle'
+let $VIMBUNDLE=$DOTVIM.expand('/bundle')
 
 function! s:bundled(bundle)
   let plugs = get(g:, 'plugs', {})
@@ -251,15 +251,15 @@ function! s:LetAndMkdir(variable, path) "{{{
   execute printf("let %s = a:path", a:variable)
 endfunction "}}}
 
-call s:LetAndMkdir('&backupdir', $DOTVIM.'/backup')
+call s:LetAndMkdir('&backupdir', $DOTVIM.expand('/backup'))
 set swapfile
-call s:LetAndMkdir('&directory', $DOTVIM.'/swap')
+call s:LetAndMkdir('&directory', $DOTVIM.expand('/swap'))
 set history=2000
 let &showbreak = '+++ '
 set ttyfast
 if has('persistent_undo')
   set undofile
-  call s:LetAndMkdir('&undodir', $DOTVIM.'/undo')
+  call s:LetAndMkdir('&undodir', $DOTVIM.expand('/undo'))
 endif
 
 set tags=./tags;
@@ -616,7 +616,7 @@ nnoremap [tabmode]t  :<C-u>MyMemoNew<CR>
 nnoremap [tabmode]n  :<C-u>tab %<CR>
 nnoremap [tabmode]d  :<C-u>tabclose<CR>
 
-call s:LetAndMkdir('g:my_memo_save_dir', $DOTVIM.'/memo')
+call s:LetAndMkdir('g:my_memo_save_dir', $DOTVIM.expand('/memo'))
 command! -nargs=? MyMemoNew call s:create_memo(<f-args>)
 command! -nargs=1 MyMemoGrep call s:grep_memo(<q-args>)
 
@@ -1039,7 +1039,7 @@ endif
 "---------------------------------------------------------------------------
 " for Shougo/neosnippet {{{2
 if s:bundled('neosnippet')
-  call s:LetAndMkdir('g:neosnippet#snippets_directory', $DOTVIM.'/snippets')
+  call s:LetAndMkdir('g:neosnippet#snippets_directory', $DOTVIM.expand('/snippets'))
 
   " Plugin key-mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
