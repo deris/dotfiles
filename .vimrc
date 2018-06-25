@@ -163,13 +163,6 @@ Plug 'vim-jp/vimdoc-ja'
 call plug#end()
 " }}}
 
-if isdirectory(expand('~/go'))
-  let $GOPATH=expand('~/go')
-  if isdirectory(expand('~/go/src/github.com/nsf/gocode/vim'))
-    set rtp+=~/go/src/github.com/nsf/gocode/vim
-  endif
-endif
-
 if s:bundled('vim-singleton')
   if has('clientserver')
     call singleton#enable()
