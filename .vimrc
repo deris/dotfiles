@@ -280,9 +280,9 @@ let g:my_rg_path = ''
 let g:my_ag_path = ''
 let g:my_jvgrep_path = ''
 if has('win32')
-  let g:my_rg_path = 'C:/usr/local/bin/rg.exe'
-  let g:my_ag_path = 'C:/usr/local/bin/ag.exe'
-  let g:my_jvgrep_path = 'C:/usr/local/bin/jvgrep.exe'
+  let g:my_rg_path = 'C:\usr\local\bin\rg.exe'
+  let g:my_ag_path = 'C:\usr\local\bin\ag.exe'
+  let g:my_jvgrep_path = 'C:\usr\local\bin\jvgrep.exe'
 elseif has('unix')
   let g:my_rg_path = 'rg'
   let g:my_ag_path = 'ag'
