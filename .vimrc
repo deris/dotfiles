@@ -1117,13 +1117,13 @@ if s:bundled('ctrlp.vim')
   nnoremap <Leader>zd  :<C-u>CtrlPBookmarkDir<CR>
 
   if executable(g:my_rg_path)
-    let g:ctrlp_user_command = g:my_rg_path . ' %s -l --hidden'
+    let g:ctrlp_user_command = g:my_rg_path . ' %s --files --hidden --color never'
     let g:ctrlp_user_caching = 0
   elseif executable(g:my_ag_path)
-    let g:ctrlp_user_command = g:my_ag_path . ' %s -l --hidden --nocolor'
+    let g:ctrlp_user_command = g:my_ag_path . ' %s -l --hidden --nocolor -g ""'
     let g:ctrlp_user_caching = 0
   elseif executable(g:my_jvgrep_path)
-    let g:ctrlp_user_command = 'cd %s && jvgrep "" -i -r --no-color -l ./**/*'
+    let g:ctrlp_user_command = 'cd %s && ' . g:my_jvgrep_path . ' --no-color -l -R "" .'
     let g:ctrlp_user_caching = 0
   endif
 
