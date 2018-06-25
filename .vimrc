@@ -291,10 +291,8 @@ endif
 
 if executable(g:my_rg_path)
   let &grepprg = g:my_rg_path . ' --vimgrep -S --no-heading --hidden'
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
 elseif executable(g:my_ag_path)
   let &grepprg = g:my_ag_path . ' --vimgrep -S --hidden'
-  set grepformat=%f:%l:%c:%m
 elseif executable(g:my_jvgrep_path)
   let &grepprg = g:my_jvgrep_path . ' --no-color -nr8 --enc utf-8,cp932,euc-jp'
 endif
