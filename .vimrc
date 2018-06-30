@@ -1720,6 +1720,9 @@ endif
 "---------------------------------------------------------------------------
 " for tyru/nextfile.vim {{{2
 if s:bundled('nextfile.vim')
+  let g:nf_map_next = ''
+  let g:nf_map_previous = ''
+
   if s:bundled('vim-submode')
     call submode#enter_with('nextfile', 'n', 'r', '<Leader>j', '<Nop>')
     call submode#map('nextfile', 'n', 'r', 'j', '<Plug>(nextfile-next)')
