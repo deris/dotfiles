@@ -417,10 +417,6 @@ nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(li
 nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1<CR>
 
-" from ujihisa's vimrc
-nnoremap <Space>I $i
-nnoremap X ^x
-
 " swap ; and :
 nnoremap ; :
 vnoremap ; :
