@@ -1226,20 +1226,20 @@ if s:bundled('vim-easy-align')
     \ },
     \ }
 
-  nmap <Leader>aa <Plug>(EasyAlign)
-  xmap <Leader>aa <Plug>(EasyAlign)
-  nmap <Leader>al <Plug>(LiveEasyAlign)
-  xmap <Leader>al <Plug>(LiveEasyAlign)
+  nmap <Space>ea <Plug>(EasyAlign)
+  xmap <Space>ea <Plug>(EasyAlign)
+  nmap <Space>el <Plug>(LiveEasyAlign)
+  xmap <Space>el <Plug>(LiveEasyAlign)
 
-  xnoremap <Leader>as :EasyAlign \<CR>
-  xnoremap <Leader>as :EasyAlign \<CR>
-  xnoremap <Leader>a= :EasyAlign =<CR>
-  xnoremap <Leader>ae :EasyAlign =<CR>
-  xnoremap <Leader>a> :EasyAlign =><CR>
-  xnoremap <Leader>ah :EasyAlign =><CR>
-  xnoremap <Leader>a, :EasyAlign ,<CR>
-  xnoremap <Leader>a: :EasyAlign :<CR>
-  xnoremap <Leader>ac :EasyAlign :<CR>
+  xnoremap <Space>es :EasyAlign \<CR>
+  xnoremap <Space>es :EasyAlign \<CR>
+  xnoremap <Space>e= :EasyAlign =<CR>
+  xnoremap <Space>ee :EasyAlign =<CR>
+  xnoremap <Space>e> :EasyAlign =><CR>
+  xnoremap <Space>eh :EasyAlign =><CR>
+  xnoremap <Space>e, :EasyAlign ,<CR>
+  xnoremap <Space>e: :EasyAlign :<CR>
+  xnoremap <Space>ec :EasyAlign :<CR>
 endif
 " }}}
 
