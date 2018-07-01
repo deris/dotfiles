@@ -279,14 +279,17 @@ scriptencoding utf-8
 let g:my_rg_path = ''
 let g:my_ag_path = ''
 let g:my_jvgrep_path = ''
+let g:my_fd_path = ''
 if has('win32')
   let g:my_rg_path = 'C:\usr\local\bin\rg.exe'
   let g:my_ag_path = 'C:\usr\local\bin\ag.exe'
   let g:my_jvgrep_path = 'C:\usr\local\bin\jvgrep.exe'
+  let g:my_fd_path = 'C:\usr\local\bin\fd.exe'
 elseif has('unix')
   let g:my_rg_path = 'rg'
   let g:my_ag_path = 'ag'
   let g:my_jvgrep_path = 'jvgrep'
+  let g:my_fd_path = 'fd'
 endif
 
 if executable(g:my_rg_path)
@@ -1106,7 +1109,10 @@ if s:bundled('ctrlp.vim')
   nnoremap <Leader>zb  :<C-u>CtrlPBuffer<CR>
   nnoremap <Leader>zd  :<C-u>CtrlPBookmarkDir<CR>
 
-  if executable(g:my_rg_path)
+  if executable(g:my_fd_path)
+    let g:ctrlp_user_command = g:my_fd_path . ' --type f --color=never "" %s'
+    let g:ctrlp_user_caching = 0
+  elseif executable(g:my_rg_path)
     let g:ctrlp_user_command = g:my_rg_path . ' %s --files --hidden --color never'
     let g:ctrlp_user_caching = 0
   elseif executable(g:my_ag_path)
