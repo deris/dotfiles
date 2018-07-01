@@ -1104,10 +1104,10 @@ if s:bundled('ctrlp.vim')
     endif
   endif
 
-  nnoremap <Leader>zz  :<C-u>CtrlPMRU<CR>
-  nnoremap <Leader>zf  :<C-u>CtrlPCurFile<CR>
-  nnoremap <Leader>zb  :<C-u>CtrlPBuffer<CR>
-  nnoremap <Leader>zd  :<C-u>CtrlPBookmarkDir<CR>
+  nnoremap <Space>jj  :<C-u>CtrlPMRU<CR>
+  nnoremap <Space>jf  :<C-u>CtrlPCurFile<CR>
+  nnoremap <Space>jb  :<C-u>CtrlPBuffer<CR>
+  nnoremap <Space>jd  :<C-u>CtrlPBookmarkDir<CR>
 
   if executable(g:my_fd_path)
     let g:ctrlp_user_command = g:my_fd_path . ' --type f --color=never "" %s'
