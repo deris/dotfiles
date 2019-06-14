@@ -46,6 +46,7 @@ Plug 'Shougo/tabpagebuffer.vim'
 Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/Recover.vim'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -87,7 +88,6 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/learn-vimscript'
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
-Plug 'mhinz/vim-signify'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'nixprime/cpsm'
 Plug 'ntpeters/vim-better-whitespace'
@@ -121,7 +121,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tyru/capture.vim'
 Plug 'tyru/eskk.vim'
@@ -1087,11 +1086,31 @@ endif
 " }}}
 
 "---------------------------------------------------------------------------
+" for airblade/vim-gitgutter {{{2
+if s:bundled('vim-gitgutter')
+  let g:gitgutter_map_keys = 0
+  if s:bundled('vim-submode')
+    call submode#enter_with('vim-gitgutter', 'n', 'r', '<Leader>gk', '<Plug>GitGutterPrevHunk')
+    call submode#enter_with('vim-gitgutter', 'n', 'r', '<Leader>gj', '<Plug>GitGutterNextHunk')
+    call submode#map('vim-gitgutter', 'n', 'r', 'k', '<Plug>GitGutterPrevHunk')
+    call submode#map('vim-gitgutter', 'n', 'r', 'j', '<Plug>GitGutterNextHunk')
+  else
+    nmap <Leader>gp <Plug>GitGutterPreviewHunk
+    nmap <Leader>gs <Plug>GitGutterStageHunk
+    nmap <Leader>gu <Plug>GitGutterUndoHunk
+
+    nmap <Leader>gk <Plug>GitGutterPrevHunk
+    nmap <Leader>gj <Plug>GitGutterNextHunk
+  endif
+  nmap <Leader>gh :<C-u>GitGutterSignsToggle<CR>
+  nmap <Leader>gt :<C-u>GitGutterToggle<CR>
+endif
+" }}}
+
+"---------------------------------------------------------------------------
 " for ctrlpvim/ctrlp.vim {{{2
 if s:bundled('ctrlp.vim')
   let g:ctrlp_map         = ''
-  let g:ctrlp_by_filename = 1
-  let g:ctrlp_regexp      = 1
   let g:ctrlp_mruf_max    = 2000
   if has('win32')
     if exists('$TMP')
@@ -1499,24 +1518,6 @@ if s:bundled('vim-startify')
       \ $VIMBUNDLE.'/.*/doc',
       \ ]
   endif
-endif
-" }}}
-
-"---------------------------------------------------------------------------
-" for mhinz/vim-signify {{{2
-if s:bundled('vim-signify')
-  let g:signify_disable_by_default = 1
-  if s:bundled('vim-submode')
-    call submode#enter_with('vim-signify', 'n', 'r', '<Leader>gj', '<Plug>(signify-next-hunk)zz')
-    call submode#enter_with('vim-signify', 'n', 'r', '<Leader>gk', '<Plug>(signify-prev-hunk)zz')
-    call submode#map('vim-signify', 'n', 'r', 'j', '<Plug>(signify-next-hunk)zz')
-    call submode#map('vim-signify', 'n', 'r', 'k', '<Plug>(signify-prev-hunk)zz')
-  else
-    nmap <Leader>gj <Plug>(signify-next-hunk)zz
-    nmap <Leader>gk <Plug>(signify-prev-hunk)zz
-  endif
-  nmap <Leader>gh <Plug>(signify-toggle-highlight)
-  nmap <Leader>gt <Plug>(signify-toggle)
 endif
 " }}}
 
