@@ -863,6 +863,59 @@ function! s:sort_quickfix_entry(func)
   call setqflist(qf, 'r')
 endfunction
 
+" https://github.com/google/codesearch
+let g:codesearch_bin_path = '~/go/bin'
+
+function! s:codesearch_search(pattern)
+  let csearch = g:codesearch_bin_path . '/csearch'
+  if filereadable(csearch)
+    echohl WarningMsg
+    echom printf('[error] %s is not found', csearch)
+    echohl None
+  endif
+  if executable(csearch)
+    echohl WarningMsg
+    echom printf('[error] %s is not executable', csearch)
+    echohl None
+  endif
+
+  let s:save_grepprg = &grepprg
+  let s:save_grepformat = &grepformat
+
+  let &grepprg = csearch . ' -i -n'
+  set grepformat=%f:%l:%m
+
+  try
+    execute 'silent grep! ' . a:pattern
+  finally
+    let &grepprg = s:save_grepprg
+    let &grepformat = s:save_grepformat
+  endtry
+endfunction
+
+function! s:codesearch_index(dir)
+  let cindex = g:codesearch_bin_path . '/cindex'
+  if filereadable(cindex)
+    echohl WarningMsg
+    echom printf('[error] %s is not found', cindex)
+    echohl None
+  endif
+  if executable(cindex)
+    echohl WarningMsg
+    echom printf('[error] %s is not executable', cindex)
+    echohl None
+  endif
+
+  if !isdirectory(a:dir)
+    throw printf('error: %s is not directory', a:dir)
+  endif
+
+  execute printf('%s %s', cindex, a:dir)
+endfunction
+
+command! -nargs=1 CSSearch call s:codesearch_search(<q-args>)
+command! -nargs=1 CSIndex  call s:codesearch_index(<q-args>)
+
 command! Utf8 e ++enc=utf-8
 command! Euc e ++enc=euc-jp
 command! Sjis e ++enc=cp932
