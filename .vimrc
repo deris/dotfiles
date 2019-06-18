@@ -343,6 +343,29 @@ endfunction
 "---------------------------------------------------------------------------
 " custom keymaps and commands {{{2
 
+" my mappable key list
+" nmap <Space>a
+" nmap <Space>i
+" nmap <Space>j
+" nmap <Space>k
+" nmap <Space>m
+" nmap <Space>r
+" nmap <Space>z
+" nmap ,a
+" nmap ,e
+" nmap ,f
+" nmap ,h
+" nmap ,i
+" nmap ,k
+" nmap ,n
+" nmap ,o
+" nmap ,p
+" nmap ,u
+" nmap ,v
+" nmap ,x
+" nmap ,y
+" nmap ,z
+
 let mapleader = ","
 let maplocalleader = ","
 
