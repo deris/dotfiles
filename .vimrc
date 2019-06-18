@@ -916,6 +916,92 @@ endfunction
 command! -nargs=1 CSSearch call s:codesearch_search(<q-args>)
 command! -nargs=1 CSIndex  call s:codesearch_index(<q-args>)
 
+" popup definition or local declaration
+let g:popup_before_additional_line = 0
+let g:popup_after_additional_line  = 2
+let g:popup_no_blank_line          = 1
+
+function! s:popup_definition()
+  call s:move_and_popup("normal! \<C-]>", "normal! \<C-t>")
+endfunction
+
+command! -nargs=0 PopupDefinition silent! call s:popup_definition()
+
+nnoremap <C-g>  :<C-u>PopupDefinition<CR>
+
+function! s:popup_local_declaration()
+  call s:move_and_popup("normal! gd", "normal! \<C-o>")
+endfunction
+
+command! -nargs=0 PopupLocalDeclaration silent! call s:popup_local_declaration()
+
+nnoremap <C-l>  :<C-u>PopupLocalDeclaration<CR>
+
+function! s:move_and_popup(move_cmd, post_cmd)
+  let has_jumped = 0
+  try
+    let bpos = getcurpos()
+    execute a:move_cmd
+    let apos = getcurpos()
+    if bpos == apos
+      return
+    endif
+    let has_jumped = 1
+    let strs = s:get_around_lines(g:popup_before_additional_line, g:popup_after_additional_line, g:popup_no_blank_line)
+    if a:post_cmd != ''
+      execute a:post_cmd
+    endif
+    let has_jumped = 0
+    call popup_create(strs, {
+      \ 'line': 'cursor',
+      \ 'col': 'cursor',
+      \ 'pos': 'topleft',
+      \ 'wrap': 0,
+      \ 'border': [1, 1, 1, 1],
+      \ 'moved': 'any',
+      \ })
+  finally
+    if has_jumped == 1
+      if a:post_cmd != ''
+        execute a:post_cmd
+      endif
+    endif
+  endtry
+endfunction
+
+function! s:get_around_lines(before_count, after_count, no_blank_line)
+  let cur_lnum = line('.')
+  let before_lnum = max([1, cur_lnum - a:before_count])
+  let after_lnum  = min([line('$'), cur_lnum + a:after_count])
+  if a:no_blank_line == 1
+    if a:before_count > 0 && cur_lnum != 1
+      let lnum = cur_lnum - 1
+      while lnum >= before_lnum
+        let str = getline(lnum)
+        if str =~ '^\s*$'
+          let lnum += 1
+          break
+        endif
+        let lnum -= 1
+      endwhile
+      let before_lnum = (lnum >= before_lnum ? lnum : before_lnum)
+    endif
+    if a:after_count > 0 && cur_lnum != line('$')
+      let lnum = cur_lnum + 1
+      while lnum <= after_lnum
+        let str = getline(lnum)
+        if str =~ '^\s*$'
+          let lnum -= 1
+          break
+        endif
+        let lnum += 1
+      endwhile
+      let after_lnum = (lnum <= after_lnum ? lnum : after_lnum)
+    endif
+  endif
+  return getline(before_lnum, after_lnum)
+endfunction
+
 command! Utf8 e ++enc=utf-8
 command! Euc e ++enc=euc-jp
 command! Sjis e ++enc=cp932
