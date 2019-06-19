@@ -930,6 +930,13 @@ command! -nargs=0 PopupLocalDeclaration silent! call s:popup_local_declaration()
 nnoremap <C-l>  :<C-u>PopupLocalDeclaration<CR>
 
 function! s:move_and_popup(move_cmd, post_cmd)
+  if !exists('*popup_create')
+    echohl WarningMsg
+    echom printf('[error] popup_create is not supported')
+    echohl None
+    return
+  endif
+
   let has_jumped = 0
   let save_view = {}
   try
