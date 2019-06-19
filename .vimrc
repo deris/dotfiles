@@ -931,8 +931,10 @@ nnoremap <C-l>  :<C-u>PopupLocalDeclaration<CR>
 
 function! s:move_and_popup(move_cmd, post_cmd)
   let has_jumped = 0
+  let save_view = {}
   try
     let bpos = getcurpos()
+    let save_view = winsaveview()
     execute a:move_cmd
     let apos = getcurpos()
     if bpos == apos
@@ -943,6 +945,7 @@ function! s:move_and_popup(move_cmd, post_cmd)
     call map(strs, {key, val -> substitute(val, "\t", repeat(' ', &tabstop), 'g')})
     if a:post_cmd != ''
       execute a:post_cmd
+      call winrestview(save_view)
     endif
     let has_jumped = 0
     call popup_create(strs, {
@@ -957,6 +960,15 @@ function! s:move_and_popup(move_cmd, post_cmd)
     if has_jumped == 1
       if a:post_cmd != ''
         execute a:post_cmd
+      endif
+      call winrestview(save_view)
+    else
+      let apos = getcurpos()
+      if bpos != apos
+        if a:post_cmd != ''
+          execute a:post_cmd
+        endif
+        call winrestview(save_view)
       endif
     endif
   endtry
