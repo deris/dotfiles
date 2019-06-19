@@ -940,6 +940,7 @@ function! s:move_and_popup(move_cmd, post_cmd)
     endif
     let has_jumped = 1
     let strs = s:get_around_lines(g:popup_before_additional_line, g:popup_after_additional_line, g:popup_no_blank_line)
+    call map(strs, {key, val -> substitute(val, "\t", repeat(' ', &tabstop), 'g')})
     if a:post_cmd != ''
       execute a:post_cmd
     endif
