@@ -868,15 +868,11 @@ let g:codesearch_bin_path = '~/go/bin'
 
 function! s:codesearch_search(pattern)
   let csearch = g:codesearch_bin_path . '/csearch'
-  if filereadable(csearch)
-    echohl WarningMsg
-    echom printf('[error] %s is not found', csearch)
-    echohl None
-  endif
-  if executable(csearch)
+  if !executable(csearch)
     echohl WarningMsg
     echom printf('[error] %s is not executable', csearch)
     echohl None
+    return
   endif
 
   let s:save_grepprg = &grepprg
@@ -895,15 +891,11 @@ endfunction
 
 function! s:codesearch_index(dir)
   let cindex = g:codesearch_bin_path . '/cindex'
-  if filereadable(cindex)
-    echohl WarningMsg
-    echom printf('[error] %s is not found', cindex)
-    echohl None
-  endif
-  if executable(cindex)
+  if !executable(cindex)
     echohl WarningMsg
     echom printf('[error] %s is not executable', cindex)
     echohl None
+    return
   endif
 
   if !isdirectory(a:dir)
