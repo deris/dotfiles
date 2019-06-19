@@ -914,7 +914,7 @@ let g:popup_after_additional_line  = 2
 let g:popup_no_blank_line          = 1
 
 function! s:popup_definition()
-  call s:move_and_popup("normal! \<C-]>", "normal! \<C-t>")
+  call s:move_and_popup({-> execute("normal! \<C-]>")}, {-> "normal! \<C-t>"})
 endfunction
 
 command! -nargs=0 PopupDefinition silent! call s:popup_definition()
@@ -922,14 +922,14 @@ command! -nargs=0 PopupDefinition silent! call s:popup_definition()
 nnoremap <C-g>  :<C-u>PopupDefinition<CR>
 
 function! s:popup_local_declaration()
-  call s:move_and_popup("normal! gd", "normal! \<C-o>")
+  call s:move_and_popup({-> execute("normal! gd")}, {-> "normal! \<C-o>"})
 endfunction
 
 command! -nargs=0 PopupLocalDeclaration silent! call s:popup_local_declaration()
 
 nnoremap <C-l>  :<C-u>PopupLocalDeclaration<CR>
 
-function! s:move_and_popup(move_cmd, post_cmd)
+function! s:move_and_popup(move_func, post_func)
   if !exists('*popup_create')
     echohl WarningMsg
     echom printf('[error] popup_create is not supported')
@@ -942,7 +942,7 @@ function! s:move_and_popup(move_cmd, post_cmd)
   try
     let bpos = getcurpos()
     let save_view = winsaveview()
-    execute a:move_cmd
+    call a:move_func()
     let apos = getcurpos()
     if bpos == apos
       return
@@ -950,10 +950,8 @@ function! s:move_and_popup(move_cmd, post_cmd)
     let has_jumped = 1
     let strs = s:get_around_lines(g:popup_before_additional_line, g:popup_after_additional_line, g:popup_no_blank_line)
     call map(strs, {key, val -> substitute(val, "\t", repeat(' ', &tabstop), 'g')})
-    if a:post_cmd != ''
-      execute a:post_cmd
-      call winrestview(save_view)
-    endif
+    call a:post_func()
+    call winrestview(save_view)
     let has_jumped = 0
     call popup_create(strs, {
       \ 'line': 'cursor',
@@ -965,16 +963,12 @@ function! s:move_and_popup(move_cmd, post_cmd)
       \ })
   finally
     if has_jumped == 1
-      if a:post_cmd != ''
-        execute a:post_cmd
-      endif
+      call a:post_func()
       call winrestview(save_view)
     else
       let apos = getcurpos()
       if bpos != apos
-        if a:post_cmd != ''
-          execute a:post_cmd
-        endif
+        call a:post_func()
         call winrestview(save_view)
       endif
     endif
