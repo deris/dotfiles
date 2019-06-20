@@ -914,7 +914,15 @@ let g:popup_after_additional_line  = 2
 let g:popup_no_blank_line          = 1
 
 function! s:popup_definition()
-  call s:move_and_popup({-> execute("normal! \<C-]>")}, {-> "normal! \<C-t>"})
+  call s:move_and_popup(function('s:tag'), function('s:pop'))
+endfunction
+
+function! s:tag()
+  execute "normal! \<C-]>"
+endfunction
+
+function! s:pop()
+  execute "normal! \<C-t>"
 endfunction
 
 command! -nargs=0 PopupDefinition silent! call s:popup_definition()
@@ -922,7 +930,15 @@ command! -nargs=0 PopupDefinition silent! call s:popup_definition()
 nnoremap <C-g>  :<C-u>PopupDefinition<CR>
 
 function! s:popup_local_declaration()
-  call s:move_and_popup({-> execute("normal! gd")}, {-> "normal! \<C-o>"})
+  call s:move_and_popup(function('s:go_local_decl'), function('s:go_back'))
+endfunction
+
+function! s:go_local_decl()
+  execute "normal! gd"
+endfunction
+
+function! s:go_back()
+  execute "normal! \<C-o>"
 endfunction
 
 command! -nargs=0 PopupLocalDeclaration silent! call s:popup_local_declaration()
