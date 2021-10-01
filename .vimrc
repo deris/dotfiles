@@ -1263,7 +1263,7 @@ endif
 "---------------------------------------------------------------------------
 " for airblade/vim-rooter {{{2
 if s:bundled('vim-rooter')
-  let g:rooter_use_lcd = 1
+  let g:rooter_cd_cmd="lcd"
   let g:rooter_manual_only = 1
   let g:rooter_disable_map = 1
 endif
