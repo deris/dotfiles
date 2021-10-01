@@ -1893,13 +1893,13 @@ if s:bundled('vim-fugitive')
   nnoremap [Git]     <Nop>
   nmap     <Space>g  [Git]
 
-  nnoremap [Git]d :<C-u>Gdiff<CR>
-  nnoremap [Git]s :<C-u>Gstatus<CR>
+  nnoremap [Git]d :<C-u>Gvdiffsplit<CR>
+  nnoremap [Git]s :<C-u>Git<CR>
   nnoremap [Git]a :<C-u>Gwrite<CR>
   nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
-  nnoremap [Git]c :<C-u>Gcommit -v<CR>
-  nnoremap [Git]C :<C-u>Gcommit --amend<CR>
-  nnoremap [Git]b :<C-u>Gblame<CR>
+  nnoremap [Git]c :<C-u>Git commit -v<CR>
+  nnoremap [Git]C :<C-u>Git commit --amend<CR>
+  nnoremap [Git]b :<C-u>Git_blame<CR>
   nnoremap [Git]p :<C-u>Git push<Space>
 endif
 " }}}
