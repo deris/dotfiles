@@ -65,13 +65,19 @@ zstyle ':completion:*' group-name ''
 
 ## Aliases
 
+# ls color flag differs by OS (-G for macOS, --color=auto for Linux)
+case ${OSTYPE} in
+  darwin*) LS_COLOR=-G ;;
+  linux*)  LS_COLOR=--color=auto ;;
+esac
+
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ls='ls -FG'
-alias ll='ls -aFGhl'
-alias la='ls -aFG'
-alias lt='ls -aFGhlt | head -10'
+alias ls="ls -F $LS_COLOR"
+alias ll="ls -aFhl $LS_COLOR"
+alias la="ls -aF $LS_COLOR"
+alias lt="ls -aFhlt $LS_COLOR | head -10"
 alias less='less -M'
 alias grep='grep -E --color'
 alias g='git'
