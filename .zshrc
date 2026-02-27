@@ -1,110 +1,62 @@
 # users generic .zshrc file for zsh(1)
 
-## Environment variable configuration
-#
-# LANG
-#
+## Environment
+
 export LANG=ja_JP.UTF-8
 
-# auto change directory
-#
-setopt auto_cd
+## Shell options
 
-# auto directory pushd that you can get dirs list by cd -[tab]
-#
-setopt auto_pushd
-setopt pushd_ignore_dups
+setopt auto_cd              # cd by typing directory name
+setopt auto_pushd           # push directories to stack on cd
+setopt pushd_ignore_dups    # no duplicate entries in directory stack
+setopt nocorrect            # disable command auto-correction
+setopt nonomatch            # pass unmatched globs as literal strings
+setopt list_packed          # compact completion list
+setopt noautoremoveslash    # keep trailing slash on completions
+setopt nolistbeep no_beep   # disable all beep sounds
+setopt ignoreeof            # disable Ctrl+D shell exit
+setopt interactivecomments  # allow # comments in interactive shell
+setopt extended_glob        # enable extended glob patterns
+unsetopt promptcr           # allow output without trailing newline
 
-# command correct edition before each completion attempt
-#
-setopt nocorrect
-
-#
-setopt nonomatch
-
-# compacked complete list display
-#
-setopt list_packed
-
-# no remove postfix slash of command line
-#
-setopt noautoremoveslash
-
-# no beep sound when complete list displayed
-#
-setopt nolistbeep
-
-# ignore Ctrl+D(EOF)
-#
-setopt ignoreeof
-
-# enable interactive comment
-#
-setopt interactivecomments
-
-# no beep
-#
-setopt no_beep
-
-# extended_glob
-#
-setopt extended_glob
-
-unsetopt promptcr
-
-# umask
 umask 002
 
-## Keybind configuration
-#
+## Keybindings
 
-# disable XON/XOFF flow control to allow ^S for history search
-stty -ixon
+stty -ixon  # disable XON/XOFF to allow ^S for history search
+bindkey -e  # emacs key bindings
 
-bindkey -e               # emacs key bindings
-
-# historical backward/forward search with linehead string binded to ^P/^N
-#
+# ^P/^N: history search matching current line prefix
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-export WORDCHARS=""
-
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+export WORDCHARS=""         # treat symbols as word delimiters
+bindkey '^I' complete-word  # Tab: complete word
 
 case ${OSTYPE} in
   darwin*)
-    # Option + 左右矢印で単語移動（macOSターミナル向け）
-    bindkey "^[[1;3C" forward-word
-    bindkey "^[[1;3D" backward-word
+    bindkey "^[[1;3C" forward-word   # Option+Right: forward word
+    bindkey "^[[1;3D" backward-word  # Option+Left: backward word
     ;;
 esac
 
-## Command history configuration
-#
+## History
+
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
+setopt hist_ignore_dups     # ignore consecutive duplicate commands
+setopt hist_ignore_all_dups # remove older duplicate entries
+setopt hist_reduce_blanks   # strip extra whitespace from commands
+setopt hist_verify          # confirm history expansion before executing
+setopt share_history        # share history across sessions
 
-# ignore duplication command history list
-#
-setopt hist_ignore_dups
-setopt hist_ignore_all_dups  # ignore all duplicates (not just consecutive)
-setopt hist_reduce_blanks    # remove extra blanks from history entries
-setopt hist_verify           # show expanded history before executing
+## Aliases
 
-# share command history data
-#
-setopt share_history
-
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases # aliased ls needs if file/dir completions work
+setopt complete_aliases  # enable completion for aliased commands
 
 alias rm='rm -i'
 alias cp='cp -i'
@@ -116,14 +68,17 @@ alias lt='ls -aFGhlt | head -10'
 alias less='less -M'
 alias grep='grep -E --color'
 alias g='git'
-
 alias h='history -16'
 alias l='less'
+
+## PATH and environment
 
 export EDITOR=vim
 typeset -U PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/local/bin:$PATH
+
+# Ruby / Perl / Python version managers
 [ -d ~/.rbenv ] && export PATH=~/.rbenv/bin:$PATH
 [ -d ~/.plenv ] && export PATH=~/.plenv/bin:$PATH
 [ -d ~/.pyenv ] && export PATH=~/.pyenv/bin:$PATH
@@ -131,7 +86,10 @@ command -v rbenv >/dev/null && eval "$(rbenv init -)"
 command -v plenv >/dev/null && eval "$(plenv init -)"
 command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
+# Go
 [ -d /opt/homebrew/opt/go/libexec/bin ] && export PATH=$PATH:/opt/homebrew/opt/go/libexec/bin
+
+## Completion styles
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -139,21 +97,10 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
-# Oh My Zsh Settings
-# Path to your Oh My Zsh installation.
+## Oh My Zsh
+
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-completions zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
 
 typeset -U fpath
@@ -161,9 +108,9 @@ fpath=(${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-completions/src(N) $fpath)
 
 [ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
-# run terminal multiplexer when zsh start.
+## Tmux auto-start
+
 is_screen_running() {
-  # tscreen also uses this variable.
   [ ! -z "$WINDOW" ]
 }
 is_tmux_running() {
@@ -181,11 +128,10 @@ resolve_alias() {
     whence "$cmd" >/dev/null 2>/dev/null \
     && [ "$(whence "$cmd")" != "$cmd" ]
   do
-  cmd=$(whence "$cmd")
-    done
+    cmd=$(whence "$cmd")
+  done
   echo "$cmd"
 }
-
 
 if ! is_screen_or_tmux_running && shell_has_started_interactively; then
   for cmd in tmux tscreen screen; do
@@ -196,10 +142,8 @@ if ! is_screen_or_tmux_running && shell_has_started_interactively; then
   done
 fi
 
-## load user .zshrc configuration file
-#
+## Additional configs
+
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
