@@ -3,6 +3,7 @@
 ## Environment
 
 export LANG=ja_JP.UTF-8
+export EDITOR=vim
 
 ## Shell options
 
@@ -20,6 +21,17 @@ setopt extended_glob        # enable extended glob patterns
 unsetopt promptcr           # allow output without trailing newline
 
 umask 002
+
+## History
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=$HISTSIZE
+setopt hist_ignore_dups     # ignore consecutive duplicate commands
+setopt hist_ignore_all_dups # remove older duplicate entries
+setopt hist_reduce_blanks   # strip extra whitespace from commands
+setopt hist_verify          # confirm history expansion before executing
+setopt share_history        # share history across sessions
 
 ## Keybindings
 
@@ -43,20 +55,17 @@ case ${OSTYPE} in
     ;;
 esac
 
-## History
-
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=$HISTSIZE
-setopt hist_ignore_dups     # ignore consecutive duplicate commands
-setopt hist_ignore_all_dups # remove older duplicate entries
-setopt hist_reduce_blanks   # strip extra whitespace from commands
-setopt hist_verify          # confirm history expansion before executing
-setopt share_history        # share history across sessions
-
-## Aliases
+## Completion
 
 setopt complete_aliases  # enable completion for aliased commands
+
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+## Aliases
 
 alias rm='rm -i'
 alias cp='cp -i'
@@ -71,9 +80,8 @@ alias g='git'
 alias h='history -16'
 alias l='less'
 
-## PATH and environment
+## PATH
 
-export EDITOR=vim
 typeset -U PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/local/bin:$PATH
@@ -88,14 +96,6 @@ command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
 # Go
 [ -d /opt/homebrew/opt/go/libexec/bin ] && export PATH=$PATH:/opt/homebrew/opt/go/libexec/bin
-
-## Completion styles
-
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name ''
 
 ## Oh My Zsh
 
