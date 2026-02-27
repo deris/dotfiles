@@ -177,7 +177,6 @@ case ${OSTYPE} in
     if [ -d "/usr/local/share/zsh-completions" ]; then
       fpath=(/usr/local/share/zsh-completions $fpath)
     fi
-    . $BREW_PREFIX/etc/profile.d/z.sh
 
     ;;
   linux*)
@@ -215,8 +214,10 @@ export PATH=~/local/bin:$PATH
 export PATH=~/.cabal/bin:$PATH
 export PATH=~/.rbenv/bin:$PATH
 export PATH=~/.plenv/bin:$PATH
+command -v pyenv >/dev/null || export PATH=~/.pyenv/bin:$PATH
 eval "$(rbenv init -)"
 eval "$(plenv init -)"
+eval "$(pyenv init -)"
 case ${OSTYPE} in
   darwin*)
     export PATH=$PATH:`find /Applications/Xcode.app -name swift|grep bin|xargs -I{} dirname {}`
@@ -283,7 +284,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
 
 [ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
@@ -327,3 +328,5 @@ fi
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(zoxide init zsh)"
