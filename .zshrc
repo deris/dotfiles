@@ -36,6 +36,7 @@ setopt auto_cd
 # auto directory pushd that you can get dirs list by cd -[tab]
 #
 setopt auto_pushd
+setopt pushd_ignore_dups
 
 # command correct edition before each completion attempt
 #
@@ -80,6 +81,9 @@ umask 002
 ## Keybind configuration
 #
 
+# disable XON/XOFF flow control to allow ^S for history search
+stty -ixon
+
 # vi like keybind
 bindkey -v               # vi key bindings
 
@@ -116,10 +120,9 @@ bindkey "^Y" yank
 
 bindkey "^[f" emacs-forward-word
 bindkey "^[b" emacs-backward-word
-bindkey "^W" backward-kill-word
 bindkey "^[^H" backward-kill-word
 bindkey "^[D" kill-word
-bindkey "^[d" kIll-word
+bindkey "^[d" kill-word
 export WORDCHARS=""
 
 bindkey -a 'q' push-line
@@ -130,12 +133,14 @@ bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 #
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
-HISTFILESIZE=$HISTSIZE
 SAVEHIST=$HISTSIZE
 
 # ignore duplication command history list
 #
 setopt hist_ignore_dups
+setopt hist_ignore_all_dups  # ignore all duplicates (not just consecutive)
+setopt hist_reduce_blanks    # remove extra blanks from history entries
+setopt hist_verify           # show expanded history before executing
 
 # share command history data
 #
@@ -144,7 +149,7 @@ setopt share_history
 ## Completion configuration
 #
 autoload -U compinit
-compinit -u
+compinit -C
 
 ## Alias configuration
 #
@@ -161,7 +166,6 @@ case ${OSTYPE} in
     alias firefox="open -a Firefox"
     alias safari="open -a Safari"
     alias prev="open -a Preview"
-    alias ls="ls -G -w"
     alias gvim='mvim --remote-tab-silent'
     alias memo='vim ~/Documents/memo/memo.txt'
 
@@ -203,8 +207,6 @@ alias iperl='perl -de 1'
 alias h='history -16'
 alias l='less'
 
-set -o vi
-
 export EDITOR=vim
 export VIM_HOME=~/.vim/
 typeset -U PATH
@@ -224,36 +226,6 @@ esac
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
 
-compdef _mojoliciousCmd mojo
-function _mojoliciousCmd {
-  local -a subcommands
-  if (( CURRENT == 2 ));then
-    subcommands=(
-      'cgi:Start application with CGI.' \
-      'cpanify:Upload distribution to CPAN.' \
-      'daemon:Start application with HTTP 1.1 and WebSocket server.' \
-      'eval:Run code against application.' \
-      'generate:Generate files and directories from templates.' \
-      'get:Perform HTTP 1.1 request.' \
-      'inflate:Inflate embedded files to real files.' \
-      'psgi:Start application with PSGI.' \
-      'routes:Show available routes.' \
-      'test:Run unit tests.' \
-      'version:Show versions of installed modules.' \
-      'help:Get more information on a specific command.:option:(cgi cpanify daemon eval generate get inflate psgi routes test version)' \
-      '-h:Get more information on a specific command.:option:(cgi cpanify daemon eval generate get inflate psgi routes test version)' \
-      '--help:Get more information on a specific command.:option:(cgi cpanify daemon eval generate get inflate psgi routes test version)' \
-      '--home:Path to your applications home directory, defaults to the value of MOJO_HOME or auto detection.' \
-      '-m:Run mode of your application, defaults to the value of MOJO_MODE or "development".' \
-      '--mode:Run mode of your application, defaults to the value of MOJO_MODE or "development".' \
-    )
-    _describe -t commands "subcommand" subcommands
-  #else
-    #_files
-  fi
-
-  return 1;
-}
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -298,14 +270,14 @@ esac
 
 # run terminal multiplexer when zsh start.
 is_screen_running() {
-  # tscreen also uses this varariable.
+  # tscreen also uses this variable.
   [ ! -z "$WINDOW" ]
 }
-is_tmux_runnning() {
+is_tmux_running() {
   [ ! -z "$TMUX" ]
 }
 is_screen_or_tmux_running() {
-  is_screen_running || is_tmux_runnning
+  is_screen_running || is_tmux_running
 }
 shell_has_started_interactively() {
   [ ! -z "$PS1" ]
