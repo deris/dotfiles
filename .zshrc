@@ -1,5 +1,3 @@
-# users generic .zshrc file for zsh(1)
-
 ## Environment
 
 export LANG=ja_JP.UTF-8
