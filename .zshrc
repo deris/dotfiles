@@ -93,7 +93,11 @@ command -v plenv >/dev/null && eval "$(plenv init -)"
 command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
 # Go
-[ -d /opt/homebrew/opt/go/libexec/bin ] && export PATH=$PATH:/opt/homebrew/opt/go/libexec/bin
+case ${OSTYPE} in
+  darwin*) GO_BIN_DIR=/opt/homebrew/opt/go/libexec/bin ;;
+  linux*)  GO_BIN_DIR=/usr/bin ;;
+esac
+[ -d "$GO_BIN_DIR" ] && export PATH=$PATH:$GO_BIN_DIR
 
 ## Oh My Zsh
 
