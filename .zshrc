@@ -75,6 +75,14 @@ export WORDCHARS=""
 
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
+case ${OSTYPE} in
+  darwin*)
+    # Option + 左右矢印で単語移動（macOSターミナル向け）
+    bindkey "^[[1;3C" forward-word
+    bindkey "^[[1;3D" backward-word
+    ;;
+esac
+
 ## Command history configuration
 #
 HISTFILE=~/.zsh_history
