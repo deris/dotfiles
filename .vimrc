@@ -440,7 +440,7 @@ vnoremap <Space>d "*d
 " insert blank line
 nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
 nnoremap <silent> <Space>O   :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
-nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1<CR>
+nnoremap <silent> <S-Space>O :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<S-Space>O"), v:count1)<CR>
 
 " swap ; and :
 nnoremap ; :
@@ -750,7 +750,7 @@ call operator#user#define('my-print-num', 'MyPrintNumber')
 
 nmap <Space>u  <Plug>(operator-my-print-num)
 
-command -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
+command! -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
 
 function! s:extract_matches(...) range
   let s:pattern = get(a:000, 0, @/)
@@ -762,7 +762,7 @@ function! s:extract_matches(...) range
   call setline(1, s:result_line)
 endfunction
 
-command -nargs=? -range=% ExtractMatchWords call s:extract_match_words(<line1>, <line2>, <q-args>)
+command! -nargs=? -range=% ExtractMatchWords call s:extract_match_words(<line1>, <line2>, <q-args>)
 
 let g:extract_match_word_with_word = 1
 let g:extract_match_word_with_sort = 1
@@ -1148,8 +1148,6 @@ endfunction
 "---------------------------------------------------------------------------
 " for Shougo/neocomplete {{{2
 if s:bundled('neocomplete')
-  " Disable AutoComplPop.
-  let g:acp_enableAtStartup = 0
   " Use neocomplete.
   let g:neocomplete#enable_at_startup = 1
   " Use smartcase.
@@ -1434,7 +1432,6 @@ if s:bundled('vim-easy-align')
   nmap <Space>el <Plug>(LiveEasyAlign)
   xmap <Space>el <Plug>(LiveEasyAlign)
 
-  xnoremap <Space>es :EasyAlign \<CR>
   xnoremap <Space>es :EasyAlign \<CR>
   xnoremap <Space>e= :EasyAlign =<CR>
   xnoremap <Space>ee :EasyAlign =<CR>
@@ -1888,7 +1885,7 @@ if s:bundled('vim-fugitive')
   nnoremap [Git]A :<C-u>Gwrite <cfile><CR>
   nnoremap [Git]c :<C-u>Git commit -v<CR>
   nnoremap [Git]C :<C-u>Git commit --amend<CR>
-  nnoremap [Git]b :<C-u>Git_blame<CR>
+  nnoremap [Git]b :<C-u>Git blame<CR>
   nnoremap [Git]p :<C-u>Git push<Space>
 endif
 " }}}
