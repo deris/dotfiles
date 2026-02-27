@@ -124,17 +124,14 @@ export EDITOR=vim
 typeset -U PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/local/bin:$PATH
-export PATH=~/.cabal/bin:$PATH
-export PATH=~/.rbenv/bin:$PATH
-export PATH=~/.plenv/bin:$PATH
-command -v pyenv >/dev/null || export PATH=~/.pyenv/bin:$PATH
-eval "$(rbenv init -)"
-eval "$(plenv init -)"
-eval "$(pyenv init -)"
+[ -d ~/.rbenv ] && export PATH=~/.rbenv/bin:$PATH
+[ -d ~/.plenv ] && export PATH=~/.plenv/bin:$PATH
+[ -d ~/.pyenv ] && export PATH=~/.pyenv/bin:$PATH
+command -v rbenv >/dev/null && eval "$(rbenv init -)"
+command -v plenv >/dev/null && eval "$(plenv init -)"
+command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
-
+[ -d /opt/homebrew/opt/go/libexec/bin ] && export PATH=$PATH:/opt/homebrew/opt/go/libexec/bin
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -202,4 +199,4 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
