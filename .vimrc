@@ -1273,17 +1273,17 @@ endif
 if s:bundled('vim-gitgutter')
   let g:gitgutter_map_keys = 0
   if s:bundled('vim-submode')
-    call submode#enter_with('gitgutter', 'n', 'r', '<Leader>gk', '<Plug>GitGutterPrevHunk')
-    call submode#enter_with('gitgutter', 'n', 'r', '<Leader>gj', '<Plug>GitGutterNextHunk')
-    call submode#map('gitgutter', 'n', 'r', 'k', '<Plug>GitGutterPrevHunk')
-    call submode#map('gitgutter', 'n', 'r', 'j', '<Plug>GitGutterNextHunk')
+    call submode#enter_with('gitgutter', 'n', 'r', '<Leader>gk', '<Plug>(GitGutterPrevHunk)')
+    call submode#enter_with('gitgutter', 'n', 'r', '<Leader>gj', '<Plug>(GitGutterNextHunk)')
+    call submode#map('gitgutter', 'n', 'r', 'k', '<Plug>(GitGutterPrevHunk)')
+    call submode#map('gitgutter', 'n', 'r', 'j', '<Plug>(GitGutterNextHunk)')
   else
-    nmap <Leader>gp <Plug>GitGutterPreviewHunk
-    nmap <Leader>gs <Plug>GitGutterStageHunk
-    nmap <Leader>gu <Plug>GitGutterUndoHunk
+    nmap <Leader>gp <Plug>(GitGutterPreviewHunk)
+    nmap <Leader>gs <Plug>(GitGutterStageHunk)
+    nmap <Leader>gu <Plug>(GitGutterUndoHunk)
 
-    nmap <Leader>gk <Plug>GitGutterPrevHunk
-    nmap <Leader>gj <Plug>GitGutterNextHunk
+    nmap <Leader>gk <Plug>(GitGutterPreviewHunk)
+    nmap <Leader>gj <Plug>(GitGutterUndoHunk)
   endif
   nmap <Leader>gh :<C-u>GitGutterSignsToggle<CR>
   nmap <Leader>gt :<C-u>GitGutterToggle<CR>
