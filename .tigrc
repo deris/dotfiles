@@ -1,0 +1,6 @@
+# カーソル行: 白文字 + 青背景（高コントラスト）
+color cursor          white   24      bold
+# 分割表示時のフォーカスが外れたビューの選択行
+color cursor-blur     white   55      bold
+color title-focus     white   24      bold
+color title-blur      white   default
