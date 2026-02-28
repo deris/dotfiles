@@ -105,7 +105,7 @@ command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git zsh-completions zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
+plugins=(git zsh-completions zsh-autosuggestions fast-syntax-highlighting fzf-tab)
 
 typeset -U fpath
 fpath=(${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-completions/src(N) $fpath)
