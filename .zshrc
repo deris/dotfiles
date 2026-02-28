@@ -87,8 +87,11 @@ alias l='less'
 ## PATH
 
 typeset -U PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=~/local/bin:$PATH
+case ${OSTYPE} in
+  darwin*)
+    export PATH=/opt/homebrew/bin:$PATH
+    ;;
+esac
 
 # Ruby / Perl / Python version managers
 [ -d ~/.rbenv ] && export PATH=~/.rbenv/bin:$PATH
