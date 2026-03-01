@@ -223,7 +223,8 @@ set laststatus=2
 set cmdheight=2
 set showcmd
 set title
-set lines=50
+" Disabled because enabling it in Neovim causes layout corruption.
+" set lines=50
 set showtabline=2
 set previewheight=10
 set helpheight=12
@@ -245,20 +246,27 @@ function! s:LetAndMkdir(variable, path) "{{{
   execute printf("let %s = a:path", a:variable)
 endfunction "}}}
 
-call s:LetAndMkdir('&backupdir', $DOTVIM.expand('/backup'))
+if has('nvim')
+  let s:datadir = stdpath('data')
+else
+  let s:datadir = $DOTVIM
+endif
+call s:LetAndMkdir('&backupdir', s:datadir . '/backup')
 set swapfile
-call s:LetAndMkdir('&directory', $DOTVIM.expand('/swap'))
+call s:LetAndMkdir('&directory', s:datadir . '/swap')
 set history=2000
 let &showbreak = '+++ '
 set ttyfast
 if has('persistent_undo')
   set undofile
-  call s:LetAndMkdir('&undodir', $DOTVIM.expand('/undo'))
+  call s:LetAndMkdir('&undodir', s:datadir . '/undo')
 endif
 
 set tags=./tags;
 
-let &termencoding = &encoding
+if !has('nvim')
+  let &termencoding = &encoding
+endif
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932
