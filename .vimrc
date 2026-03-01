@@ -1285,16 +1285,25 @@ if s:bundled('vim-gitgutter')
     call submode#enter_with('gitgutter', 'n', 'r', '<Leader>gj', '<Plug>(GitGutterNextHunk)')
     call submode#map('gitgutter', 'n', 'r', 'k', '<Plug>(GitGutterPrevHunk)')
     call submode#map('gitgutter', 'n', 'r', 'j', '<Plug>(GitGutterNextHunk)')
-  else
-    nmap <Leader>gp <Plug>(GitGutterPreviewHunk)
+    call submode#map('gitgutter', 'n', 'r', 's', '<Plug>(GitGutterStageHunk)')
+    call submode#map('gitgutter', 'n', 'r', 'u', '<Plug>(GitGutterUndoHunk)')
     nmap <Leader>gs <Plug>(GitGutterStageHunk)
     nmap <Leader>gu <Plug>(GitGutterUndoHunk)
-
-    nmap <Leader>gk <Plug>(GitGutterPreviewHunk)
-    nmap <Leader>gj <Plug>(GitGutterUndoHunk)
+  else
+    nmap <Leader>gk <Plug>(GitGutterPrevHunk)
+    nmap <Leader>gj <Plug>(GitGutterNextHunk)
+    nmap <Leader>gs <Plug>(GitGutterStageHunk)
+    nmap <Leader>gu <Plug>(GitGutterUndoHunk)
   endif
   nmap <Leader>gh :<C-u>GitGutterSignsToggle<CR>
   nmap <Leader>gt :<C-u>GitGutterToggle<CR>
+
+  augroup gitgutter_my_highlight
+    autocmd!
+    autocmd VimEnter,ColorScheme * highlight GitGutterAdd    guifg=#009900 ctermfg=2
+    autocmd VimEnter,ColorScheme * highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+    autocmd VimEnter,ColorScheme * highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+  augroup END
 endif
 " }}}
 
