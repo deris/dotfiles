@@ -1323,10 +1323,10 @@ if s:bundled('ctrlp.vim')
     endif
   endif
 
-  nnoremap <Space>jj  :<C-u>CtrlPMRU<CR>
-  nnoremap <Space>jf  :<C-u>CtrlPCurFile<CR>
-  nnoremap <Space>jb  :<C-u>CtrlPBuffer<CR>
-  nnoremap <Space>jd  :<C-u>CtrlPBookmarkDir<CR>
+  " nnoremap <Space>jj  :<C-u>CtrlPMRU<CR>
+  " nnoremap <Space>jf  :<C-u>CtrlPCurFile<CR>
+  " nnoremap <Space>jb  :<C-u>CtrlPBuffer<CR>
+  " nnoremap <Space>jd  :<C-u>CtrlPBookmarkDir<CR>
 
   if executable(g:my_fd_path)
     let g:ctrlp_user_command = g:my_fd_path . ' --type f --color=never "" %s'
@@ -1420,6 +1420,16 @@ if s:bundled('vim-textobj-variable-segment')
   omap ay <Plug>(textobj-variable-a)
   vmap iy <Plug>(textobj-variable-i)
   vmap ay <Plug>(textobj-variable-a)
+endif
+" }}}
+
+"---------------------------------------------------------------------------
+" for junegunn/fzf.vim {{{2
+if s:bundled('fzf.vim')
+  nnoremap <Space>jj  :<C-u>History<CR>
+  nnoremap <Space>jk  :<C-u>Files<CR>
+  nnoremap <Space>jl  :<C-u>Buffers<CR>
+  nnoremap <Space>jh  :<C-u>History<CR>
 endif
 " }}}
 
