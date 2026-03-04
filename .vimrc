@@ -231,6 +231,11 @@ set helpheight=12
 set virtualedit=block
 set scrolloff=5
 set backup
+if has('nvim')
+  set shada=!,'1000,<500,s100,h
+else
+  set viminfo='1000,<500,s100,h
+endif
 
 function! s:LetAndMkdir(variable, path) "{{{
   try
