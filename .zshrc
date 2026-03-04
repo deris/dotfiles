@@ -150,4 +150,5 @@ fi
 
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+command -v fd >/dev/null && export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore'
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
