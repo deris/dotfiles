@@ -760,9 +760,11 @@ function! MyPrintNumber(motion_wise)
     \         "HEX: 0x%X\n", target, target, target)
 endfunction
 
-call operator#user#define('my-print-num', 'MyPrintNumber')
+if s:bundled('vim-operator-user')
+  call operator#user#define('my-print-num', 'MyPrintNumber')
 
-nmap <Space>u  <Plug>(operator-my-print-num)
+  nmap <Space>u  <Plug>(operator-my-print-num)
+endif
 
 command! -nargs=? -range=% ExtractMatches <line1>,<line2>call s:extract_matches(<f-args>)
 
