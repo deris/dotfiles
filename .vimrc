@@ -105,6 +105,7 @@ Plug 'sgur/ctrlp-extensions.vim'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'sjl/gundo.vim'
 Plug 'supermomonga/thingspast.vim'
+Plug 't9md/vim-quickhl'
 Plug 't9md/vim-surround_custom_mapping'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-ambicmd'
@@ -1786,6 +1787,15 @@ if s:bundled('vim-clang-format')
   command! -range=% -nargs=0 VClangFormat call clang_format#replace(<line1>, <line2>)
 
   map <silent><Space>x <Plug>(operator-clang-format)
+endif
+" }}}
+
+" for t9md/vim-quickhl {{{2
+if s:bundled('vim-quickhl')
+  nnoremap <Leader>hh <Plug>(quickhl-manual-this)
+  xnoremap <Leader>hh <Plug>(quickhl-manual-this)
+  nnoremap <Leader>hr <Plug>(quickhl-manual-reset)
+  xnoremap <Leader>hr <Plug>(quickhl-manual-reset)
 endif
 " }}}
 
