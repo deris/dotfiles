@@ -1792,10 +1792,10 @@ endif
 
 " for t9md/vim-quickhl {{{2
 if s:bundled('vim-quickhl')
-  nnoremap <Leader>hh <Plug>(quickhl-manual-this)
-  xnoremap <Leader>hh <Plug>(quickhl-manual-this)
-  nnoremap <Leader>hr <Plug>(quickhl-manual-reset)
-  xnoremap <Leader>hr <Plug>(quickhl-manual-reset)
+  nmap <Leader>hh <Plug>(quickhl-manual-this)
+  xmap <Leader>hh <Plug>(quickhl-manual-this)
+  nmap <Leader>hr <Plug>(quickhl-manual-reset)
+  xmap <Leader>hr <Plug>(quickhl-manual-reset)
 endif
 " }}}
 
