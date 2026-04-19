@@ -1598,6 +1598,10 @@ if s:bundled('vim-altr')
     \              'spec/helpers/%_spec.rb')
   call altr#define('spec/routing/%_spec.rb',
     \              'config/routes.rb')
+  call altr#define('source/%.cpp',
+    \              'include/%.h')
+  call altr#define('%.cpp',
+    \              '%.h')
   call altr#define('%.c',
     \              '%.h')
 
