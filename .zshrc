@@ -112,6 +112,9 @@ ZSH_THEME="robbyrussell"
 plugins=(git zsh-completions zsh-autosuggestions fast-syntax-highlighting fzf-tab)
 
 typeset -U fpath
+case ${OSTYPE} in
+  darwin*) fpath=(/opt/homebrew/share/zsh/site-functions $fpath) ;;
+esac
 fpath=(${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-completions/src(N) $fpath)
 
 [ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
