@@ -308,6 +308,22 @@ elseif executable(g:my_jvgrep_path)
   let &grepprg = g:my_jvgrep_path . ' --no-color -nr8 --enc utf-8,cp932,euc-jp'
 endif
 
+let g:grep_rg_command = g:my_rg_path . '
+  \ --vimgrep
+  \ --no-heading --smart-case --hidden
+  \ -g "*.{cpp,c,h}"
+  \ -g "!{.git,.svn,.hg}/*"
+  \ -g "!tags"
+  \ -- '
+
+command! -nargs=* MyGrep call s:MyGrep(<q-args>)
+
+function! s:MyGrep(pat)
+  echom g:grep_rg_command . a:pat
+  Rooter
+  execute 'grep ' . g:grep_rg_command . a:pat
+endfunction
+
 " vimdiff highlight
 augroup diffcolor
   autocmd!
