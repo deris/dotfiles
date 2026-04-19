@@ -441,18 +441,18 @@ nnoremap 'p  "0p
 " Use more logical mapping (see :h Y)
 nnoremap Y y$
 " paste from clipboard
-nnoremap <Space>p "*p
-vnoremap <Space>p "*p
-nnoremap <Space>P "*P
-vnoremap <Space>P "*P
+nnoremap <Space>p "+p
+vnoremap <Space>p "+p
+nnoremap <Space>P "+P
+vnoremap <Space>P "+P
 " yank to clipboard
-nnoremap <Space>y "*y
-nnoremap <Space>Y "*y$
-vnoremap <Space>y "*y
+nnoremap <Space>y "+y
+nnoremap <Space>Y "+y$
+vnoremap <Space>y "+y
 " delete to clipboard
-nnoremap <Space>d "*d
-nnoremap <Space>D "*d$
-vnoremap <Space>d "*d
+nnoremap <Space>d "+d
+nnoremap <Space>D "+d$
+vnoremap <Space>d "+d
 
 " insert blank line
 nnoremap <silent> <Space>o   :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
@@ -1669,8 +1669,8 @@ if s:bundled('vim-operator-replace')
   map s <Plug>(operator-replace)
   map S <Plug>(operator-replace)$
   " operator-replace from clipboard
-  map <Space>s "*<Plug>(operator-replace)
-  map <Space>S "*<Plug>(operator-replace)$
+  map <Space>s "+<Plug>(operator-replace)
+  map <Space>S "+<Plug>(operator-replace)$
 endif
 " }}}
 
