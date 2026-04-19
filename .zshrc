@@ -90,6 +90,10 @@ typeset -U PATH
 case ${OSTYPE} in
   darwin*)
     export PATH=/opt/homebrew/bin:$PATH
+    export PATH=$HOME/.local/bin:$PATH
+    ;;
+  linux*)
+    export PATH=/usr/local/bin:$PATH
     ;;
 esac
 
