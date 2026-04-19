@@ -18,6 +18,10 @@ setopt interactivecomments  # allow # comments in interactive shell
 setopt extended_glob        # enable extended glob patterns
 unsetopt promptcr           # allow output without trailing newline
 
+case ${OSTYPE} in
+  linux*) export GLFW_IM_MODULE=ibus ;;
+esac
+
 umask 002
 
 ## History
