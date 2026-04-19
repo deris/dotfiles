@@ -41,5 +41,4 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ################################################################################
 # install Vim plugins
 ################################################################################
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
-sh ~/.vim/bundle/neobundle.vim/bin/neoinstall
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
