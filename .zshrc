@@ -151,4 +151,16 @@ fi
 [ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 command -v fd >/dev/null && export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore'
-command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+if command -v zoxide >/dev/null; then
+  eval "$(zoxide init zsh)"
+
+  # zoxide wrapper: run pwd after z/zi
+  function z() {
+    __zoxide_z "$@" && pwd
+  }
+
+  function zi() {
+    __zoxide_zi "$@" && pwd
+  }
+fi
