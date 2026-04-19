@@ -20,6 +20,8 @@ endif
 
 if has('win32')
   let $DOTVIM=expand('~/vimfiles')
+elseif has('nvim')
+  let $DOTVIM=expand('~/.local/share/nvim/site')
 else
   let $DOTVIM=expand('~/.vim')
 endif
