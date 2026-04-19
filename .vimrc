@@ -39,9 +39,10 @@ call plug#begin($VIMBUNDLE)
 
 " original repos on github
 Plug 'AndrewRadev/linediff.vim'
+Plug 'Bakudankun/BackAndForward.vim'
 Plug 'Keithbsmiley/swift.vim'
 Plug 'DeaR/vim-tabpagebuffer-misc'
-Plug 'Shougo/neocomplete'
+" Plug 'Shougo/neocomplete'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/tabpagebuffer.vim'
