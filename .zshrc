@@ -163,6 +163,118 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 command -v fd >/dev/null && export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore'
 
+export MCFLY_RESULTS=2000
+
+if command -v mcfly >/dev/null; then
+  eval "$(mcfly init zsh)"
+
+  # --- スコア係数 ---
+  _w_frequency=1.0
+  _w_selected=5.0
+  _w_recency=10.0
+  _w_dir=3.0
+
+  # --- 初期オプション ---
+  _filter_exit_code=true
+  _use_dir_weight=true
+
+  function _fzf_mcfly_history() {
+    local db_path
+    if [[ -f "$HOME/.mcfly/history.db" ]]; then
+      db_path="$HOME/.mcfly/history.db"
+    elif [[ -f "$HOME/Library/Application Support/McFly/history.db" ]]; then
+      db_path="$HOME/Library/Application Support/McFly/history.db"
+    elif [[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/mcfly/history.db" ]]; then
+      db_path="${XDG_DATA_HOME:-$HOME/.local/share}/mcfly/history.db"
+    else
+      zle -M "mcfly DB not found"
+      return 1
+    fi
+
+    local state_file query_script toggle_fe toggle_ud now cur_dir safe_dir selected
+    state_file=$(mktemp)
+    query_script=$(mktemp)
+    toggle_fe=$(mktemp)
+    toggle_ud=$(mktemp)
+    chmod +x "$query_script" "$toggle_fe" "$toggle_ud"
+
+    now=$(date +%s)
+    cur_dir=$(pwd)
+    safe_dir="${cur_dir//\'/\'\'}"
+
+    local init_fe=$([[ "$_filter_exit_code" == true ]] && echo 1 || echo 0)
+    local init_ud=$([[ "$_use_dir_weight"   == true ]] && echo 1 || echo 0)
+    echo "$init_fe $init_ud" > "$state_file"
+
+    # クエリスクリプト（状態ファイルを読んでSQLを組み立てる）
+    cat > "$query_script" << SCRIPT
+#!/bin/zsh
+read fe ud < "${state_file}"
+where=\$([[ "\$fe" == 1 ]] && echo "WHERE exit_code = 0" || echo "")
+dir_sql=\$([[ "\$ud" == 1 ]] && echo "+ SUM(CASE WHEN dir = '${safe_dir}' THEN 1.0 ELSE 0.0 END) * ${_w_dir}" || echo "")
+sqlite3 "${db_path}" "
+  SELECT cmd FROM (
+    SELECT cmd,
+      COUNT(*) * ${_w_frequency}
+        + SUM(selected) * ${_w_selected}
+        + ${_w_recency} / ((${now} - MAX(when_run)) / 86400.0 + 1.0)
+        \${dir_sql}
+      AS score
+    FROM commands
+    \${where}
+    GROUP BY cmd
+  )
+  ORDER BY score DESC
+  LIMIT 500
+" 2>/dev/null
+SCRIPT
+
+    # 「成功のみ」トグルスクリプト（fzfアクションを出力する）
+    cat > "$toggle_fe" << SCRIPT
+#!/bin/zsh
+read fe ud < "${state_file}"
+[[ "\$fe" == 1 ]] && fe=0 || fe=1
+echo "\$fe \$ud" > "${state_file}"
+fe_s=\$([[ "\$fe" == 1 ]] && echo ON || echo OFF)
+ud_s=\$([[ "\$ud" == 1 ]] && echo ON || echo OFF)
+echo "reload(${query_script})+change-header(ctrl-e: 成功のみ[\${fe_s}]  ctrl-d: 現在dir優先[\${ud_s}])"
+SCRIPT
+
+    # 「現在dir優先」トグルスクリプト
+    cat > "$toggle_ud" << SCRIPT
+#!/bin/zsh
+read fe ud < "${state_file}"
+[[ "\$ud" == 1 ]] && ud=0 || ud=1
+echo "\$fe \$ud" > "${state_file}"
+fe_s=\$([[ "\$fe" == 1 ]] && echo ON || echo OFF)
+ud_s=\$([[ "\$ud" == 1 ]] && echo ON || echo OFF)
+echo "reload(${query_script})+change-header(ctrl-e: 成功のみ[\${fe_s}]  ctrl-d: 現在dir優先[\${ud_s}])"
+SCRIPT
+
+    local init_fe_s=$([[ $init_fe == 1 ]] && echo ON || echo OFF)
+    local init_ud_s=$([[ $init_ud == 1 ]] && echo ON || echo OFF)
+
+    selected=$("$query_script" \
+      | fzf --no-sort --height 40% --reverse \
+          --query "${LBUFFER}" \
+          --header "ctrl-e: 成功のみ[${init_fe_s}]  ctrl-d: 現在dir優先[${init_ud_s}]" \
+          --bind "ctrl-e:transform(${toggle_fe})" \
+          --bind "ctrl-d:transform(${toggle_ud})" \
+      2>/dev/null)
+
+    rm -f "$state_file" "$query_script" "$toggle_fe" "$toggle_ud"
+
+    if [[ -n "$selected" ]]; then
+      LBUFFER="$selected"
+      RBUFFER=""
+    fi
+    zle reset-prompt
+  }
+
+  zle -N _fzf_mcfly_history
+  bindkey '^R' _fzf_mcfly_history
+fi
+
 if command -v zoxide >/dev/null; then
   eval "$(zoxide init zsh)"
 
